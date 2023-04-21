@@ -43,7 +43,6 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-				'/' => '/site/about',
 	            '<action:[-a-zA-Z0-9_]+>' => 'site/<action>',
             ],
         ],
