@@ -28,31 +28,31 @@ AppAsset::register($this);
 <?php $this->endBody() ?>
 <section>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg_transparent pt-3 pb-3 fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="<?=\yii\helpers\Url::to(['site/index']) ?>"><img src="/img/logo.png" alt="logo" width="60" class="logo"></a>
-            <span class="navbar-text d-md-none d-block">
-      <a href="tel:89636847261" class="btn br-50 bg_dark_blue text-light"><img src="/img/phone-call.png" alt="logo" width="18"></a>
-    </span>
-            <div class="hamburger hamburger--elastic navbar-toggler border-0 collapsed" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger-box navbar-toggler border-0 collapsed">
-                    <div class="hamburger-inner"></div>
-                </div>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="<?=\yii\helpers\Url::to(['site/index']) ?>">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="<?=\yii\helpers\Url::to(['site/about']) ?>">О компании</a>
-                    <a class="nav-item nav-link" href="<?=\yii\helpers\Url::to(['site/services']) ?>">Услуги</a>
-                    <a class="nav-item nav-link" href="<?=\yii\helpers\Url::to(['site/contact']) ?>">Контакты</a>
-                    <a class="nav-item nav-link " href="#">Disabled</a>
-                </div>
-            </div>
-            <span class="navbar-text d-none d-md-block">
-      <a href="tel:89636847261" class="btn br-50 bg_dark_blue text-light"><img src="/img/phone-call.png" alt="logo" width="18"> 89636847261</a>
-    </span>
-        </div>
-    </nav>
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg_transparent pt-3 pb-3 fixed-top">-->
+<!--        <div class="container">-->
+<!--            <a class="navbar-brand" href="--><?//=\yii\helpers\Url::to(['site/index']) ?><!--"><img src="/img/logo.png" alt="logo" width="60" class="logo"></a>-->
+<!--            <span class="navbar-text d-md-none d-block">-->
+<!--      <a href="tel:89636847261" class="btn br-50 bg_dark_blue text-light"><img src="/img/phone-call.png" alt="logo" width="18"></a>-->
+<!--    </span>-->
+<!--            <div class="hamburger hamburger--elastic navbar-toggler border-0 collapsed" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <div class="hamburger-box navbar-toggler border-0 collapsed">-->
+<!--                    <div class="hamburger-inner"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
+<!--                <div class="navbar-nav">-->
+<!--                    <a class="nav-item nav-link active" href="--><?//=\yii\helpers\Url::to(['site/index']) ?><!--">Home <span class="sr-only">(current)</span></a>-->
+<!--                    <a class="nav-item nav-link" href="--><?//=\yii\helpers\Url::to(['site/about']) ?><!--">О компании</a>-->
+<!--                    <a class="nav-item nav-link" href="--><?//=\yii\helpers\Url::to(['site/services']) ?><!--">Услуги</a>-->
+<!--                    <a class="nav-item nav-link" href="--><?//=\yii\helpers\Url::to(['site/contact']) ?><!--">Контакты</a>-->
+<!--                    <a class="nav-item nav-link " href="#">Disabled</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <span class="navbar-text d-none d-md-block">-->
+<!--      <a href="tel:89636847261" class="btn br-50 bg_dark_blue text-light"><img src="/img/phone-call.png" alt="logo" width="18"> 89636847261</a>-->
+<!--    </span>-->
+<!--        </div>-->
+<!--    </nav>-->
 </section>
 <footer class="bg_dark_blue text-white p-md-5 p-3 mt-5">
     <div class="container">
