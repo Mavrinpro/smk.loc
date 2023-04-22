@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\IndexForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -15,12 +16,16 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\swiftmailer;
+use yii\widgets\Pjax;
+
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+    public $layout = 'bootstrap';
     /**
      * {@inheritdoc}
      */
@@ -75,7 +80,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+//        Yii::$app->mailer->compose()
+//            ->setFrom('blourator@yandex.ru')
+//            ->setTo('mavrin79@mail.ru')
+//            ->setSubject('Тестинг сообщений5555555555555555')
+//            ->setTextBody('body')
+//            ->send();
+$model = new IndexForm();
+        $this->view->registerMetaTag(
+            ['name' => 'description', 'content' => 'Уничтожение документов проводиться опытными архивистами мы приступаем к работе на следующий день после заключения договора. Процесс утилизации 1 тонны бумаг занимает 10 минут']
+        );
+        return $this->render('index',[
+            'model' => $model
+        ]);
     }
 
     /**
@@ -120,7 +137,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
+        $model = new IndexForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
@@ -143,6 +160,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+
         return $this->render('about');
     }
 
@@ -255,5 +273,16 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionServices()
+    {
+        $model = new IndexForm();
+        return $this->render('services', ['model' => $model]);
+    }
+
+    public function actionPolitics()
+    {
+        return $this->render('politics');
     }
 }

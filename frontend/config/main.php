@@ -7,14 +7,26 @@ $params = array_merge(
 );
 
 return [
+
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'layout'=>'bootstrap',
+    'modules' => [
+        'redactor' => 'yii\redactor\RedactorModule',
+    ],
     'components' => [
+
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@backend/views/src/views'
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
-            'baseUrl' => '',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -35,17 +47,29 @@ return [
             ],
         ],
         'errorHandler' => [
+            'maxSourceLines' => 10,
             'errorAction' => 'site/error',
         ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
+            //'suffix' => '.html',
             'rules' => [
-	            '<action:[-a-zA-Z0-9_]+>' => 'site/<action>',
+                '' => 'site/index',
+
+
+                '<action>'=>'site/<action>',
             ],
         ],
+        'assetManager' => [
+            'basePath' => '@webroot/assets',
+            'baseUrl' => '@web/assets'
+        ],
+        'request' => [
+            'baseUrl' => ''
+        ],
+
 
     ],
     'params' => $params,
