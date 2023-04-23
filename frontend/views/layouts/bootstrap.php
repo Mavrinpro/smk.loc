@@ -39,26 +39,15 @@ AppAsset::register($this);
                                 <div class="widget-content p-0">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
-                                            <div class="switch has-switch switch-container-class"
-                                                 data-class="fixed-header">
+                                            <div class="switch has-switch switch-container-class" data-class="fixed-header">
                                                 <div class="switch-animate switch-on">
-                                                    <div class="toggle btn btn-success" data-toggle="toggle"
-                                                         role="button" style="width: 56.1px; height: 32.8px;"><input
-                                                                type="checkbox" checked="" data-toggle="toggle"
-                                                                data-onstyle="success">
-                                                        <div class="toggle-group"><label for=""
-                                                                                         class="btn btn-success toggle-on">On</label><label
-                                                                    for=""
-                                                                    class="btn btn-light toggle-off">Off</label><span
-                                                                    class="toggle-handle btn btn-light"></span></div>
-                                                    </div>
+                                                    <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget-content-left">
                                             <div class="widget-heading">Fixed Header</div>
-                                            <div class="widget-subheading">Makes the header top fixed, always visible!
-                                            </div>
+                                            <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
                                         </div>
                                     </div>
                                 </div>
@@ -67,27 +56,15 @@ AppAsset::register($this);
                                 <div class="widget-content p-0">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
-                                            <div class="switch has-switch switch-container-class"
-                                                 data-class="fixed-sidebar">
+                                            <div class="switch has-switch switch-container-class" data-class="fixed-sidebar">
                                                 <div class="switch-animate switch-on">
-                                                    <div class="toggle btn btn-success" data-toggle="toggle"
-                                                         role="button" style="width: 56.1px; height: 32.8px;"><input
-                                                                type="checkbox" checked="" data-toggle="toggle"
-                                                                data-onstyle="success">
-                                                        <div class="toggle-group"><label for=""
-                                                                                         class="btn btn-success toggle-on">On</label><label
-                                                                    for=""
-                                                                    class="btn btn-light toggle-off">Off</label><span
-                                                                    class="toggle-handle btn btn-light"></span></div>
-                                                    </div>
+                                                    <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget-content-left">
                                             <div class="widget-heading">Fixed Sidebar</div>
-                                            <div class="widget-subheading">Makes the sidebar left fixed, always
-                                                visible!
-                                            </div>
+                                            <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
                                         </div>
                                     </div>
                                 </div>
@@ -96,27 +73,15 @@ AppAsset::register($this);
                                 <div class="widget-content p-0">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
-                                            <div class="switch has-switch switch-container-class"
-                                                 data-class="fixed-footer">
-                                                <div class="switch-animate switch-off">
-                                                    <div class="toggle btn btn-light off" data-toggle="toggle"
-                                                         role="button" style="width: 56.1px; height: 32.8px;"><input
-                                                                type="checkbox" data-toggle="toggle"
-                                                                data-onstyle="success">
-                                                        <div class="toggle-group"><label for=""
-                                                                                         class="btn btn-success toggle-on">On</label><label
-                                                                    for=""
-                                                                    class="btn btn-light toggle-off">Off</label><span
-                                                                    class="toggle-handle btn btn-light"></span></div>
-                                                    </div>
+                                            <div class="switch has-switch switch-container-class" data-class="fixed-footer">
+                                                <div class="switch-animate switch-on">
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget-content-left">
                                             <div class="widget-heading">Fixed Footer</div>
-                                            <div class="widget-subheading">Makes the app footer bottom fixed, always
-                                                visible!
-                                            </div>
+                                            <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
                                         </div>
                                     </div>
                                 </div>
