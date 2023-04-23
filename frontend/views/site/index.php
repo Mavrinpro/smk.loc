@@ -9,11 +9,28 @@ $this->title = 'Шредирование и полное уничтожение 
             <div class="page-title-icon">
                 <i class="pe-7s-graph icon-gradient bg-ripe-malin"></i>
             </div>
-            <div>CRM Dashboard 555
+            <div>CRM Dashboard
                 <div class="page-title-subheading">Examples of just how powerful ArchitectUI really is!
                 </div>
             </div>
         </div>
+        <li class="list-group-item">
+            <div class="widget-content p-0">
+                <div class="widget-content-wrapper">
+                    <div class="widget-content-left mr-3">
+                        <div class="switch has-switch switch-container-class" data-class="fixed-header">
+                            <div class="switch-animate switch-on">
+                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content-left">
+                        <div class="widget-heading">Fixed Sidebar</div>
+                        <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
+                    </div>
+                </div>
+            </div>
+        </li>
         <div class="page-title-actions">
             <button type="button" data-toggle="tooltip" title="" data-placement="bottom"
                     class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">

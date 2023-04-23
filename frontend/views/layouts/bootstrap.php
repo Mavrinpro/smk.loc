@@ -363,7 +363,7 @@ AppAsset::register($this);
         <div class="app-main__inner">
 <?php $this->beginBody() ?>
 <?= $content ?>
-<?php $this->endBody() ?>
+
         </div>
         <div class="app-wrapper-footer">
             <div class="app-footer">
@@ -1497,6 +1497,7 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+<div class="app-drawer-overlay animated fadeIn d-none"></div>
 <section>
 
 <!--    <nav class="navbar navbar-expand-lg navbar-light bg_transparent pt-3 pb-3 fixed-top">-->
@@ -1525,7 +1526,7 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
-
+<?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage();

@@ -25,10 +25,12 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <div class="app-container">
     <div class="h-100">
+
         <?php $this->beginBody() ?>
         <?= $content ?>
         <?php $this->endBody() ?>
 
     </div>
 </div>
+
 <?php $this->endPage();
