@@ -1,3 +1,6 @@
+<?php
+$branch = new app\models\Branch();
+?>
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
         <div class="logo-src"></div>
@@ -31,52 +34,54 @@
     </div> <div class="scrollbar-sidebar ps ps--active-y">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu metismenu">
-                <li class="app-sidebar__heading">Menu</li>
+                <li class="app-sidebar__heading">Меню</li>
                 <li class="mm-active">
                     <a href="#" aria-expanded="true">
-                        <i class="metismenu-icon pe-7s-rocket"></i>Dashboards
+                        <i class="metismenu-icon pe-7s-rocket"></i>Филиалы
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul class="mm-show mm-collapse">
-                        <li>
-                            <a href="index.html">
-                                <i class="metismenu-icon"></i>Analytics
-                            </a>
-                        </li>
-                        <li>
-                            <a href="dashboards-commerce.html">
-                                <i class="metismenu-icon"></i>Commerce
-                            </a>
-                        </li>
-                        <li>
-                            <a href="dashboards-sales.html">
-                                <i class="metismenu-icon">
-                                </i>Sales
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="metismenu-icon"></i> Minimal
-                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                            </a>
-                            <ul class="mm-collapse">
-                                <li>
-                                    <a href="dashboards-minimal-1.html">
-                                        <i class="metismenu-icon"></i>Variation 1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="dashboards-minimal-2.html">
-                                        <i class="metismenu-icon"></i>Variation 2
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="dashboards-crm.html" class="mm-active">
-                                <i class="metismenu-icon"></i> CRM
-                            </a>
-                        </li>
+                       <?php foreach ($branch->branch() as $branches) { ?>
+                           <li>
+                               <a href="/branch/view/<?= $branches->id ?>">
+                                   <i class="metismenu-icon"></i><?= $branches->name ?>
+                               </a>
+                           </li>
+                      <? } ?>
+<!--                        <li>-->
+<!--                            <a href="dashboards-commerce.html">-->
+<!--                                <i class="metismenu-icon"></i>Commerce-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="dashboards-sales.html">-->
+<!--                                <i class="metismenu-icon">-->
+<!--                                </i>Sales-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#">-->
+<!--                                <i class="metismenu-icon"></i> Minimal-->
+<!--                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>-->
+<!--                            </a>-->
+<!--                            <ul class="mm-collapse">-->
+<!--                                <li>-->
+<!--                                    <a href="dashboards-minimal-1.html">-->
+<!--                                        <i class="metismenu-icon"></i>Variation 1-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <a href="dashboards-minimal-2.html">-->
+<!--                                        <i class="metismenu-icon"></i>Variation 2-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="dashboards-crm.html" class="mm-active">-->
+<!--                                <i class="metismenu-icon"></i> CRM-->
+<!--                            </a>-->
+<!--                        </li>-->
                     </ul>
                 </li>
                 <li>
@@ -162,6 +167,38 @@
                             </ul>
                         </li>
                     </ul>
+                </li>
+                <li class="app-sidebar__heading">Документы</li>
+                <li>
+                    <a href="charts-chartjs.html">
+                        <i class="metismenu-icon pe-7s-graph2"></i>ChartJS
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-apexcharts.html">
+                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-sparklines.html">
+                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines
+                    </a>
+                </li>
+                <li class="app-sidebar__heading">Тесты</li>
+                <li>
+                    <a href="charts-chartjs.html">
+                        <i class="metismenu-icon pe-7s-graph2"></i>ChartJS
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-apexcharts.html">
+                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts
+                    </a>
+                </li>
+                <li>
+                    <a href="charts-sparklines.html">
+                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines
+                    </a>
                 </li>
                 <li class="app-sidebar__heading">UI Components</li>
                 <li>

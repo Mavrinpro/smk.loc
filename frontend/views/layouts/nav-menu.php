@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300"
                        data-toggle="popover-custom" class="nav-link" data-original-title="" title="">
-                        <i class="nav-link-icon pe-7s-gift"> </i> Mega Menu
+                        <i class="nav-link-icon pe-7s-gift"> </i> Меню
                         <i class="fa fa-angle-down ml-2 opacity-5"></i>
                     </a>
                     <div class="rm-max-width">
@@ -131,7 +131,7 @@
                 </li>
                 <li class="btn-group nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
-                        <span class="badge badge-pill badge-danger ml-0 mr-2">4</span> Settings
+                        <span class="badge badge-pill badge-danger ml-0 mr-2">4</span> Настройки
                         <i class="fa fa-angle-down ml-2 opacity-5"></i>
                     </a>
                     <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu">
@@ -172,7 +172,7 @@
                 </li>
                 <li class="dropdown nav-item">
                     <a aria-haspopup="true" data-toggle="dropdown" class="nav-link" aria-expanded="false">
-                        <i class="nav-link-icon pe-7s-settings"></i> Projects
+                        <i class="nav-link-icon pe-7s-settings"></i> Проекты
                         <i class="fa fa-angle-down ml-2 opacity-5"></i>
                     </a>
                     <div tabindex="-1" role="menu" aria-hidden="true"

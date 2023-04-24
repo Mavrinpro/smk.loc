@@ -57,9 +57,10 @@ return [
             //'suffix' => '.html',
             'rules' => [
                 '' => 'site/index',
+                '<controller:(department|doctors|review|tasks|branch|tags|layouts-mail|user|tracking)>/<action:(index|update|delete|view|change-password)>/<id:\d+>' =>
+                    '<controller>/<action>',
+                '<controller:\w+>/<page:\d+>' => '<controller>/index',
 
-
-                '<action>'=>'site/<action>',
             ],
         ],
         'assetManager' => [

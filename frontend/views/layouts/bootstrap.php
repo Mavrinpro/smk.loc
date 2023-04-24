@@ -5,10 +5,13 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use yii\bootstrap4\Breadcrumbs;
+//use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+//use yii\bootstrap4\Nav;
+//use yii\bootstrap4\NavBar;
+//use frontend\models\Department;
+
+
 
 AppAsset::register($this);
 ?>
@@ -326,7 +329,64 @@ AppAsset::register($this);
     <div class="app-main">
         <?= $this->render('sidebar-left') ?>
         <div class="app-main__inner">
-<?php $this->beginBody() ?>
+<?php $this->beginBody() ?><div class="app-page-title">
+
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="page-title-icon">
+                            <i class="pe-7s-network icon-gradient bg-ripe-malin"></i>
+                        </div>
+                        <div><?= Html::encode($this->title) ?>
+                            <div class="page-title-subheading">Examples of just how powerful ArchitectUI really is!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions">
+                        <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
+                            <i class="fa fa-star"></i>
+                        </button>
+                        <div class="d-inline-block dropdown">
+                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+<span class="btn-icon-wrapper pr-2 opacity-7">
+<i class="fa fa-business-time fa-w-20"></i>
+</span>
+                                Buttons
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link">
+                                            <i class="nav-link-icon lnr-inbox"></i>
+                                            <span> Inbox</span>
+                                            <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link">
+                                            <i class="nav-link-icon lnr-book"></i>
+                                            <span> Book</span>
+                                            <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link">
+                                            <i class="nav-link-icon lnr-picture"></i>
+                                            <span> Picture</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a disabled="" class="nav-link disabled">
+                                            <i class="nav-link-icon lnr-file-empty"></i>
+                                            <span> File Disabled</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <?= $content ?>
 
         </div>

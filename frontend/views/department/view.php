@@ -2,18 +2,18 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\bootstrap4\Breadcrumbs;
 
 /** @var yii\web\View $this */
-/** @var app\models\Branch $model */
+/** @var app\models\Department $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Филиалы', 'url' => ['index']];
-
+$this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<div class="department-view">
 
-    
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,6 +26,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Филиалы', 'url' => ['index'
         ]) ?>
     </p>
 
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'name',
+            'branch_id',
+        ],
+    ]) ?>
 
-
-
+</div>
