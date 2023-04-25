@@ -4,69 +4,10 @@ $depart = new app\models\Department();
 $branch = new app\models\Branch();
 
 
-$this->title = 'Шредирование и полное уничтожение документов';
+$this->title = 'СМК';
 //var_dump($depart->department(1));
 ?>
-<div class="app-page-title">
 
-    <div class="page-title-wrapper">
-        <div class="page-title-heading">
-            <div class="page-title-icon">
-                <i class="pe-7s-graph icon-gradient bg-ripe-malin"></i>
-            </div>
-            <div>CRM Dashboard
-                <div class="page-title-subheading">Examples of just how powerful ArchitectUI really is!
-                </div>
-            </div>
-        </div>
-
-        <div class="page-title-actions">
-            <button type="button" data-toggle="tooltip" title="" data-placement="bottom"
-                    class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
-                <i class="fa fa-star"></i>
-            </button>
-            <div class="d-inline-block dropdown">
-                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        class="btn-shadow dropdown-toggle btn btn-info">
-<span class="btn-icon-wrapper pr-2 opacity-7">
-<i class="fa fa-business-time fa-w-20"></i>
-</span>
-                    Buttons
-                </button>
-                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-inbox"></i>
-                                <span> Inbox</span>
-                                <div class="ml-auto badge badge-pill badge-secondary">86</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-book"></i>
-                                <span> Book</span>
-                                <div class="ml-auto badge badge-pill badge-danger">5</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-picture"></i>
-                                <span> Picture</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a disabled="" class="nav-link disabled">
-                                <i class="nav-link-icon lnr-file-empty"></i>
-                                <span> File Disabled</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!--<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">-->
 <!--    <li class="nav-item">-->
 <!--        <a role="tab" class="nav-link active" href="dashboards-crm.html">-->
@@ -199,7 +140,7 @@ $this->title = 'Шредирование и полное уничтожение 
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row"><input id="chkToggle1" type="checkbox" data-toggle="toggle" checked="">
         <div class="col-md-12 col-lg-6 col-xl-5">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header-tab-animation card-header">

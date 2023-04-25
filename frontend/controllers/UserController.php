@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\controllers;
-
+use frontend\models\SignupForm;
 use common\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
@@ -67,14 +67,10 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $model = new SignupForm();
+        if ($model->load(\Yii::$app->request->post()) && $model->signup()) {
+            \Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
         }
 
         return $this->render('create', [

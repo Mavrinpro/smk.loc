@@ -42,7 +42,7 @@ class PageController extends Controller
                             ],
                             [
                                 'allow'   => true,
-                                'actions' => ['view', 'create'],
+                                'actions' => ['view', 'create', 'update'],
                                 'roles'   => ['superadmin', 'moderator'],
                             ],
                         ],
