@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap4\Modal;
 
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
@@ -10,27 +11,41 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
-<div class="department-view">
+<?= Html::a('Создать', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<div class="row">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="col-md-3">
+        <div class="mb-3 card text-white card-body bg-white text-dark">
+            <h5 class="text-dark card-title">w5yw45yw45y</h5>
+            With supporting text below as a natural lead-in to additional content.
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'branch_id',
-        ],
-    ]) ?>
+            <div class="menu-header-content btn-pane-right mt-3">
 
+                <a href="/department/view/5" class="btn-wide btn-hover-shine btn-pill btn
+                            btn-block
+                            btn-outline-success">Перейти
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="mb-3 card text-white card-body bg-white text-dark">
+            <h5 class="text-dark card-title">w5yw45yw45y</h5>
+            With supporting text below as a natural lead-in to additional content.
+
+            <div class="menu-header-content btn-pane-right mt-3">
+
+                <a href="/department/view/5" class="btn-wide btn-hover-shine btn-pill btn
+                            btn-block
+                            btn-outline-success">Перейти
+                </a>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+

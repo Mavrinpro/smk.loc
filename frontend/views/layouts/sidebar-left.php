@@ -403,27 +403,14 @@ $branch = new app\models\Branch();
                         </li>
                     </ul>
                 </li>
-                <li class="app-sidebar__heading">Dashboard Widgets</li>
+                <li class="app-sidebar__heading">Настройки системы</li>
                 <li>
-                    <a href="widgets-chart-boxes.html">
-                        <i class="metismenu-icon pe-7s-graph"></i>Chart Boxes 1
+                    <a href="/gii">
+                        <i class="metismenu-icon pe-7s-settings"></i>Gii
                     </a>
                 </li>
-                <li>
-                    <a href="widgets-chart-boxes-2.html">
-                        <i class="metismenu-icon pe-7s-way"></i>Chart Boxes 2
-                    </a>
-                </li>
-                <li>
-                    <a href="widgets-chart-boxes-3.html">
-                        <i class="metismenu-icon pe-7s-ball"></i>Chart Boxes 3
-                    </a>
-                </li>
-                <li>
-                    <a href="widgets-profile-boxes.html">
-                        <i class="metismenu-icon pe-7s-id"></i>Profile Boxes
-                    </a>
-                </li>
+
+
                 <li class="app-sidebar__heading">Forms</li>
                 <li>
                     <a href="#">
