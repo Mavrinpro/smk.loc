@@ -1,9 +1,14 @@
 <?php
 /** @var yii\web\View $this */
+$depart = new app\models\Department();
+$branch = new app\models\Branch();
+
 
 $this->title = 'Шредирование и полное уничтожение документов';
+//var_dump($depart->department(1));
 ?>
 <div class="app-page-title">
+
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
@@ -14,23 +19,7 @@ $this->title = 'Шредирование и полное уничтожение 
                 </div>
             </div>
         </div>
-        <li class="list-group-item">
-            <div class="widget-content p-0">
-                <div class="widget-content-wrapper">
-                    <div class="widget-content-left mr-3">
-                        <div class="switch has-switch switch-container-class" data-class="fixed-header">
-                            <div class="switch-animate switch-on">
-                                <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="widget-content-left">
-                        <div class="widget-heading">Fixed Sidebar</div>
-                        <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
-                    </div>
-                </div>
-            </div>
-        </li>
+
         <div class="page-title-actions">
             <button type="button" data-toggle="tooltip" title="" data-placement="bottom"
                     class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
@@ -78,18 +67,83 @@ $this->title = 'Шредирование и полное уничтожение 
         </div>
     </div>
 </div>
-<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-    <li class="nav-item">
-        <a role="tab" class="nav-link active" href="dashboards-crm.html">
-            <span>Variation 1</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a role="tab" class="nav-link" href="dashboards-crm-variation.html">
-            <span>Variation 2</span>
-        </a>
-    </li>
-</ul>
+<!--<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">-->
+<!--    <li class="nav-item">-->
+<!--        <a role="tab" class="nav-link active" href="dashboards-crm.html">-->
+<!--            <span>Variation 1</span>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--        <a role="tab" class="nav-link" href="dashboards-crm-variation.html">-->
+<!--            <span>Variation 2</span>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</ul>-->
+<div class="row">
+    <?php foreach ($branch->branch() as $branches) { ?>
+        <div class="col-md-3">
+            <div class="card-shadow-primary card-border mb-3 profile-responsive card">
+                <div class="dropdown-menu-header">
+                    <div class="dropdown-menu-header-inner bg-success">
+                        <div class="menu-header-image opacity-3"
+                             style="background-image: url('assets/images/abstract2.jpg');"></div>
+                        <div class="menu-header-content btn-pane-right">
+
+                            <div>
+                                <h5 class="menu-header-title"> <i class="pe-7s-map-marker"></i> <?= $branches->name ?></h5>
+
+                            </div>
+                            <div class="menu-header-btn-pane">
+                                <a href="/branch/view?id=<?= $branches->id ?>"
+                                   class="btn-wide btn-hover-shine btn-pill btn btn-warning">Перейти
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="p-0 list-group-item">
+                        <div class="grid-menu grid-menu-2col">
+                            <div class="no-gutters row">
+                                <?php foreach ($depart->department($branches->id) as $department) {
+                                    //echo  gettype($depart->department($branches->id));
+                                    if (sizeof($depart->department($branches->id)) > 0){ ?>
+                                        <div class="col-sm-6">
+                                            <div class="p-2">
+                                                <a href="/department/view/?id=<?= $department->id ?>"
+                                                   class="btn-icon-vertical btn-transition-text btn-transition
+                                                btn-transition-alt pt-2 pb-2 btn btn-outline-success">
+                                                    <i class="lnr-pointer-up text-dark opacity-7 btn-icon-wrapper mb-2">
+                                                    </i><?= $department->name ?>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    <?php }else{ ?>
+                                        <div class="col-sm-6">
+                                            <div class="p-2">
+                                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-focus">
+                                                    <i class="lnr-gift text-focus opacity-7 btn-icon-wrapper mb-2"></i>Settings
+                                                </button>
+                                            </div>
+                                        </div>
+                                   <?php }?>
+
+                                <?php } ?>
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <? } ?>
+
+</div>
 <div class="tabs-animation">
     <div class="row">
         <div class="col-md-6 col-xl-4">
