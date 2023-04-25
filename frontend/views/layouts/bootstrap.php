@@ -26,6 +26,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
+
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 <?= $this->render('nav-menu')?>
     <div class="ui-theme-settings">
@@ -387,7 +388,9 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
+            <?= Alert::widget() ?>
 <?= $content ?>
+
 
         </div>
         <div class="app-wrapper-footer">

@@ -17,7 +17,7 @@ return [
         'redactor' => 'yii\redactor\RedactorModule',
     ],
     'components' => [
-
+        'authManager' => ['class' => 'yii\rbac\DbManager'],
         'view' => [
             'theme' => [
                 'pathMap' => [
@@ -57,7 +57,8 @@ return [
             //'suffix' => '.html',
             'rules' => [
                 '' => 'site/index',
-                '<controller:(department|doctors|review|tasks|branch|tags|layouts-mail|user|tracking)>/<action:(index|update|delete|view|change-password)>/<id:\d+>' =>
+               
+                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
 
