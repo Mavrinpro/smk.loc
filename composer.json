@@ -23,7 +23,8 @@
         "lavrentiev/yii2-toastr": "dev-master",
         "yiidoc/yii2-redactor": "*",
         "robregonm/yii2-pdf": "dev-master",
-        "kartik-v/yii2-mpdf": "dev-master"
+        "kartik-v/yii2-mpdf": "dev-master",
+        "vova07/yii2-imperavi-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

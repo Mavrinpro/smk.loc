@@ -196,6 +196,7 @@ class PageController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', 'Запись <b>' . $model->name . '</b> успешно обновлена.');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -239,12 +240,13 @@ class PageController extends Controller
     public function actionCreateDoc($id)
     {
         $model = $this::findModel($id);
+        //$word = iconv('UTF-8', 'WINDOWS-1251', $model->text);
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=" . date('d-m-Y H:i:s') . ".doc");
         header("Pragma: no-cache");
         header("Expires: 0");
         echo "<html><body>";
-        
+        iconv('UTF-8', 'WINDOWS-1251', $model->text);
         echo $model->text;
         echo "</body></html>";
         //exit;
