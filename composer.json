@@ -17,7 +17,13 @@
         "php": ">=5.6.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap4": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "dmstr/yii2-adminlte-asset": "2.*",
+        "yiister/yii2-gentelella": "~1.0",
+        "lavrentiev/yii2-toastr": "dev-master",
+        "yiidoc/yii2-redactor": "*",
+        "robregonm/yii2-pdf": "dev-master",
+        "kartik-v/yii2-mpdf": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -34,6 +40,9 @@
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     },
     "repositories": [

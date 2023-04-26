@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
     $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'text')->widget(\yii\redactor\widgets\Redactor::class) ?>
     <?= $form->field($model, 'department_id')->hiddenInput(['value' => $department_id])->label(false); ?>
 
     <?php if ($action_id == 'create') {

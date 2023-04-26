@@ -17,6 +17,16 @@ return [
         'redactor' => 'yii\redactor\RedactorModule',
     ],
     'components' => [
+        'response' => [
+            'formatters' => [
+                'html' => [
+                    'class' => 'yii\web\HtmlResponseFormatter',
+                ],
+                'pdf' => [
+                    'class' => 'robregonm\pdf\PdfResponseFormatter',
+                ],
+            ],
+        ],
         'authManager' => ['class' => 'yii\rbac\DbManager'],
         'view' => [
             'theme' => [

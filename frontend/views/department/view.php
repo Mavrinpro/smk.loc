@@ -6,6 +6,7 @@ use yii\bootstrap4\Modal;
 
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
+/** @var app\models\Department $page */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
@@ -31,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+    <?php foreach ($page as $pages) { ?>
     <div class="col-md-3">
         <div class="mb-3 card text-white card-body bg-white text-dark">
             <h5 class="text-dark card-title">w5yw45yw45y</h5>
@@ -47,5 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+    <?php } ?>
+
+
 
 

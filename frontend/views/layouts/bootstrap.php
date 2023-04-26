@@ -344,15 +344,15 @@ AppAsset::register($this);
                     </div>
 
                     <div class="page-title-actions">
-                        <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">
-                            <i class="fa fa-star"></i>
-                        </button>
+<!--                        <button type="button" data-toggle="tooltip" title="" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" data-original-title="Example Tooltip">-->
+<!--                            <i class="fa fa-star"></i>-->
+<!--                        </button>-->
                         <div class="d-inline-block dropdown">
                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
 <span class="btn-icon-wrapper pr-2 opacity-7">
-<i class="fa fa-business-time fa-w-20"></i>
+<i class="fa fa-cog fa-w-20"></i>
 </span>
-                                Buttons
+                                Действие
                             </button>
                             <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                 <ul class="nav flex-column">

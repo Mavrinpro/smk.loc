@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\Department;
+use app\models\Page;
 use frontend\models\DepartmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -55,7 +56,9 @@ class DepartmentController extends Controller
      */
     public function actionView($id)
     {
+        $page = Page::find()->where(['department_id' => $id])->all();
         return $this->render('view', [
+            'page' => $page,
             'model' => $this->findModel($id),
         ]);
     }

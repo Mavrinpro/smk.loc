@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $text
  * @property int|null $department_id
  * @property int|null $create_at
  * @property int|null $update_at
@@ -34,6 +35,7 @@ class Page extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['text'], 'safe'],
         ];
     }
 

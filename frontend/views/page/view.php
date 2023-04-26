@@ -25,30 +25,26 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <a href="/page/pdf">qtq34t</a>
+<!--    --><?//= DetailView::widget([
+//        'model' => $model,
+//        'attributes' => [
+//            'id',
+//            'name',
+//            'department_id',
+//            'create_at',
+//            'update_at',
+//            'user_id_create',
+//            'user_id_update',
+//        ],
+//    ]) ?>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <?php echo $model->text ?>у56гу5гу56г
+        </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'department_id',
-            'create_at',
-            'update_at',
-            'user_id_create',
-            'user_id_update',
-        ],
-    ]) ?>
-
-</div>
-<div class="row">
-    <div class="col-12 mb-3">
-        <!--        <div class="toggle-group">-->
-        <!--            <input type="checkbox" id="eee" data-toggle="toggle" data-onstyle="success"> Администратор-->
-        <!--            <label for="eee" class="btn btn-danger toggle-on">Onнн</label>-->
-        <!--            <label for="eee" class="btn btn-light toggle-off">Off</label><span class="toggle-handle btn-->
-        <!--            btn-light"></span></div>-->
     </div>
-    
 </div>
+
 
 
