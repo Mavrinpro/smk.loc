@@ -46,7 +46,8 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
+            'text' => 'Текст',
             'department_id' => 'Department ID',
             'create_at' => 'Create At',
             'update_at' => 'Update At',

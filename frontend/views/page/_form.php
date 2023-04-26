@@ -12,7 +12,6 @@ use yii\helpers\ArrayHelper;
 <div class="page-form"> <?php
     $action_id = \Yii::$app->controller->action->id;
     $department_id = \Yii::$app->request->get('id');
-    echo $department_id;
 
     $form = ActiveForm::begin(); ?>
 
