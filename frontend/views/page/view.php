@@ -42,30 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="row">
     <div class="col-12 mb-3">
-<!--        <div class="toggle-group">-->
-<!--            <input type="checkbox" id="eee" data-toggle="toggle" data-onstyle="success"> Администратор-->
-<!--            <label for="eee" class="btn btn-danger toggle-on">Onнн</label>-->
-<!--            <label for="eee" class="btn btn-light toggle-off">Off</label><span class="toggle-handle btn-->
-<!--            btn-light"></span></div>-->
+        <!--        <div class="toggle-group">-->
+        <!--            <input type="checkbox" id="eee" data-toggle="toggle" data-onstyle="success"> Администратор-->
+        <!--            <label for="eee" class="btn btn-danger toggle-on">Onнн</label>-->
+        <!--            <label for="eee" class="btn btn-light toggle-off">Off</label><span class="toggle-handle btn-->
+        <!--            btn-light"></span></div>-->
     </div>
-
-    <li class="list-group-item">
-        <div class="widget-content p-0">
-            <div class="widget-content-wrapper">
-                <div class="widget-content-left mr-3">
-                    <div class="switch has-switch switch-container-class" id="check_user_admin" data-class="fixed">
-                        <div class="switch-animate switch-off">
-                            <input type="checkbox" data-toggle="toggle" data-onstyle="success">
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-content-left">
-                    <div class="widget-heading">Fixed Sidebar</div>
-                    <div class="widget-subheading">Makes the sidebar left fixed, always visible!</div>
-                </div>
-            </div>
-        </div>
-    </li>
+    
 </div>
 
 
