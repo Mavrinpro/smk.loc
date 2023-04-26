@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+
 use common\models\User;
 use app\models\Page;
 use app\models\PageSearch;
@@ -32,22 +33,22 @@ class PageController extends Controller
 
                 ],
 
-                    'access' => [
-                        'class' => AccessControl::class,
+                'access' => [
+                    'class' => AccessControl::class,
 
-                        'rules' => [
-                            [
-                                'allow'   => true,
-                                'actions' => ['view'],
-                                'roles'   => ['view_manager'],
-                            ],
-                            [
-                                'allow'   => true,
-                                'actions' => ['view', 'create', 'update', 'pdf', 'index'],
-                                'roles'   => ['superadmin', 'moderator'],
-                            ],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'create', 'update', 'pdf', 'index', 'create-doc'],
+                            'roles' => ['superadmin', 'moderator'],
                         ],
                     ],
+                ],
 
             ]
         );
@@ -60,7 +61,8 @@ class PageController extends Controller
      */
 
 
-    public function actionPdf() {
+    public function actionPdf()
+    {
         // get your HTML raw content without any layouts or scripts
         \Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
         $pdf = new Pdf([
@@ -104,42 +106,55 @@ class PageController extends Controller
     public function actionView($id)
     {
 
-         //Создаем разрешение на доступ к странице управления пользователями.
-//        $permissionManageUsers = \Yii::$app->authManager->createPermission('create_admin');
-//
-//        // Добавляем своё описание к разрешению, чтобы не забыть для чего мы его создавали.
-//        $permissionManageUsers->description = 'Доступ к редактированию страниц.';
-//
-//        // Добавляем разрешение в систему через RBAC менеджер.
-//        \Yii::$app->authManager->add($permissionManageUsers);
-//
-//        // Ищем роль модератора.
-//        $roleModerator = \Yii::$app->authManager->getRole('superadmin');
-//
-//        // Добавляем (наследуем) разрешение для роли модератора.
-//        \Yii::$app->authManager->addChild($roleModerator, $permissionManageUsers);
+        //        header("Content-type: application/vnd.ms-word");
+        //        header("Content-Disposition: attachment;Filename=".rand().".doc");
+        //        header("Pragma: no-cache");
+        //        header("Expires: 0");
+        //        header("Content-type: application/vnd.ms-word");
+        //        header("Content-Disposition: attachment;Filename=" . rand() . ".doc");
+        //        header("Pragma: no-cache");
+        //        header("Expires: 0");
+        //        echo "<html><body>";
+        //        echo "<h1>gggggggggggggggg</h1>";
+        //        echo 5555555555;
+        //        echo "</body></html>";
+        //        exit;
+
+        //Создаем разрешение на доступ к странице управления пользователями.
+        //        $permissionManageUsers = \Yii::$app->authManager->createPermission('create_admin');
+        //
+        //        // Добавляем своё описание к разрешению, чтобы не забыть для чего мы его создавали.
+        //        $permissionManageUsers->description = 'Доступ к редактированию страниц.';
+        //
+        //        // Добавляем разрешение в систему через RBAC менеджер.
+        //        \Yii::$app->authManager->add($permissionManageUsers);
+        //
+        //        // Ищем роль модератора.
+        //        $roleModerator = \Yii::$app->authManager->getRole('superadmin');
+        //
+        //        // Добавляем (наследуем) разрешение для роли модератора.
+        //        \Yii::$app->authManager->addChild($roleModerator, $permissionManageUsers);
 
 
-
-//        // Достаем пользователя Иванова из БД.
-//        $ivanov = User::findOne(1);
-//        // Достаем роль администратора из RBAC-менеджера.
-//        $roleAdministrator = \Yii::$app->authManager->getRole('superadmin');
-//        // Привязываем роль администратора к идентификатору Иванова.
-//        \Yii::$app->authManager->assign($roleAdministrator, $ivanov->getId());
-//
-//        // Достаем пользователя Петрова из БД.
-//        $petrov = User::findOne(2);
-//        // Достаем роль модератора из RBAC-менеджера.
-//        $roleModerator = \Yii::$app->authManager->getRole('admin');
-//        // Привязываем роль модератора к идентификатору Петрова.
-//        \Yii::$app->authManager->assign($roleModerator, $petrov->getId());
-//
-//        // Достаем пользователя Сидорова из БД.
-//        $sidorov = User::findOne(3);
-//        // Достаем роль модератора из RBAC-менеджера.
-//        $roleUser = \Yii::$app->authManager->getRole('user');
-//        // Привязываем роль пользователя к идентификатору Сидорова.
+        //        // Достаем пользователя Иванова из БД.
+        //        $ivanov = User::findOne(1);
+        //        // Достаем роль администратора из RBAC-менеджера.
+        //        $roleAdministrator = \Yii::$app->authManager->getRole('superadmin');
+        //        // Привязываем роль администратора к идентификатору Иванова.
+        //        \Yii::$app->authManager->assign($roleAdministrator, $ivanov->getId());
+        //
+        //        // Достаем пользователя Петрова из БД.
+        //        $petrov = User::findOne(2);
+        //        // Достаем роль модератора из RBAC-менеджера.
+        //        $roleModerator = \Yii::$app->authManager->getRole('admin');
+        //        // Привязываем роль модератора к идентификатору Петрова.
+        //        \Yii::$app->authManager->assign($roleModerator, $petrov->getId());
+        //
+        //        // Достаем пользователя Сидорова из БД.
+        //        $sidorov = User::findOne(3);
+        //        // Достаем роль модератора из RBAC-менеджера.
+        //        $roleUser = \Yii::$app->authManager->getRole('user');
+        //        // Привязываем роль пользователя к идентификатору Сидорова.
         //\Yii::$app->authManager->assign($roleUser, $sidorov->getId());
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -157,7 +172,7 @@ class PageController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                \Yii::$app->session->setFlash('success', 'Запись <b>'.$model->name.'</b> успешно создана.');
+                \Yii::$app->session->setFlash('success', 'Запись <b>' . $model->name . '</b> успешно создана.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -217,5 +232,21 @@ class PageController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    // Create doc
+    public function actionCreateDoc($id)
+    {
+        $model = $this::findModel($id);
+        header("Content-type: application/vnd.ms-word");
+        header("Content-Disposition: attachment;Filename=" . date('d-m-Y H:i:s') . ".doc");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        echo "<html><body>";
+        
+        echo $model->text;
+        echo "</body></html>";
+        //exit;
     }
 }

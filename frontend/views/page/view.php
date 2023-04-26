@@ -24,8 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Печать', ['create-doc', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
-    <a href="/page/pdf">qtq34t</a>
+    <a href="/page/pdf">Print</a>
 <!--    --><?//= DetailView::widget([
 //        'model' => $model,
 //        'attributes' => [
@@ -40,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //    ]) ?>
     <div class="row">
         <div class="col-12 mb-3">
-            <?php echo $model->text ?>у56гу5гу56г
+            <?php echo $model->text;  ?>
+
         </div>
 
     </div>

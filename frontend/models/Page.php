@@ -55,4 +55,38 @@ class Page extends \yii\db\ActiveRecord
             'user_id_update' => 'User Id Update',
         ];
     }
+    
+    // Create doc
+    public function createDoc($title, $body)
+    {
+        $filename = 'demo'.time().'.doc';
+        header("Content-type: application/vnd.ms-word");
+        header( "Content-Disposition: attachment; filename=".basename($filename));
+        header( "Content-Description: File Transfer");
+        @readfile($filename);
+
+        $content = '<html>'
+            .'<head><meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">'
+            .'<title>35345345</title>'
+            .'<style>
+        @page
+        {
+            font-family: Arial;
+            size:215.9mm 279.4mm;  /* A4 */
+            margin:14.2mm 17.5mm 14.2mm 16mm; /* Margins: 2.5 cm on each side */
+        }
+        h2 { font-family: Arial; font-size: 18px; text-align:center; }
+        p.para {font-family: Arial; font-size: 13.5px; text-align: justify;}
+        </style>'
+            .'</head>'
+            .'<body>'
+            .'<h2>'.$title.'</h2><br/>'
+            .'<p class="para">'
+            .$body
+            .'</p>'
+            .'</body>'
+            .'</html>';
+
+        return $content;
+    }
 }

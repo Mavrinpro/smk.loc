@@ -358,22 +358,22 @@ AppAsset::register($this);
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link">
-                                            <i class="nav-link-icon lnr-inbox"></i>
-                                            <span> Inbox</span>
-                                            <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                            <i class="nav-link-icon lnr-pointer-right"></i>
+                                            <span> Передать</span>
+<!--                                            <div class="ml-auto badge badge-pill badge-secondary">86</div>-->
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link">
-                                            <i class="nav-link-icon lnr-book"></i>
-                                            <span> Book</span>
-                                            <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                            <i class="nav-link-icon lnr-printer"></i>
+                                            <span> Печать</span>
+<!--                                            <div class="ml-auto badge badge-pill badge-danger">5</div>-->
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link">
-                                            <i class="nav-link-icon lnr-picture"></i>
-                                            <span> Picture</span>
+                                            <i class="nav-link-icon lnr-download"></i>
+                                            <span> Скачать</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
