@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $branch->name;
                             btn-inline-block
                             btn-outline-danger',
                     'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => 'Хотите удалить запись ' .$pages->id.'?',
                         'method' => 'post',
                     ],
                 ]) ?>
