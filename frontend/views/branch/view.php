@@ -16,16 +16,16 @@ $this->params['breadcrumbs'][] = ['label' => 'Филиалы', 'url' => ['index'
 ?>
 
 
-<p>
-    <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-        'class' => 'btn btn-danger',
-        'data' => [
-            'confirm' => 'Are you sure you want to delete this item?',
-            'method' => 'post',
-        ],
-    ]) ?>
-</p>
+<!--<p>-->
+<!--    --><?//= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+<!--    --><?//= Html::a('Delete', ['delete', 'id' => $model->id], [
+//        'class' => 'btn btn-danger',
+//        'data' => [
+//            'confirm' => 'Are you sure you want to delete this item?',
+//            'method' => 'post',
+//        ],
+//    ]) ?>
+<!--</p>-->
 <div class="row">
     <?php foreach ($department->department($model->id) as $depart) { ?>
         <div class="col-md-3">
