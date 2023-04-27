@@ -9,7 +9,7 @@ use frontend\assets\AppAsset;
 use yii\bootstrap4\Html;
 //use yii\bootstrap4\Nav;
 //use yii\bootstrap4\NavBar;
-//use frontend\models\Department;
+use app\components\widgets\AlertWidget;
 
 
 
@@ -388,7 +388,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-            <?= Alert::widget() ?>
+            <?= AlertWidget::widget() ?>
 <?= $content ?>
 
 

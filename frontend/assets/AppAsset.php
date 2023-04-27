@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
         //'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js',
 
         'js/main.js',
+        'js/toastr.js',
         //'https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js',
         //'https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js',
         //'https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js',
