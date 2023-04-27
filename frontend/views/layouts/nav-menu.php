@@ -864,8 +864,8 @@
                             </div>
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
-                            <div class="widget-heading"> Alina Mclourd</div>
-                            <div class="widget-subheading"> VP People Manager</div>
+                            <div class="widget-heading"> <?=  \Yii::$app->user->identity->username;?></div>
+                            
                         </div>
                         <div class="widget-content-right header-user-info ml-3">
                             <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

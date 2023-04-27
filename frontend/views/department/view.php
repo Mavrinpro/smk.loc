@@ -25,9 +25,19 @@ $this->params['breadcrumbs'][] = $branch->name;
             <div class="menu-header-content btn-pane-right mt-3">
 
                 <a href="/page/view/<?= $pages->id;  ?>" class="btn-wide btn-hover-shine btn-pill btn
-                            btn-block
+                            btn-inline-block
                             btn-outline-success">Перейти
                 </a>
+
+                <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
+                    'class' => 'btn-wide btn-hover-shine btn-pill btn
+                            btn-inline-block
+                            btn-outline-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
 
             </div>
         </div>

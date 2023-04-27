@@ -172,7 +172,7 @@ class PageController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                \Yii::$app->session->setFlash('success', 'Запись <b>' . $model->name . '</b> успешно создана.');
+                \Yii::$app->session->setFlash('success', 'Запись ' . $model->name . ' успешно создана.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -241,13 +241,73 @@ class PageController extends Controller
     {
         $model = $this::findModel($id);
         //$word = iconv('UTF-8', 'WINDOWS-1251', $model->text);
+        header('Content-Type: text; charset=utf-8');
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=" . date('d-m-Y H:i:s') . ".doc");
-        header("Pragma: no-cache");
+        // header("Pragma: no-cache");
         header("Expires: 0");
-        echo "<html><body>";
-        iconv('UTF-8', 'WINDOWS-1251', $model->text);
-        echo $model->text;
+        echo '<html xmlns:v="urn:schemas-microsoft-com:vml"
+        xmlns:o="urn:schemas-microsoft-com:office:office" 
+        xmlns:w="urn:schemas-microsoft-com:office:word" 
+        xmlns="http://www.w3.org/TR/REC-html40">
+         <head>
+         <style> 
+        <!-- 
+         /* Font Definitions */ 
+        @font-face 
+            {font-family:Verdana; 
+            panose-1:2 11 6 4 3 5 4 4 2 4; 
+            mso-font-charset:0; 
+            mso-generic-font-family:swiss; 
+            mso-font-pitch:variable; 
+            mso-font-signature:536871559 0 0 0 415 0;} 
+         /* Style Definitions */ 
+         table {
+    border-collapse: collapse;
+    text-align: left;
+}
+         td {
+    border: 1px solid #9E9E9E;
+}
+        body 
+            {mso-style-parent:""; 
+            margin:0in; 
+            margin-bottom:.0001pt; 
+            mso-pagination:widow-orphan; 
+            font-size:12pt; 
+                mso-bidi-font-size:8.0pt; 
+            font-family:"Arial"; 
+            padding: 40pt;
+            text-align: center;
+            mso-fareast-font-family:"Arial";} 
+            h1{
+            font-size: 22pt;
+            }
+        p.small 
+            {mso-style-parent:""; 
+            margin:0in; 
+            margin-bottom:.0001pt; 
+            mso-pagination:widow-orphan; 
+            font-size:1.0pt; 
+                mso-bidi-font-size:1.0pt; 
+            font-family:"Arial"; 
+            mso-fareast-font-family:"Arial";} 
+        @page Section1 
+            {size:8.5in 11.0in; 
+            margin:1.0in 1.25in 1.0in 1.25in; 
+            mso-header-margin:.5in; 
+            mso-footer-margin:.5in; 
+            mso-paper-source:0;} 
+        div.Section1 
+            {page:Section1;} 
+        --> 
+        </style> 
+</head>
+         <body>
+       <meta http-equiv=Content-Type content="text/html; charset=utf-8"> ';
+        // iconv('UTF-8', 'WINDOWS-1251', $model->text);
+        echo '<div style="text-align:center;">'.$model->text.'</div>';
+        //echo $model->text;
         echo "</body></html>";
         //exit;
     }

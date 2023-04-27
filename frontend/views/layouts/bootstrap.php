@@ -12,7 +12,6 @@ use yii\bootstrap4\Html;
 use app\components\widgets\AlertWidget;
 
 
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
