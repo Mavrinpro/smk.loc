@@ -17,7 +17,7 @@ if (\Yii::$app->session->hasFlash('success')) {
 $js = <<<JS
 var styleToast = $toast;
     styleToast('Уведомление будет скрыто автоматически.', '$language', {
-        timeOut: 70000,
+        timeOut: 7000,
         closeButton: true,
         progressBar: true,
         positionClass:  "toast-top-full-width",

@@ -7,40 +7,24 @@ use yii\bootstrap4\Modal;
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
 /** @var app\models\Department $page */
+/** @var app\models\Department $branch */
 
-$this->title = $model->name;
+$this->title = $model->name .' ('. $branch->name. ')';
 $this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $branch->name;
 \yii\web\YiiAsset::register($this);
-
 ?>
 <?= Html::a('Создать', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
 <div class="row">
-
-    <div class="col-md-3">
-        <div class="mb-3 card text-white card-body bg-white text-dark">
-            <h5 class="text-dark card-title">w5yw45yw45y</h5>
-            With supporting text below as a natural lead-in to additional content.
-
-            <div class="menu-header-content btn-pane-right mt-3">
-
-                <a href="/department/view/5" class="btn-wide btn-hover-shine btn-pill btn
-                            btn-block
-                            btn-outline-success">Перейти
-                </a>
-
-            </div>
-        </div>
-    </div>
     <?php foreach ($page as $pages) { ?>
     <div class="col-md-3">
         <div class="mb-3 card text-white card-body bg-white text-dark">
-            <h5 class="text-dark card-title">w5yw45yw45y</h5>
+            <h5 class="text-dark card-title"><?= $pages->name ?></h5>
             With supporting text below as a natural lead-in to additional content.
 
             <div class="menu-header-content btn-pane-right mt-3">
 
-                <a href="/department/view/5" class="btn-wide btn-hover-shine btn-pill btn
+                <a href="/page/view/<?= $pages->id;  ?>" class="btn-wide btn-hover-shine btn-pill btn
                             btn-block
                             btn-outline-success">Перейти
                 </a>
@@ -48,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-</div>
-    <?php } ?>
 
+    <?php } ?>
+</div>
 
 
 
