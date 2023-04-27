@@ -10,11 +10,12 @@ use yii\bootstrap4\Modal;
 /** @var app\models\Department $branch */
 
 $this->title = $model->name .' ('. $branch->name. ')';
-$this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $branch->name;
 \yii\web\YiiAsset::register($this);
 ?>
-<?= Html::a('Создать', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<?= Html::a('<i class="fa fa-plus-circle"></i> Создать', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
 <div class="row">
     <?php foreach ($page as $pages) { ?>
     <div class="col-md-3">

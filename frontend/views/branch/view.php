@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Филиалы', 'url' => ['index'
 
 
 <p>
-    <?= Html::a('Создать отдел', ['department/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('<i class="fa fa-plus-circle"></i> Создать отдел', ['department/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 </p>
 <div class="row">
     <?php foreach ($department->department($model->id) as $depart) { ?>
