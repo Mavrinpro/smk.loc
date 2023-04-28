@@ -3,13 +3,13 @@ $(document).ready(function (){
        function(e){
           console.log($(this).is(':checked'));
            if ($(this).is(':checked') == true){
-               toastr.info('We do have the Kapua suite available.', 'Пользователь стал администратором', {
+               toastr.info('Можно редактировать и удалять материалы.', 'Пользователь стал администратором!', {
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true
                })
            }else{
-               toastr.error('available.', 'Turtle Bay', {
+               toastr.error('Редактирование и удаление запрещено.', 'Права администратора отменены!', {
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true
