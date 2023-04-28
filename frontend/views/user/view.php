@@ -38,6 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'verification_token',
         ],
     ]) ?>
-    <input type="checkbox" class="checkbox" id="box"/>
+    <input type="checkbox" class="checkbox" id="box" checked/>
     <label for="box">Администратор</label>
 </div>

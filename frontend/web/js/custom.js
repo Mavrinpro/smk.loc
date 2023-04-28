@@ -1,7 +1,20 @@
 $(document).ready(function (){
    $('#box').change(
        function(e){
-          console.log($(this).is(':checked'))
+          console.log($(this).is(':checked'));
+           if ($(this).is(':checked') == true){
+               toastr.info('We do have the Kapua suite available.', 'Пользователь стал администратором', {
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               })
+           }else{
+               toastr.error('available.', 'Turtle Bay', {
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               })
+           }
        }
    )
 })
