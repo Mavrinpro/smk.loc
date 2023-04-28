@@ -24,8 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<i class="fa fa-print"></i>', ['create-doc', 'id' => $model->id], ['class' => 'btn 
-        btn-secondary', 'title' => 'Распечатать', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) ?>
+        <?= Html::a('<i class="fa fa-download"></i>', ['create-doc', 'id' => $model->id], ['class' => 'btn 
+        btn-light', 'title' => 'Скачать', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) ?>
+
+<!--        --><?//= Html::a('<i class="fa fa-print"></i>', ['#', 'id' => $model->id], ['class' => 'btn
+//        btn-secondary', 'title' => 'Распечатать', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'onclicl'
+//            => 'window.print()']) ?>
+        <a href="#" class="btn btn-secondary" title="Печать" data-toggle="tooltip" id="docprint" onclick="window.print()"><i class="fa
+        fa-print"></i></a>
     </p>
     <div class="mb-3 card">
         <div class="card-body">
@@ -46,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     </a>
                 </li>
             </ul>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+           
             <div class="tab-content">
                 <div class="tab-pane" id="tab-animated-0" role="tabpanel">
                     <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
@@ -78,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //        ],
 //    ]) ?>
     <div class="row">
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3" id="print">
             <?php echo $model->text;  ?>
 
         </div>
