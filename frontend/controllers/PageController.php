@@ -44,7 +44,7 @@ class PageController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'update', 'pdf', 'index', 'create-doc'],
+                            'actions' => [ 'create', 'update', 'pdf', 'index', 'create-doc'],
                             'roles' => ['superadmin', 'moderator'],
                         ],
                     ],
