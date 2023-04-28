@@ -40,7 +40,7 @@ class Department extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название отдела',
             'branch_id' => 'Branch ID',
         ];
     }
