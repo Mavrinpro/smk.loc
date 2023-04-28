@@ -53,11 +53,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </li>
             </ul>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete">
                 Launch demo modal
             </button>
 
-           
+
             <div class="tab-content">
                 <div class="tab-pane" id="tab-animated-0" role="tabpanel">
                     <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen

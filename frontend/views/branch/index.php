@@ -26,7 +26,7 @@ $branch = new app\models\Branch();
                         </div>
                         <div class="widget-content-right">
                             <a href="/branch/view/?id=<?= $branch->id ?>" class="mb-2 mr-2 btn-pill btn
-                            btn-warning">Light</a>
+                            btn-light"><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

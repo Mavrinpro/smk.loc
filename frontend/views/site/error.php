@@ -13,9 +13,11 @@ $this->title = $name;
     <div class="container mt-5">
         <div class="row">
             <div class="site-error col-md-12">
-
+            <?php if ($this->title == 'Forbidden (#403)'){  ?>
+                <h1>Доступ запрещен!</h1>
+            <?php }else{ ?>
                 <h1><?= Html::encode($this->title) ?></h1>
-
+                <?php }?>
                 <div class="alert alert-danger">
                     <?= nl2br(Html::encode($message)) ?>
                 </div>

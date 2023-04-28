@@ -278,7 +278,7 @@ class PageController extends Controller
                 mso-bidi-font-size:8.0pt; 
             font-family:"Arial"; 
             padding: 40pt;
-            text-align: center;
+            text-align: left;
             mso-fareast-font-family:"Arial";} 
             h1{
             font-size: 22pt;
@@ -306,7 +306,7 @@ class PageController extends Controller
          <body>
        <meta http-equiv=Content-Type content="text/html; charset=utf-8"> ';
         // iconv('UTF-8', 'WINDOWS-1251', $model->text);
-        echo '<div style="text-align:center;">'.$model->text.'</div>';
+        echo '<div style="text-align:left;">'.$model->text.'</div>';
         //echo $model->text;
         echo "</body></html>";
         //exit;
