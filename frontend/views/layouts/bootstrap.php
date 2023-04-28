@@ -10,6 +10,7 @@ use yii\bootstrap4\Html;
 //use yii\bootstrap4\Nav;
 //use yii\bootstrap4\NavBar;
 use app\components\widgets\AlertWidget;
+use yii\widgets\Breadcrumbs;
 
 
 AppAsset::register($this);
@@ -336,10 +337,16 @@ AppAsset::register($this);
                         <div class="page-title-icon">
                             <i class="pe-7s-network icon-gradient bg-ripe-malin"></i>
                         </div>
-                        <div><?= Html::encode($this->title) ?>
-                            <div class="page-title-subheading">Examples of just how powerful ArchitectUI really is!
-                            </div>
-                        </div>
+                        <?= Breadcrumbs::widget([
+                            //'homeLink' => ['label' => 'Главная', 'url' => '/'],
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            //'itemTemplate' => "<li>{link}</li>",
+                            'options' => [
+                                'class' => 'custom-breadcrumbs'
+                            ]
+                        ])
+
+                        ?>
                     </div>
 
                     <div class="page-title-actions">
@@ -389,7 +396,6 @@ AppAsset::register($this);
             </div>
             <?= AlertWidget::widget() ?>
 <?= $content ?>
-
 
         </div>
         <div class="app-wrapper-footer">

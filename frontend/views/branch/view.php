@@ -11,7 +11,7 @@ $department = new app\models\Department();
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Филиалы', 'url' => ['index']];
-
+$this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
 

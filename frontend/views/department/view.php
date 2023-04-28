@@ -7,11 +7,11 @@ use yii\bootstrap4\Modal;
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
 /** @var app\models\Department $page */
-/** @var app\models\Department $branch */
 
-$this->title = $model->name .' ('. $branch->name. ')';
-$this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $branch->name;
+
+ $this->title = $model->name;
+ $this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
 <?= Html::a('<i class="fa fa-plus-circle"></i> Создать', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
@@ -29,8 +29,13 @@ $this->params['breadcrumbs'][] = $branch->name;
                             btn-inline-block
                             btn-outline-success">Перейти
                 </a>
+                <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/update', 'id' => $pages->id], [
+                    'class' => 'btn-wide btn-hover-shine btn-pill btn
+                            btn-inline-block
+                            btn-outline-warning',
+                ]) ?>
 
-                <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
+                <?= Html::a('<i class="fa fa-trash"></i>', ['page/delete', 'id' => $pages->id], [
                     'class' => 'btn-wide btn-hover-shine btn-pill btn
                             btn-inline-block
                             btn-outline-danger',
