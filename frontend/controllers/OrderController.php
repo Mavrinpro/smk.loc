@@ -131,4 +131,26 @@ class OrderController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionLists($id)
+    {
+        //echo "<pre>";print_r($id);die;
+        $countPosts = \app\models\Department::find()
+            ->where(['branch_id' => $id])
+            ->count();
+
+        $posts = \app\models\Department::find()
+            ->where(['branch_id' => $id])
+            ->orderBy('id DESC')
+            ->all();
+
+        if ($countPosts > 0) {
+            foreach ($posts as $post) {
+
+                echo "<option value='" . $post->id . "'>" . $post->name . "</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
 }

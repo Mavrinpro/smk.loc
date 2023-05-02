@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\History;
 
 /** @var yii\web\View $this */
 /** @var app\models\Page $model */
@@ -62,28 +63,28 @@ $this->params['breadcrumbs'][] = $this->title;
             </button>
 
 
-            <div class="tab-content">
-                <div class="tab-pane" id="tab-animated-0" role="tabpanel">
-                    <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
-                        an unknown printer took a galley of type and scrambled it to make a type specimen
-                        book.
-                        It has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially unchanged. </p>
-                </div>
-                <div class="tab-pane active" id="tab-animated-1" role="tabpanel">
-                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                        unknown
-                        printer took a galley of type and scrambled it to make a type specimen book. It has survived not
-                        only five centuries, but also the leap into electronic typesetting, remaining essentially
-                        unchanged. </p>
-                </div>
-                <div class="tab-pane" id="tab-animated-2" role="tabpanel">
-                    <p class="mb-0">It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                        Ipsum passages, and more recently with desktop publishing software like Aldus
-                        PageMaker including versions of Lorem Ipsum.</p>
-                </div>
-            </div>
+            <!--            <div class="tab-content">-->
+            <!--                <div class="tab-pane" id="tab-animated-0" role="tabpanel">-->
+            <!--                    <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when-->
+            <!--                        an unknown printer took a galley of type and scrambled it to make a type specimen-->
+            <!--                        book.-->
+            <!--                        It has survived not only five centuries, but also the leap into electronic typesetting,-->
+            <!--                        remaining essentially unchanged. </p>-->
+            <!--                </div>-->
+            <!--                <div class="tab-pane active" id="tab-animated-1" role="tabpanel">-->
+            <!--                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem-->
+            <!--                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an-->
+            <!--                        unknown-->
+            <!--                        printer took a galley of type and scrambled it to make a type specimen book. It has survived not-->
+            <!--                        only five centuries, but also the leap into electronic typesetting, remaining essentially-->
+            <!--                        unchanged. </p>-->
+            <!--                </div>-->
+            <!--                <div class="tab-pane" id="tab-animated-2" role="tabpanel">-->
+            <!--                    <p class="mb-0">It was popularised in the 1960s with the release of Letraset sheets containing Lorem-->
+            <!--                        Ipsum passages, and more recently with desktop publishing software like Aldus-->
+            <!--                        PageMaker including versions of Lorem Ipsum.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </div>
 
@@ -101,8 +102,34 @@ $this->params['breadcrumbs'][] = $this->title;
     //    ]) ?>
     <div class="row">
         <div class="col-12 mb-3" id="print">
-            <?php echo $model->text; ?>
 
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">История</h5>
+                    <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                        <?php foreach ($history as $his) { ?>
+                            <div class="vertical-timeline-item vertical-timeline-element">
+                                <div>
+<span class="vertical-timeline-element-icon bounce-in">
+<i class="badge badge-dot badge-dot-xl badge-success"> </i>
+</span>
+                                    <div class="vertical-timeline-element-content bounce-in">
+                                        <h4 class="timeline-title"><?php $user = common\models\User::find()->where(['id' =>
+                                                $his->user_id_update])->one();
+                                            echo $user->username;
+                                            ?></h4>
+                                        <p><span><b>
+                                                <?= date('d.m.Y H:i', $his->update_at)
+                                                ?></b> Изменение документа
+
+                                        </p></span>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

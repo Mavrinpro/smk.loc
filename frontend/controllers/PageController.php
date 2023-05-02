@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\User;
 use app\models\Page;
+use app\models\History;
 use app\models\PageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -105,6 +106,9 @@ class PageController extends Controller
      */
     public function actionView($id)
     {
+        $find = $this->findModel($id);
+        $history = History::find()->where(['document_id' => $id, 'department_id' =>$find->department_id])->all();
+        //$history->historiGet($id);
 
         //        header("Content-type: application/vnd.ms-word");
         //        header("Content-Disposition: attachment;Filename=".rand().".doc");
@@ -157,6 +161,7 @@ class PageController extends Controller
         //        // Привязываем роль пользователя к идентификатору Сидорова.
         //\Yii::$app->authManager->assign($roleUser, $sidorov->getId());
         return $this->render('view', [
+            'history' => $history,
             'model' => $this->findModel($id),
         ]);
     }
@@ -172,6 +177,9 @@ class PageController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $history = new History();
+                $history->historyDoc($model->user_id_create, $model->department_id, $model->create_at,
+                    $model->update_at, $model->id, $model->user_id_update);
                 \Yii::$app->session->setFlash('success', 'Запись ' . $model->name . ' успешно создана.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -196,6 +204,9 @@ class PageController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $history = new History();
+            $history->historyDoc($model->user_id_create, $model->department_id, $model->create_at, 
+                time(), $model->id, $model->user_id_update);
             \Yii::$app->session->setFlash('success', 'Запись <b>' . $model->name . '</b> успешно обновлена.');
             return $this->redirect(['view', 'id' => $model->id]);
         }

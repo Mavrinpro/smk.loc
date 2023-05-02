@@ -54,4 +54,24 @@ class History extends \yii\db\ActiveRecord
             'action' => 'Action',
         ];
     }
+
+    public function historyDoc($user_id, $department_id, $create_at, $update_at, $document_id, $user_id_update,
+                               $action = null)
+    {
+        $history = new History();
+
+        $history->document_id = $document_id;
+        $history->department_id = $department_id;
+        $history->user_id = $user_id;
+        $history->create_at = $create_at;
+        $history->update_at = $update_at;
+        $history->user_id_update = $user_id_update;
+        $history->save();
+
+    }
+
+    public function historiGet($id)
+    {
+        return $this::find()->where(['document_id' => $id])->all();
+    }
 }

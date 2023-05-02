@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap4\ActiveForm;
 use vova07\imperavi\Widget;
+use frontend\models\Branch;
+use frontend\models\Department;
 
 /** @var yii\web\View $this */
 /** @var app\models\Orders $model */
@@ -77,5 +80,32 @@ use vova07\imperavi\Widget;
     <?php } ?>
 
     <?php ActiveForm::end(); ?>
+
+    <?php
+//    $dataCountry=ArrayHelper::map(\app\models\Branch::find()->
+//    asArray()->all(),'id', 'name');
+//    $form = ActiveForm::begin();
+//    echo $form->field($model, 'branch_id')->dropDownList($dataCountry,
+//        ['prompt'=>'Выберите филиал клиники',
+//            'class'=>'form-control',
+//            'onchange'=>'
+//             $.post("'.Yii::$app->urlManager->createUrl('order/lists?id=').
+//                '"+$(this).val(),function( data )
+//                   {
+//                              $( "select#name" ).html( data );
+//                            });
+//                        ']);
+//
+//    $dataPost=ArrayHelper::map(\app\models\Department::find()->
+//    asArray()->all(), 'id', 'name');
+//    echo $form->field($model, 'department_id')
+//        ->dropDownList(
+//            $dataPost,
+//            ['id'=>'name',
+//                'class'=>'form-control'
+//            ]
+//        );
+//    ActiveForm::end();
+    ?>
 
 </div>
