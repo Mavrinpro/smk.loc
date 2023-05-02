@@ -27,7 +27,7 @@ AppAsset::register($this);
 </head>
 <body class="d-flex flex-column h-100">
 
-<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar fixed-footer">
 <?= $this->render('nav-menu')?>
     <div class="ui-theme-settings">
         <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
