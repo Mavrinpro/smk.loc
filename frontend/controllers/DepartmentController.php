@@ -6,6 +6,7 @@ use app\models\Department;
 use app\models\Page;
 use app\models\Branch;
 use frontend\models\DepartmentSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,22 @@ class DepartmentController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc'],
+                            'roles' => ['superadmin', 'moderator'],
+                        ],
                     ],
                 ],
             ]
