@@ -12,7 +12,7 @@ class m230502_094027_add extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%text}}', 'orders', $this->text());
+        $this->addColumn('{{%orders}}', 'text', $this->text());
     }
 
     /**
