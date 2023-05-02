@@ -17,6 +17,32 @@ $this->params['breadcrumbs'][] = $model->name;
 <?= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
 <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
 <div class="row">
+    <div class="col-md-12 mb-5">
+        <div class="grid-menu grid-menu-4col">
+            <div class="no-gutters row">
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-primary">
+                        <i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
+                        <i class="lnr-license btn-icon-wrapper"> </i>Приказы
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-success">
+                        <i class="lnr-paperclip btn-icon-wrapper"> </i>Документированная процедура
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
+                        <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php foreach ($page as $pages) { ?>
     <div class="col-md-3">
         <div class="mb-3 card text-white card-body bg-white text-dark">
