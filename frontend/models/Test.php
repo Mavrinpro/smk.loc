@@ -32,7 +32,7 @@ class Test extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'create_at', 'update_at', 'action'], 'integer'],
-            [['result'], 'string', 'max' => 255],
+            [['result', 'name'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +44,7 @@ class Test extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
+            'name' => 'Название',
             'result' => 'Result',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
