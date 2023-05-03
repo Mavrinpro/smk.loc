@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\User;
 use app\models\Page;
+use app\models\Test;
 use app\models\History;
 use app\models\PageSearch;
 use yii\web\Controller;
@@ -321,5 +322,28 @@ class PageController extends Controller
         //echo $model->text;
         echo "</body></html>";
         //exit;
+    }
+
+
+    public function actionFormBuilder()
+    {
+        $res = \Yii::$app->request->post();
+        //$response = \Yii::$app->response;
+        //$response->format = \yii\web\Response::FORMAT_JSON;
+        //var_dump($res); die;
+        $test = new Test();
+
+//        if ($this->request->isPost) {
+//            $test->result = serialize($res);
+//            $test->user_id = 1;
+//            $test->save();
+//            var_dump(serialize($test->result));
+//        }
+
+        $test = '<div class="group-nput d-flex mt-3 col-md-6"><input type="text" class="form-control mr-3" name="answer" placeholder="Вариант ответа"><button class="btn btn-danger btn-sm mint mt-2"><i class="fa fa-minus"></i></button></div>';
+
+        return $test;
+        //
+
     }
 }
