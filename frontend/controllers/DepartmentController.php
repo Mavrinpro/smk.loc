@@ -30,22 +30,22 @@ class DepartmentController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-                'access' => [
-                    'class' => AccessControl::class,
-
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['view'],
-                            'roles' => ['view_manager'],
-                        ],
-                        [
-                            'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc'],
-                            'roles' => ['superadmin', 'moderator'],
-                        ],
-                    ],
-                ],
+//                'access' => [
+//                    'class' => AccessControl::class,
+//
+//                    'rules' => [
+//                        [
+//                            'allow' => true,
+//                            'actions' => ['view'],
+//                            'roles' => ['view_manager'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc'],
+//                            'roles' => ['superadmin', 'moderator'],
+//                        ],
+//                    ],
+//                ],
             ]
         );
     }

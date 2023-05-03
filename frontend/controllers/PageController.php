@@ -34,22 +34,22 @@ class PageController extends Controller
 
                 ],
 
-                'access' => [
-                    'class' => AccessControl::class,
-
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['view'],
-                            'roles' => ['view_manager'],
-                        ],
-                        [
-                            'allow' => true,
-                            'actions' => ['view', 'create', 'update', 'pdf', 'index', 'create-doc'],
-                            'roles' => ['superadmin', 'moderator'],
-                        ],
-                    ],
-                ],
+//                'access' => [
+//                    'class' => AccessControl::class,
+//
+//                    'rules' => [
+//                        [
+//                            'allow' => true,
+//                            'actions' => ['view', 'index'],
+//                            'roles' => ['*'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions' => ['view', 'create', 'update', 'pdf', 'index', 'create-doc'],
+//                            'roles' => ['superadmin', '*'],
+//                        ],
+//                    ],
+//                ],
 
             ]
         );

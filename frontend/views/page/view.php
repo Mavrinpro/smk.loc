@@ -11,6 +11,8 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+$userHasRoleName = \Yii::$app->user->can('superadmin');
+var_dump($userHasRoleName);
 ?>
 <div class="page-view">
 
@@ -18,13 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if (!$userHasRoleName): ?>
         <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+        ?>
+        <?php endif; ?>
         <?= Html::a('<i class="fa fa-download"></i>', ['create-doc', 'id' => $model->id], ['class' => 'btn 
         btn-light', 'title' => 'Скачать', 'data-toggle' => 'tooltip', 'data-placement' => 'top']) ?>
 
@@ -102,7 +107,8 @@ $this->params['breadcrumbs'][] = $this->title;
     //    ]) ?>
     <div class="row">
         <div class="col-12 mb-3" id="print">
-
+            <?=$model->text
+            ?>
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">История</h5>
