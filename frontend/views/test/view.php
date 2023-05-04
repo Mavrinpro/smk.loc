@@ -63,16 +63,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="widget-content-left">
                                     <div class="widget-heading ml-2" data-toggle="collapse"
                                          data-target="#collapseOne<?= $i ?>" aria-expanded="false"
-                                         aria-controls="collapseThree"><?= $i.'. '.$quest->name ?></div>
+                                         aria-controls="collapseThree"><?= $i . '. ' . $quest->name ?></div>
                                     <div class="widget-subheading ml-2">
                                         <div>
                                             <?= $model->name ?>
-                                            <div data-parent="#accordion" id="collapseOne<?= $i ?>" class="collapse show"
+                                            <div data-parent="#accordion" id="collapseOne<?= $i ?>"
+                                                 class="collapse show"
                                                  style="">
                                                 <div class="card-body">
                                                     <?php foreach ($answer as $ans) { ?>
-<!--                                                        <p class="text-dark">--><?//= $ans->name ?><!--</p>-->
-                                                    <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                                                        <!--                                                        <p class="text-dark">--><? //= $ans->name ?><!--</p>-->
+                                                        <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
 
                                                             <div class="vertical-timeline-item vertical-timeline-element">
                                                                 <div>
@@ -80,11 +81,28 @@ $this->params['breadcrumbs'][] = $this->title;
 <i class="badge badge-dot badge-dot-xl badge-success"> </i>
 </span>
                                                                     <div class="vertical-timeline-element-content bounce-in">
-                                                                        <h4 class="timeline-title"><?= $ans->name ?></h4>
-                                                                                                                                            </div>
+
+                                                                        <h4 class="timeline-title">
+                                                                            <?php if ($ans->right ==  true): ?>
+                                                                                <input type="checkbox" class="checkbox"
+                                                                                       id="box<?= $ans->id
+                                                                                       ?>" checked="">
+                                                                                <label for="box<?= $ans->id
+                                                                                ?>"><?= $ans->name ?></label>
+                                                                            <?php else: ?>
+                                                            <input type="checkbox" class="checkbox"
+                                                                   id="box<?= $ans->id
+                                                                   ?>">
+                                                            <label for="box<?= $ans->id
+                                                            ?>">
+                                                                <?php endif; ?>
+                                                                <?= $ans->name
+                                                                ?></label>
+                                                                        </h4>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                    </div>
+                                                        </div>
                                                     <?php } ?>
                                                 </div>
                                             </div>
