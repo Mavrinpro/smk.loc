@@ -77,6 +77,75 @@ $this->params['breadcrumbs'][] = $model->name;
 
     <?php } ?>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="drawer-section p-0">
+            <div class="files-box">
+                <ul class="list-group list-group-flush">
+                    <?php foreach ($page as $pages) { ?>
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-success"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left  fsize-2 mr-3 text-primary center-elem">
+                                        <i class="fa fa-file-alt"></i>
+                                    </div>
+                                    <div class="widget-content-left flex2">
+                                        <div class="widget-heading"><a href="/page/view/<?= $pages->id;  ?>" class="widget-heading font-weight-normal"><?= $pages->name ?></a></div>
+                                    </div>
+<!--                                    <div class="widget-content-right">-->
+<!--                                        <div class="badge badge-warning mr-2">69</div>-->
+<!--                                    </div>-->
+                                    <div class="widget-content-right">
+<!--                                        --><?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/view', 'id' => $pages->id], [
+//                                            'class' => 'border-0 btn-transition btn btn-outline-warning',
+//                                        ]) ?>
+<!--                                        --><?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/update', 'id' => $pages->id], [
+//                                            'class' => 'border-0 btn-transition btn btn-outline-warning',
+//                                        ]) ?>
+                                        <div class="d-inline-block dropdown">
+                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link">
+                                                            <i class="nav-link-icon lnr-pointer-right"></i>
+                                                            <span> Передать</span>
+                                                            <!--                                            <div class="ml-auto badge badge-pill badge-secondary">86</div>-->
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" onclick="window.print()">
+                                                            <i class="nav-link-icon lnr-printer"></i>
+                                                            <span> Печать</span>
+                                                            <!--                                            <div class="ml-auto badge badge-pill badge-danger">5</div>-->
+                                                        </a>
+                                                    </li>
+                                                    <?= Html::a('<i class="nav-link-icon lnr-download"></i> <span> Скачать</span>', ['page/create-doc', 'id' => $model->id], ['class' => 'nav-link', 'title' => 'Скачать']) ?>
+                                                    <li class="nav-item">
+                                                        <a disabled="" data-toggle="modal" data-target="#modalDelete" class="nav-link">
+                                                            <i class="nav-link-icon lnr-trash"></i>
+                                                            <span> Удалить</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+<!--                                        <button class="border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete">-->
+<!--                                            <i class="fa fa-trash-alt"></i>-->
+<!--                                        </button>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

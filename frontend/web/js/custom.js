@@ -1,15 +1,16 @@
 $(document).ready(function (){
-   $('#box').change(
+
+   $("input[id^='customSwitch-']").change(
        function(e){
           console.log($(this).is(':checked'));
            if ($(this).is(':checked') == true){
-               toastr.info('Можно редактировать и удалять материалы.', 'Пользователь стал администратором!', {
+               toastr.info($(this).is(':checked')+' - '+$(this).attr('data-id')+' Можно редактировать и удалять материалы.', 'Пользователь стал администратором!', {
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true
                })
            }else{
-               toastr.error('Редактирование и удаление запрещено.', 'Права администратора отменены!', {
+               toastr.error($(this).is(':checked')+' - '+$(this).attr('data-id')+' Редактирование и удаление запрещено.', 'Права администратора отменены!', {
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true

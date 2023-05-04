@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var app\models\Test $model */
@@ -83,21 +82,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     <div class="vertical-timeline-element-content bounce-in">
 
                                                                         <h4 class="timeline-title">
-                                                                            <?php if ($ans->right ==  true): ?>
+                                                                            <?php if ($ans->right == true): ?>
+                                                                                <div class="custom-control custom-switch">
+                                                                                    <input type="checkbox"
+                                                                                           class="custom-control-input"
+                                                                                           id="customSwitch-<?= $ans->id
+                                                                                           ?>" data-id="<?= $ans->id
+                                                                                    ?>">
+                                                                                    <label class="custom-control-label"
+                                                                                           for="customSwitch-<?= $ans->id
+                                                                                           ?>"><?= $ans->name ?></label>
+                                                                                </div>
                                                                                 <input type="checkbox" class="checkbox"
                                                                                        id="box<?= $ans->id
                                                                                        ?>" checked="">
                                                                                 <label for="box<?= $ans->id
                                                                                 ?>"><?= $ans->name ?></label>
                                                                             <?php else: ?>
-                                                            <input type="checkbox" class="checkbox"
-                                                                   id="box<?= $ans->id
-                                                                   ?>">
-                                                            <label for="box<?= $ans->id
-                                                            ?>">
-                                                                <?php endif; ?>
-                                                                <?= $ans->name
-                                                                ?></label>
+                                                                                <div class="custom-control custom-switch">
+                                                                                    <input type="checkbox"
+                                                                                           class="custom-control-input"
+                                                                                           id="customSwitch-<?= $ans->id
+                                                                                           ?>" data-id="<?= $ans->id
+                                                                                    ?>">
+                                                                                    <label class="custom-control-label"
+                                                                                           for="customSwitch-<?= $ans->id
+                                                                                           ?>"><?= $ans->name ?></label>
+                                                                                </div>
+                                                                            <?php endif; ?>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
