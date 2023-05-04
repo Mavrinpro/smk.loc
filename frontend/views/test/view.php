@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreateQuestion"><i
                     class="fa fa-plus-circle"></i> Добавить вопрос
         </button>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('<i class="fas fa-trash-alt"></i>', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="widget-content-left">
                                     <div class="widget-heading ml-2" data-toggle="collapse"
                                          data-target="#collapseOne<?= $i ?>" aria-expanded="false"
-                                         aria-controls="collapseThree"><?= $quest->name ?></div>
+                                         aria-controls="collapseThree"><?= $i.'. '.$quest->name ?></div>
                                     <div class="widget-subheading ml-2">
                                         <div>
                                             <?= $model->name ?>
