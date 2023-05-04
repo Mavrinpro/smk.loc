@@ -2,16 +2,16 @@
 
 namespace frontend\controllers;
 
-use app\models\Test;
-use app\models\TestSearch;
+use app\models\Question;
+use app\models\QuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TestController implements the CRUD actions for Test model.
+ * QuestionController implements the CRUD actions for Question model.
  */
-class TestController extends Controller
+class QuestionController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class TestController extends Controller
     }
 
     /**
-     * Lists all Test models.
+     * Lists all Question models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new TestSearch();
+        $searchModel = new QuestionSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,36 +48,31 @@ class TestController extends Controller
     }
 
     /**
-     * Displays a single Test model.
+     * Displays a single Question model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $question = \app\models\Question::find()->where(['test_id' => $id])->all();
-        $answer = \app\models\Answer::find()->where(['test_id' => $id])->andWhere(['question_id' => $question->id])
-            ->all();
-        //var_dump($answer); die;
         return $this->render('view', [
-            'question' => $question,
-            //'answer' => $answer,
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Test model.
+     * Creates a new Question model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Test();
-
+        $model = new Question();
+        $id = \Yii::$app->request->get('id');
         if ($this->request->isPost) {
+            //var_dump(\Yii::$app->request); die;
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['test/view', 'id' => $model->test_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -89,7 +84,7 @@ class TestController extends Controller
     }
 
     /**
-     * Updates an existing Test model.
+     * Updates an existing Question model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -100,7 +95,7 @@ class TestController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['test/view', 'id' => $model->test_id]);
         }
 
         return $this->render('update', [
@@ -109,7 +104,7 @@ class TestController extends Controller
     }
 
     /**
-     * Deletes an existing Test model.
+     * Deletes an existing Question model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -123,31 +118,18 @@ class TestController extends Controller
     }
 
     /**
-     * Finds the Test model based on its primary key value.
+     * Finds the Question model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Test the loaded model
+     * @return Question the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Test::findOne(['id' => $id])) !== null) {
+        if (($model = Question::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    // Удаление вопросов вместе с вариантами ответов
-    public function actionDeleteQuestion($id)
-    {
-
-        $question = \app\models\Question::findOne(['id' => $id]);
-        $answer = \app\models\Answer::find()->where(['question_id' =>$id])->all();
-        foreach ($answer as $ans) {
-            $ans->delete();
-        }
-        $question->delete();
-        return $this->redirect(['test/view', 'id' => $question->test_id]);
     }
 }

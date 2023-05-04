@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use yii\bootstrap4\ActiveForm;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 //use yii\bootstrap4\Breadcrumbs;
@@ -11,7 +12,8 @@ use yii\bootstrap4\Html;
 //use yii\bootstrap4\NavBar;
 use app\components\widgets\AlertWidget;
 use yii\widgets\Breadcrumbs;
-
+$question = new app\models\Question();
+$answer = new app\models\Answer();
 
 AppAsset::register($this);
 ?>
@@ -1559,35 +1561,87 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
-<?php $this->endBody() ?>
-<!-- Modal -->
-<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="modalCreateQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Удалить запис № <?= \Yii::$app->request->get('id')
-                    ?></h5>
+                <h5 class="modal-title" id="exampleModalLabel">Добавить вопрос</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                    unknown printer took a galley of type and scrambled.</p>
+                <?php $form = ActiveForm::begin(['action' => '/question/create']); ?>
+
+                <?= $form->field($question, 'name')->textInput(['maxlength' => true]) ?>
+
+                <?= $form->field($question, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label
+                (false) ?>
+
+                <?= $form->field($question, 'test_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
+                (false) ?>
+
+                <?= $form->field($question, 'create_at')->hiddenInput(['value' => time()])->label(false) ?>
+
+                <?= $form->field($question, 'update_at')->hiddenInput(['value' => time()])->label(false) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => \Yii::$app->request->get('id')], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalCreateAnswer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить вариант ответа</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php $form = ActiveForm::begin(['action' => '/answer/create']); ?>
+
+                <?= $form->field($answer, 'name')->textInput(['maxlength' => true]) ?>
+
+                <?= $form->field($answer, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label
+                (false) ?>
+
+                <?= $form->field($answer, 'test_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
+                (false) ?>
+                <?= $form->field($answer, 'question_id')->hiddenInput(['value' => $question->id])
+                    ->label
+                (false) ?>
+
+                <?= $form->field($answer, 'create_at')->hiddenInput(['value' => time()])->label(false) ?>
+
+                <?= $form->field($answer, 'update_at')->hiddenInput(['value' => time()])->label(false) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->endBody() ?>
+<!-- Modal delete -->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<!--     Modal create question-->
+
 </body>
 </html>
 <?php $this->endPage();
