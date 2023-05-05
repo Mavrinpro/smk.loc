@@ -12,14 +12,20 @@
                 <div class="widget-content-left">
                     <?php if ($model->status == 10){ ?>
                     <div class="widget-heading text-success"><?= $model->username ?></div>
+                        <div class="widget-subheading">
+                            <div>Активный
+
+                            </div>
+                        </div>
                     <?php }else{ ?>
                     <div class="widget-heading text-danger"><?= $model->username ?></div>
-                    <?php } ?>
-                    <div class="widget-subheading">
-                        <div>By Johnny
-                            <div class="badge badge-pill badge-info ml-2">NEW</div>
+                        <div class="widget-subheading">
+                            <div>Не активный
+
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
+
                 </div>
                 <div class="widget-content-right widget-content-actions">
                     <div class="d-inline-block dropdown">
@@ -30,8 +36,7 @@
                             <h6 tabindex="-1" class="dropdown-header">Header</h6>
                             <button type="button" disabled="" tabindex="-1" class="disabled dropdown-item">Action</button>
                             <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
-                            <div tabindex="-1" class="dropdown-divider"></div>
-                            <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
+                            <button type="button" tabindex="0" class="dropdown-item">Удалить</button>
                         </div>
                     </div>
                 </div>
