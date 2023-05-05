@@ -20,7 +20,7 @@ class m230504_073251_answer extends Migration
             'question_id' => $this->integer(),
             'create_at' => $this->integer(),
             'update_at' => $this->integer(),
-            'right' => $this->boolean(),
+            'answer_right' => $this->boolean(),
         ]);
     }
 
