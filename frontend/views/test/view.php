@@ -143,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div id="timer"></div>
         </div>
     </div>
-    <div id="regi">Registration closes in <span id="time">05:00</span> minutes!</div>
+    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>
 </div>
 <?php
 $js = <<<JS
@@ -218,8 +218,8 @@ if ($(this).is(':checked') == true){
 //         display = document.querySelector('#time');
 //     startTimer(fiveMinutes, display);
 // });
-  
-initTimer(5, "timer", function () { 
+  $('#regi').click(function () {
+initTimer(60, "timer", function () { 
 this.innerHTML = 0;
 toastr.error('', 'Время теста истекло', {
                    timeOut: 15000,
@@ -227,13 +227,19 @@ toastr.error('', 'Время теста истекло', {
                    progressBar: true
                })
 }); 
+});
 
  
 function initTimer(time, id, callback) { 
-var timer = document.getElementById(id); 
+
 setTimeout(function () { 
+     var minutes = parseInt(time-- / 60);
+     var seconds = parseInt(time-- % 60, 0);
+     if (seconds < 10) {
+    seconds = '0'+seconds;
+  }
 if (time > 0) { 
-timer.innerHTML = time--; 
+timer.innerHTML = minutes+":"+seconds; 
 setTimeout(arguments.callee, 1000); 
 } 
 else { 
