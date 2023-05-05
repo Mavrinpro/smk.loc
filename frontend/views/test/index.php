@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var app\models\TestSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Tests';
+$this->title = 'Тесты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="test-index">

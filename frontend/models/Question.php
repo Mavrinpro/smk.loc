@@ -33,6 +33,7 @@ class Question extends \yii\db\ActiveRecord
         return [
             [['user_id', 'test_id', 'create_at', 'update_at', 'right'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['name'], 'required'],
         ];
     }
 
@@ -43,7 +44,7 @@ class Question extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Вопрос',
             'user_id' => 'User ID',
             'test_id' => 'Test ID',
             'create_at' => 'Create At',

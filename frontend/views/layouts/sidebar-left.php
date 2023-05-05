@@ -190,16 +190,16 @@ $branch = new app\models\Branch();
                         <i class="metismenu-icon pe-7s-graph2"></i>Все тесты
                     </a>
                 </li>
-                <li>
-                    <a href="charts-apexcharts.html">
-                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts
-                    </a>
-                </li>
-                <li>
-                    <a href="charts-sparklines.html">
-                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="charts-apexcharts.html">-->
+<!--                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="charts-sparklines.html">-->
+<!--                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li class="app-sidebar__heading">UI Components</li>
                 <li>
                     <a href="#">
