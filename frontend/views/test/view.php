@@ -140,8 +140,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 <?php } ?>
             </ul>
+            <div id="timer"></div>
         </div>
     </div>
+    <div id="regi">Registration closes in <span id="time">05:00</span> minutes!</div>
 </div>
 <?php
 $js = <<<JS
@@ -191,6 +193,55 @@ if ($(this).is(':checked') == true){
         })
 });
 })
+
+//Timer
+// function startTimer(duration, display) {
+//     var timer = duration, minutes, seconds;
+//     setInterval(function () {
+//         minutes = parseInt(timer / 60, 10);
+//         seconds = parseInt(timer % 60, 10);
+//
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
+//
+//         display.textContent = minutes + ":" + seconds;
+//       
+//
+//         if (--timer < 0) {
+//             timer = duration;
+//         }
+//     }, 1000);
+// }
+
+// $('#regi').click(function () {
+//     var fiveMinutes = 1 * 2,
+//         display = document.querySelector('#time');
+//     startTimer(fiveMinutes, display);
+// });
+  
+initTimer(5, "timer", function () { 
+this.innerHTML = 0;
+toastr.error('', 'Время теста истекло', {
+                   timeOut: 15000,
+                   closeButton: true,
+                   progressBar: true
+               })
+}); 
+
+ 
+function initTimer(time, id, callback) { 
+var timer = document.getElementById(id); 
+setTimeout(function () { 
+if (time > 0) { 
+timer.innerHTML = time--; 
+setTimeout(arguments.callee, 1000); 
+} 
+else { 
+callback.call(timer); 
+} 
+}, 0); 
+} 
+
 
 JS;
 

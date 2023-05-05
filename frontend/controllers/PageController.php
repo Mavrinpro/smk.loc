@@ -265,6 +265,20 @@ class PageController extends Controller
         xmlns="http://www.w3.org/TR/REC-html40">
          <head>
          <style> 
+         .Section1
+            {
+            size:841.9pt 595.3pt; /* Размер бумаги */
+            mso-page-orientation:landscape; /* Ориентация*/
+            margin:3.0cm 2.0cm 42.5pt 2.0cm; /* Отступы*/
+            mso-header-margin:35.4pt; /* Расположение верхнего колонтитула */
+            mso-footer-margin:35.4pt; /* Расположение нижнего колонтитула */
+            mso-paper-source:0; /* Источникбумаги*/
+            text-align: right;
+            color: #ccc;
+           
+}
+div.Section1
+            {page:Section1;}
         <!-- 
          /* Font Definitions */ 
         @font-face 

@@ -1,25 +1,25 @@
 $(document).ready(function (){
 
-   $("input[id^='customSwitch-']").change(
-       function(e){
-          console.log($(this).is(':checked'));
-           if ($(this).is(':checked') == true){
-               toastr.info($(this).is(':checked')+' - '+$(this).attr('data-id')+' Да.', ' ' +
-                   ' администратором!', {
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               })
-           }else{
-               toastr.error($(this).is(':checked')+' - '+$(this).attr('data-id')+' Нет', ' ' +
-                   ' отменены!', {
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               })
-           }
-       }
-   )
+   // $("input[id^='customSwitch-']").change(
+   //     function(e){
+   //        console.log($(this).is(':checked'));
+   //         if ($(this).is(':checked') == true){
+   //             toastr.info($(this).is(':checked')+' - '+$(this).attr('data-id')+' Да.', ' ' +
+   //                 ' администратором!', {
+   //                 timeOut: 5000,
+   //                 closeButton: true,
+   //                 progressBar: true
+   //             })
+   //         }else{
+   //             toastr.error($(this).is(':checked')+' - '+$(this).attr('data-id')+' Нет', ' ' +
+   //                 ' отменены!', {
+   //                 timeOut: 5000,
+   //                 closeButton: true,
+   //                 progressBar: true
+   //             })
+   //         }
+   //     }
+   // )
 })
 
 $("#TooltipDemo").click(function() {
