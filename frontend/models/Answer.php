@@ -14,7 +14,7 @@ use Yii;
  * @property int|null $question_id
  * @property int|null $create_at
  * @property int|null $update_at
- * @property int|null $right
+ * @property int|null $answer_right
  */
 class Answer extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class Answer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'test_id', 'question_id', 'create_at', 'update_at', 'right'], 'integer'],
+            [['user_id', 'test_id', 'question_id', 'create_at', 'update_at', 'answer_right'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -50,7 +50,7 @@ class Answer extends \yii\db\ActiveRecord
             'question_id' => 'Question ID',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
-            'right' => 'Right',
+            'answer_right' => 'Right',
         ];
     }
 }

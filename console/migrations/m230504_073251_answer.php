@@ -29,7 +29,7 @@ class m230504_073251_answer extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('answer');
+        $this->renameColumn('answer', 'right', 'answer_right');
     }
 
     /*

@@ -107,6 +107,7 @@ class PageController extends Controller
      */
     public function actionView($id)
     {
+        //\Yii::$app->db->schema->refresh();
         $find = $this->findModel($id);
         $history = History::find()->where(['document_id' => $id, 'department_id' =>$find->department_id])->all();
         //$history->historiGet($id);
@@ -327,22 +328,28 @@ class PageController extends Controller
 
     public function actionFormBuilder()
     {
-        $res = \Yii::$app->request->post();
-        //$response = \Yii::$app->response;
-        //$response->format = \yii\web\Response::FORMAT_JSON;
-        //var_dump($res); die;
-        $test = new Test();
+        $post = \Yii::$app->request->post();
+        $idQuestion = $post['id'];
+        $rightQuestion = $post['right'];
 
-//        if ($this->request->isPost) {
-//            $test->result = serialize($res);
-//            $test->user_id = 1;
-//            $test->save();
-//            var_dump(serialize($test->result));
-//        }
 
-        $test = '<div class="group-nput d-flex mt-3 col-md-6"><input type="text" class="form-control mr-3" name="answer" placeholder="Вариант ответа"><button class="btn btn-danger btn-sm mint mt-2"><i class="fa fa-minus"></i></button></div>';
 
-        return $test;
+
+        $answer = \app\models\Answer::find()->where(['id' => $idQuestion])->one();
+        if(\Yii::$app->request->isAjax){
+            if ($rightQuestion === 'true'){
+                $right = 1;
+            }else {
+                $right = 0;
+            }
+            $answer->answer_right = $right;
+            $answer->update();
+            return $answer->name;
+        }
+
+
+
+
         //
 
     }

@@ -82,22 +82,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                     <div class="vertical-timeline-element-content bounce-in">
 
                                                                         <h4 class="timeline-title">
-                                                                            <?php if ($ans->right == true): ?>
+                                                                            <?php if ($ans->answer_right == true): ?>
                                                                                 <div class="custom-control custom-switch">
                                                                                     <input type="checkbox"
                                                                                            class="custom-control-input"
                                                                                            id="customSwitch-<?= $ans->id
                                                                                            ?>" data-id="<?= $ans->id
-                                                                                    ?>">
+                                                                                    ?>" checked>
                                                                                     <label class="custom-control-label"
                                                                                            for="customSwitch-<?= $ans->id
                                                                                            ?>"><?= $ans->name ?></label>
                                                                                 </div>
-                                                                                <input type="checkbox" class="checkbox"
-                                                                                       id="box<?= $ans->id
-                                                                                       ?>" checked="">
-                                                                                <label for="box<?= $ans->id
-                                                                                ?>"><?= $ans->name ?></label>
+
                                                                             <?php else: ?>
                                                                                 <div class="custom-control custom-switch">
                                                                                     <input type="checkbox"
@@ -154,7 +150,46 @@ $(function (){
         var id = $(this).data('id');
         $('#answer-question_id').val(id);
         console.log(id);
-    })
+    });
+    
+    // Отметить правильный ответ
+    $("input[id^='customSwitch-']").change(
+       function(e){
+   
+if ($(this).is(':checked') == true){
+
+               toastr.success('', 'Установлен правильный ответ!', {
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               })
+           }else{
+ 
+               toastr.error('', 
+                   ' Правильный отовет отменен!', {
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               })
+           } 
+   $.ajax({
+            url: '/page/form-builder',
+            type: 'POST',
+            data: {
+                id: $(this).attr('data-id'),
+                right: $(this).is(':checked'),
+            },
+            //dataType: 'JSON',
+            success: function(res){
+                     //$( "#control-group").append(res); 
+                      console.log(res);           
+            },
+            error: function(){
+                //search_form_header.find('.result_search').html('').css('display', 'none');
+                alert('Error!');
+            }
+        })
+});
 })
 
 JS;
