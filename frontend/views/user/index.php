@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var app\models\UserSearch $searchModel */
@@ -52,3 +53,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+
+<?php
+echo ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemView' => '_post',
+    'viewParams' => [
+        'fullView' => true,
+        'context' => 'main-page',
+        // ...
+    ],
+]);
+?>

@@ -411,10 +411,10 @@ $branch = new app\models\Branch();
                 </li>
 
 
-                <li class="app-sidebar__heading">Forms</li>
+                <li class="app-sidebar__heading">Пользователи</li>
                 <li>
                     <a href="#">
-                        <i class="metismenu-icon pe-7s-light"></i> Elements
+                        <i class="metismenu-icon pe-7s-users"></i> Все сотрудники
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul class="mm-collapse">

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['inde
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 $userHasRoleName = \Yii::$app->user->can('superadmin');
-var_dump($userHasRoleName);
+
 ?>
 <div class="page-view">
 
@@ -111,39 +111,42 @@ var_dump($userHasRoleName);
             <?= $model->text ?>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="main-card mb-3 card">
-            <div class="card-body">
-                <h5 class="card-title">История</h5>
-                <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
-                    <?php foreach ($history as $his) { ?>
-                        <div class="vertical-timeline-item vertical-timeline-element">
-                            <div>
+    <?php if (sizeof($history) > 0): ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <h5 class="card-title">История</h5>
+                        <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                            <?php foreach ($history as $his) { ?>
+                                <div class="vertical-timeline-item vertical-timeline-element">
+                                    <div>
 <span class="vertical-timeline-element-icon bounce-in">
 <i class="badge badge-dot badge-dot-xl badge-success"> </i>
 </span>
-                                <div class="vertical-timeline-element-content bounce-in">
-                                    <h4 class="timeline-title"><?php $user = common\models\User::find()->where(['id' =>
-                                            $his->user_id_update])->one();
-                                        echo $user->username;
-                                        ?></h4>
-                                    <p><span><b>
+                                        <div class="vertical-timeline-element-content bounce-in">
+                                            <h4 class="timeline-title"><?php $user = common\models\User::find()->where(['id' =>
+                                                    $his->user_id_update])->one();
+                                                echo $user->username;
+                                                ?></h4>
+                                            <p><span><b>
                                                 <?= date('d.m.Y H:i', $his->update_at)
                                                 ?></b> Изменение документа
 
-                                    </p></span>
+                                            </p></span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
                         </div>
-                    <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
 
 <?php endif; ?>
-
 
 </div>
 
