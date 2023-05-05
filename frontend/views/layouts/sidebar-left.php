@@ -170,24 +170,24 @@ $branch = new app\models\Branch();
                 </li>
                 <li class="app-sidebar__heading">Документы</li>
                 <li>
-                    <a href="charts-chartjs.html">
-                        <i class="metismenu-icon pe-7s-graph2"></i>ChartJS
+                    <a href="/page">
+                        <i class="metismenu-icon pe-7s-file"></i>Все документы
                     </a>
                 </li>
-                <li>
-                    <a href="charts-apexcharts.html">
-                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts
-                    </a>
-                </li>
-                <li>
-                    <a href="charts-sparklines.html">
-                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="charts-apexcharts.html">-->
+<!--                        <i class="metismenu-icon pe-7s-graph"></i>Apex Charts-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="charts-sparklines.html">-->
+<!--                        <i class="metismenu-icon pe-7s-graph1"></i>Chart Sparklines-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li class="app-sidebar__heading">Тесты</li>
                 <li>
-                    <a href="charts-chartjs.html">
-                        <i class="metismenu-icon pe-7s-graph2"></i>ChartJS
+                    <a href="/test">
+                        <i class="metismenu-icon pe-7s-graph2"></i>Все тесты
                     </a>
                 </li>
                 <li>
