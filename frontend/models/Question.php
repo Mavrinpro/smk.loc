@@ -13,7 +13,7 @@ use Yii;
  * @property int|null $test_id
  * @property int|null $create_at
  * @property int|null $update_at
- * @property int|null $right
+ * @property int|null $answer_right
  */
 class Question extends \yii\db\ActiveRecord
 {
@@ -31,7 +31,7 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'test_id', 'create_at', 'update_at', 'right'], 'integer'],
+            [['user_id', 'test_id', 'create_at', 'update_at', 'answer_right'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'required'],
         ];
@@ -49,7 +49,7 @@ class Question extends \yii\db\ActiveRecord
             'test_id' => 'Test ID',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
-            'right' => 'Right',
+            'answer_right' => 'Right',
         ];
     }
 }

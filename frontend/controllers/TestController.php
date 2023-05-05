@@ -55,6 +55,7 @@ class TestController extends Controller
      */
     public function actionView($id)
     {
+        \Yii::$app->db->schema->refresh();
         $question = \app\models\Question::find()->where(['test_id' => $id])->all();
         $answer = \app\models\Answer::find()->where(['test_id' => $id])->andWhere(['question_id' => $question->id])
             ->all();
@@ -117,9 +118,18 @@ class TestController extends Controller
      */
     public function actionDelete($id)
     {
+        $question = \app\models\Question::find()->where(['test_id' => $id])->all();
+        $answer = \app\models\Answer::find()->where(['test_id' =>$id])->all();
+        foreach ($question as $quest) {
+            $quest->delete();
+        }
+
+        foreach ($answer as $ans) {
+            $ans->delete();
+        }
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['test/index']);
     }
 
     /**
