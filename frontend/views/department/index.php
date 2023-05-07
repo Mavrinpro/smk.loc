@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Department', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post']]) ?>u56u56u5r
     </p>
 
     <?php Pjax::begin(); ?>

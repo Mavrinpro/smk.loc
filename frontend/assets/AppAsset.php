@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
         //'https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js',
         //'https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js',
         //'js/bootstrap-switch.min.js',
-        'https://crm.glazcentre.ru/assets/c5b11da9/toastr.min.js',
+        //'https://crm.glazcentre.ru/assets/c5b11da9/toastr.min.js',
         'js/custom.js',
     ];
     public $depends = [

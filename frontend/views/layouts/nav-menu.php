@@ -786,9 +786,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">
-                                                                Logout
-                                                            </button>
+<!--                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">-->
+<!--                                                                Logout-->
+<!--                                                            </button>-->
+                                                            <?= \yii\helpers\Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post'], 'class' => 'btn-pill btn-shadow btn-shine btn btn-focus']) ?>
                                                         </div>
                                                     </div>
                                                 </div>

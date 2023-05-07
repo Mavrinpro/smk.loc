@@ -46,6 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-12">
+            <?php if (!Yii::$app->user->isGuest){ ?>
+                <?= Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post']]) ?>
+            <?php } ?>
             <ul class="todo-list-wrapper list-group list-group-flush" id="accordion">
                 <?php
                 $i = 0;
