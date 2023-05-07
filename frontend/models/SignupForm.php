@@ -14,6 +14,9 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $city_id;
+    public $company_id;
+    public $department_id;
 
 
     /**
@@ -35,6 +38,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            [['city_id', 'company_id', 'department_id'], 'safe'],
         ];
     }
 
@@ -55,8 +59,12 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->city_id = $this->city_id;
+        $user->company_id = $this->company_id;
+        $user->department_id = $this->department_id;
 
-        return $user->save() && $this->sendEmail($user);
+        return $user->save();
+        //return $user->save() && $this->sendEmail($user);
     }
 
     /**

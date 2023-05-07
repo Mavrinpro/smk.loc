@@ -789,7 +789,10 @@
 <!--                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">-->
 <!--                                                                Logout-->
 <!--                                                            </button>-->
-                                                            <?= \yii\helpers\Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post'], 'class' => 'btn-pill btn-shadow btn-shine btn btn-focus']) ?>
+                                                            <?php if (!Yii::$app->user->isGuest){ ?>
+                                                                <?= \yii\helpers\Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post'], 'class' => 'btn-pill btn-shadow btn-shine btn btn-focus']) ?>
+                                                            <?php } ?>
+
                                                         </div>
                                                     </div>
                                                 </div>
