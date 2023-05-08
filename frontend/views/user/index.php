@@ -25,32 +25,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+<!--    --><?//= GridView::widget([
+//        'dataProvider' => $dataProvider,
+//        'filterModel' => $searchModel,
+//        'columns' => [
+//            ['class' => 'yii\grid\SerialColumn'],
+//
+//            'id',
+//            'username',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
+//            //'email:email',
+//            //'status',
+//            //'created_at',
+//            //'updated_at',
+//            //'verification_token',
+//            [
+//                'class' => ActionColumn::className(),
+//                'urlCreator' => function ($action, User $model, $key, $index, $column) {
+//                    return Url::toRoute([$action, 'id' => $model->id]);
+//                 }
+//            ],
+//        ],
+//    ]); ?>
 
-            'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, User $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>
 
@@ -65,3 +65,5 @@ echo ListView::widget([
     ],
 ]);
 ?>
+
+<?php Pjax::end(); ?>

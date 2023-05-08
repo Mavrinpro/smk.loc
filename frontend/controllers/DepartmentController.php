@@ -5,7 +5,10 @@ namespace frontend\controllers;
 use app\models\Department;
 use app\models\Page;
 use app\models\Branch;
+use app\models\UserSearch;
+use common\models\User;
 use frontend\models\DepartmentSearch;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -77,7 +80,12 @@ class DepartmentController extends Controller
         $depart = Department::find()->where(['id' => $id])->one();
         $page = Page::find()->where(['department_id' => $id])->all();
         $branch = Branch::find()->where(['id' => $depart->branch_id])->one();
+
+        $user = User::find()->where(['department_id' => $depart->id, 'city_id' => $branch->id])->all();
+
+
         return $this->render('view', [
+            'user' => $user,
             'branch' => $branch,
             'page' => $page,
             'model' => $this->findModel($id),
