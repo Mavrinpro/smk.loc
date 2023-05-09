@@ -219,13 +219,17 @@ if ($(this).is(':checked') == true){
 //     startTimer(fiveMinutes, display);
 // });
   $('#regi').click(function () {
-initTimer(60, "timer", function () { 
+initTimer(10, "timer", function () { 
 this.innerHTML = 0;
-toastr.error('', 'Время теста истекло', {
-                   timeOut: 15000,
-                   closeButton: true,
-                   progressBar: true
-               })
+Swal.fire({
+  title: 'Custom animation with Animate.css',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
 }); 
 });
 
