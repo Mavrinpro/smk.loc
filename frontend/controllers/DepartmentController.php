@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use app\models\Department;
 use app\models\Page;
 use app\models\Branch;
+use app\models\Test;
 use app\models\UserSearch;
 use common\models\User;
 use frontend\models\DepartmentSearch;
@@ -44,7 +45,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -162,6 +163,14 @@ class DepartmentController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    // Вывод тестов
+    public function actionTest()
+    {
+        $id = \Yii::$app->request->get('test_id');
+        $test = Test::find()->where(['department_id' => $id])->all();
+        return $this->render('test',['test' => $test]);
     }
     
 }

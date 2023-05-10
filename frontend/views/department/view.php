@@ -43,6 +43,30 @@ $this->params['breadcrumbs'][] = $model->name;
                 </div>
             </div>
         </div>
+        <div class="grid-menu grid-menu-4col">
+            <div class="no-gutters row">
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-primary">
+                        <i class="lnr-graduation-hat btn-icon-wrapper"> </i>Тесты
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
+                        <i class="lnr-file-empty btn-icon-wrapper"> </i>СОПы
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-danger">
+                        <i class="lnr-warning btn-icon-wrapper"> </i>Паспорта рисков процесса
+                    </button>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
+                        <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     <?php foreach ($page as $pages) { ?>
     <div class="col-md-3">
