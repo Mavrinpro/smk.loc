@@ -345,10 +345,7 @@ div.Section1
         $post = \Yii::$app->request->post();
         $idQuestion = $post['id'];
         $rightQuestion = $post['right'];
-
-
-
-
+        
         $answer = \app\models\Answer::find()->where(['id' => $idQuestion])->one();
         if(\Yii::$app->request->isAjax){
             if ($rightQuestion === 'true'){

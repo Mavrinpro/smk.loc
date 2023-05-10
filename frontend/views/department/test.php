@@ -10,40 +10,29 @@ use yii\widgets\Pjax;
 /** @var frontend\models\DepartmentSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Отделы';
+$this->title = 'Тестирование';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="department-index">
+<div class="row">
+    <div class="col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Department', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post']]) ?>u56u56u5r
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'branch_id',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Department $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
-        ],
-    ]); ?>
-
-    <?php Pjax::end(); ?>
+<?php if (sizeof($test) > 0): ?>
+        <ul class="list-group">
+            <?php foreach ($test as $tester) {
+                $question = \app\models\Question::find()->where(['test_id' => $tester->id])->all();
+                ?>
+                <a href="/result-test/view/?id=<?= $tester->id ?>"><li class="justify-content-between
+                list-group-item"><?=
+                    $tester->name ?></a>
+                    <span class="badge badge-primary badge-pill"><?= sizeof($question) ?></span>
+                </li>
+            <?php } ?>
+        </ul>
+        <?php else: ?>
+        <p>Тестов нет</p>
+        <?php endif; ?>
+    </div>
 
 </div>
-
+</div>

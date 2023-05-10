@@ -170,7 +170,14 @@ class DepartmentController extends Controller
     {
         $id = \Yii::$app->request->get('test_id');
         $test = Test::find()->where(['department_id' => $id])->all();
-        return $this->render('test',['test' => $test]);
+        foreach ($test as $item) {
+            $question = \app\models\Question::find()->where(['test_id' => $item->id])->all();
+        }
+
+        return $this->render('test',[
+            'test' => $test,
+            //'question' => $question,
+        ]);
     }
     
 }

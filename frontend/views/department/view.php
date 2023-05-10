@@ -46,9 +46,12 @@ $this->params['breadcrumbs'][] = $model->name;
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
                 <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-primary">
+                    <a href="/department/test/?test_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
+                    btn-transition
+                     btn
+                    btn-outline-primary">
                         <i class="lnr-graduation-hat btn-icon-wrapper"> </i>Тесты
-                    </button>
+                    </a>
                 </div>
                 <div class="col-sm-3">
                     <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
