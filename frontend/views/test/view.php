@@ -140,10 +140,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 <?php } ?>
             </ul>
-            <div id="timer"></div>
+<!--            <div id="timer"></div>-->
         </div>
     </div>
-    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>
+<!--    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>-->
 </div>
 <?php
 $js = <<<JS
@@ -221,36 +221,31 @@ if ($(this).is(':checked') == true){
   $('#regi').click(function () {
 initTimer(10, "timer", function () { 
 this.innerHTML = 0;
-Swal.fire({
-  title: 'Custom animation with Animate.css',
-  showClass: {
-    popup: 'animate__animated animate__fadeInDown'
-  },
-  hideClass: {
-    popup: 'animate__animated animate__fadeOutUp'
-  }
-})
 }); 
 });
 
  
-function initTimer(time, id, callback) { 
-
-setTimeout(function () { 
-     var minutes = parseInt(time-- / 60);
-     var seconds = parseInt(time-- % 60, 0);
-     if (seconds < 10) {
-    seconds = '0'+seconds;
-  }
-if (time > 0) { 
-timer.innerHTML = minutes+":"+seconds; 
-setTimeout(arguments.callee, 1000); 
-} 
-else { 
-callback.call(timer); 
-} 
-}, 0); 
-} 
+// function initTimer(time, id, callback) { 
+//
+// setTimeout(function () { 
+//    
+//      var minutes = parseInt(time-- / 60);
+//      var seconds = parseInt(time-- % 60, 0);
+//      if (seconds < 10) {
+//     seconds = '0'+seconds;
+//   }
+// if (time > 0) { 
+//    
+// timer.innerHTML = minutes+":"+seconds; 
+// setTimeout(arguments.callee, 1000); 
+// console.log(time);
+// } 
+// else { 
+// callback.call(timer); 
+//
+// } 
+// }, 0); 
+// } 
 
 
 JS;

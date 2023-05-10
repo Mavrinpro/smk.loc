@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\UserSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -53,8 +54,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+    <div class="student-form">
+        <?php $form = ActiveForm::begin(['method' => 'get']); ?>
 
+        <?= $form->field($searchModel, 'username') ?>
+
+        <?= $form->field($searchModel, 'id') ?>
+
+        <div class="form-group">
+            <?= Html::submitButton('Apply', ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
 <?php
+
 echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_post',
@@ -65,5 +79,4 @@ echo ListView::widget([
     ],
 ]);
 ?>
-
 <?php Pjax::end(); ?>
