@@ -141,21 +141,8 @@ progressBar: true
 
 Swal.bindClickHandler()
 
-Swal.mixin({
-toast: true,
-position: 'top-end',
-showConfirmButton: false,
-timer: 3000,
-toast: true,
-title: 'a34ta34taq34',
-icon: 'success',
-showCloseButton: true,
-timerProgressBar: true,
-didOpen: (toast) => {
-toast.addEventListener('mouseenter', Swal.stopTimer)
-toast.addEventListener('mouseleave', Swal.resumeTimer)
-}
-}).bindClickHandler('data-swal-toast-template');
+Try me! 
+Swal.fire('Any fool can use a computer')
 
 
 JS;

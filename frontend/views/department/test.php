@@ -31,8 +31,21 @@ $this->params['breadcrumbs'][] = $this->title;
         </ul>
         <?php else: ?>
         <p>Тестов нет</p>
+    <?php
+    $js = <<<JS
+  
+
+Swal.fire('Тестов для отдела пока нет') 
+
+
+JS;
+
+    $this->registerJs($js);
+    ?>
+
         <?php endif; ?>
     </div>
 
 </div>
 </div>
+
