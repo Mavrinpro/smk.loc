@@ -17,7 +17,7 @@ class QuestionSearch extends Question
     public function rules()
     {
         return [
-            [['id', 'user_id', 'test_id', 'create_at', 'update_at', 'right'], 'integer'],
+            [['id', 'user_id', 'test_id', 'create_at', 'update_at', 'answer_right'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -63,7 +63,7 @@ class QuestionSearch extends Question
             'test_id' => $this->test_id,
             'create_at' => $this->create_at,
             'update_at' => $this->update_at,
-            'right' => $this->right,
+            'right' => $this->answer_right,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

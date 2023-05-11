@@ -1,28 +1,41 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 
 
-$this->title = $model->name;
+$this->title = $question->name;
 $this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
+<?= Html::a('Начать тестирование', ['start', 'id' => $question->id], ['class' => 'btn btn-warning']) ?>
+<!--        --><? //= Html::a('Добавить вопрос', ['question/create'], ['class' => 'btn btn-primary', 'data-target' => 'modal',
+//            'data-toggle' => '#modalDelete'
+//        ]) ?>
 <div class="test-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
         <div class="col-md-12">
+
+
             <ul class="todo-list-wrapper list-group list-group-flush" id="accordion">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'form_result_test',
+                    //'action' => '/result-test/passing-test'
+                    'method' => 'post'
+                ]); ?>
                 <?php
                 $i = 0;
                 //var_dump($answer);
-                foreach ($question as $quest) {
+
                     $i++;
-                    $answer = \app\models\Answer::find()->where(['question_id' => $quest->id])->all();
+                    $answer = \app\models\Answer::find()->where(['question_id' => $question->id])->all();
                     ?>
                     <li class="list-group-item">
                         <div class="todo-indicator bg-primary"></div>
@@ -37,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div>
 
                                             <div data-parent="#accordion" id="collapseOne<?= $i ?>"
-                                                 class="collapse"
+                                                 class="collapse show"
                                                  style="">
                                                 <div class="card-body">
                                                     <?php foreach ($answer as $ans) { ?>
@@ -46,24 +59,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                             <div class="vertical-timeline-item vertical-timeline-element">
                                                                 <div>
-<span class="vertical-timeline-element-icon bounce-in">
-<i class="badge badge-dot badge-dot-xl badge-primary"> </i>
-</span>
+                                                                <span class="vertical-timeline-element-icon bounce-in">
+                                                                <i class="badge badge-dot badge-dot-xl badge-primary"> </i>
+                                                                </span>
                                                                     <div class="vertical-timeline-element-content bounce-in">
 
                                                                         <h4 class="timeline-title">
 
                                                                             <div class="custom-control custom-switch">
-                                                                                <input type="checkbox"
-                                                                                       class="custom-control-input"
-                                                                                       id="customSwitch-<?= $ans->id
-                                                                                       ?>" data-id="<?= $ans->id
-                                                                                ?>" data-test_id="<?= $model->id ?>"
-                                                                                       data-quest-id="<?= $quest->id
-                                                                                       ?>">
-                                                                                <label class="custom-control-label"
-                                                                                       for="customSwitch-<?= $ans->id
-                                                                                       ?>"><?= $ans->name ?></label>
+
+                                                                                <?= $form->field($result, 'answer_id')->checkbox(['id' => 'customSwitch-' . $ans->id,
+                                                                                    'class' =>'custom-control-input'])->label($ans->name) ?>
+                                                                                <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
+                                                                                    ->id])->label(false) ?>
+                                                                                <?= $form->field($result, 'test_id')->hiddenInput(['value' => $model->id])->label
+                                                                                (false) ?>
+                                                                                <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
+                                                                                (false) ?>
+
                                                                             </div>
 
                                                                         </h4>
@@ -77,32 +90,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                 </div>
-                                <!--                                <div class="widget-content-right widget-content-actions">-->
-                                <!--                                    --><? //= Html::a('<i class="fa fa-pencil-alt"></i>', ['question/update', 'id' =>
-                                //                                        $quest->id], ['class' => 'border-0 btn-transition btn btn-outline-warning']) ?>
-                                <!--                                    <button class="border-0 btn-transition btn btn-outline-success"-->
-                                <!--                                            data-toggle="modal" data-target="#modalCreateAnswer" data-id="-->
-                                <? //=
-                                //                                    $quest->id ?><!--" id="createAnswer">-->
-                                <!--                                        <i class="fa fa-plus"></i>-->
-                                <!--                                    </button>-->
-                                <!---->
-                                <!--                                    --><? //= Html::a('<i class="fa fa-trash-alt"></i>', ['delete-question', 'id' =>
-                                //                                        $quest->id], [
-                                //                                        'class' => 'border-0 btn-transition btn btn-outline-danger',
-                                //                                        'data' => [
-                                //                                            'confirm' => 'Удаляя вопрос удалятся все варианты ответа на него. Удалить?',
-                                //                                            'method' => 'post',
-                                //                                        ],
-                                //                                    ]) ?>
-                                <!--                                </div>-->
                             </div>
                         </div>
                     </li>
-                <?php } ?>
+
+                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                <?php ActiveForm::end(); ?>
             </ul>
+
+
+
+
+
             <!--            <div id="timer"></div>-->
         </div>
+
     </div>
     <!--    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>-->
     <button data-swal-template="#my-template">
@@ -115,54 +117,54 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 $js = <<<JS
-$(function (){
-    $(document).on('click', '#createAnswer', function (){
-        var id = $(this).data('id');
-        $('#answer-question_id').val(id);
-        console.log(id);
-    });
-    
-    // Отметить правильный ответ
-    $("input[id^='customSwitch-']").change(
-       function(e){
-   
-if ($(this).is(':checked') == true){
-
-               toastr.success('', 'Установлен правильный ответ!', {
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               })
-           }else{
- 
-               toastr.error('', 
-                   ' Правильный отовет отменен!', {
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               })
-           } 
-   $.ajax({
-            url: '/result-test/passing-test',
-            type: 'POST',
-            data: {
-                id: $(this).attr('data-id'),
-                testId: $(this).attr('data-test_id'),
-                questId: $(this).attr('data-quest-id'),
-                right: $(this).is(':checked')
-            },
-            //dataType: 'JSON',
-            success: function(res){
-                     //$( "#control-group").append(res); 
-                      console.log(res);           
-            },
-            error: function(){
-                //search_form_header.find('.result_search').html('').css('display', 'none');
-                alert('Error!');
-            }
-        })
-});
-})
+// $(function (){
+//     $(document).on('click', '#createAnswer', function (){
+//         var id = $(this).data('id');
+//         $('#answer-question_id').val(id);
+//         console.log(id);
+//     });
+//    
+//     // Отметить правильный ответ
+//     $("input[id^='customSwitch-']").change(
+//        function(e){
+//   
+// if ($(this).is(':checked') == true){
+//
+//                toastr.success('', 'Установлен правильный ответ!', {
+//                    timeOut: 5000,
+//                    closeButton: true,
+//                    progressBar: true
+//                })
+//            }else{
+// 
+//                toastr.error('', 
+//                    ' Правильный отовет отменен!', {
+//                    timeOut: 5000,
+//                    closeButton: true,
+//                    progressBar: true
+//                })
+//            } 
+//    $.ajax({
+//             url: '/result-test/passing-test',
+//             type: 'POST',
+//             data: {
+//                 id: $(this).attr('data-id'),
+//                 testId: $(this).attr('data-test_id'),
+//                 questId: $(this).attr('data-quest-id'),
+//                 right: $(this).is(':checked')
+//             },
+//             //dataType: 'JSON',
+//             success: function(res){
+//                      //$( "#control-group").append(res); 
+//                       console.log(res);           
+//             },
+//             error: function(){
+//                 //search_form_header.find('.result_search').html('').css('display', 'none');
+//                 alert('Error!');
+//             }
+//         })
+// });
+// })
 
 Swal.bindClickHandler()
 

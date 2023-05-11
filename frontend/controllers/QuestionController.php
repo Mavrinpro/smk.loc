@@ -38,6 +38,7 @@ class QuestionController extends Controller
      */
     public function actionIndex()
     {
+        \Yii::$app->db->schema->refresh();
         $searchModel = new QuestionSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -67,6 +68,7 @@ class QuestionController extends Controller
      */
     public function actionCreate()
     {
+        //\Yii::$app->db->schema->refresh();
         $model = new Question();
         $id = \Yii::$app->request->get('id');
         if ($this->request->isPost) {
