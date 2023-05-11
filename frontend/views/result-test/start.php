@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 
@@ -65,14 +65,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <div class="custom-control custom-switch">
 
                                                                             <?= $form->field($result, 'answer_id')->checkbox(['id' => 'customSwitch-' . $ans->id,
-                                                                                'class' =>'custom-control-input', 'value'=>$ans->id])
+                                                                                'class' => 'custom-control-input', 'value' => $ans->id])
                                                                                 ->label($ans->name) ?>
                                                                             <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
                                                                                 ->id])->label(false) ?>
                                                                             <?= $form->field($result, 'test_id')
                                                                                 ->hiddenInput(['value' =>
                                                                                     $question->test_id])->label
-                                                                            (false) ?>
+                                                                                (false) ?>
                                                                             <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
                                                                             (false) ?>
 
@@ -98,9 +98,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </ul>
 
 
-
-
-
             <!--            <div id="timer"></div>-->
         </div>
 
@@ -108,5 +105,61 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>-->
 
 </div>
+<?php
+$js = <<<JS
+        $(function (){
+        $(document).on('click', '#createAnswer', function (){
+var id = $(this).data('id');
+$('#answer-question_id').val(id);
+console.log(id);
+});
 
+// Отметить правильный ответ
+$("input[id^='customSwitch-']").change(
+function(e){
+var n = $(this).length;
+
+if ($(this).is(':checked') == true){
+console.log($(this).length);
+toastr.success('', 'Установлен правильный ответ!', {
+timeOut: 5000,
+closeButton: true,
+progressBar: true
+})
+}else{
+console.log($(this).length);
+toastr.error('',
+' Правильный отовет отменен!', {
+timeOut: 5000,
+closeButton: true,
+progressBar: true
+})
+}
+
+});
+})
+
+Swal.bindClickHandler()
+
+Swal.mixin({
+toast: true,
+position: 'top-end',
+showConfirmButton: false,
+timer: 3000,
+toast: true,
+title: 'a34ta34taq34',
+icon: 'success',
+showCloseButton: true,
+timerProgressBar: true,
+didOpen: (toast) => {
+toast.addEventListener('mouseenter', Swal.stopTimer)
+toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+}).bindClickHandler('data-swal-toast-template');
+
+
+JS;
+
+$this->registerJs($js);
+?>
 
