@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 class ResultTestController extends \yii\web\Controller
 {
     /**
@@ -22,6 +23,7 @@ class ResultTestController extends \yii\web\Controller
             ],
         ];
     }
+
     public function actionIndex()
     {
         return $this->render('index');
@@ -33,7 +35,7 @@ class ResultTestController extends \yii\web\Controller
         $answer = \app\models\Answer::find()->where(['question_id' => $question->id])->all();
         $result = new \app\models\ResultTest();
         $countQuest = \app\models\Question::find()->where(['test_id' => $id])->count();
-        $qu =  \app\models\Question::find()->where(['test_id' => $id])->all();
+        $qu = \app\models\Question::find()->where(['test_id' => $id])->all();
         $next_id = \app\models\Question::find()
             ->where(['test_id' => $id])
             ->where(['>', 'id', $question->id])
@@ -41,16 +43,17 @@ class ResultTestController extends \yii\web\Controller
             ->one();
         //$i = 0;
 
-            if(\Yii::$app->request->post()){
-                \Yii::$app->session->setFlash('success', 'Запись ');
-                return $this->redirect(['view', 'id' =>  $next_id->id]);
-            }
+        if (\Yii::$app->request->post()) {
+            \Yii::$app->session->setFlash('success', 'Запись ');
+            return $this->redirect(['view', 'id' => $next_id->id]);
+        }
 
 
         return $this->render('view', ['id' => $question->id,
             'result' => $result,
             'question' => $question,
             'answer' => $answer,
+            'countQuest' => $countQuest,
             'model' => $this->findModel($id),
         ]);
     }
@@ -74,31 +77,31 @@ class ResultTestController extends \yii\web\Controller
         $post = \Yii::$app->request->post();
 
 
-        if(\Yii::$app->request->post()){
+        if (\Yii::$app->request->post()) {
             \Yii::$app->session->setFlash('IdRes', 777);
             return $this->render('view', ['id' => 2]
-                //'result' => $result,
-                //'question' => $question,
-                //'answer' => $answer,
-                //'model' => $this->findModel($id),
+            //'result' => $result,
+            //'question' => $question,
+            //'answer' => $answer,
+            //'model' => $this->findModel($id),
             );
-//            if ($rightQuestion === 'true'){
-//                $right = 1;
-//                $resultTest->user_id = \Yii::$app->getUser()->id;
-//                $resultTest->test_id = $testId;
-//                $resultTest->create_at = time();
-//                $resultTest->question_id = $questId;
-//                $resultTest->answer_id = $idQuestion;
-//                $resultTest->save();
-//                \Yii::$app->session->setFlash('IdRes', $resultTest->id);
-//            }else {
-//                $right = 0;
-//                $testRes = \app\models\ResultTest::find()->where(['id' => $resultTest->id])->one();
-//                $testRes->delete();
-//            }
-//            //$answer->answer_right = $right;
-//            //$answer->update();
-//            return json_encode($resultTest->id. \Yii::$app->session->getFlash('IdRes'));
+            //            if ($rightQuestion === 'true'){
+            //                $right = 1;
+            //                $resultTest->user_id = \Yii::$app->getUser()->id;
+            //                $resultTest->test_id = $testId;
+            //                $resultTest->create_at = time();
+            //                $resultTest->question_id = $questId;
+            //                $resultTest->answer_id = $idQuestion;
+            //                $resultTest->save();
+            //                \Yii::$app->session->setFlash('IdRes', $resultTest->id);
+            //            }else {
+            //                $right = 0;
+            //                $testRes = \app\models\ResultTest::find()->where(['id' => $resultTest->id])->one();
+            //                $testRes->delete();
+            //            }
+            //            //$answer->answer_right = $right;
+            //            //$answer->update();
+            //            return json_encode($resultTest->id. \Yii::$app->session->getFlash('IdRes'));
         }
 
 
@@ -111,7 +114,7 @@ class ResultTestController extends \yii\web\Controller
         $result = new \app\models\ResultTest();
         //$countQuest = \app\models\Question::find()->where(['test_id' => $id])->count();
         $requestGet = \Yii::$app->request->get();
-
+        $i = 0;
 
         $next_id = \app\models\Question::find()
             ->where(['id' => $id])
@@ -120,12 +123,23 @@ class ResultTestController extends \yii\web\Controller
             ->orderBy(['id' => SORT_ASC])
             ->one();
 
-        if(\Yii::$app->request->isPost){
+        if (\Yii::$app->request->isPost) {
+            $ansId = \Yii::$app->request->post('ResultTest')['answer_id'];
+            if ($ansId == null || $ansId == '0'){
+                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
+                return $this->refresh();
+            }
+                \Yii::$app->session->setFlash('success', $ansId);
+                $result->answer_id = $ansId;
+                $result->save();
+                return $this->redirect(['start', 'id' => $next_id->id, 'test_id' => $next_id->test_id]);
 
-            \Yii::$app->session->setFlash('success', 777);
-            //return $this->render('start', ['id' => $next_id->id]);
-            return $this->redirect(['start', 'id' =>  $next_id->id, 'test_id' =>$next_id->test_id]);
 
+
+
+        } else if ($question->test_id != $next_id->test_id) {
+            \Yii::$app->session->setFlash('success', 'Тест пройден');
+            return $this->render('end');
         }
 
         return $this->render('start', ['id' => $question->id,

@@ -33,7 +33,9 @@ class ResultTest extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'test_id', 'create_at', 'update_at', 'question_id', 'answer_id', 'time_test', 'completed'], 'integer'],
+            [['answer_id'], 'safe', 'message' => 'Выберите вариант ответа'],
+            
+            [['user_id', 'test_id', 'create_at', 'update_at', 'question_id', 'time_test', 'completed'], 'integer'],
         ];
     }
 
@@ -49,7 +51,7 @@ class ResultTest extends \yii\db\ActiveRecord
             'create_at' => 'Create At',
             'update_at' => 'Update At',
             'question_id' => 'Question ID',
-            'answer_id' => 'Answer ID',
+            'answer_id' => 'Вариант ответа',
             'time_test' => 'Time Test',
             'completed' => 'Completed',
         ];
