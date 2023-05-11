@@ -69,7 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                 ->label($ans->name) ?>
                                                                             <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
                                                                                 ->id])->label(false) ?>
-                                                                            <?= $form->field($result, 'test_id')->hiddenInput(['value' => $model->id])->label
+                                                                            <?= $form->field($result, 'test_id')
+                                                                                ->hiddenInput(['value' =>
+                                                                                    $question->test_id])->label
                                                                             (false) ?>
                                                                             <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
                                                                             (false) ?>
