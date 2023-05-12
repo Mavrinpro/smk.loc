@@ -127,10 +127,31 @@ class ResultTestController extends \yii\web\Controller
             $ansId = \Yii::$app->request->post('ResultTest')['answer_id'];
             $testId = \Yii::$app->request->post('ResultTest')['test_id'];
             $question_Id = \Yii::$app->request->post('ResultTest')['question_id'];
+
             if ($ansId == null || $ansId == '0'){
                 \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
                 return $this->refresh();
             }
+
+            if (!isset($next_id->id)) {
+                $next_id = 1;
+                \Yii::$app->session->setFlash('success', 'Тест пройден');
+                $userId = \Yii::$app->getUser()->id;
+                $testId = \Yii::$app->request->get('test_id');
+                $result->answer_id = $ansId;
+                $result->test_id = $testId;
+                $result->question_id = $question_Id;
+                $result->create_at = time();
+                $result->user_id = \Yii::$app->getUser()->id;
+                $result->save();
+                $res = \app\models\ResultTest::find()->where(['test_id' => $question->test_id, 'user_id' =>$userId])->all();
+                return $this->redirect(['end',
+                    'test_id' => $question->test_id,
+                    'model' => $res,
+                ]);
+
+            }
+
                 \Yii::$app->session->setFlash('success', $ansId);
                 $result->answer_id = $ansId;
                 $result->test_id = $testId;
@@ -138,24 +159,30 @@ class ResultTestController extends \yii\web\Controller
                 $result->create_at = time();
                 $result->user_id = \Yii::$app->getUser()->id;
                 $result->save();
-                return $this->redirect(['start', 'id' => $next_id->id, 'test_id' => $next_id->test_id]);
 
+            if ($next_id->id == null) {
+                \Yii::$app->session->setFlash('success', 'Тест пройден');
+                $userId = \Yii::$app->getUser()->id;
+                $testId = \Yii::$app->request->get('test_id');
+                $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->all();
+                return $this->render('end', [
 
+                    'model' => $res,
+                ]);
 
+            }else{
+                \Yii::$app->session->setFlash('success', $ansId);
+               
+                return $this->redirect(['start', 'id' => $next_id->id, 'test_id' => $next_id->test_id, 'qid'
+                =>$question->id]);
 
-        } else if ($question->test_id != $next_id->test_id) {
-            \Yii::$app->session->setFlash('success', 'Тест пройден');
-            $userId = \Yii::$app->getUser()->id;
-            $testId = \Yii::$app->request->get('test_id');
-            $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->all();
-            return $this->render('end', [
+            }
 
-                'model' => $res,
-            ]);
 
         }
 
         return $this->render('start', ['id' => $question->id,
+            'next' => $next_id->id,
             'result' => $result,
             'question' => $question,
             'answer' => $answer,

@@ -19,7 +19,11 @@ foreach ($model as $item) {
 $re = \app\models\Answer::find()->where(['in' ,'test_id' , $id])->all();
 
 foreach ($re as $item) {
-    echo '<br>'.$item->name.' - '.$item->answer_right.' <br>';
+    echo '<br>'.$item->name.' - '.$item->answer_right.' -- '.date('Y-m-d', $item->create_at).' <br>';
+}
+
+foreach ($model as $item) {
+    echo '<br>'.date('Y-m-d', $item->create_at).' <br>';
 }
 
 //var_dump($model);

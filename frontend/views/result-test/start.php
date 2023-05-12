@@ -10,6 +10,8 @@ $this->title = $question->name;
 $this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+$q = \app\models\Question::find()->where(['id' => $id])->one();
+var_dump($end);
 ?>
 
 <div class="test-view">
@@ -19,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-12">
 
-
+<?= $next->id ?>
             <ul class="todo-list-wrapper list-group list-group-flush" id="accordion">
                 <?php $form = ActiveForm::begin([
                     'id' => 'form_result_test',
@@ -27,10 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post'
                 ]); ?>
                 <?php
-                $i = 0;
-                //var_dump($answer);
-
-                $i++;
+                
                 //$answer = \app\models\Answer::find()->where(['question_id' => $question->id])->all();
                 ?>
                 <li class="list-group-item">
