@@ -145,6 +145,8 @@ class ResultTestController extends \yii\web\Controller
                 $result->user_id = \Yii::$app->getUser()->id;
                 $result->save();
                 $res = \app\models\ResultTest::find()->where(['test_id' => $question->test_id, 'user_id' =>$userId])->all();
+
+
                 return $this->redirect(['end',
                     'test_id' => $question->test_id,
                     'model' => $res,
@@ -196,15 +198,14 @@ class ResultTestController extends \yii\web\Controller
         $testId = \Yii::$app->request->get('test_id');
         $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->all();
 
-        $name = [];
-
 
             $re = \app\models\Question::find()->all();
-            //$name[] = $re->name;
 
+        $q = \app\models\Question::find()->where(['test_id' => $testId])->all();
         return $this->render('end', [
             'name' => $userId,
             'model' => $res,
+            'question' => $q
         ]);
     }
 

@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 $q = \app\models\Question::find()->where(['id' => $id])->one();
-var_dump($end);
 ?>
 
 <div class="test-view">
@@ -29,7 +28,7 @@ var_dump($end);
                     'method' => 'post'
                 ]); ?>
                 <?php
-                
+
                 //$answer = \app\models\Answer::find()->where(['question_id' => $question->id])->all();
                 ?>
                 <li class="list-group-item">

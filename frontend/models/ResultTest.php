@@ -56,4 +56,14 @@ class ResultTest extends \yii\db\ActiveRecord
             'completed' => 'Completed',
         ];
     }
+
+    public function getAnswer()
+    {
+        return $this->hasOne(\app\models\Answer::class, ['id' => 'answer_id']);
+    }
+
+    public function getQuestion()
+    {
+        return $this->hasOne(\app\models\Question::class, ['id' => 'question_id']);
+    }
 }
