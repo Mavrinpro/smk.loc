@@ -14,7 +14,21 @@ $this->title = $name;
         <div class="row">
             <div class="site-error col-md-12">
             <?php if ($this->title == 'Forbidden (#403)'){  ?>
-                <h1>Доступ запрещен!</h1>
+
+                <?php
+                $js = <<<JS
+  
+
+Swal.fire('Доступ запрещен!',
+  'Вам не разрешено производить данное действие.',
+  'error'
+)
+
+
+JS;
+
+                $this->registerJs($js);
+                ?>
             <?php }else{ ?>
                 <h1><?= Html::encode($this->title) ?></h1>
                 <?php }?>
