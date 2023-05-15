@@ -56,4 +56,9 @@ class Service extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
         ];
     }
+
+    public function getStat()
+    {
+        return $this->hasMany(\app\models\ServiceStat::class, ['service_id' => 'id']);
+    }
 }

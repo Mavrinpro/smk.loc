@@ -68,10 +68,12 @@ class ServiceStatController extends Controller
     public function actionCreate()
     {
         $model = new ServiceStat();
+        $stat = ServiceStat::find()->where(['user_id' => \Yii::$app->getUser()->id])->all();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                \Yii::$app->session->setFlash('success', 'Данные добавлены');
+                return $this->refresh();
             }
         } else {
             $model->loadDefaultValues();
@@ -79,6 +81,7 @@ class ServiceStatController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'statistic' => $stat
         ]);
     }
 

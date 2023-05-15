@@ -33,6 +33,7 @@ class ServiceStat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['active'], 'required'],
             [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update', 'active'], 'integer'],
         ];
     }
@@ -51,7 +52,18 @@ class ServiceStat extends \yii\db\ActiveRecord
             'update_at' => 'Update At',
             'user_id_create' => 'User Id Create',
             'user_id_update' => 'User Id Update',
-            'active' => 'Active',
+            'active' => 'Количество',
         ];
     }
+
+    public function getService()
+    {
+        return $this->hasOne(\app\models\Service::class, ['id' => 'service_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(\common\models\User::class, ['id' => 'user_id']);
+    }
+
 }
