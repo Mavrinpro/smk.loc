@@ -22,14 +22,10 @@ $this->params['breadcrumbs'][] = $model->name;
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
                 <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-primary">
-                        <i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов
-                    </button>
+                    <?= Html::a('<i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов', ['/protocol'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-primary']) ?>
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
-                        <i class="lnr-license btn-icon-wrapper"> </i>Приказы
-                    </button>
+                    <?= Html::a('<i class="lnr-license btn-icon-wrapper"> </i>Приказы', ['/order'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-secondary']) ?>
                 </div>
                 <div class="col-sm-3">
                     <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-success">

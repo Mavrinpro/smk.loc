@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use app\models\Protocol;
 use app\models\ProtocolSearch;
