@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\serviceSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -49,5 +50,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
-
 </div>

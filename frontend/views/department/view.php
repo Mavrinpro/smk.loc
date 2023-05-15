@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $model->name;
                 </div>
                 <div class="col-sm-3">
                     <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
-                        <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
+                        <i class="lnr-map btn-icon-wrapper"> </i>Критерии оценки
                     </button>
                 </div>
             </div>
