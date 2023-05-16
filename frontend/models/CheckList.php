@@ -20,6 +20,10 @@ use Yii;
  * @property int|null $user_id_create
  * @property int|null $user_id_update
  * @property int|null $active
+ * @property int|null $score
+ * @property int|null $phone1
+ * @property int|null $phone2
+ * @property int|null $phone3
  */
 class CheckList extends \yii\db\ActiveRecord
 {
@@ -37,7 +41,8 @@ class CheckList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update', 'active'], 'integer'],
+            [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update',
+                'active', 'score', 'phone1', 'phone2', 'phone3'], 'integer'],
             [['name', 'text1', 'text2', 'text3'], 'string', 'max' => 255],
         ];
     }

@@ -55,7 +55,9 @@ class CheckListController extends Controller
      */
     public function actionView($id)
     {
+        $check = CheckList::find()->all();
         return $this->render('view', [
+            'check' => $check,
             'model' => $this->findModel($id),
         ]);
     }
