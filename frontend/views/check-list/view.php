@@ -126,22 +126,14 @@ $(function(){
             },
             dataType: 'JSON',
             success: function(res){
-                if (res.val != '' && res.val != '0'){
+                if (res.val != '' && res.val != '0' && res.val != 'NaN'){
                 toastr.success('', 'Данные успешно сохранены!', {
                 
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true
                });
-                }else if (res.val === 'NaN'){
-                toastr.error('', 'Данные успешно сохранены!', {
-                
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                
-                }else{
+                } else{
                     toastr.error('', 'Вы не указали значение!', {
                 
                    timeOut: 5000,
