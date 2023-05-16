@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="check-list-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--    <h1>--><? //= Html::encode($this->title) ?><!--</h1>-->
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -25,29 +25,29 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'text1',
-            'text2',
-            'text3',
-            'user_id',
-            'service_id',
-            'department_id',
-            'create_at',
-            'update_at',
-            'user_id_create',
-            'user_id_update',
-            'active',
-        ],
-    ]) ?>
+    <!--    --><? //= DetailView::widget([
+    //        'model' => $model,
+    //        'attributes' => [
+    //            'id',
+    //            'name',
+    //            'text1',
+    //            'text2',
+    //            'text3',
+    //            'user_id',
+    //            'service_id',
+    //            'department_id',
+    //            'create_at',
+    //            'update_at',
+    //            'user_id_create',
+    //            'user_id_update',
+    //            'active',
+    //        ],
+    //    ]) ?>
 
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="mb-0 table table-hover table-secondary">
+        <table class="mb-0 table table-hover table-secondary table-bordered">
             <thead>
             <tr>
                 <th>#</th>
@@ -62,31 +62,34 @@ $this->params['breadcrumbs'][] = $this->title;
             <tbody>
             <?php foreach ($check as $items): ?>
                 <tr>
-                    <?php if ($items->text2 != null): ?>
+                <?php if ($items->text2 != null): ?>
                     <td rowspan="2"><?php echo $items->id; ?></td>
                     <td rowspan="2"><?php echo $items->name; ?></td>
-                    <td ><?php echo $items->text1; ?></td>
-                    <td><input type="text" class="form-control" placeholder="баллы"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                <tr>
-                    <td><?php echo $items->text2; ?></td>
+                    <td><?php echo $items->text1; ?></td>
+                    <td class="editable score" data-id="<?= $items->id ?>" data-type="score1"><?= $items->score
+                        ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <tr>
+                        <td><?php echo $items->text2; ?></td>
 
-                    <td><input type="text" class="form-control" placeholder="баллы"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                    <td><input type="text" class="form-control" placeholder="телефон"></td>
-                </tr>
-            <?php else: ?>
-            <td><?php echo $items->id; ?></td>
-            <td><?php echo $items->name; ?></td>
-            <td><?php echo $items->text1; ?></td>
-            <td><input type="text" class="form-control" placeholder="баллы"></td>
-            <td><input type="text" class="form-control" placeholder="телефон"></td>
-            <td><input type="text" class="form-control" placeholder="телефон"></td>
-            <td><input type="text" class="form-control" placeholder="телефон"></td>
-            <?php endif; ?>
+                        <td class="editable score2" data-id="<?= $items->id ?>"  data-type="score2"><?= $items->score2
+                            ?></td>
+                        <td class="editable" data-id="<?= $items->id ?>"></td>
+                        <td class="editable" data-id="<?= $items->id ?>"></td>
+                        <td class="editable" data-id="<?= $items->id ?>"></td>
+                    </tr>
+                <?php else: ?>
+                    <td><?php echo $items->id; ?></td>
+                    <td><?php echo $items->name; ?></td>
+                    <td><?php echo $items->text1; ?></td>
+                    <td class="editable score" data-id="<?= $items->id ?>" data-type="score1"><?= $items->score
+                        ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
 
@@ -94,3 +97,49 @@ $this->params['breadcrumbs'][] = $this->title;
         </table>
     </div>
 </div>
+
+<?php
+$js = <<<JS
+  
+
+$(function(){
+    $('td.editable').each(function (){
+        var th = $(this);
+        $(this).editable('click', function (e){
+             
+            if (e.value == undefined){
+                return false;
+            }else{
+             if ( e.value == ''){
+                  e.value = 0;
+             }
+            $.ajax({
+            
+            url: '/check-list/ajax-table',
+            type: 'POST',
+            data: {
+                id: th.data('id'),
+                score: th.data('type'),
+                val: e.value
+            },
+            dataType: 'JSON',
+            success: function(res){
+                 console.log(res);
+            },
+            error: function(){
+                //search_form_header.find('.result_search').html('').css('display', 'none');
+                alert('Error!');
+            }
+        })
+            }
+
+        })
+    })
+    
+});
+
+
+JS;
+
+$this->registerJs($js);
+?>

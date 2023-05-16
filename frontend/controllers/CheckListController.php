@@ -56,8 +56,11 @@ class CheckListController extends Controller
     public function actionView($id)
     {
         $check = CheckList::find()->all();
+        $checkCount = CheckList::find()->sum('score');
+
         return $this->render('view', [
             'check' => $check,
+            'countcheck' => $checkCount,
             'model' => $this->findModel($id),
         ]);
     }
@@ -132,5 +135,45 @@ class CheckListController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    // Редактирование таблицы чек-лист
+    public function actionAjaxTable()
+    {
+        $post = \Yii::$app->request->post();
+        $score = $post['score'];
+        $id = $post['id'];
+        $val = $post['val'];
+        if (!isset($val)){
+            $val = 0;
+        }
+        $check = CheckList::find()->where(['id' => $id])->one();
+        $check2 = CheckList::find()->sum('score');
+        if (\Yii::$app->request->isAjax){
+            if ($post['score'] == 'score1' && isset($post['score'])){
+                $check->score = $val;
+                $check->update();
+            }else if ($post['score'] == 'score2' && isset($post['score'])){
+                $check->score2 = $val;
+                $check->update();
+            }
+        }
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $post;
+    }
+
+
+    // Подсчет количества баллов
+    public function actionAjaxCount()
+    {
+        $post = \Yii::$app->request->post();
+
+        $check2 = CheckList::find()->sum('score');
+        if (\Yii::$app->request->isAjax){
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $check2;
+        }
+
     }
 }
