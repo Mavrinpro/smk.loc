@@ -12,9 +12,9 @@ class m230516_115705_add extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%check_list}}', 'phone4', $this->integer()->after('phone3'));
-        $this->addColumn('{{%check_list}}', 'phone5', $this->integer()->after('phone4'));
-        $this->addColumn('{{%check_list}}', 'phone6', $this->integer()->after('phone5'));
+        $this->addColumn('{{%check_list}}', 'phone4', $this->bigInteger()->after('phone3'));
+        $this->addColumn('{{%check_list}}', 'phone5', $this->bigInteger()->after('phone4'));
+        $this->addColumn('{{%check_list}}', 'phone6', $this->bigInteger()->after('phone5'));
     }
 
     /**
