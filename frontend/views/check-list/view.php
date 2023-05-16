@@ -68,17 +68,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?php echo $items->text1; ?></td>
                     <td class="editable score" data-id="<?= $items->id ?>" data-type="score1"><?= $items->score
                         ?></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num1"><?= $items->phone1 ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num2"><?= $items->phone2 ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num3"><?= $items->phone3 ?></td>
                     <tr>
                         <td><?php echo $items->text2; ?></td>
 
-                        <td class="editable score2" data-id="<?= $items->id ?>"  data-type="score2"><?= $items->score2
+                        <td class="editable score2" data-id="<?= $items->id ?>" data-type="score2"><?= $items->score2
                             ?></td>
-                        <td class="editable" data-id="<?= $items->id ?>"></td>
-                        <td class="editable" data-id="<?= $items->id ?>"></td>
-                        <td class="editable" data-id="<?= $items->id ?>"></td>
+                        <td class="editable" data-id="<?= $items->id ?>" data-type="num4"><?= $items->phone4 ?></td>
+                        <td class="editable" data-id="<?= $items->id ?>" data-type="num5"><?= $items->phone5 ?></td>
+                        <td class="editable" data-id="<?= $items->id ?>" data-type="num6"><?= $items->phone6 ?></td>
                     </tr>
                 <?php else: ?>
                     <td><?php echo $items->id; ?></td>
@@ -86,13 +86,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?php echo $items->text1; ?></td>
                     <td class="editable score" data-id="<?= $items->id ?>" data-type="score1"><?= $items->score
                         ?></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
-                    <td class="editable" data-id="<?= $items->id ?>"></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num1"><?= $items->phone1 ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num2"><?= $items->phone2 ?></td>
+                    <td class="editable" data-id="<?= $items->id ?>" data-type="num3"><?= $items->phone3 ?></td>
                 <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
-
+            <td colspan="3" class="font-weight-bold bg-dark text-light">Общее количество баллов</td>
+            <td colspan="4" class="text-center font-weight-bold bg-dark text-light"
+                id="score_count"><?= $countcheck ?></td>
             </tbody>
         </table>
     </div>
@@ -111,7 +113,7 @@ $(function(){
                 return false;
             }else{
              if ( e.value == ''){
-                  e.value = 0;
+                  e.value = null;
              }
             $.ajax({
             
@@ -120,10 +122,54 @@ $(function(){
             data: {
                 id: th.data('id'),
                 score: th.data('type'),
+                val: Number(e.value)
+            },
+            dataType: 'JSON',
+            success: function(res){
+                if (res.val != '' && res.val != '0'){
+                toastr.success('', 'Данные успешно сохранены!', {
+                
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               });
+                }else if (res.val === 'NaN'){
+                toastr.error('', 'Данные успешно сохранены!', {
+                
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               });
+                
+                }else{
+                    toastr.error('', 'Вы не указали значение!', {
+                
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               });
+                }
+                setTimeout(function (){
+                    $.ajax({
+            
+            url: '/check-list/ajax-count',
+            type: 'POST',
+            data: {
+                id: th.data('id'),
+                score: th.data('type'),
                 val: e.value
             },
             dataType: 'JSON',
             success: function(res){
+                console.log(res);
+                $('#score_count').text(res);
+            },
+            error: function(){
+                //search_form_header.find('.result_search').html('').css('display', 'none');
+                alert('Error!');
+            }
+        })
+                },1500)
                  console.log(res);
             },
             error: function(){

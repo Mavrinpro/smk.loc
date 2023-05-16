@@ -56,11 +56,12 @@ class CheckListController extends Controller
     public function actionView($id)
     {
         $check = CheckList::find()->all();
-        $checkCount = CheckList::find()->sum('score');
+        $check1 = CheckList::find()->sum('score');
+        $check2 = CheckList::find()->sum('score2');
 
         return $this->render('view', [
             'check' => $check,
-            'countcheck' => $checkCount,
+            'countcheck' => $check1 + $check2,
             'model' => $this->findModel($id),
         ]);
     }
@@ -145,17 +146,36 @@ class CheckListController extends Controller
         $score = $post['score'];
         $id = $post['id'];
         $val = $post['val'];
-        if (!isset($val)){
-            $val = 0;
+        if ($val == '0'){
+            $val = null;
         }
         $check = CheckList::find()->where(['id' => $id])->one();
         $check2 = CheckList::find()->sum('score');
         if (\Yii::$app->request->isAjax){
+
             if ($post['score'] == 'score1' && isset($post['score'])){
                 $check->score = $val;
                 $check->update();
             }else if ($post['score'] == 'score2' && isset($post['score'])){
                 $check->score2 = $val;
+                $check->update();
+            } else if ($post['score'] == 'num1' && isset($post['score'])){
+                $check->phone1 = $val;
+                $check->update();
+            } else if ($post['score'] == 'num2' && isset($post['score'])){
+                $check->phone2 = $val;
+                $check->update();
+            }else if ($post['score'] == 'num3' && isset($post['score'])){
+                $check->phone3 = $val;
+                $check->update();
+            }else if ($post['score'] == 'num4' && isset($post['score'])){
+                $check->phone4 = $val;
+                $check->update();
+            }else if ($post['score'] == 'num5' && isset($post['score'])){
+                $check->phone5 = $val;
+                $check->update();
+            }else if ($post['score'] == 'num6' && isset($post['score'])){
+                $check->phone6 = $val;
                 $check->update();
             }
         }
@@ -169,10 +189,11 @@ class CheckListController extends Controller
     {
         $post = \Yii::$app->request->post();
 
-        $check2 = CheckList::find()->sum('score');
+        $check1 = CheckList::find()->sum('score');
+        $check2 = CheckList::find()->sum('score2');
         if (\Yii::$app->request->isAjax){
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $check2;
+            return $check2 + $check1;
         }
 
     }

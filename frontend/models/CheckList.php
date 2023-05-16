@@ -24,6 +24,9 @@ use Yii;
  * @property int|null $phone1
  * @property int|null $phone2
  * @property int|null $phone3
+ * @property int|null $phone4
+ * @property int|null $phone5
+ * @property int|null $phone6
  */
 class CheckList extends \yii\db\ActiveRecord
 {
@@ -42,7 +45,7 @@ class CheckList extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update',
-                'active', 'score', 'phone1', 'phone2', 'phone3'], 'integer'],
+                'active', 'score', 'phone1', 'phone2', 'phone3', 'phone4', 'phone5', 'phone6'], 'integer'],
             [['name', 'text1', 'text2', 'text3'], 'string', 'max' => 255],
         ];
     }
