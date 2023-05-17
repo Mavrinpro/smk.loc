@@ -13,9 +13,9 @@ class m230516_051012_add extends Migration
     public function safeUp()
     {
         $this->addColumn('{{%check_list}}', 'score', $this->integer());
-        $this->addColumn('{{%check_list}}', 'phone1', $this->integer());
-        $this->addColumn('{{%check_list}}', 'phone2', $this->integer());
-        $this->addColumn('{{%check_list}}', 'phone3', $this->integer());
+        $this->addColumn('{{%check_list}}', 'phone1', $this->bigInteger());
+        $this->addColumn('{{%check_list}}', 'phone2', $this->bigInteger());
+        $this->addColumn('{{%check_list}}', 'phone3', $this->bigInteger());
     }
 
     /**
