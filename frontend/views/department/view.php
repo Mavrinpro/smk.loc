@@ -60,9 +60,11 @@ $this->params['breadcrumbs'][] = $model->name;
                     </button>
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
+                    <a href="/check/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square btn-transition
+                     btn
+                    btn-outline-info">
                         <i class="lnr-map btn-icon-wrapper"> </i>Критерии оценки
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
