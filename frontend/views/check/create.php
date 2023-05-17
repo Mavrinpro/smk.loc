@@ -3,19 +3,18 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var app\models\CheckList $model */
+/** @var app\models\Check $model */
 
-$this->title = 'Create Check List';
-$this->params['breadcrumbs'][] = ['label' => 'Check Lists', 'url' => ['index']];
+$this->title = 'Create Check';
+$this->params['breadcrumbs'][] = ['label' => 'Checks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="check-list-create">
+<div class="check-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'checkmodel' => $check,
     ]) ?>
 
 </div>

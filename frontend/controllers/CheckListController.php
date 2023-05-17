@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\CheckList;
+use app\models\Check;
 use app\models\CheckListSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -74,9 +75,10 @@ class CheckListController extends Controller
     public function actionCreate()
     {
         $model = new CheckList();
-
+        $checkModel = new Check();
+       // \Yii::$app->cache->flush();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->save() && $checkModel->load($this->request->post()) && $checkModel->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -85,6 +87,7 @@ class CheckListController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'checkmodel' => $checkModel,
         ]);
     }
 

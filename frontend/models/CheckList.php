@@ -44,6 +44,7 @@ class CheckList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update',
                 'active', 'score', 'phone1', 'phone2', 'phone3', 'phone4', 'phone5', 'phone6'], 'integer'],
             [['name', 'text1', 'text2', 'text3'], 'string', 'max' => 255],
@@ -57,9 +58,9 @@ class CheckList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'text1' => 'Text1',
-            'text2' => 'Text2',
+            'name' => 'Критерий',
+            'text1' => 'Вариант 1',
+            'text2' => 'Вариант 2',
             'text3' => 'Text3',
             'user_id' => 'User ID',
             'service_id' => 'Service ID',
