@@ -13,7 +13,17 @@ $c = new \app\models\Check();
 <div class="check-list-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <div class="row">
+    <div class="col-md-4">
+        <?= $form->field($model, 'phone1')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-md-4">
+        <?= $form->field($model, 'phone2')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class="col-md-4">
+        <?= $form->field($model, 'phone3')->textInput(['maxlength' => true]) ?>
+    </div>
+    </div>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text1')->textInput(['maxlength' => true]) ?>

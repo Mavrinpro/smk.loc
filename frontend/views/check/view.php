@@ -59,9 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Критерий</th>
                 <th>Lasik</th>
                 <th>Баллы</th>
-                <th>Номер 1</th>
-                <th>Номер 2</th>
-                <th>Номер 3</th>
+                <th><?= $check[0]->phone1 ?></th>
+                <th><?= $check[0]->phone2 ?></th>
+                <th><?= $check[0]->phone3 ?></th>
             </tr>
             </thead>
             <tbody>
