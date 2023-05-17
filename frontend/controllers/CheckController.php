@@ -55,8 +55,13 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
+        $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+        $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
+        $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'check' => $check,
+            'countcheck' => $check1 + $check2,
         ]);
     }
 
@@ -130,5 +135,19 @@ class CheckController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    // Подсчет количества баллов
+    public function actionAjaxCount()
+    {
+        $post = \Yii::$app->request->post();
+        $id = $post['modelid'];
+        $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
+        $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $check2 + $check1;
+        }
+
     }
 }

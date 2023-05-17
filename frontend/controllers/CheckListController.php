@@ -74,12 +74,15 @@ class CheckListController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CheckList();
-        $checkModel = new Check();
        // \Yii::$app->cache->flush();
+        $model = new CheckList();
+        //$check = new Check();
+        $c = Check::find()->all();
+        $id = \Yii::$app->request->get('check_id');
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save() && $checkModel->load($this->request->post()) && $checkModel->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['check/view', 'id' => $id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -87,7 +90,8 @@ class CheckListController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'checkmodel' => $checkModel,
+            'checkmodel' => $check,
+
         ]);
     }
 
@@ -187,17 +191,5 @@ class CheckListController extends Controller
     }
 
 
-    // Подсчет количества баллов
-    public function actionAjaxCount()
-    {
-        $post = \Yii::$app->request->post();
 
-        $check1 = CheckList::find()->sum('score');
-        $check2 = CheckList::find()->sum('score2');
-        if (\Yii::$app->request->isAjax){
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $check2 + $check1;
-        }
-
-    }
 }

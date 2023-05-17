@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Check $model */
 
-$this->title = 'Create Check';
-$this->params['breadcrumbs'][] = ['label' => 'Checks', 'url' => ['index']];
+$this->title = 'Создать чек-лист';
+$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="check-create">

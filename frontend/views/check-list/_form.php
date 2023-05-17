@@ -14,8 +14,6 @@ $c = new \app\models\Check();
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-    <?= $form->field($c, 'name')->textInput(['maxlength' => true])->label('ywe45yw45y') ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text1')->textInput(['maxlength' => true]) ?>
@@ -30,6 +28,8 @@ $c = new \app\models\Check();
     (false) ?>
 
     <?= $form->field($model, 'department_id')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'score')->hiddenInput(['value' => null])->label(false) ?>
+    <?= $form->field($model, 'score2')->hiddenInput(['value' => null])->label(false) ?>
 
     <?= $form->field($model, 'create_at')->hiddenInput(['value' => time()])->label(false) ?>
 
