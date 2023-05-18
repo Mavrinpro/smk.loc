@@ -21,6 +21,13 @@ use Yii;
  * @property int|null $user_id_update
  * @property int|null $active
  * @property int|null $score
+ * @property int|null $score2
+ * @property int|null $score3
+ * @property int|null $score4
+ * @property int|null $score5
+ * @property int|null $score6
+ * @property int|null $score7
+ * @property int|null $score8
  * @property int|null $phone1
  * @property int|null $phone2
  * @property int|null $phone3
@@ -46,7 +53,8 @@ class CheckList extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['user_id', 'service_id', 'department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update',
-                'active', 'score', 'phone1', 'phone2', 'phone3', 'phone4', 'phone5', 'phone6'], 'integer'],
+                'active', 'score','score2','score3','score4','score5','score6','score7','score8', 'phone1', 'phone2',
+                'phone3', 'phone4', 'phone5', 'phone6'], 'integer'],
             [['name', 'text1', 'text2', 'text3'], 'string', 'max' => 255],
         ];
     }

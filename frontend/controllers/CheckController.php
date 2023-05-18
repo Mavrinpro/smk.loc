@@ -58,10 +58,22 @@ class CheckController extends Controller
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
+        $num1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score3');
+        $num2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score4');
+        $num3 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score5');
+        $num4 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score6');
+        $num5 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score7');
+        $num6 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score8');
         return $this->render('view', [
             'model' => $this->findModel($id),
             'check' => $check,
-            'countcheck' => $check1 + $check2,
+            'countcheck' => [
+                'check' =>  $check2 + $check1,
+                'col1' => $num1 + $num4,
+                'col2' => $num2 + $num5,
+                'col3' => $num3 + $num6,
+                'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
+            ],
         ]);
     }
 
@@ -144,9 +156,24 @@ class CheckController extends Controller
         $id = $post['modelid'];
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
+        $num1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score3');
+        $num2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score4');
+        $num3 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score5');
+        $num4 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score6');
+        $num5 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score7');
+        $num6 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score8');
+
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $check2 + $check1;
+            return [
+                'check1' =>  $check2,
+                'check2' => $check1,
+                'col1' => $num1 + $num4,
+                'col2' => $num2 + $num5,
+                'col3' => $num3 + $num6,
+                'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
+
+            ];
         }
 
     }

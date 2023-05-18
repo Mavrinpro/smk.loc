@@ -78,15 +78,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num1" data-model="<?= $model->id
                     ?>"><?=
-                        $items->phone1
+                        $items->score3
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num2" data-model="<?= $model->id
                     ?>"><?=
-                        $items->phone2
+                        $items->score4
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num3" data-model="<?= $model->id
                     ?>"><?=
-                        $items->phone3
+                        $items->score5
                         ?></td>
                     <tr>
                         <td><?php echo $items->text2; ?></td>
@@ -97,15 +97,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             ?></td>
                         <td class="editable" data-id="<?= $items->id ?>" data-type="num4" data-model="<?= $model->id
                         ?>"><?=
-                            $items->phone4
+                            $items->score6
                             ?></td>
                         <td class="editable" data-id="<?= $items->id ?>" data-type="num5" data-model="<?= $model->id
                         ?>"><?=
-                            $items->phone5
+                            $items->score7
                             ?></td>
                         <td class="editable" data-id="<?= $items->id ?>" data-type="num6" data-model="<?= $model->id
                         ?>"><?=
-                            $items->phone6
+                            $items->score8
                             ?></td>
                     </tr>
                 <?php else: ?>
@@ -133,8 +133,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
             <?php endforeach; ?>
             <td colspan="3" class="font-weight-bold bg-dark text-light">Общее количество баллов</td>
-            <td colspan="4" class="text-center font-weight-bold bg-dark text-light"
-                id="score_count"><?= $countcheck ?></td>
+            <td class="text-center font-weight-bold bg-dark text-light"
+                id="score_count"><?= $countcheck['check'] ?></td>
+            <td class="text-center font-weight-bold bg-dark text-light"
+                id="score_count1"><?= $countcheck['col1'] ?></td>
+            <td class="text-center font-weight-bold bg-dark text-light"
+                id="score_count2"><?= $countcheck['col2'] ?></td>
+            <td class="text-center font-weight-bold bg-dark text-light"
+                id="score_count3"><?= $countcheck['col3'] ?></td>
+            <tr>
+                <td colspan="3" class="font-weight-bold bg-dark text-light">Всего баллов</td>
+                <td colspan="4" class="text-center font-weight-bold bg-dark text-light"
+                    id="score_count4"><?= $countcheck['count'] ?></td>
+            </tr>
             </tbody>
         </table>
         <?php else: ?>
@@ -200,7 +211,11 @@ $(function(){
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                $('#score_count').text(res);
+                $('#score_count').text(Number(res.check1) + Number(res.check2));
+                $('#score_count1').text(res.col1);
+                $('#score_count2').text(res.col2);
+                $('#score_count3').text(res.col3);
+                $('#score_count4').text(res.count);
             },
             error: function(){
                 //search_form_header.find('.result_search').html('').css('display', 'none');

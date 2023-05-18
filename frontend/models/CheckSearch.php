@@ -40,7 +40,7 @@ class CheckSearch extends Check
      */
     public function search($params)
     {
-        $query = Check::find()->where(['id' => \Yii::$app->request->get('department_id')]);
+        $query = Check::find()->where(['department_id' => \Yii::$app->request->get('department_id')]);
 
         // add conditions that should always apply here
 

@@ -167,22 +167,22 @@ class CheckListController extends Controller
                 $check->score2 = $val;
                 $check->update();
             } else if ($post['score'] == 'num1' && isset($post['score'])){
-                $check->phone1 = $val;
+                $check->score3 = $val;
                 $check->update();
             } else if ($post['score'] == 'num2' && isset($post['score'])){
-                $check->phone2 = $val;
+                $check->score4 = $val;
                 $check->update();
             }else if ($post['score'] == 'num3' && isset($post['score'])){
-                $check->phone3 = $val;
+                $check->score5 = $val;
                 $check->update();
             }else if ($post['score'] == 'num4' && isset($post['score'])){
-                $check->phone4 = $val;
+                $check->score6 = $val;
                 $check->update();
             }else if ($post['score'] == 'num5' && isset($post['score'])){
-                $check->phone5 = $val;
+                $check->score7 = $val;
                 $check->update();
             }else if ($post['score'] == 'num6' && isset($post['score'])){
-                $check->phone6 = $val;
+                $check->score8 = $val;
                 $check->update();
             }
         }

@@ -40,7 +40,7 @@ class CheckListSearch extends CheckList
      */
     public function search($params)
     {
-        $query = CheckList::find();
+        $query = CheckList::find()->where(['service_id' => \Yii::$app->request->get('id')]);
 
         // add conditions that should always apply here
 
