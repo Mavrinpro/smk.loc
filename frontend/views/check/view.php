@@ -126,9 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $items->phone2
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num3" data-model="<?= $model->id
-                    ?>"><?=
-                        $items->phone3
-                        ?></td>
+                    ?>"><?= $items->phone3 ?></td>
                 <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
