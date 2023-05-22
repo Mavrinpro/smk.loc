@@ -118,15 +118,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         $items->score
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num1" data-model="<?= $model->id
-                    ?>"><?=
-                        $items->phone1
-                        ?></td>
+                    ?>"><?= $items->score3 ?></td>
+
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num2" data-model="<?= $model->id
                     ?>"><?=
-                        $items->phone2
+                        $items->score4
                         ?></td>
                     <td class="editable" data-id="<?= $items->id ?>" data-type="num3" data-model="<?= $model->id
-                    ?>"><?= $items->phone3 ?></td>
+                    ?>"><?= $items->score5 ?></td>
                 <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
@@ -180,6 +179,7 @@ $(function(){
             },
             dataType: 'JSON',
             success: function(res){
+                console.log(res);
                 if (res.val != '' && res.val != '0' && res.val != 'NaN'){
                 toastr.success('', 'Данные успешно сохранены!', {
                 
@@ -208,7 +208,7 @@ $(function(){
             },
             dataType: 'JSON',
             success: function(res){
-                console.log(res);
+                //console.log(res);
                 $('#score_count').text(Number(res.check1) + Number(res.check2));
                 $('#score_count1').text(res.col1);
                 $('#score_count2').text(res.col2);
@@ -221,7 +221,7 @@ $(function(){
             }
         })
                 },1500)
-                 console.log(res);
+                 //console.log(res);
             },
             error: function(){
                 //search_form_header.find('.result_search').html('').css('display', 'none');
