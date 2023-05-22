@@ -220,4 +220,11 @@ class CheckListController extends Controller
     }
 
 
+    //Отправить данные по пользователю
+    public function actionSendUserData()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $post;
+    }
 }
