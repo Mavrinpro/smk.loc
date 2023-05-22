@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "check".
  *
  * @property int $id
+ * @property int $department_id
  * @property string|null $name
  */
 class Check extends \yii\db\ActiveRecord
@@ -27,6 +28,7 @@ class Check extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['department_id'], 'safe'],
             [['name'], 'string', 'max' => 255],
         ];
     }
