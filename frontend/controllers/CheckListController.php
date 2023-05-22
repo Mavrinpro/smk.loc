@@ -190,6 +190,34 @@ class CheckListController extends Controller
         return $post;
     }
 
+// Смена номера в таблице
+
+    public function actionAjaxChangePhone()
+    {
+
+        $post = \Yii::$app->request->post();
+        $score = $post['score'];
+        $id = $post['id'];
+        $val = $post['val'];
+        $check = CheckList::find()->where(['service_id' => $id])->one();
+        if ($val == '0'){
+            $val = null;
+        }
+
+    if ($post['score'] == 'num1' && isset($post['score'])){
+        $check->phone1 = $val;
+        $check->update();
+    } else if ($post['score'] == 'num2' && isset($post['score'])){
+        $check->phone2 = $val;
+        $check->update();
+    }else if ($post['score'] == 'num3' && isset($post['score'])){
+        $check->phone3 = $val;
+        $check->update();
+    }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $post;
+    }
 
 
 }
