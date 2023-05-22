@@ -52,6 +52,14 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-md-12">
         <?php if (sizeof($check) > 0): ?>
+            <select name="user_check" id="user_check" class="mb-2 form-control">
+            <?php
+            //var_dump($model);
+
+            foreach ($user as $item) {
+                echo '<option value="'.$item->id.'">'.$item->username.'</option>>';
+            } ?>
+            </select>
             <table class="mb-0 table table-hover table-warning table-bordered">
                 <thead>
                 <tr>
@@ -286,6 +294,20 @@ $('th.phone_editable').each(function (){
 
         })
 });
+
+// selected
+
+(function(){
+    var select = document.querySelector('#user_check');
+    if (localStorage.selectedIndex !== undefined) {
+        select.selectedIndex = localStorage.selectedIndex;
+    }
+    select.onchange = function() {
+        localStorage.selectedIndex = this.selectedIndex;
+    }
+})()
+
+
 
 JS;
 

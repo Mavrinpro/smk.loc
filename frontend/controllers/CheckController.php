@@ -55,7 +55,9 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
+        $m = $this->findModel($id);
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+        $user = \common\models\User::find()->where(['department_id' => $m->department_id])->all();
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
         $num1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score3');
@@ -65,6 +67,7 @@ class CheckController extends Controller
         $num5 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score7');
         $num6 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score8');
         return $this->render('view', [
+            'user' => $user,
             'model' => $this->findModel($id),
             'check' => $check,
             'countcheck' => [
