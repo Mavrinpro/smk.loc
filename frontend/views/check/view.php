@@ -142,8 +142,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td class="text-center font-weight-bold bg-dark text-light"
                     id="score_count3"><?= $countcheck['col3'] ?></td>
                 <tr>
-                    <td colspan="3" class="font-weight-bold bg-dark text-light">Всего баллов</td>
-                    <td colspan="4" class="text-center font-weight-bold bg-dark text-light"
+                    <td colspan="3" class="font-weight-bold bg-dark text-warning h5">Всего баллов</td>
+                    <td colspan="4" class="text-center font-weight-bold bg-dark text-warning h5"
                         id="score_count4"><?= $countcheck['count'] ?></td>
                 </tr>
                 </tbody>
