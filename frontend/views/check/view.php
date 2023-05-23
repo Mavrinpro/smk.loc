@@ -200,7 +200,6 @@ JS;
                     <th>Дата</th>
                     <th>Сотрудник</th>
                     <th>Баллы</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -223,7 +222,12 @@ JS;
 <?php
 $js = <<<JS
   
-
+var loading = '<div class="blockUI blockOverlay" style="display: none; border: none; margin: 0px; padding: 0px;'+ 
+'width: 100%; height: 100%; top: 0px; left: 0px; position: absolute;">'+
+'<div class="blockUI undefined blockElement" style="position: absolute;"><div class="loader mx-auto">'+
+'<div class="line-scale-pulse-out"><div class="bg-success"></div><div class="bg-success"></div><div '+
+'class="bg-success"></div>'+
+'<div class="bg-success"></div><div class="bg-success"></div></div></div></div></div>';
 $(function(){
     $('td.editable').each(function (){
         var th = $(this);
@@ -365,7 +369,7 @@ $('th.phone_editable').each(function (){
 
 // send user data
 $('#send_user_data').on('click', function (){
-    
+    $('#tabledata').append(loading);
     var userId = $('#user_check').val();
     var score_count = $('#score_count4').text();
     if (userId == 0){
@@ -379,6 +383,7 @@ type: 'warning',
 );
        return false;
     }
+    
     $(this).find('.fa').removeClass('fa-paper-plane');
     $(this).find('.fa').addClass('spinner-grow spinner-grow-sm');
     $.ajax({
@@ -391,7 +396,9 @@ type: 'warning',
             },
             dataType: 'JSON',
             success: function(res){
+                 $('.blockUI').remove();
                 if (res.post == '2'){
+                    $('.blockUI').remove();
                     Swal.fire({
                     title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
                     confirmButtonColor: '#d92550',
