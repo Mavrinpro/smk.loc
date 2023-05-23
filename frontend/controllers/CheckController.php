@@ -55,6 +55,8 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
+        $scoreall =  \app\models\UserScore::find()->orderBy('id DESC')->all();
+
         $m = $this->findModel($id);
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
         $user = \common\models\User::find()->where(['department_id' => $m->department_id])->all();
@@ -77,6 +79,7 @@ class CheckController extends Controller
                 'col3' => $num3 + $num6,
                 'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
             ],
+            'scoreall' => $scoreall
         ]);
     }
 

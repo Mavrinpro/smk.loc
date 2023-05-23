@@ -235,11 +235,18 @@ class CheckListController extends Controller
                 $userScore->create_at = time();
                 $userScore->save();
 
+                $userCount =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();
+                $user =  \common\models\User::find()->where(['id' => $post['userid']])->one();
             }
             \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $post;
+            return [
+                'post' => $post,
+                'user' => $user,
+                'usercount' => $userCount,
+                'html' => '<tr><td>'.date('d.m.Y', $userCount->create_at).'</td><td>'.$user->username.'</td><td>'
+                        .$userCount->score.'</td></tr>'
+            ];
 
         }
-
     }
 }

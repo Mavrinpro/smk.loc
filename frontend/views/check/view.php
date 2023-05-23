@@ -192,6 +192,31 @@ JS;
             данные
         </button>
     </div>
+    <div class="col-md-12">
+        <div id="user-data-backend">
+            <table class="mb-0 table table-bordered" id="tabledata">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Сотрудник</th>
+                    <th>Баллы</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($scoreall as $score) { ?>
+                    <tr>
+                        <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
+                        <td><?= $score->user->username ?></td>
+                        <td><?= $score->score ?></td>
+                    </tr>
+                <?php } ?>
+
+                <span></span>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 
@@ -366,7 +391,7 @@ type: 'warning',
             },
             dataType: 'JSON',
             success: function(res){
-                if (res == '2'){
+                if (res.post == '2'){
                     Swal.fire({
                     title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
                     confirmButtonColor: '#d92550',
@@ -382,11 +407,12 @@ type: 'warning',
                 $('#send_user_data').find('.fa').addClass('fa-paper-plane');
                     return false;
                 }
+                $('#tabledata').find('tbody').append(res.html);
                 $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
                 $('#send_user_data').find('.fa').addClass('fa-paper-plane');
                 console.log(res);
                 if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
-                toastr.success('', 'Данные успешно сохранены! '+res.score_count, {
+                toastr.success('', 'Данные успешно сохранены! '+res.post.score_count, {
                 
                    timeOut: 5000,
                    closeButton: true,

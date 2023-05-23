@@ -47,4 +47,8 @@ class UserScore extends \yii\db\ActiveRecord
             'score' => 'Score',
         ];
     }
+
+    public function getUser(){
+        return $this->hasOne(\common\models\User::class, ['id' => 'user_id']);
+    }
 }
