@@ -365,8 +365,8 @@ type: 'warning',
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                if (res.val != '' && res.val != '0' && res.val != 'NaN'){
-                toastr.success('', 'Данные успешно сохранены!', {
+                if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
+                toastr.success('', 'Данные успешно сохранены! '+res.score_count, {
                 
                    timeOut: 5000,
                    closeButton: true,
