@@ -378,9 +378,9 @@ type: 'warning',
                });
                 } else{
                     toastr.error('', 'Вы не указали значение!', {
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
+                    timeOut: 5000,
+                    closeButton: true,
+                    progressBar: true
                });
                 }
                 
