@@ -224,7 +224,22 @@ class CheckListController extends Controller
     public function actionSendUserData()
     {
         $post = \Yii::$app->request->post();
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return $post;
+        $userScore = new \app\models\UserScore();
+        $scoreUser =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();
+        if (\Yii::$app->request->isAjax){
+            if (date('Y-m', $scoreUser->create_at) == date('Y-m')){
+                $post =  2;
+            }else{
+                $userScore->user_id = $post['userid'];
+                $userScore->score = $post['score_count'];
+                $userScore->create_at = time();
+                $userScore->save();
+
+            }
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $post;
+
+        }
+
     }
 }

@@ -366,9 +366,21 @@ type: 'warning',
             },
             dataType: 'JSON',
             success: function(res){
+                if (res == '2'){
+                    Swal.fire({
+                    title: 'Данные поэтому пользователю за это  период уже есть.',
+                    confirmButtonColor: '#f44336',
+                    icon: "warning",
+                    type: 'warning',
+                    customClass: 'reeee',
+                });
+                    $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+                    return false;
+                }
                 $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
                 $('#send_user_data').find('.fa').addClass('fa-paper-plane');
-                //console.log(res);
+                console.log(res);
                 if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
                 toastr.success('', 'Данные успешно сохранены! '+res.score_count, {
                 
