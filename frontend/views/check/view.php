@@ -52,18 +52,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
     <div class="col-md-12">
 
-            <?php
-            //var_dump($model);
-            if  (sizeof($user) > 0){ ?>
-        <select name="user_check" id="user_check" class="mb-2 form-control">
-            <option value="0">Выбрать сотрудника</option>
-               <?php foreach ($user as $item) {
-                    echo '<option value="'.$item->id.'">'.$item->username.'</option>>';
+        <?php
+        //var_dump($model);
+        if (sizeof($user) > 0) { ?>
+            <select name="user_check" id="user_check" class="mb-2 form-control">
+                <option value="0">Выбрать сотрудника</option>
+                <?php foreach ($user as $item) {
+                    echo '<option value="' . $item->id . '">' . $item->username . '</option>>';
                 } ?>
-        </select>
-            <?php } else{
+            </select>
+        <?php } else {
 
-                $js = <<<JS
+            $js = <<<JS
   
 
 Swal.fire({
@@ -78,9 +78,9 @@ type: 'warning',
 
 JS;
 
-                $this->registerJs($js);
-            }
-            ?>
+            $this->registerJs($js);
+        }
+        ?>
 
         <?php if (sizeof($check) > 0): ?>
             <table class="mb-0 table table-hover table-warning table-bordered">
@@ -183,13 +183,15 @@ JS;
             <p>Нет данных</p>
         <?php endif; ?>
     </div>
-<div class="col-md-12 mt-3">
-    <h3>По завершении отправьте данные по выбранному сотруднику в базу</h3>
-<!--    --><?//= Html::button('<i class="fa fa-paper-plane"></i> Отправить данные', ['', 'check_id' =>
-//        \Yii::$app->request->get('id')], ['class' => 'btn btn-dark btn-lg mb-5', 'id' => 'send_user_data']) ?>
-    <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data"><i class="fa fa-paper-plane"></i> Отправить
-        данные</button>
-</div>
+    <div class="col-md-12 mt-3">
+        <h3>По завершении отправьте данные по выбранному сотруднику в базу</h3>
+        <!--    --><? //= Html::button('<i class="fa fa-paper-plane"></i> Отправить данные', ['', 'check_id' =>
+        //        \Yii::$app->request->get('id')], ['class' => 'btn btn-dark btn-lg mb-5', 'id' => 'send_user_data']) ?>
+        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data"><i class="fa fa-paper-plane"></i>
+            Отправить
+            данные
+        </button>
+    </div>
 </div>
 
 
@@ -352,7 +354,8 @@ type: 'warning',
 );
        return false;
     }
-    
+    $(this).find('.fa').removeClass('fa-paper-plane');
+    $(this).find('.fa').addClass('spinner-grow spinner-grow-sm');
     $.ajax({
             
             url: '/check-list/send-user-data',
@@ -360,11 +363,12 @@ type: 'warning',
             data: {
                 userid: userId,
                 score_count: score_count,
-                //val: Number(e.value)
             },
             dataType: 'JSON',
             success: function(res){
-                console.log(res);
+                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+                //console.log(res);
                 if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
                 toastr.success('', 'Данные успешно сохранены! '+res.score_count, {
                 
@@ -374,7 +378,6 @@ type: 'warning',
                });
                 } else{
                     toastr.error('', 'Вы не указали значение!', {
-                
                    timeOut: 5000,
                    closeButton: true,
                    progressBar: true
@@ -383,8 +386,15 @@ type: 'warning',
                 
             },
             error: function(){
-                //search_form_header.find('.result_search').html('').css('display', 'none');
-                alert('Error!');
+                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+                 Swal.fire({
+                    title: 'Что-то пошло не так. Обратитесь к администратору.',
+                    confirmButtonColor: '#f44336',
+                    icon: "warning",
+                    type: 'warning',
+                    customClass: 'reeee',
+                });
             }
         })
         return false;
