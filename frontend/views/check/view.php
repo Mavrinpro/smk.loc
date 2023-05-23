@@ -368,7 +368,7 @@ type: 'warning',
             success: function(res){
                 if (res == '2'){
                     Swal.fire({
-                    title: 'Данные поэтому пользователю за это  период уже есть.',
+                    title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
                     confirmButtonColor: '#f44336',
                     icon: "warning",
                     type: 'warning',
