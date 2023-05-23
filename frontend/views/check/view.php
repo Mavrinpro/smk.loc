@@ -27,6 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             \Yii::$app->request->get('id')],
             ['class' => 'btn 
         btn-success']) ?>
+
+        <?= Html::a('<i class="fa fa-trash"></i> Очистить все оценки', ['check-list/create', 'check_id' =>
+            \Yii::$app->request->get('id')],
+            ['class' => 'btn btn-danger', 'data' => [
+                        'confirm' => 'Хотите очистить все?',
+                        'method' => 'post',
+                    ],
+        ]) ?>
     </p>
 
     <!--    --><? //= DetailView::widget([
