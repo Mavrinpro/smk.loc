@@ -369,10 +369,14 @@ type: 'warning',
                 if (res == '2'){
                     Swal.fire({
                     title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
-                    confirmButtonColor: '#f44336',
+                    confirmButtonColor: '#d92550',
                     icon: "warning",
-                    type: 'warning',
-                    customClass: 'reeee',
+                    type: 'error',
+                    showConfirmButton: true,
+                    customClass: 'reeee p-3',
+                    showCloseButton: true,
+      
+                 
                 });
                     $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
                 $('#send_user_data').find('.fa').addClass('fa-paper-plane');
