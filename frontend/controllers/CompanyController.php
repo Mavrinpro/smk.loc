@@ -2,23 +2,16 @@
 
 namespace frontend\controllers;
 
-use app\models\Department;
-use app\models\Page;
-use app\models\Branch;
-use app\models\Test;
-use app\models\UserSearch;
-use common\models\User;
-use frontend\models\DepartmentSearch;
-use yii\data\ActiveDataProvider;
-use yii\filters\AccessControl;
+use app\models\Company;
+use app\models\CompanySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DepartmentController implements the CRUD actions for Department model.
+ * CompanyController implements the CRUD actions for Company model.
  */
-class DepartmentController extends Controller
+class CompanyController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,34 +27,18 @@ class DepartmentController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-                'access' => [
-                    'class' => AccessControl::class,
-
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'actions' => ['view'],
-                            'roles' => ['view_manager'],
-                        ],
-                        [
-                            'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user'],
-                            'roles' => ['create_admin', 'moderator'],
-                        ],
-                    ],
-                ],
             ]
         );
     }
 
     /**
-     * Lists all Department models.
+     * Lists all Company models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new DepartmentSearch();
+        $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -71,36 +48,26 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Displays a single Department model.
+     * Displays a single Company model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $depart = Department::find()->where(['id' => $id])->one();
-        $page = Page::find()->where(['department_id' => $id])->all();
-        $branch = Branch::find()->where(['id' => $depart->branch_id])->one();
-
-        $user = User::find()->where(['department_id' => $depart->id])->all();
-
-
         return $this->render('view', [
-            'user' => $user,
-            'branch' => $branch,
-            'page' => $page,
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Department model.
+     * Creates a new Company model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Department();
+        $model = new Company();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -116,7 +83,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Updates an existing Department model.
+     * Updates an existing Company model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -136,7 +103,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Deletes an existing Department model.
+     * Deletes an existing Company model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -150,41 +117,18 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Finds the Department model based on its primary key value.
+     * Finds the Company model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Department the loaded model
+     * @return Company the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Department::findOne(['id' => $id])) !== null) {
+        if (($model = Company::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-    // Вывод тестов
-    public function actionTest()
-    {
-        $id = \Yii::$app->request->get('test_id');
-        $test = Test::find()->where(['department_id' => $id])->all();
-        foreach ($test as $item) {
-            $question = \app\models\Question::find()->where(['test_id' => $item->id])->all();
-        }
-
-        return $this->render('test',[
-            'test' => $test,
-            //'question' => $question,
-        ]);
-    }
-
-    // Добавить пользователя на странице отдела
-    public function actionCreateUser($id)
-    {
-        \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
-        return $this->redirect(['view', 'id' => $id]);
-    }
-    
 }
