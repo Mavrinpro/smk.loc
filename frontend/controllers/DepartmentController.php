@@ -45,7 +45,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -178,6 +178,13 @@ class DepartmentController extends Controller
             'test' => $test,
             //'question' => $question,
         ]);
+    }
+
+    // Добавить пользователя на странице отдела
+    public function actionCreateUser($id)
+    {
+        \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
+        return $this->redirect(['view', 'id' => $id]);
     }
     
 }
