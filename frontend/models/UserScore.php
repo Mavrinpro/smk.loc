@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $user_id
  * @property int|null $create_at
  * @property int|null $score
+ * @property int|null $check_id
  */
 class UserScore extends \yii\db\ActiveRecord
 {
@@ -29,7 +30,7 @@ class UserScore extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'create_at', 'score'], 'integer'],
+            [['user_id', 'create_at', 'score', 'check_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
