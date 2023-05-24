@@ -181,6 +181,27 @@ class CheckController extends Controller
 
             ];
         }
+    }
+
+    // Очистить все оценки
+    public function actionClearScore()
+    {
+        $id = \Yii::$app->request->get('check_id');
+        $checklist = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+        if ($this->request->isPost){
+            foreach ($checklist as $list) {
+                $list->score = null;
+                $list->score2 = null;
+                $list->score3 = null;
+                $list->score4 = null;
+                $list->score5 = null;
+                $list->score6 = null;
+                $list->score7 = null;
+                $list->score8 = null;
+                $list->update();
+            }
+            $this->redirect(['check/view', 'id' => $id]);
+        }
 
     }
 }
