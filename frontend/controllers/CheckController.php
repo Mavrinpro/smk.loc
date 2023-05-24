@@ -205,4 +205,16 @@ class CheckController extends Controller
         }
 
     }
+
+    // Удаление из таблицы user_score
+    public function actionDeleteUserScore($id)
+    {
+        $userScore = \app\models\UserScore::find()->where(['id' => $id])->one();
+        if ($this->request->isPost){
+            $userScore->delete();
+            \Yii::$app->session->setFlash('success', 'Запись удалена!');
+            $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id')]);
+        }
+
+    }
 }

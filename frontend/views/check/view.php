@@ -208,6 +208,7 @@ JS;
                     <th>Дата</th>
                     <th>Сотрудник</th>
                     <th>Баллы</th>
+                    <th style="width: 30px">Удалить</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -216,6 +217,13 @@ JS;
                         <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
                         <td><?= $score->user->username ?></td>
                         <td><?= $score->score ?></td>
+                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
+                                $score->id, 'check_id' => $model->id],
+                                ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    'confirm' => 'Хотите удалить запись?',
+                                    'method' => 'post',
+                                ],
+                                ]) ?></td>
                     </tr>
                 <?php } ?>
 
