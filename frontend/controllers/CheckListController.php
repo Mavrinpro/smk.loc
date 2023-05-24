@@ -228,7 +228,7 @@ class CheckListController extends Controller
         $scoreUser =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();
         if (\Yii::$app->request->isAjax){
             if (date('Y-m', $scoreUser->create_at) == date('Y-m')){
-                $post =  2;
+                $post =  2; // принимаем на фронте и выводим сообщение об ошибке
             }else{
                 $userScore->user_id = $post['userid'];
                 $userScore->score = $post['score_count'];
