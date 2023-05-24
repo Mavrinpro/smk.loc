@@ -233,6 +233,7 @@ class CheckListController extends Controller
                 $userScore->user_id = $post['userid'];
                 $userScore->score = $post['score_count'];
                 $userScore->create_at = time();
+                $userScore->check_id = $post['model'];
                 $userScore->save();
 
                 $userCount =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();

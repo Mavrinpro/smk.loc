@@ -55,7 +55,8 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
-        $scoreall =  \app\models\UserScore::find()->orderBy('id ASC')->all();
+        $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
+
 
         $m = $this->findModel($id);
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();

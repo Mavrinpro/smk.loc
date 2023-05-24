@@ -193,7 +193,9 @@ JS;
         <h3>По завершении отправьте данные по выбранному сотруднику в базу</h3>
         <!--    --><? //= Html::button('<i class="fa fa-paper-plane"></i> Отправить данные', ['', 'check_id' =>
         //        \Yii::$app->request->get('id')], ['class' => 'btn btn-dark btn-lg mb-5', 'id' => 'send_user_data']) ?>
-        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data"><i class="fa fa-paper-plane"></i>
+        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data" data-model="<?= $model->id ?>"><i
+                    class="fa
+        fa-paper-plane"></i>
             Отправить
             данные
         </button>
@@ -378,6 +380,7 @@ $('#send_user_data').on('click', function (){
     $('#tabledata').append(loading);
     var userId = $('#user_check').val();
     var score_count = $('#score_count4').text();
+    var modelId = $(this).data('model');
     if (userId == 0){
        Swal.fire({
 title: 'Сотрудник не выбран.',
@@ -399,6 +402,7 @@ type: 'warning',
             data: {
                 userid: userId,
                 score_count: score_count,
+                model: modelId
             },
             dataType: 'JSON',
             success: function(res){
