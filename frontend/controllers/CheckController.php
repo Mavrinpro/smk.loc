@@ -200,6 +200,7 @@ class CheckController extends Controller
                 $list->score7 = null;
                 $list->score8 = null;
                 $list->update();
+                \Yii::$app->session->setFlash('success', 'Таблица очищена!');
             }
             $this->redirect(['check/view', 'id' => $id]);
         }
