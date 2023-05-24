@@ -183,8 +183,10 @@ class DepartmentController extends Controller
     // Добавить пользователя на странице отдела
     public function actionCreateUser($id)
     {
+
         \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
-        return $this->redirect(['view', 'id' => $id]);
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return \Yii::$app->request->post();
     }
     
 }

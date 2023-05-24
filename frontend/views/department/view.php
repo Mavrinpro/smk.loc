@@ -177,7 +177,13 @@ $this->params['breadcrumbs'][] = $model->name;
         <div class="col-md-12 mt-3">
             <h3 class="mb-3">Сотрудники</h3>
             <?= Html::a('<i class="fa fa-user"></i> Добавить сотрудника', ['create-user', 'id' =>
-                $model->id], ['class' => 'btn btn-success mb-3']) ?>
+                $model->id], ['class' => 'btn btn-success mb-3',  'data' => [
+                'method' => 'post',
+                'params' => [
+                    'id' => $model->id,
+                    'param2' => 'value2',
+                ],
+            ],]) ?>
             <ul class="todo-list-wrapper list-group list-group-flush">
                 <?php
                 foreach ($user as $users) { ?>
