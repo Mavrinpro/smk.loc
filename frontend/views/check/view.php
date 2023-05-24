@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
   
 
 Swal.fire({
-title: 'Добавьте сотрудниуов в отдел и начните работу.',
+title: 'Добавьте сотрудников в отдел и начните работу.',
 confirmButtonColor: '#f44336',
 icon: "warning",
 type: 'warning',
@@ -83,9 +83,7 @@ type: 'warning',
 }
 );
 
-
 JS;
-
             $this->registerJs($js);
         }
         ?>
