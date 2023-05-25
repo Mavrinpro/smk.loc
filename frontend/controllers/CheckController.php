@@ -55,12 +55,17 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
+        $post = \Yii::$app->request->post();
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
 
-
+        //var_dump($post); die;
         $m = $this->findModel($id);
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
-        $user = \common\models\User::find()->where(['department_id' => $m->department_id])->all();
+
+
+        // Сотрудники в select
+        $user = \common\models\User::find()->where(['department_id' => $post['department_id']])->all();
+
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
         $num1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score3');

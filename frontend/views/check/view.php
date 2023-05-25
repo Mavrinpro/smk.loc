@@ -61,10 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
         <?php
-        //var_dump($model);
+        var_dump($user);
         if (sizeof($user) > 0) { ?>
             <select name="user_check" id="user_check" class="mb-2 form-control">
-                <option value="0">Выбрать сотрудника</option>
+                <option value="0" selected>Выбрать сотрудника</option>
                 <?php foreach ($user as $item) {
                     echo '<option value="' . $item->id . '">' . $item->username . '</option>>';
                 } ?>

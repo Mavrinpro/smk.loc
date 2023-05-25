@@ -185,8 +185,7 @@ class DepartmentController extends Controller
     {
 
         \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return \Yii::$app->request->post();
+        return $this->redirect(['view', 'id' => \Yii::$app->request->post('id')]);
     }
     
 }
