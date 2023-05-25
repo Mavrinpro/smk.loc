@@ -224,8 +224,11 @@ class CheckListController extends Controller
     public function actionSendUserData()
     {
         $post = \Yii::$app->request->post();
+        $getId = \Yii::$app->request->get('id');
         $userScore = new \app\models\UserScore();
-        $scoreUser =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();
+        $scoreUser =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->andWhere(['check_id' =>
+            $post['model']])->orderBy('id DESC')->one();
+
         if (\Yii::$app->request->isAjax){
             if (date('Y-m', $scoreUser->create_at) == date('Y-m')){
                 $post =  2; // принимаем на фронте и выводим сообщение об ошибке
@@ -244,8 +247,9 @@ class CheckListController extends Controller
                 'post' => $post,
                 'user' => $user,
                 'usercount' => $userCount,
-                'html' => '<tr><td>'.date('d.m.Y', $userCount->create_at).'</td><td>'.$user->username.'</td><td>'
-                        .$userCount->score.'</td></tr>'
+                'html' => '<tr><td><b>'.date('d.m.Y', $userCount->create_at).'</b></td><td>'.$user->username.'</td><td>'
+                        .$userCount->score.'</td></tr>',
+                'scoreUser' => $scoreUser
             ];
 
         }

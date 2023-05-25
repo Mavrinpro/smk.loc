@@ -62,7 +62,10 @@ class CheckController extends Controller
         $m = $this->findModel($id);
         $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
 
-
+        $getId = \Yii::$app->request->get('department_id');
+        if (empty($post['department_id'])){
+            $post['department_id'] = $getId;
+        }
         // Сотрудники в select
         $user = \common\models\User::find()->where(['department_id' => $post['department_id']])->all();
 
@@ -215,11 +218,12 @@ class CheckController extends Controller
     // Удаление из таблицы user_score
     public function actionDeleteUserScore($id)
     {
+        $getId = \Yii::$app->request->get('department_id');
         $userScore = \app\models\UserScore::find()->where(['id' => $id])->one();
         if ($this->request->isPost){
             $userScore->delete();
             \Yii::$app->session->setFlash('success', 'Запись удалена!');
-            $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id')]);
+            $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id'), 'department_id' => $getId]);
         }
 
     }

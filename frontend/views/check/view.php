@@ -61,10 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
         <?php
-        var_dump($user);
+        var_dump($scoreUser);
         if (sizeof($user) > 0) { ?>
             <select name="user_check" id="user_check" class="mb-2 form-control">
-                <option value="0" selected>Выбрать сотрудника</option>
+                <option value="0" selected="selected">Выбрать сотрудника</option>
                 <?php foreach ($user as $item) {
                     echo '<option value="' . $item->id . '">' . $item->username . '</option>>';
                 } ?>
@@ -218,10 +218,13 @@ JS;
                         <td><?= $score->user->username ?></td>
                         <td><?= $score->score ?></td>
                         <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
-                                $score->id, 'check_id' => $model->id],
+                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
                                 ['class' => 'btn btn-danger btn-sm', 'data' => [
                                     'confirm' => 'Хотите удалить запись?',
                                     'method' => 'post',
+                                    'params' => [
+                                            'department_id' => $model->department_id
+                                    ]
                                 ],
                                 ]) ?></td>
                     </tr>
@@ -389,15 +392,15 @@ $('#send_user_data').on('click', function (){
     var userId = $('#user_check').val();
     var score_count = $('#score_count4').text();
     var modelId = $(this).data('model');
-    if (userId == 0){
+    if (userId == 0 || userId == ''){
        Swal.fire({
 title: 'Сотрудник не выбран.',
 confirmButtonColor: '#f44336',
 icon: "warning",
 type: 'warning',
  customClass: 'reeee',
-}
-);
+});
+       $('.blockUI').remove();
        return false;
     }
     
