@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        \Yii::$app->db->schema->refresh();
+        //\Yii::$app->db->schema->refresh();
         $model = new SignupForm();
         if ($model->load(\Yii::$app->request->post()) && $model->signup()) {
             \Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');

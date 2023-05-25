@@ -7,6 +7,7 @@ use app\models\Page;
 use app\models\Branch;
 use app\models\Test;
 use app\models\UserSearch;
+use frontend\models\SignupForm;
 use common\models\User;
 use frontend\models\DepartmentSearch;
 use yii\data\ActiveDataProvider;
@@ -83,13 +84,14 @@ class DepartmentController extends Controller
         $branch = Branch::find()->where(['id' => $depart->branch_id])->one();
 
         $user = User::find()->where(['department_id' => $depart->id])->all();
-
+        $userForm = new User();
 
         return $this->render('view', [
             'user' => $user,
             'branch' => $branch,
             'page' => $page,
             'model' => $this->findModel($id),
+            'userform' => $userForm
         ]);
     }
 
@@ -181,11 +183,18 @@ class DepartmentController extends Controller
     }
 
     // Добавить пользователя на странице отдела
-    public function actionCreateUser($id)
+    public function actionCreateUser()
     {
+        $model = new SignupForm();
+        //$userform = new frontend\models\SignupForm();
 
-        \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
-        return $this->redirect(['view', 'id' => \Yii::$app->request->post('id')]);
+        if ($model->load(\Yii::$app->request->post()) && $model->signup()) {
+            \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
+            return $this->goHome();
+        }
+
+
+        return $this->redirect(['view', 'id' => 5]);
     }
     
 }

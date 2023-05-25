@@ -14,6 +14,8 @@ use app\components\widgets\AlertWidget;
 use yii\widgets\Breadcrumbs;
 $question = new app\models\Question();
 $answer = new app\models\Answer();
+$userform = new frontend\models\SignupForm();
+
 
 AppAsset::register($this);
 ?>
@@ -1561,7 +1563,44 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
+<!--Modal create user-->
+<div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить сотрудника</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                $form = ActiveForm::begin(['id' => 'createUser', 'action' => '/department/create-user']); ?>
 
+                <?= $form->field($userform, 'username')->textInput(['maxlength' => true]) ?>
+
+                <?= $form->field($userform, 'create_at')->hiddenInput(['value' => time()])->label
+                (false) ?>
+                <?= $form->field($userform, 'email')->textInput() ?>
+                <?= $form->field($userform, 'password')->passwordInput() ?>
+                <?= $form->field($userform, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])
+                    ->label
+                (false) ?>
+
+
+                <div class="form-group">
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal create user end-->
 <div class="modal fade" id="modalCreateQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

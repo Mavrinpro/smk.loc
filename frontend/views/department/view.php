@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap4\Modal;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
@@ -15,6 +16,7 @@ use yii\bootstrap4\Modal;
 $this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
+
 <?= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
 <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
 <div class="row">
@@ -184,6 +186,7 @@ $this->params['breadcrumbs'][] = $model->name;
                     'param2' => 'value2',
                 ],
             ],]) ?>
+            <a href="" data-target="#modalCreateUser" data-toggle="modal">trthrth</a>
             <ul class="todo-list-wrapper list-group list-group-flush">
                 <?php
                 foreach ($user as $users) { ?>
@@ -240,5 +243,10 @@ $this->params['breadcrumbs'][] = $model->name;
 <?php } ?>
 
 
+<?php
+$js = <<<JS
+
+JS;
+?>
 
 
