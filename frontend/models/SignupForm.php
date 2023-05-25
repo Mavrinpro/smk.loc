@@ -85,4 +85,11 @@ class SignupForm extends Model
             ->setSubject('Account registration at ' . Yii::$app->name)
             ->send();
     }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOne($id);
+        $user->status = 0;
+        $user->update();
+    }
 }

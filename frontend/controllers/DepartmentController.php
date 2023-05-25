@@ -46,7 +46,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -188,12 +188,23 @@ class DepartmentController extends Controller
         $model = new SignupForm();
         //$userform = new frontend\models\SignupForm();
 
+
         if ($model->load(\Yii::$app->request->post()) && $model->signup()) {
+            $roleUser = \Yii::$app->authManager->getRole('user');
+            $ertre = new User();
+            $user = User::find()->orderBy('id DESC')->one();
+            \Yii::$app->authManager->assign($roleUser, $user->getId());
             \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
-            return $this->goHome();
+            return $this->redirect(['view', 'id' => \Yii::$app->request->post('SignupForm')['department_id']]);
         }
 
+        return $this->goHome();
+    }
 
+    public function actionDeleteUser()
+    {
+        $user = new SignupForm();
+        $user->deleteUser(\Yii::$app->request->get('id'));
         return $this->redirect(['view', 'id' => 5]);
     }
     

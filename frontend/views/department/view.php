@@ -230,6 +230,8 @@ $this->params['breadcrumbs'][] = $model->name;
                                             <button type="button" disabled="" tabindex="-1" class="disabled dropdown-item">Action</button>
                                             <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
                                             <button type="button" tabindex="0" class="dropdown-item">Удалить</button>
+                                            <?= Html::a('Удалить', ['department/delete-user', 'id' =>
+                                                $users->id], ['class' => 'dropdown-item']) ?>
                                         </div>
                                     </div>
                                 </div>
