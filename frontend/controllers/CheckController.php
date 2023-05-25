@@ -67,7 +67,7 @@ class CheckController extends Controller
             $post['department_id'] = $getId;
         }
         // Сотрудники в select
-        $user = \common\models\User::find()->where(['department_id' => $post['department_id']])->all();
+        $user = \common\models\User::find()->where(['department_id' => $post['department_id'], 'status' => 10])->all();
 
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
