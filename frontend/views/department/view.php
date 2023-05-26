@@ -244,7 +244,6 @@ $this->params['breadcrumbs'][] = $model->name;
     </div>
 <?php } ?>
 
-
 <?php
 $js = <<<JS
 
