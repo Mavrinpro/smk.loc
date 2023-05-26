@@ -248,6 +248,7 @@ $this->params['breadcrumbs'][] = $model->name;
 $js = <<<JS
 
 JS;
+$this->registerJs($js);
 ?>
 
 
