@@ -186,8 +186,6 @@ class DepartmentController extends Controller
     public function actionCreateUser()
     {
         $model = new SignupForm();
-        //$userform = new frontend\models\SignupForm();
-
 
         if ($model->load(\Yii::$app->request->post()) && $model->signup()) {
             $roleUser = \Yii::$app->authManager->getRole('user');
