@@ -27,6 +27,7 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
+            ['username', 'match', 'pattern' => '/^[a-z]+$/i', 'message' => 'Логин должен состоять из латинских букв.'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 

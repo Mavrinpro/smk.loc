@@ -56,6 +56,7 @@ class CheckController extends Controller
     public function actionView($id)
     {
         $post = \Yii::$app->request->post();
+        $dep_id =  \Yii::$app->request->get();
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
 
         //var_dump($post); die;
@@ -67,7 +68,7 @@ class CheckController extends Controller
             $post['department_id'] = $getId;
         }
         // Сотрудники в select
-        $user = \common\models\User::find()->where(['department_id' => $post['department_id'], 'status' => 10])->all();
+        $user = \common\models\User::find()->where(['department_id' => $dep_id['id'], 'status' => 10])->all();
 
         $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
         $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
@@ -223,7 +224,7 @@ class CheckController extends Controller
         if ($this->request->isPost){
             $userScore->delete();
             \Yii::$app->session->setFlash('success', 'Запись удалена!');
-            $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id'), 'department_id' => $getId]);
+            $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id')]);
         }
 
     }
