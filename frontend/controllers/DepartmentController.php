@@ -203,7 +203,7 @@ class DepartmentController extends Controller
     {
         $user = new SignupForm();
         $user->deleteUser(\Yii::$app->request->get('id'));
-        return $this->redirect(['view', 'id' => 5]);
+        return $this->redirect(['view', 'id' => \Yii::$app->request->get('department_id')]);
     }
     
 }
