@@ -154,16 +154,7 @@ $model = new IndexForm();
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
 
-        return $this->render('about');
-    }
 
     /**
      * Signs user up.
@@ -275,15 +266,5 @@ $model = new IndexForm();
             'model' => $model
         ]);
     }
-
-    public function actionServices()
-    {
-        $model = new IndexForm();
-        return $this->render('services', ['model' => $model]);
-    }
-
-    public function actionPolitics()
-    {
-        return $this->render('politics');
-    }
+    
 }
