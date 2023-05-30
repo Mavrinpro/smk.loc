@@ -121,16 +121,9 @@ $this->params['breadcrumbs'][] = $model->name;
                                     <div class="widget-content-left flex2">
                                         <div class="widget-heading"><a href="/page/view/<?= $pages->id;  ?>" class="widget-heading font-weight-normal"><?= $pages->name ?></a></div>
                                     </div>
-<!--                                    <div class="widget-content-right">-->
-<!--                                        <div class="badge badge-warning mr-2">69</div>-->
-<!--                                    </div>-->
+
                                     <div class="widget-content-right">
-<!--                                        --><?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/view', 'id' => $pages->id], [
-//                                            'class' => 'border-0 btn-transition btn btn-outline-warning',
-//                                        ]) ?>
-<!--                                        --><?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/update', 'id' => $pages->id], [
-//                                            'class' => 'border-0 btn-transition btn btn-outline-warning',
-//                                        ]) ?>
+
                                         <div class="d-inline-block dropdown">
                                             <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="border-0 btn-transition btn btn-link">
                                                 <i class="fa fa-ellipsis-h"></i>
