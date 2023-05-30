@@ -403,6 +403,17 @@ type: 'warning',
        $('.blockUI').remove();
        return false;
     }
+    if (score_count == 0){
+         Swal.fire({
+title: 'Сначала оцените сотрудника.',
+confirmButtonColor: '#f44336',
+icon: "warning",
+type: 'warning',
+ customClass: 'reeee',
+});
+         $('.blockUI').remove();
+       return false;
+    }
     
     $(this).find('.fa').removeClass('fa-paper-plane');
     $(this).find('.fa').addClass('spinner-grow spinner-grow-sm');
