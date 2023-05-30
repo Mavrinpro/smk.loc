@@ -19,6 +19,9 @@ $this->params['breadcrumbs'][] = $model->name;
 
 <?= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
 <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
+<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa
+fa-user"></i> Добавить
+    сотрудника</a>
 <div class="row">
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
@@ -167,6 +170,9 @@ $this->params['breadcrumbs'][] = $model->name;
         </div>
     </div>
 </div>
+<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa
+fa-user"></i> Добавить
+    сотрудника</a>
 <?php if (sizeof($user) > 0){ ?>
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -179,8 +185,6 @@ $this->params['breadcrumbs'][] = $model->name;
 //                    'param2' => 'value2',
 //                ],
 //            ],]) ?>
-            <a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3"><i class="fa fa-user"></i> Добавить
-                сотрудника</a>
             <ul class="todo-list-wrapper list-group list-group-flush">
                 <?php
                 foreach ($user as $users) { ?>

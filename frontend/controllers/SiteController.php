@@ -266,5 +266,4 @@ $model = new IndexForm();
             'model' => $model
         ]);
     }
-    
 }
