@@ -226,6 +226,5 @@ class CheckController extends Controller
             \Yii::$app->session->setFlash('success', 'Запись удалена!');
             $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id')]);
         }
-
     }
 }
