@@ -89,4 +89,9 @@ class Page extends \yii\db\ActiveRecord
 
         return $content;
     }
+
+    public function getDepartment()
+    {
+        return $this->hasOne(\app\models\Department::class, ['id' => 'department_id']);
+    }
 }

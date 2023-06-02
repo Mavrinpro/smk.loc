@@ -26,10 +26,7 @@ use yii\helpers\Html;
         </div>
         <div class="col-md-6">
     <?= $form->field($model, 'city_id')->dropDownList(\yii\helpers\ArrayHelper::map(app\models\Branch::find()
-        ->andWhere('id>0')->all(), 'id', 'name'),['onchange'=>'
-                $.post("/user/lists?id=5, function(data){
-                    $("select#signupform-department_id").html(data);
-                });']) ?>
+        ->andWhere('id>0')->all(), 'id', 'name')) ?>
         </div>
         <div class="col-md-12">
     <label for="signupform-department_id">Отдел</label>

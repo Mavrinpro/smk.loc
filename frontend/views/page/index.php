@@ -29,7 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
-            'department_id',
+            ['attribute' => 'department_id',
+                'filter' => \app\models\Department::find()->select(['id', 'name'])->indexBy('id')->column(),
+                'value' => 'department.name'
+                ],
             'create_at',
             'update_at',
             //'user_id_create',

@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
+    <?php Pjax::begin(['enablePushState' => false, 'options' => ['data-pjax' => true ]]); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <!--    --><?//= GridView::widget([
@@ -55,14 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
     <div class="student-form">
-        <?php $form = ActiveForm::begin(['method' => 'get']); ?>
+        <?php $form = ActiveForm::begin(['method' => 'get','options' => ['data-pjax' => true ],]); ?>
 
         <?= $form->field($searchModel, 'username') ?>
 
-        <?= $form->field($searchModel, 'id') ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Apply', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Поиск', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
