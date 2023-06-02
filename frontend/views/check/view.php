@@ -365,7 +365,6 @@ $('th.phone_editable').each(function (){
                 
             },
             error: function(){
-                //search_form_header.find('.result_search').html('').css('display', 'none');
                 alert('Error!');
             }
         })
