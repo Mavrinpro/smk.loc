@@ -33,6 +33,7 @@ class Test extends \yii\db\ActiveRecord
         return [
             [['user_id', 'create_at', 'update_at', 'action'], 'integer'],
             [['result', 'name'], 'string', 'max' => 255],
+            [['name'], 'required']
         ];
     }
 

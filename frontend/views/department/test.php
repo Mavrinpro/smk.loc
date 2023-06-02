@@ -17,7 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
     <h1><?= Html::encode($this->title) ?></h1>
-<?php if (sizeof($test) > 0): ?>
+        <?= Html::a('<i class="fa fa-plus-circle"></i> Создать тест', ['/test/create', 'department_id' =>
+            \Yii::$app->request->get('test_id')],
+            ['class' =>
+            'btn btn-success mb-3']) ?>
+
+        <?php if (sizeof($test) > 0): ?>
         <ul class="list-group">
             <?php foreach ($test as $tester) {
                 $question = \app\models\Question::find()->where(['test_id' => $tester->id])->all();

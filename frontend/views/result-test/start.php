@@ -62,7 +62,8 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
 
                                                                         <div class="custom-control custom-switch">
 
-                                                                            <?= $form->field($result, 'answer_id')->checkbox(['id' => 'customSwitch-' . $ans->id,
+                                                                            <?= $form->field($result, 'answer_id[]')
+                                                                                ->checkbox(['id' => 'customSwitch-' . $ans->id,
                                                                                 'class' => 'custom-control-input', 'value' => $ans->id])
                                                                                 ->label($ans->name) ?>
                                                                             <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
