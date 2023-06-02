@@ -207,7 +207,7 @@ fa-user"></i> Добавить
                                 </div>
                                 <div class="widget-content-left">
                                     <?php if ($users->status == 10) { ?>
-                                        <a href="/user/view/<?= $users->id ?>"
+                                        <a href="/user/update/<?= $users->id ?>"
                                            class="widget-heading text-success"><?= $users->username ?></a>
                                         <div class="widget-subheading">
                                             <div>Активный
