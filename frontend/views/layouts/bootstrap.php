@@ -1588,6 +1588,12 @@ AppAsset::register($this);
                 <?= $form->field($userform, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])
                     ->label
                 (false) ?>
+                <?php $cityId = \app\models\Department::find()->where(['id' => \Yii::$app->request->get('id')])->one
+                (); ?>
+                <?php $cityId = \app\models\Branch::find()->where(['id' => $cityId->branch_id])->one(); ?>
+                <?= $form->field($userform, 'city_id')->hiddenInput(['value' => $cityId->id])
+                    ->label
+                    (false) ?>
 
 
                 <div class="form-group">

@@ -128,4 +128,16 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionLists($id){
+
+        $data = '<option>Выбрать...</option>';
+
+        $items = app\models\Department::find()->select(['name', 'id'])->distinct()->all();
+            foreach($items as $item){
+                $data .= "<option value='".$item->id."'>".$item->name."</option>";
+            }
+
+        return $data;
+    }
 }

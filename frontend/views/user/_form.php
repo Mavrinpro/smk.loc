@@ -11,27 +11,41 @@ use yii\helpers\Html;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-
+<div class="row">
+    <div class="col-md-6">
     <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
+</div>
+    <div class="col-md-6">
     <?= $form->field($model, 'email') ?>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-6">
     <?= $form->field($model, 'company_id')->dropDownList(\yii\helpers\ArrayHelper::map(app\models\Company::find()
         ->andWhere('id>0')->all(), 'id', 'name')) ?>
-    <?= $form->field($model, 'city_id')->dropDownList(\yii\helpers\ArrayHelper::map(app\models\Branch::find()->andWhere('id>0')->all(), 'id', 'name')) ?>
-    <!--    --><? //= $form->field($model, 'department_id') ?>
+        </div>
+        <div class="col-md-6">
+    <?= $form->field($model, 'city_id')->dropDownList(\yii\helpers\ArrayHelper::map(app\models\Branch::find()
+        ->andWhere('id>0')->all(), 'id', 'name'),['onchange'=>'
+                $.post("/user/lists?id=5, function(data){
+                    $("select#signupform-department_id").html(data);
+                });']) ?>
+        </div>
+        <div class="col-md-12">
     <label for="signupform-department_id">Отдел</label>
+
     <select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">
         <?php $sql2 = app\models\Department::find()->select(['name', 'id'])->distinct()->all();
         foreach ($sql2 as $item) { ?>
             <option value="<?= $item->id ?>"><?= $item->name ?></option>
         <?php }
         ?> </select>
-    <?= $form->field($model, 'password')->passwordInput() ?>
 
-    <div class="form-group">
+
+    <div class="form-group mt-3">
         <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
-
+        </div>
     <?php ActiveForm::end(); ?>
 
 </div>
