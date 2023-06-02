@@ -12,6 +12,7 @@ use common\models\User;
 class SignupForm extends Model
 {
     public $username;
+    public $fio;
     public $email;
     public $password;
     public $city_id;
@@ -28,6 +29,8 @@ class SignupForm extends Model
             ['username', 'trim'],
             ['username', 'required'],
             ['username', 'match', 'pattern' => '/^[a-z]+$/i', 'message' => 'Логин должен состоять из латинских букв.'],
+            ['fio', 'required'],
+            ['fio', 'match', 'pattern' => '/^[А-Яа-я\s_-]+$/u', 'message' => 'ФИО должны состоять из русских букв.'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
@@ -56,6 +59,7 @@ class SignupForm extends Model
         
         $user = new User();
         $user->username = $this->username;
+        $user->fio = $this->fio;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
@@ -92,5 +96,20 @@ class SignupForm extends Model
         $user = User::findOne($id);
         $user->status = 0;
         $user->update();
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Логин',
+            'fio' => 'ФИО',
+            'password' => 'Пароль',
+            'update_at' => 'Update At',
+            'user_id_create' => 'User Id Create',
+            'user_id_update' => 'User Id Update',
+            'active' => 'Active',
+            'user_id' => 'User ID',
+        ];
     }
 }

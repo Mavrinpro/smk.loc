@@ -194,9 +194,12 @@ class DepartmentController extends Controller
             \Yii::$app->authManager->assign($roleUser, $user->getId());
             \Yii::$app->session->setFlash('success', 'Сотрудник добавлен в отдел!');
             return $this->redirect(['view', 'id' => \Yii::$app->request->post('SignupForm')['department_id']]);
+        }else{
+            \Yii::$app->session->setFlash('error', 'Вы что-то ввели неверно. Попробуйте еще раз.');
+            return $this->redirect(['view', 'id' => \Yii::$app->request->post('SignupForm')['department_id']]);
         }
 
-        return $this->goHome();
+
     }
 
     public function actionDeleteUser()

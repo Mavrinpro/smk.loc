@@ -1575,9 +1575,11 @@ AppAsset::register($this);
             </div>
             <div class="modal-body">
                 <?php
-                $form = ActiveForm::begin(['id' => 'createUser', 'action' => '/department/create-user']); ?>
+                $form = ActiveForm::begin(['id' => 'createUser', 'action' => '/department/create-user', 'enableAjaxValidation' => false,
+                    'enableClientValidation' => true,]); ?>
 
                 <?= $form->field($userform, 'username')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($userform, 'fio')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($userform, 'create_at')->hiddenInput(['value' => time()])->label
                 (false) ?>
