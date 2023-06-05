@@ -14,7 +14,7 @@ use Yii;
  * @property int|null $update_at
  * @property int|null $question_id
  * @property int|null $answer_id
- * @property int|null $time_test
+ * @property string|null $answer_text
  * @property int|null $completed
  */
 class ResultTest extends \yii\db\ActiveRecord
@@ -34,7 +34,7 @@ class ResultTest extends \yii\db\ActiveRecord
     {
         return [
             [['answer_id'], 'safe', 'message' => 'Выберите вариант ответа'],
-            
+            [['answer_text'], 'safe'],
             [['user_id', 'test_id', 'create_at', 'update_at', 'question_id', 'time_test', 'completed'], 'integer'],
         ];
     }

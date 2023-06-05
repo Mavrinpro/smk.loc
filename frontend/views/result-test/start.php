@@ -20,7 +20,7 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
     <div class="row">
         <div class="col-md-12">
 
-<?= $next->id ?>
+            <?= $next->id ?>
             <ul class="todo-list-wrapper list-group list-group-flush" id="accordion">
                 <?php $form = ActiveForm::begin([
                     'id' => 'form_result_test',
@@ -42,47 +42,61 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                      style="cursor: pointer"><?= $i . '. ' . $quest->name ?></div>
                                 <div class="widget-subheading ml-2">
                                     <div>
-
+                                        <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
+                                            \Yii::$app->request->get('id')])->andWhere(['user_id' =>
+                                            \Yii::$app->getUser()
+                                            ->id])->exists(); ?>
+                                        <?php if ($isExists != 1): ?>
+                                            <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
+                                            (false) ?>
+                                            <?= $form->field($result, 'answer_text')->textInput()->label('Ваш ответ') ?>
+                                        <?php endif; ?>
                                         <div data-parent="#accordion" id="collapseOne<?= $i ?>"
                                              class="collapse show"
                                              style="">
                                             <div class="card-body">
                                                 <?php foreach ($answer as $ans) { ?>
                                                     <!--                                                        <p class="text-dark">--><? //= $ans->name ?><!--</p>-->
+
                                                     <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
 
-                                                        <div class="vertical-timeline-item vertical-timeline-element">
-                                                            <div>
-                                                                <span class="vertical-timeline-element-icon bounce-in">
+                                                    <div class="vertical-timeline-item vertical-timeline-element">
+                                                    <div>
+                                                    <span class="vertical-timeline-element-icon bounce-in">
                                                                 <i class="badge badge-dot badge-dot-xl badge-primary"> </i>
                                                                 </span>
-                                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <div class="vertical-timeline-element-content bounce-in">
+                                                        <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
+                                                            \Yii::$app->request->get('id')])->exists();  ?>
+                                                    <h4 class="timeline-title">
+                                                    <?php if ($isExists == 1): ?>
 
-                                                                    <h4 class="timeline-title">
+                                                    <div class="custom-control custom-switch">
 
-                                                                        <div class="custom-control custom-switch">
+                                                        <?= $form->field($result, 'answer_id[]')
+                                                            ->checkbox(['id' => 'customSwitch-' . $ans->id,
+                                                                'class' => 'custom-control-input', 'value' => $ans->id])
+                                                            ->label($ans->name) ?>
+                                                    <?php else: ?>
+                                                        <?= $form->field($result, 'answer_text')->textInput() ?>
+                                                    <?php endif; ?>
+                                                        <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
+                                                            ->id])->label(false) ?>
+                                                        <?= $form->field($result, 'test_id')
+                                                            ->hiddenInput(['value' =>
+                                                                $question->test_id])->label
+                                                            (false) ?>
+                                                        <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
+                                                        (false) ?>
 
-                                                                            <?= $form->field($result, 'answer_id[]')
-                                                                                ->checkbox(['id' => 'customSwitch-' . $ans->id,
-                                                                                'class' => 'custom-control-input', 'value' => $ans->id])
-                                                                                ->label($ans->name) ?>
-                                                                            <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
-                                                                                ->id])->label(false) ?>
-                                                                            <?= $form->field($result, 'test_id')
-                                                                                ->hiddenInput(['value' =>
-                                                                                    $question->test_id])->label
-                                                                                (false) ?>
-                                                                            <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
-                                                                            (false) ?>
-
-                                                                        </div>
-
-                                                                    </h4>
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                <?php } ?>
+
+                                                        </h4>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        <?php } ?>
                                             </div>
                                         </div>
                                     </div>

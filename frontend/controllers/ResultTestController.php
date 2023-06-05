@@ -109,6 +109,7 @@ class ResultTestController extends \yii\web\Controller
 
     public function actionStart($id)
     {
+        //\Yii::$app->db->schema->refresh();
         $question = \app\models\Question::find()->where(['id' => $id])->one();
         $answer = \app\models\Answer::find()->where(['question_id' => $question->id])->all();
         $result = new \app\models\ResultTest();
@@ -124,15 +125,28 @@ class ResultTestController extends \yii\web\Controller
             ->one();
 
         if (\Yii::$app->request->isPost) {
-            $ansId = \Yii::$app->request->post()['ResultTest']['answer_id'];
 
+            $ansId = \Yii::$app->request->post()['ResultTest']['answer_id'];
+            var_dump($ansId); die();
 
             $testId = \Yii::$app->request->post('ResultTest')['test_id'];
             $question_Id = \Yii::$app->request->post('ResultTest')['question_id'];
             //var_dump($ansId); die;
-            if ($ansId == null || $ansId == '0'){
-                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
-                return $this->refresh();
+//            if ($ansId == null || $ansId == '0'){
+//                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
+//                return $this->refresh();
+//            }
+            if (\Yii::$app->request->post('ResultTest')['answer_text'] != ''){
+                \Yii::$app->session->setFlash('success', 'Тест пройден');
+
+                $testId = \Yii::$app->request->get('test_id');
+                $result->answer_id = null;
+                $result->answer_text = \Yii::$app->request->post('ResultTest')['answer_text'];
+                $result->test_id = $testId;
+                $result->question_id = \Yii::$app->request->post('ResultTest')['question_id'];;
+                $result->create_at = time();
+                $result->user_id = \Yii::$app->getUser()->id;
+                $result->save();
             }
 
             if (!isset($next_id->id)) {
