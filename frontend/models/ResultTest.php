@@ -62,6 +62,11 @@ class ResultTest extends \yii\db\ActiveRecord
         return $this->hasOne(\app\models\Answer::class, ['id' => 'ans_id']);
     }
 
+    public function Anser($id)
+    {
+        return \app\models\Answer::find()->where([ 'id' => $id])->all();
+    }
+
     public function getQuestion()
     {
         return $this->hasOne(\app\models\Question::class, ['id' => 'question_id']);

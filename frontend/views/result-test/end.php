@@ -32,6 +32,8 @@ $arrName = [];
 //
 //
 //}
+$m = new \app\models\ResultTest();
+
 ?>
 <table class="table">
     <thead>
@@ -49,7 +51,7 @@ $arrName = [];
         <td><?= $itemq->id ?></td>
         <td><?= $itemq->question->name ?></td>
         <?php if (isset($itemq->ans_id)): ?>
-        <td><?= $itemq->answer->name ?></td>
+        <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php var_dump($m->anser()) ?></td>
         <?php else: ?>
         <td><?= $itemq->answer_text ?></td>
         <?php endif; ?>
