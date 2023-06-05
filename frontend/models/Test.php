@@ -14,6 +14,7 @@ use Yii;
  * @property int|null $create_at
  * @property int|null $update_at
  * @property int|null $action
+ * @property int|null $department_id
  */
 class Test extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,8 @@ class Test extends \yii\db\ActiveRecord
         return [
             [['user_id', 'create_at', 'update_at', 'action'], 'integer'],
             [['result', 'name'], 'string', 'max' => 255],
-            [['name'], 'required']
+            [['name'], 'required'],
+            [['department_id'], 'safe']
         ];
     }
 
