@@ -59,7 +59,7 @@ class ResultTest extends \yii\db\ActiveRecord
 
     public function getAnswer()
     {
-        return $this->hasOne(\app\models\Answer::class, ['id' => 'answer_id']);
+        return $this->hasOne(\app\models\Answer::class, ['id' => 'ans_id']);
     }
 
     public function getQuestion()

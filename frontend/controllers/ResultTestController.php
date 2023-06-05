@@ -6,6 +6,7 @@ namespace frontend\controllers;
 use app\models\Test;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -127,17 +128,40 @@ class ResultTestController extends \yii\web\Controller
         if (\Yii::$app->request->isPost) {
 
             $ansId = \Yii::$app->request->post()['ResultTest']['answer_id'];
-            var_dump($ansId); die();
+            //var_dump($ansId); die;
+            if ($ansId != null) {
+                foreach ($ansId as $key => $item) {
+                    if ($item == '0') {
+                        unset($ansId[$key]);
+                    }
+                }
+
+                if (implode(',', $ansId) == "") {
+
+                    return $this->refresh();
+                }
+            }
+
+            //echo implode(',',$ansId); die();
 
             $testId = \Yii::$app->request->post('ResultTest')['test_id'];
             $question_Id = \Yii::$app->request->post('ResultTest')['question_id'];
             //var_dump($ansId); die;
-//            if ($ansId == null || $ansId == '0'){
-//                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
-//                return $this->refresh();
-//            }
-            if (\Yii::$app->request->post('ResultTest')['answer_text'] != ''){
-                \Yii::$app->session->setFlash('success', 'Тест пройден');
+            //            if ($ansId == null || $ansId == '0'){
+            //                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
+            //                return $this->refresh();
+            //            }
+
+
+
+
+            if (\Yii::$app->request->post('answer_null') == 'null') {
+//var_dump(\Yii::$app->request->post('ResultTest')['answer_text']); die();
+                if (\Yii::$app->request->post('ResultTest')['answer_text'] == "") {
+                    \Yii::$app->session->setFlash('success', 'Тест пройден');
+                    return $this->refresh();
+                }
+
 
                 $testId = \Yii::$app->request->get('test_id');
                 $result->answer_id = null;
@@ -154,13 +178,16 @@ class ResultTestController extends \yii\web\Controller
                 \Yii::$app->session->setFlash('success', 'Тест пройден');
                 $userId = \Yii::$app->getUser()->id;
                 $testId = \Yii::$app->request->get('test_id');
-                $result->answer_id = $ansId;
+                if ($ansId != null) {
+                    $result->ans_id = implode(',', $ansId);
+                }
+
                 $result->test_id = $testId;
                 $result->question_id = $question_Id;
                 $result->create_at = time();
                 $result->user_id = \Yii::$app->getUser()->id;
                 $result->save();
-                $res = \app\models\ResultTest::find()->where(['test_id' => $question->test_id, 'user_id' =>$userId])->all();
+                $res = \app\models\ResultTest::find()->where(['test_id' => $question->test_id, 'user_id' => $userId])->all();
 
 
                 return $this->redirect(['end',
@@ -170,29 +197,29 @@ class ResultTestController extends \yii\web\Controller
 
             }
 
-                \Yii::$app->session->setFlash('success', $ansId);
-                $result->answer_id = $ansId;
-                $result->test_id = $testId;
-                $result->question_id = $question_Id;
-                $result->create_at = time();
-                $result->user_id = \Yii::$app->getUser()->id;
-                $result->save();
+            \Yii::$app->session->setFlash('success', $ansId);
+            $result->ans_id = implode(',', $ansId);
+            $result->test_id = $testId;
+            $result->question_id = $question_Id;
+            $result->create_at = time();
+            $result->user_id = \Yii::$app->getUser()->id;
+            $result->save();
 
             if ($next_id->id == null) {
                 \Yii::$app->session->setFlash('success', 'Тест пройден');
                 $userId = \Yii::$app->getUser()->id;
                 $testId = \Yii::$app->request->get('test_id');
-                $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->all();
+                $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' => $userId])->all();
                 return $this->render('end', [
 
                     'model' => $res,
                 ]);
 
-            }else{
+            } else {
                 \Yii::$app->session->setFlash('success', $ansId);
-               
+
                 return $this->redirect(['start', 'id' => $next_id->id, 'test_id' => $next_id->test_id, 'qid'
-                =>$question->id]);
+                => $question->id]);
 
             }
 
@@ -212,10 +239,16 @@ class ResultTestController extends \yii\web\Controller
     {
         $userId = \Yii::$app->getUser()->id;
         $testId = \Yii::$app->request->get('test_id');
-        $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->all();
+        $where =['DATE(`create_at`)' => new \yii\db\Expression('CURDATE()')];//текущая дата относительно серверного
+        // времени базы данных
+        // или
+        $where =['DATE(`create_at`)' => date('Y-m-d')];//текущая дата относительно серверного времени интерпретатора php
+        // или
+
+        $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' => $userId])->andWhere(['>', 'create_at', strtotime(date('Y-m-d'))])->all();
 
 
-            $re = \app\models\Question::find()->all();
+        $re = \app\models\Question::find()->all();
 
         $q = \app\models\Question::find()->where(['test_id' => $testId])->all();
         return $this->render('end', [

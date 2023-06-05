@@ -42,19 +42,22 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                      style="cursor: pointer"><?= $i . '. ' . $quest->name ?></div>
                                 <div class="widget-subheading ml-2">
                                     <div>
-                                        <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
-                                            \Yii::$app->request->get('id')])->andWhere(['user_id' =>
-                                            \Yii::$app->getUser()
-                                            ->id])->exists(); ?>
-                                        <?php if ($isExists != 1): ?>
-                                            <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
-                                            (false) ?>
-                                            <?= $form->field($result, 'answer_text')->textInput()->label('Ваш ответ') ?>
-                                        <?php endif; ?>
+
+
                                         <div data-parent="#accordion" id="collapseOne<?= $i ?>"
                                              class="collapse show"
                                              style="">
                                             <div class="card-body">
+                                                <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
+                                                    \Yii::$app->request->get('id')])->andWhere(['user_id' =>
+                                                    \Yii::$app->getUser()
+                                                        ->id])->exists(); ?>
+                                                <?php if ($isExists != 1): ?>
+                                                    <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
+                                                    (false) ?>
+                                                    <?= $form->field($result, 'answer_text')->textInput()->label('Ваш ответ') ?>
+                                                    <input type="hidden" name="answer_null" value="null">
+                                                <?php else: ?>
                                                 <?php foreach ($answer as $ans) { ?>
                                                     <!--                                                        <p class="text-dark">--><? //= $ans->name ?><!--</p>-->
 
@@ -66,10 +69,8 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                                                 <i class="badge badge-dot badge-dot-xl badge-primary"> </i>
                                                                 </span>
                                                     <div class="vertical-timeline-element-content bounce-in">
-                                                        <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
-                                                            \Yii::$app->request->get('id')])->exists();  ?>
+
                                                     <h4 class="timeline-title">
-                                                    <?php if ($isExists == 1): ?>
 
                                                     <div class="custom-control custom-switch">
 
@@ -77,9 +78,7 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                                             ->checkbox(['id' => 'customSwitch-' . $ans->id,
                                                                 'class' => 'custom-control-input', 'value' => $ans->id])
                                                             ->label($ans->name) ?>
-                                                    <?php else: ?>
-                                                        <?= $form->field($result, 'answer_text')->textInput() ?>
-                                                    <?php endif; ?>
+
                                                         <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
                                                             ->id])->label(false) ?>
                                                         <?= $form->field($result, 'test_id')
@@ -97,6 +96,7 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                                         </div>
                                                         </div>
                                                         <?php } ?>
+                                                        <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>

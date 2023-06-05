@@ -18,42 +18,49 @@ $id = [];
 foreach ($model as $item) {
     $id[] = $item->test_id;
 }
-$re = \app\models\Answer::find()->where(['in' ,'test_id' , $id])->all();
-$qu = \app\models\Question::find()->where(['in' ,'test_id' , $id])->all();
+//$re = \app\models\Answer::find()->where(['in' ,'test_id' , $id])->all();
+//$qu = \app\models\Question::find()->where(['in' ,'test_id' , $id])->all();
 $arrName = [];
 //var_dump($model);
-foreach ($model as $itemq) {
-        if($itemq->answer->answer_right == 1){
-            $l = '<span class="mb-2 mr-2 badge badge-pill badge-success d-inline-block">Верно</span>';
-        }else{
-            $l = '<span class="mb-2 mr-2 badge badge-pill badge-danger d-inline-block">Не верно</span>';
-        }
-    echo '<p>'.$itemq->question->name.' - ' .$itemq->answer->name.'=='.$l.'</p>';
-    //foreach ($re as $item) {
-    //    if($item->answer_right == 1){
-    //        $l = '<div class="mb-2 mr-2 badge badge-pill badge-success">Success</div>';
-    //    }else{
-    //        $l = '<div class="mb-2 mr-2 badge badge-pill badge-danger">Danger</div>';
-    //    }
-    //    echo '<br>'.$item->name.' - '.$l.' -- '.date('Y-m-d', $item->create_at).' <br>';
-    //}
-
-}
-
-foreach ($model as $item) {
-   // echo $item->answer->name;
-}
-//foreach ($re as $item) {
-//    if($item->answer_right == 1){
-//        $l = '<div class="mb-2 mr-2 badge badge-pill badge-success">Success</div>';
-//    }else{
-//        $l = '<div class="mb-2 mr-2 badge badge-pill badge-danger">Danger</div>';
-//    }
-//    echo '<br>'.$item->name.' - '.$l.' -- '.date('Y-m-d', $item->create_at).' <br>';
-//}
+//foreach ($model as $itemq) {
+//        if($itemq->answer->answer_right == 1){
+//            $l = '<span class="mb-2 mr-2 badge badge-pill badge-success d-inline-block">Верно</span>';
+//        }else{
+//            $l = '<span class="mb-2 mr-2 badge badge-pill badge-danger d-inline-block">Не верно</span>';
+//        }
+//    echo '<p>'.$itemq->question->name.' - ' .$itemq->answer->name.'=='.$l.'-'. date('d.m.Y', $itemq->create_at).'</p>';
 //
-//foreach ($model as $item) {
-//    echo '<br>'.date('Y-m-d', $item->create_at).' <br>';
+//
 //}
+?>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Вопрос</th>
+        <th>Ответ</th>
+        <th>Дата</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($model as $itemq) { ?>
 
-//var_dump($model->answer);
+    <tr>
+        <td><?= $itemq->id ?></td>
+        <td><?= $itemq->question->name ?></td>
+        <?php if (isset($itemq->ans_id)): ?>
+        <td><?= $itemq->answer->name ?></td>
+        <?php else: ?>
+        <td><?= $itemq->answer_text ?></td>
+        <?php endif; ?>
+        <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
+
+    </tr>
+
+    <?php } ?>
+
+    </tbody>
+</table>
+<?php
+
+
