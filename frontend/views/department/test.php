@@ -42,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
 Swal.fire('Тестов для отдела пока нет') 
 
 JS;
-
     $this->registerJs($js);
     ?>
         <?php endif; ?>
