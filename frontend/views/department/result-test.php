@@ -34,10 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php foreach ($test as $itemq) { ?>
                 <tr>
                     <td><?= $itemq->id ?></td>
-                    <td><?= Html::a('<i class="fa fa-plus-circle"></i> '.$itemq->user->fio, ['testview', 'id' =>
+                    <td><?= Html::a('<i class="fa fa-user"></i> '.$itemq->user->fio, ['testview', 'id' =>
                             $itemq->test_id, 'user_id' => $itemq->user_id, 'res' => $itemq->id], ['class' => ' btn btn-outline-link'])
                         ?></td>
-                        <td><?= date('d.m.Y H:i:s', $itemq->date_end_test) ?></td>
+                        <td><i class="fa fa-clock"></i> <?= date('d.m.Y H:i:s', $itemq->date_end_test) ?></td>
                 </tr>
 
             <?php } ?>

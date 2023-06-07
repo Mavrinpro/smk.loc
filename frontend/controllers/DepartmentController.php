@@ -221,12 +221,16 @@ class DepartmentController extends Controller
     // Результат теста конкретного юзера 
     public function actionTestview($id, $user_id, $res)
     {
+        
+        $user = \common\models\User::find()->where(['id' => $user_id])->one();
+        
         $test = \app\models\EndTest::find()->where(['id' => $res])->one();
         $testEnd = \app\models\ResultTest::find()->where(['test_id' => $id, 'user_id' => $user_id])->andWhere(['>', 'create_at', strtotime(date('Y-m-d', $test->date_end_test))])->all();
         return $this->render('testview',[
             'id' => 5,
             'tester' => $testEnd,
-            'test' => $test
+            'test' => $test,
+            'user' => $user
         ]);
     }
     
