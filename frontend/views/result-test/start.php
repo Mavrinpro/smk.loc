@@ -48,10 +48,9 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                              class="collapse show"
                                              style="">
                                             <div class="card-body">
-                                                <?php $isExists = \app\models\ResultTest::find()->where(['question_id' =>
-                                                    \Yii::$app->request->get('id')])->andWhere(['user_id' =>
-                                                    \Yii::$app->getUser()
-                                                        ->id])->exists(); ?>
+                                                <?php $isExists = \app\models\Answer::find()->where(['question_id' =>
+                                                    \Yii::$app->request->get('id')])->exists(); ?>
+                                                <?= $isExists ?>
                                                 <?php if ($isExists != 1): ?>
                                                     <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
                                                     (false) ?>

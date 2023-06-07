@@ -22,6 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' =>
             'btn btn-success mb-3']) ?>
 
+        <?= Html::a('<i class="fa fa-plus-circle"></i> Результаты тестов', ['result-test', 'department_id' =>
+            \Yii::$app->request->get('test_id')],
+            ['class' =>
+                'btn btn-primary mb-3']) ?>
+
         <?php if (sizeof($test) > 0): ?>
         <ul class="list-group">
             <?php foreach ($test as $tester) {

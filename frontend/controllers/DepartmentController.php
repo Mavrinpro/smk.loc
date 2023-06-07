@@ -46,7 +46,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -207,6 +207,27 @@ class DepartmentController extends Controller
         $user = new SignupForm();
         $user->deleteUser(\Yii::$app->request->get('id'));
         return $this->redirect(['view', 'id' => \Yii::$app->request->get('department_id')]);
+    }
+
+// Результаты тестов (все юзеры)
+    public function actionResultTest()
+    {
+        $testEnd = \app\models\EndTest::find()->all();
+        return $this->render('result-test',[
+            'test' => $testEnd
+        ]);
+    }
+
+    // Результат теста конкретного юзера 
+    public function actionTestview($id, $user_id, $res)
+    {
+        $test = \app\models\EndTest::find()->where(['id' => $res])->one();
+        $testEnd = \app\models\ResultTest::find()->where(['test_id' => $id, 'user_id' => $user_id])->andWhere(['>', 'create_at', strtotime(date('Y-m-d', $test->date_end_test))])->all();
+        return $this->render('testview',[
+            'id' => 5,
+            'tester' => $testEnd,
+            'test' => $test
+        ]);
     }
     
 }

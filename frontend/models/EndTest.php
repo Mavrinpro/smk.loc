@@ -44,4 +44,10 @@ class EndTest extends \yii\db\ActiveRecord
             'date_end_test' => 'Date End Test',
         ];
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(\common\models\User::class, ['id' => 'user_id']);
+    }
+
 }

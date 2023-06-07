@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 echo 'Тест пройден';
 $id = [];
-foreach ($model as $item) {
-    $id[] = $item->test_id;
-}
+//foreach ($model as $item) {
+//    $id[] = $item->test_id;
+//}
 //$re = \app\models\Answer::find()->where(['in' ,'test_id' , $id])->all();
 //$qu = \app\models\Question::find()->where(['in' ,'test_id' , $id])->all();
 $arrName = [];
@@ -32,37 +32,36 @@ $arrName = [];
 //
 //
 //}
-$m = new \app\models\ResultTest();
-
+$testEnd = \app\models\EndTest::find()->all();
+//var_dump($test);
 ?>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Вопрос</th>
-        <th>Ответ</th>
-        <th>Дата</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($model as $itemq) { ?>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Вопрос</th>
+            <th>Ответ</th>
+            <th>Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($tester as $itemq) { ?>
 
-    <tr>
-        <td><?= $itemq->id ?></td>
-        <td><?= $itemq->question->name ?></td>
-        <?php if (isset($itemq->ans_id)): ?>
-        <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php //var_dump($m->anser()) ?></td>
-        <?php else: ?>
-        <td><?= $itemq->answer_text ?></td>
-        <?php endif; ?>
-        <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
+            <tr>
 
-    </tr>
+                <td><?= $itemq->question->name ?></td>
+                <?php if (isset($itemq->ans_id)): ?>
+                    <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php //var_dump($m->anser()) ?></td>
+                <?php else: ?>
+                    <td><?= $itemq->answer_text ?></td>
+                <?php endif; ?>
+                <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
 
-    <?php } echo date('Y-m-d',$test->date_end_test).'--'.date('Y-m-d');?>
+            </tr>
 
-    </tbody>
-</table>
+        <?php } echo date('Y-m-d',$test->date_end_test).'--'.date('Y-m-d');?>
+
+        </tbody>
+    </table>
 <?php
 
 
