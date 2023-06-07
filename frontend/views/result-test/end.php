@@ -51,7 +51,7 @@ $m = new \app\models\ResultTest();
         <td><?= $itemq->id ?></td>
         <td><?= $itemq->question->name ?></td>
         <?php if (isset($itemq->ans_id)): ?>
-        <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php var_dump($m->anser()) ?></td>
+        <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php //var_dump($m->anser()) ?></td>
         <?php else: ?>
         <td><?= $itemq->answer_text ?></td>
         <?php endif; ?>
@@ -59,7 +59,7 @@ $m = new \app\models\ResultTest();
 
     </tr>
 
-    <?php } ?>
+    <?php } echo date('Y-m-d',$test->date_end_test).'--'.date('Y-m-d');?>
 
     </tbody>
 </table>

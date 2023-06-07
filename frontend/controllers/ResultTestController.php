@@ -237,6 +237,7 @@ class ResultTestController extends \yii\web\Controller
 
     public function actionEnd()
     {
+        $endTest = new \app\models\EndTest();
         $userId = \Yii::$app->getUser()->id;
         $testId = \Yii::$app->request->get('test_id');
         $where =['DATE(`create_at`)' => new \yii\db\Expression('CURDATE()')];//текущая дата относительно серверного
@@ -247,15 +248,36 @@ class ResultTestController extends \yii\web\Controller
 
         $res = \app\models\ResultTest::find()->where(['test_id' => $testId, 'user_id' => $userId])->andWhere(['>', 'create_at', strtotime(date('Y-m-d'))])->all();
 
-
         $re = \app\models\Question::find()->all();
 
         $q = \app\models\Question::find()->where(['test_id' => $testId])->all();
-        return $this->render('end', [
-            'name' => $userId,
-            'model' => $res,
-            'question' => $q
-        ]);
+
+
+        $test =  \app\models\EndTest::find()->where(['test_id' => $testId, 'user_id' =>$userId])->orderBy('id desc')
+            ->one();
+        if (date('Y-m-d', $test->date_end_test) == date('Y-m-d')){
+            return $this->render('end', [
+                'name' => $userId,
+                'model' => $res,
+                'question' => $q,
+                'test' => $test
+            ]);
+        }else{
+            $endTest->user_id = $userId;
+            $endTest->test_id = $testId;
+            $endTest->date_end_test = time();
+            $endTest->save();
+
+
+            return $this->render('end', [
+                'name' => $userId,
+                'model' => $res,
+                'question' => $q,
+                'test' => $test
+            ]);
+        }
+
+
     }
 
 }
