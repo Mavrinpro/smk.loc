@@ -8,7 +8,8 @@ use app\models\Answer;
 
 
 $this->title = $user->fio;
-$this->params['breadcrumbs'][] = ['label' => 'Результаты тестирования', 'url' => ['result-test']];
+$this->params['breadcrumbs'][] = ['label' => 'Результаты тестирования', 'url' => ['result-test', 'department_id' =>
+    $user->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
