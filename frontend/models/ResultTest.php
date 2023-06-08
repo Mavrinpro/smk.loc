@@ -71,4 +71,9 @@ class ResultTest extends \yii\db\ActiveRecord
     {
         return $this->hasOne(\app\models\Question::class, ['id' => 'question_id']);
     }
+
+    public function getNametest()
+    {
+        return $this->hasOne(\app\models\Test::class, ['id' => 'test_id']);
+    }
 }

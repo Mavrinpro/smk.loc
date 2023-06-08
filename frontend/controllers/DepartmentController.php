@@ -209,10 +209,15 @@ class DepartmentController extends Controller
         return $this->redirect(['view', 'id' => \Yii::$app->request->get('department_id')]);
     }
 
-// Результаты тестов (все юзеры)
-    public function actionResultTest()
+// Результаты тестов (все юзеры по отделам)
+    public function actionResultTest($department_id)
     {
-        $testEnd = \app\models\EndTest::find()->all();
+        $user = \common\models\User::find()->where(['department_id' => $department_id])->all();
+        $usrId = [];
+        foreach ($user as $item) {
+            $usrId[]= $item->id;
+        }
+        $testEnd = \app\models\EndTest::find()->where(['in', 'user_id', $usrId])->all();
         return $this->render('result-test',[
             'test' => $testEnd
         ]);

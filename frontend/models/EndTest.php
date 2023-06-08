@@ -50,4 +50,9 @@ class EndTest extends \yii\db\ActiveRecord
         return $this->hasOne(\common\models\User::class, ['id' => 'user_id']);
     }
 
+    public function getTestname()
+    {
+        return $this->hasOne(\app\models\Test::class, ['id' => 'test_id']);
+    }
+
 }

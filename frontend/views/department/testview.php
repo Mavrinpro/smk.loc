@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-primary"><h1>Результат теста: <?= Html::encode($user->fio) ?></h1></div>
+            <div class="alert alert-primary"><h3><?= Html::encode($test->testname->name) ?>
+                    <i class="fa fa-user"></i><div class="badge"> <?= Html::encode($user->fio) ?></div></h3></div>
 
             <table class="table">
                 <thead>
