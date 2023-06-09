@@ -12,26 +12,13 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 ?>
+<div class="alert alert-success"><h3><?php echo 'Тест пройден'; ?></h3></div>
 <?php
-echo 'Тест пройден';
 $id = [];
 foreach ($model as $item) {
     $id[] = $item->test_id;
 }
-//$re = \app\models\Answer::find()->where(['in' ,'test_id' , $id])->all();
-//$qu = \app\models\Question::find()->where(['in' ,'test_id' , $id])->all();
-$arrName = [];
-//var_dump($model);
-//foreach ($model as $itemq) {
-//        if($itemq->answer->answer_right == 1){
-//            $l = '<span class="mb-2 mr-2 badge badge-pill badge-success d-inline-block">Верно</span>';
-//        }else{
-//            $l = '<span class="mb-2 mr-2 badge badge-pill badge-danger d-inline-block">Не верно</span>';
-//        }
-//    echo '<p>'.$itemq->question->name.' - ' .$itemq->answer->name.'=='.$l.'-'. date('d.m.Y', $itemq->create_at).'</p>';
-//
-//
-//}
+
 $m = new \app\models\ResultTest();
 
 ?>
@@ -59,7 +46,7 @@ $m = new \app\models\ResultTest();
 
     </tr>
 
-    <?php } echo date('Y-m-d',$test->date_end_test).'--'.date('Y-m-d');?>
+    <?php } ?>
 
     </tbody>
 </table>
