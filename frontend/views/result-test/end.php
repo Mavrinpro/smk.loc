@@ -47,7 +47,7 @@ $m = new \app\models\ResultTest();
         <td><?= $itemq->id ?></td>
         <td><?= $itemq->question->name ?></td>
         <?php if (isset($itemq->ans_id)): ?>
-        <td> <?php foreach ($answered as $key => $item) {
+        <td > <?php foreach ($answered as $key => $item) {
             if (sizeof($answered) > 1){
                 echo $item->name. ', ';
             }else{

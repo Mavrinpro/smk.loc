@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
 
-            <table class="table table-hover table-striped table-bordered dataTable dtr-inline">
+            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
                 <thead class="bg-dark text-light">
                 <tr>
+                    <th>ID</th>
                     <th>Вопрос</th>
                     <th>Ответ</th>
                     <th>Дата</th>
@@ -39,27 +40,45 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tester as $itemq) { ?>
+                <?php
+                $a = [];
+                foreach ($tester as $itemq) {
+                    $ansId = explode(',', $itemq->ans_id);
+                    if ($ansId[0] != ''){
+                        $a[] = $ansId;
+                    }
 
+                    ?>
+                    <?php  $answered = \app\models\Answer::find()->where(['in', 'id', $ansId ])->all(); ?>
                     <tr>
-
+                        <td><?= $itemq->id ?></td>
                         <td><?= $itemq->question->name ?></td>
                         <?php if (isset($itemq->ans_id)): ?>
-                            <td><?= $itemq->answer->name ?> </td>
+                            <td> <?php foreach ($answered as $key => $item) {
+                                    if (sizeof($answered) > 1){
+                                        echo $item->name. ', ';
+                                    }else{
+                                        echo $item->name;
+                                    }
+
+                                } ?></td>
                         <?php else: ?>
-                            <td><?= $itemq->answer_text ?> </td>
+                            <td><?= $itemq->answer_text ?></td>
                         <?php endif; ?>
-                        <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?> <?= $models->user->id ?></td>
+                        <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
                         <td><?= (isset($itemq->ans_id)) ? (isset($itemq->answer->answer_right) &&
                                 $itemq->answer->answer_right ==
-                                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>':'Ответ вписан' ?>
+                                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>':'<i class="fa fa-pencil-alt text-muted"></i>' ?>
                         </td>
+
                     </tr>
 
                 <?php } ?>
 
                 </tbody>
             </table>
+            <?= Html::a('<i class="fa fa-check"></i> Тест пройден', ['/page/create', 'id' => $model->id], ['class' =>
+                'btn btn-success mb-3']) ?>  <?= Html::a('<i class="fa fa-times"></i> Тест провален', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-danger mb-3']) ?>
 
         </div>
     </div>
