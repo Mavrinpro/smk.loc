@@ -29,6 +29,7 @@ $m = new \app\models\ResultTest();
         <th>Вопрос</th>
         <th>Ответ</th>
         <th>Дата</th>
+        <th>Дата</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +44,10 @@ $m = new \app\models\ResultTest();
         <td><?= $itemq->answer_text ?></td>
         <?php endif; ?>
         <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
+        <td><?= (isset($itemq->ans_id)) ? (isset($itemq->answer->answer_right) &&
+                $itemq->answer->answer_right ==
+                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>':'Ответ вписан' ?>
+        </td>
 
     </tr>
 

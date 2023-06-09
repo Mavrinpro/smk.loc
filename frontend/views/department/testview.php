@@ -45,14 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <td><?= $itemq->question->name ?></td>
                         <?php if (isset($itemq->ans_id)): ?>
-                            <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?><?php //var_dump($m->anser()) ?></td>
+                            <td><?= $itemq->answer->name ?> </td>
                         <?php else: ?>
                             <td><?= $itemq->answer_text ?> </td>
                         <?php endif; ?>
                         <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?> <?= $models->user->id ?></td>
                         <td><?= (isset($itemq->ans_id)) ? (isset($itemq->answer->answer_right) &&
                                 $itemq->answer->answer_right ==
-                                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i></td>' : 'Ответ вписан' ?>
+                                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>':'Ответ вписан' ?>
+                        </td>
                     </tr>
 
                 <?php } ?>
