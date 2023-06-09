@@ -14,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <!--        --><? //= Html::a('Добавить вопрос', ['question/create'], ['class' => 'btn btn-primary', 'data-target' => 'modal',
 //            'data-toggle' => '#modalDelete'
-//        ]) ?>
+//        ])
+//var_dump($endtest);
+?>
 <div class="test-view">
 
     <div class="row justify-content-center">

@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
 
-            <table class="table">
-                <thead>
+            <table class="table table-hover table-striped table-bordered dataTable dtr-inline">
+                <thead class="bg-dark text-light">
                 <tr>
                     <th>Вопрос</th>
                     <th>Ответ</th>
