@@ -51,6 +51,7 @@ class ResultTestController extends \yii\web\Controller
 
 
         return $this->render('view', ['id' => $question->id,
+            'endtest' => $endtest,
             'result' => $result,
             'question' => $question,
             'answer' => $answer,
@@ -124,6 +125,12 @@ class ResultTestController extends \yii\web\Controller
             ->andWhere(['test_id' => $question->test_id])
             ->orderBy(['id' => SORT_ASC])
             ->one();
+        $endtest = \app\models\EndTest::find()->where(['>', 'date_end_test', strtotime(date('Y-m-d'))])->one();
+        if (sizeof((array)$endtest) > 0){
+
+            \Yii::$app->session->setFlash('error', 'Вы уже проходили данный тест ');
+            return $this->redirect(['view', 'id' => $endtest->test_id]);
+        }
 
         if (\Yii::$app->request->isPost) {
 

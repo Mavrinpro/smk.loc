@@ -22,8 +22,8 @@ foreach ($model as $item) {
 $m = new \app\models\ResultTest();
 
 ?>
-<table class="table">
-    <thead>
+<table class="table table-hover table-striped table-bordered dataTable dtr-inline">
+    <thead class="bg-dark text-light">
     <tr>
         <th>ID</th>
         <th>Вопрос</th>
@@ -33,13 +33,28 @@ $m = new \app\models\ResultTest();
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($model as $itemq) { ?>
+    <?php
+    $a = [];
+    foreach ($model as $itemq) {
+        $ansId = explode(',', $itemq->ans_id);
+        if ($ansId[0] != ''){
+            $a[] = $ansId;
+        }
 
+       ?>
+<?php  $answered = \app\models\Answer::find()->where(['in', 'id', $ansId ])->all(); ?>
     <tr>
         <td><?= $itemq->id ?></td>
         <td><?= $itemq->question->name ?></td>
         <?php if (isset($itemq->ans_id)): ?>
-        <td><?= $itemq->answer->name ?> <?= $itemq->ans_id ?> <?php //var_dump($m->anser()) ?></td>
+        <td> <?php foreach ($answered as $key => $item) {
+            if (sizeof($answered) > 1){
+                echo $item->name. ', ';
+            }else{
+                echo $item->name;
+            }
+
+        } ?></td>
         <?php else: ?>
         <td><?= $itemq->answer_text ?></td>
         <?php endif; ?>

@@ -165,3 +165,11 @@ ul.custom-breadcrumbs li.active {
         top: 0;
     }
 }
+
+.app-theme-white.app-container{
+    background-color: #fff;
+}
+
+.app-theme-white .app-page-title {
+    background: rgb(241 241 241 / 45%);
+}
