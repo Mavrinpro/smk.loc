@@ -46,7 +46,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -226,7 +226,7 @@ class DepartmentController extends Controller
     // Результат теста конкретного юзера 
     public function actionTestview($id, $user_id, $res)
     {
-        
+
         $user = \common\models\User::find()->where(['id' => $user_id])->one();
         
         $test = \app\models\EndTest::find()->where(['id' => $res])->one();
@@ -237,6 +237,16 @@ class DepartmentController extends Controller
             'test' => $test,
             'user' => $user
         ]);
+    }
+
+    public function actionSuccessTest($id, $user_id, $res)
+    {
+        $user = new User();
+        $telegram = User::find()->where(['id' => $user_id])->one();
+        $text = "=========Тест пройден==========";
+        $user->sendTelegramnotification($text, $telegram->telegram_id, date('H:i:s | Y-m-d'), '123', '+79099999999', 'Alex'  );
+        \Yii::$app->session->setFlash('success', 'Уведомление отправлено.');
+        return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
     }
     
 }

@@ -218,4 +218,21 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    // функция отправки уведомлений в телегу
+    public function sendTelegramnotification($text, $telegram_id, $datetime, $deal, $phone, $user)
+    {
+        $tokenCRM = "bot6151952698:AAGzE4g-sF-ykh4Khjf-soUtmplvMpjAGGc";
+        $user_id = $telegram_id;
+        $txt = $text. PHP_EOL;
+        $txt .= "<b>Время:</b> ".$datetime. PHP_EOL;
+        if ($user != null){
+            $txt .= "<b>Кто поставил:</b> ".$user. PHP_EOL;
+        }
+
+        $txt .= "<b>Сделка:</b> https://crm.glazcentre.ru/deals/update/".$deal. PHP_EOL;
+        $txt .= "<b>Номер:</b> ".$phone. PHP_EOL;
+
+        file_get_contents('https://api.telegram.org/' . $tokenCRM . '/sendMessage?chat_id=' . $user_id . '&parse_mode=html&text=' . urlencode($txt));
+    }
 }
