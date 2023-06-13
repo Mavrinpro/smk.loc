@@ -82,7 +82,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ('user_id'), 'res' => \Yii::$app->request->get
             ('res')],
                 ['class' =>
-                'btn btn-success mb-3']) ?>  <?= Html::a('<i class="fa fa-times"></i> Тест провален', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-danger mb-3']) ?>
+                'btn btn-success mb-3']) ?>
+            <?= Html::a('<i class="fa fa-times"></i> Тест провален', ['test-failed', 'id' => \Yii::$app->request->get
+            ('id'), 'user_id' => \Yii::$app->request->get
+            ('user_id'), 'res' => \Yii::$app->request->get
+            ('res')], ['class' => 'btn btn-danger mb-3']) ?>
 
         </div>
     </div>

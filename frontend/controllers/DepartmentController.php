@@ -249,5 +249,17 @@ class DepartmentController extends Controller
         \Yii::$app->session->setFlash('success', 'Уведомление отправлено.');
         return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
     }
+
+    public function actionTestFailed($id, $user_id, $res)
+    {
+        $user = new User();
+        $bot_token = \app\models\Settings::find()->one();
+        $telegram = User::find()->where(['id' => $user_id])->one();
+        $text = "⛔ Тест Провален ⛔";
+        $user->sendTelegramnotification($bot_token->bot_token, $text, $telegram->telegram_id, date('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+        \Yii::$app->session->setFlash('success', 'Уведомление отправлено.');
+        return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
+    }
+
     
 }
