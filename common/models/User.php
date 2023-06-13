@@ -220,9 +220,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     // функция отправки уведомлений в телегу
-    public function sendTelegramnotification($text, $telegram_id, $datetime, $deal, $phone, $user)
+    public function sendTelegramnotification($bot_token, $text, $telegram_id, $datetime, $deal, $phone, $user)
     {
-        $tokenCRM = "bot6151952698:AAGzE4g-sF-ykh4Khjf-soUtmplvMpjAGGc";
+        $tokenCRM = $bot_token;
         $user_id = $telegram_id;
         $txt = $text. PHP_EOL;
         $txt .= "<b>⏱ </b> ".$datetime. PHP_EOL;

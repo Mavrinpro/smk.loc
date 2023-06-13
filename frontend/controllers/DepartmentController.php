@@ -46,7 +46,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -241,6 +241,16 @@ class DepartmentController extends Controller
 
     public function actionSuccessTest($id, $user_id, $res)
     {
+        $noty = new \app\models\Notyfication();
+        $test = \app\models\Test::find()->where(['id' => $id])->one();
+        $noty->user_id = $user_id;
+        $noty->user_create_id = \Yii::$app->getUser()->id;
+        $noty->text = 'Тест "'.$test->name.'" пройден';
+        $noty->create_at = time();
+        $noty->read = 0;
+        var_dump($noty); die();
+        $noty->save();
+        //var_dump($noty);
         $user = new User();
         $bot_token = \app\models\Settings::find()->one();
         $telegram = User::find()->where(['id' => $user_id])->one();
