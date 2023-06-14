@@ -42,8 +42,15 @@ class NotyficationController extends Controller
 
     public function actionIndex()
     {
-        $roleUser = \Yii::$app->authManager->getRole('admin');
-
+        $userOldRole = 'admin';
+        $authManager = \Yii::$app->authManager;
+        $oldRole = $authManager->getRole($userOldRole);
+        //$authManager->revoke($oldRole, 2);
+                $ivanov = \common\models\User::findOne(2);
+                // Достаем роль администратора из RBAC-менеджера.
+                $roleAdministrator = \Yii::$app->authManager->getRole('user');
+                // Привязываем роль администратора к идентификатору Иванова.
+                //\Yii::$app->authManager->assign($roleAdministrator, $ivanov->getRole());
 
         $model2 = \app\models\Notyfication::find()->where(['user_id' => \Yii::$app->getUser()->id])->orderBy('id desc')
             ->all();
