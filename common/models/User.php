@@ -230,7 +230,7 @@ class User extends ActiveRecord implements IdentityInterface
             $txt .= "<b>👤 </b> ".$user. PHP_EOL;
         }
 
-        $txt .= "<b>🔗 </b> https://crm.glazcentre.ru/deals/update/".$deal. PHP_EOL;
+        //$txt .= "<b>🔗 </b> https://crm.glazcentre.ru/deals/update/".$deal. PHP_EOL;
         $txt .= "<b>📱 </b> ".$phone. PHP_EOL;
 
         file_get_contents('https://api.telegram.org/' . $tokenCRM . '/sendMessage?chat_id=' . $user_id . '&parse_mode=html&text=' . urlencode($txt));

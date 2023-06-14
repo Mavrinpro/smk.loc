@@ -248,7 +248,7 @@ class DepartmentController extends Controller
         $noty->text = 'Тест "'.$test->name.'" пройден';
         $noty->create_at = time();
         $noty->read = 0;
-        var_dump($noty); die();
+        //var_dump($noty); die();
         $noty->save();
         //var_dump($noty);
         $user = new User();
