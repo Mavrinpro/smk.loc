@@ -16,9 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-12">
         <div class="main-card mb-3 card">
             <div class="card-header">Уведомления</div>
-            <div class="scroll-area-sm">
-                <div class="scrollbar-container ps ps--active-y">
-                    <div class="chat-wrapper p-1"><?php foreach ($model as $noty): ?>
+
+
+                    <div class="chat-wrapper p-1">
+                        <?php if (sizeof($model) > 0): ?>
+                        <?php foreach ($model as $noty): ?>
                             <div class="chat-box-wrapper">
                                 <div>
                                     <div class="avatar-icon-wrapper mr-1" data-id="<?= $noty->id ?>"
@@ -44,9 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                         <?php endforeach; ?>
+
+                        <?php else: ?>
+                            <div class="chat-box-wrapper">Сообщений нет</div>
+                        <?php endif; ?>
                     </div>
-                </div>
-            </div>
+
+
         </div>
     </div>
 <?php
@@ -73,7 +79,7 @@ if (is_shown('.avatar-icon-wrapper')) {
         if (th.data('read') == 0){
            setTimeout(function (){
              $.ajax({
-            url: 'ajax-read',
+            url: 'notyfication/ajax-read',
             type: 'POST',
             data: {
                 id: th.data('id'),
@@ -85,7 +91,7 @@ if (is_shown('.avatar-icon-wrapper')) {
    
     var danger = $('.avatar-icon-wrapper').children('.badge-danger');
 danger.removeClass('badge-danger').addClass('badge-success');
-                      console.log(e);           
+                      console.log(danger);           
             },
             error: function(){
                

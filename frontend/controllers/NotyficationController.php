@@ -32,7 +32,7 @@ class NotyficationController extends Controller
                         [
                             'allow' => true,
                             'actions' => ['index', 'ajax-read'],
-                            'roles' => ['create_admin', 'moderator'],
+                            'roles' => ['create_admin', 'moderator', 'admin'],
                         ],
                     ],
                 ],
@@ -42,7 +42,11 @@ class NotyficationController extends Controller
 
     public function actionIndex()
     {
-        $model2 = \app\models\Notyfication::find()->where(['user_id' => 1])->orderBy('id desc')->all();
+        $roleUser = \Yii::$app->authManager->getRole('admin');
+
+
+        $model2 = \app\models\Notyfication::find()->where(['user_id' => \Yii::$app->getUser()->id])->orderBy('id desc')
+            ->all();
 
         return $this->render('index', ['model' => $model2]);
     }
