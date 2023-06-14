@@ -44,95 +44,95 @@ $noty = new \app\models\Notyfication();
                 <button class="close"></button>
             </div>
             <ul class="header-megamenu nav">
-                <li class="nav-item">
-                    <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300"
-                       data-toggle="popover-custom" class="nav-link" data-original-title="" title="">
-                        <i class="nav-link-icon pe-7s-gift"> </i> Меню
-                        <i class="fa fa-angle-down ml-2 opacity-5"></i>
-                    </a>
-                    <div class="rm-max-width">
-                        <div class="d-none popover-custom-content">
-                            <div class="dropdown-mega-menu">
-                                <div class="grid-menu grid-menu-3col">
-                                    <div class="no-gutters row">
-                                        <div class="col-sm-6 col-xl-4">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item"> Overview</li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-inbox"></i>
-                                                        <span> Contacts</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-book"></i>
-                                                        <span> Incidents</span>
-                                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-picture"></i>
-                                                        <span> Companies</span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a disabled="" href="javascript:void(0);"
-                                                       class="nav-link disabled">
-                                                        <i class="nav-link-icon lnr-file-empty"></i>
-                                                        <span> Dashboards</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-6 col-xl-4">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item"> Favourites</li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link"> Reports
-                                                        Conversions </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link"> Quick Start
-                                                        <div class="ml-auto badge badge-success">New</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Users &amp;
-                                                        Groups</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Proprieties</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-6 col-xl-4">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item-header nav-item">Sales &amp; Marketing</li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Queues </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Resource
-                                                        Groups </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Goal Metrics
-                                                        <div class="ml-auto badge badge-warning">3</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">Campaigns</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300"-->
+<!--                       data-toggle="popover-custom" class="nav-link" data-original-title="" title="">-->
+<!--                        <i class="nav-link-icon pe-7s-gift"> </i> Меню-->
+<!--                        <i class="fa fa-angle-down ml-2 opacity-5"></i>-->
+<!--                    </a>-->
+<!--                    <div class="rm-max-width">-->
+<!--                        <div class="d-none popover-custom-content">-->
+<!--                            <div class="dropdown-mega-menu">-->
+<!--                                <div class="grid-menu grid-menu-3col">-->
+<!--                                    <div class="no-gutters row">-->
+<!--                                        <div class="col-sm-6 col-xl-4">-->
+<!--                                            <ul class="nav flex-column">-->
+<!--                                                <li class="nav-item-header nav-item"> Overview</li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+<!--                                                        <i class="nav-link-icon lnr-inbox"></i>-->
+<!--                                                        <span> Contacts</span>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+<!--                                                        <i class="nav-link-icon lnr-book"></i>-->
+<!--                                                        <span> Incidents</span>-->
+<!--                                                        <div class="ml-auto badge badge-pill badge-danger">5</div>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+<!--                                                        <i class="nav-link-icon lnr-picture"></i>-->
+<!--                                                        <span> Companies</span>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a disabled="" href="javascript:void(0);"-->
+<!--                                                       class="nav-link disabled">-->
+<!--                                                        <i class="nav-link-icon lnr-file-empty"></i>-->
+<!--                                                        <span> Dashboards</span>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6 col-xl-4">-->
+<!--                                            <ul class="nav flex-column">-->
+<!--                                                <li class="nav-item-header nav-item"> Favourites</li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link"> Reports-->
+<!--                                                        Conversions </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link"> Quick Start-->
+<!--                                                        <div class="ml-auto badge badge-success">New</div>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Users &amp;-->
+<!--                                                        Groups</a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Proprieties</a>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-sm-6 col-xl-4">-->
+<!--                                            <ul class="nav flex-column">-->
+<!--                                                <li class="nav-item-header nav-item">Sales &amp; Marketing</li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Queues </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Resource-->
+<!--                                                        Groups </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Goal Metrics-->
+<!--                                                        <div class="ml-auto badge badge-warning">3</div>-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
+<!--                                                <li class="nav-item">-->
+<!--                                                    <a href="javascript:void(0);" class="nav-link">Campaigns</a>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </li>-->
                 <li class="btn-group nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
                         <span class="badge badge-pill badge-danger ml-0 mr-2">4</span> Настройки
@@ -144,16 +144,15 @@ $noty = new \app\models\Notyfication();
                                 <div class="menu-header-image opacity-5"
                                      style="background-image: url('assets/images/dropdown-header/abstract2.jpg');"></div>
                                 <div class="menu-header-content">
-                                    <h5 class="menu-header-title">Overview</h5>
-                                    <h6 class="menu-header-subtitle">Dropdown menus for everyone</h6>
+                                    <h5 class="menu-header-title">Настройки системы</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="scroll-area-xs">
                             <div class="scrollbar-container ps">
                                 <h6 tabindex="-1" class="dropdown-header">Key Figures</h6>
-                                <button type="button" tabindex="0" class="dropdown-item">Service Calendar</button>
-                                <button type="button" tabindex="0" class="dropdown-item">Knowledge Base</button>
+                                <a href="/gii" class="dropdown-item">CRUD Generator</a>
+                                <a href="/settings" class="dropdown-item">Basic settings</a>
                                 <button type="button" tabindex="0" class="dropdown-item">Accounts</button>
                                 <div tabindex="-1" class="dropdown-divider"></div>
                                 <button type="button" tabindex="0" class="dropdown-item">Products</button>
@@ -161,17 +160,10 @@ $noty = new \app\models\Notyfication();
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
                                     <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
                                 </div>
-                                <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                                </div>
+
                             </div>
                         </div>
-                        <ul class="nav flex-column">
-                            <li class="nav-item-divider nav-item"></li>
-                            <li class="nav-item-btn nav-item">
-                                <button class="btn-wide btn-shadow btn btn-danger btn-sm">Cancel</button>
-                            </li>
-                        </ul>
+
                     </div>
                 </li>
                 <li class="dropdown nav-item">
@@ -219,74 +211,74 @@ $noty = new \app\models\Notyfication();
         </div>
         <div class="app-header-right">
             <div class="header-dots">
-                <div class="dropdown">
-                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-                            class="p-0 mr-2 btn btn-link">
-<span class="icon-wrapper icon-wrapper-alt rounded-circle">
-<span class="icon-wrapper-bg bg-primary"></span>
-<i class="icon text-primary ion-android-apps"></i>
-</span>
-                    </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true"
-                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-menu-header">
-                            <div class="dropdown-menu-header-inner bg-plum-plate">
-                                <div class="menu-header-image"
-                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>
-                                <div class="menu-header-content text-white">
-                                    <h5 class="menu-header-title">Grid Dashboard</h5>
-                                    <h6 class="menu-header-subtitle">Easy grid navigation inside dropdowns</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid-menu grid-menu-xl grid-menu-3col">
-                            <div class="no-gutters row">
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
-                                        Automation
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-piggy icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                        Reports
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-config icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                        Settings
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-browser icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                        Content
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-hourglass icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
-                                        Activity
-                                    </button>
-                                </div>
-                                <div class="col-sm-6 col-xl-4">
-                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                        Contacts
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="nav flex-column">
-                            <li class="nav-item-divider nav-item"></li>
-                            <li class="nav-item-btn text-center nav-item">
-                                <button class="btn-shadow btn btn-primary btn-sm">Follow-ups</button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<!--                <div class="dropdown">-->
+<!--                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"-->
+<!--                            class="p-0 mr-2 btn btn-link">-->
+<!--<span class="icon-wrapper icon-wrapper-alt rounded-circle">-->
+<!--<span class="icon-wrapper-bg bg-primary"></span>-->
+<!--<i class="icon text-primary ion-android-apps"></i>-->
+<!--</span>-->
+<!--                    </button>-->
+<!--                    <div tabindex="-1" role="menu" aria-hidden="true"-->
+<!--                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">-->
+<!--                        <div class="dropdown-menu-header">-->
+<!--                            <div class="dropdown-menu-header-inner bg-plum-plate">-->
+<!--                                <div class="menu-header-image"-->
+<!--                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>-->
+<!--                                <div class="menu-header-content text-white">-->
+<!--                                    <h5 class="menu-header-title">Grid Dashboard</h5>-->
+<!--                                    <h6 class="menu-header-subtitle">Easy grid navigation inside dropdowns</h6>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="grid-menu grid-menu-xl grid-menu-3col">-->
+<!--                            <div class="no-gutters row">-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
+<!--                                        Automation-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-piggy icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+<!--                                        Reports-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-config icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+<!--                                        Settings-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-browser icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+<!--                                        Content-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-hourglass icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
+<!--                                        Activity-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-6 col-xl-4">-->
+<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+<!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+<!--                                        Contacts-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <ul class="nav flex-column">-->
+<!--                            <li class="nav-item-divider nav-item"></li>-->
+<!--                            <li class="nav-item-btn text-center nav-item">-->
+<!--                                <button class="btn-shadow btn btn-primary btn-sm">Follow-ups</button>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="dropdown">
                     <?php if (sizeof($noty->showNotyficationOnHead()) > 0): ?>
                     <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
@@ -315,9 +307,13 @@ $noty = new \app\models\Notyfication();
                                      style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
                                 <div class="menu-header-content text-dark">
                                     <h5 class="menu-header-title">Уведомления</h5>
+                                    <?php if (sizeof($noty->showNotyficationOnHead()) > 0): ?>
                                     <h6 class="menu-header-subtitle">У вас есть <b><?=
                                             sizeof($noty->showNotyficationOnHead());
                                     ?></b> непрочитанных собщения</h6>
+                                    <?php else: ?>
+                                    <h6 class="menu-header-subtitle">Новых сообщений нет</h6>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -682,98 +678,58 @@ $noty = new \app\models\Notyfication();
                         </ul>
                     </div>
                 </div>
-                <div class="dropdown">
-                    <button type="button" data-toggle="dropdown" class="p-0 mr-2 btn btn-link">
-<span class="icon-wrapper icon-wrapper-alt rounded-circle">
-<span class="icon-wrapper-bg bg-focus"></span>
-<span class="language-icon opacity-8 flag large DE"></span>
-</span>
-                    </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true"
-                         class="rm-pointers dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-menu-header">
-                            <div class="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
-                                <div class="menu-header-image opacity-05"
-                                     style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
-                                <div class="menu-header-content text-center text-white">
-                                    <h6 class="menu-header-subtitle mt-0"> Choose Language</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <h6 tabindex="-1" class="dropdown-header"> Popular Languages</h6>
-                        <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large US"></span> USA
-                        </button>
-                        <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large CH"></span> Switzerland
-                        </button>
-                        <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large FR"></span> France
-                        </button>
-                        <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large ES"></span>Spain
-                        </button>
-                        <div tabindex="-1" class="dropdown-divider"></div>
-                        <h6 tabindex="-1" class="dropdown-header">Others</h6>
-                        <button type="button" tabindex="0" class="dropdown-item active">
-                            <span class="mr-3 opacity-8 flag large DE"></span> Germany
-                        </button>
-                        <button type="button" tabindex="0" class="dropdown-item">
-                            <span class="mr-3 opacity-8 flag large IT"></span> Italy
-                        </button>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false"
-                            class="p-0 btn btn-link dd-chart-btn">
-<span class="icon-wrapper icon-wrapper-alt rounded-circle">
-<span class="icon-wrapper-bg bg-success"></span>
-<i class="icon text-success ion-ios-analytics"></i>
-</span>
-                    </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true"
-                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-menu-header">
-                            <div class="dropdown-menu-header-inner bg-premium-dark">
-                                <div class="menu-header-image"
-                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>
-                                <div class="menu-header-content text-white">
-                                    <h5 class="menu-header-title">Users Online</h5>
-                                    <h6 class="menu-header-subtitle">Recent Account Activity Overview</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="widget-chart">
-                            <div class="widget-chart-content">
-                                <div class="icon-wrapper rounded-circle">
-                                    <div class="icon-wrapper-bg opacity-9 bg-focus"></div>
-                                    <i class="lnr-users text-white"></i>
-                                </div>
-                                <div class="widget-numbers">
-                                    <span>344k</span>
-                                </div>
-                                <div class="widget-subheading pt-2">
-                                    Profile views since last login
-                                </div>
-                                <div class="widget-description text-danger">
-                                    <span class="pr-1"><span>176%</span></span>
-                                    <i class="fa fa-arrow-left"></i>
-                                </div>
-                            </div>
-                            <div class="widget-chart-wrapper">
-                                <div id="dashboard-sparkline-carousel-3-pop"></div>
-                            </div>
-                        </div>
-                        <ul class="nav flex-column">
-                            <li class="nav-item-divider mt-0 nav-item"></li>
-                            <li class="nav-item-btn text-center nav-item">
-                                <button class="btn-shine btn-wide btn-pill btn btn-warning btn-sm">
-                                    <i class="fa fa-cog fa-spin mr-2"></i>View Details
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
+<!--                <div class="dropdown">-->
+<!--                    <button type="button" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false"-->
+<!--                            class="p-0 btn btn-link dd-chart-btn">-->
+<!--<span class="icon-wrapper icon-wrapper-alt rounded-circle">-->
+<!--<span class="icon-wrapper-bg bg-success"></span>-->
+<!--<i class="icon text-success ion-ios-analytics"></i>-->
+<!--</span>-->
+<!--                    </button>-->
+<!--                    <div tabindex="-1" role="menu" aria-hidden="true"-->
+<!--                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">-->
+<!--                        <div class="dropdown-menu-header">-->
+<!--                            <div class="dropdown-menu-header-inner bg-premium-dark">-->
+<!--                                <div class="menu-header-image"-->
+<!--                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>-->
+<!--                                <div class="menu-header-content text-white">-->
+<!--                                    <h5 class="menu-header-title">Users Online</h5>-->
+<!--                                    <h6 class="menu-header-subtitle">Recent Account Activity Overview</h6>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="widget-chart">-->
+<!--                            <div class="widget-chart-content">-->
+<!--                                <div class="icon-wrapper rounded-circle">-->
+<!--                                    <div class="icon-wrapper-bg opacity-9 bg-focus"></div>-->
+<!--                                    <i class="lnr-users text-white"></i>-->
+<!--                                </div>-->
+<!--                                <div class="widget-numbers">-->
+<!--                                    <span>344k</span>-->
+<!--                                </div>-->
+<!--                                <div class="widget-subheading pt-2">-->
+<!--                                    Profile views since last login-->
+<!--                                </div>-->
+<!--                                <div class="widget-description text-danger">-->
+<!--                                    <span class="pr-1"><span>176%</span></span>-->
+<!--                                    <i class="fa fa-arrow-left"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="widget-chart-wrapper">-->
+<!--                                <div id="dashboard-sparkline-carousel-3-pop"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <ul class="nav flex-column">-->
+<!--                            <li class="nav-item-divider mt-0 nav-item"></li>-->
+<!--                            <li class="nav-item-btn text-center nav-item">-->
+<!--                                <button class="btn-shine btn-wide btn-pill btn btn-warning btn-sm">-->
+<!--                                    <i class="fa fa-cog fa-spin mr-2"></i>View Details-->
+<!--                                </button>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
@@ -811,7 +767,7 @@ $noty = new \app\models\Notyfication();
                                                             <!--                                                                Logout-->
                                                             <!--                                                            </button>-->
                                                             <?php if (!Yii::$app->user->isGuest) { ?>
-                                                                <?= \yii\helpers\Html::a('Logout', ['site/logout'], ['data' => ['method' => 'post'], 'class' => 'btn-pill btn-shadow btn-shine btn btn-focus']) ?>
+                                                                <?= \yii\helpers\Html::a('Выйти', ['site/logout'], ['data' => ['method' => 'post'], 'class' => 'btn-pill btn-shadow btn-shine btn btn-focus']) ?>
                                                             <?php } ?>
 
                                                         </div>
