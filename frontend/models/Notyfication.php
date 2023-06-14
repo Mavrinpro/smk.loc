@@ -49,4 +49,9 @@ class Notyfication extends \yii\db\ActiveRecord
             'read' => 'Read',
         ];
     }
+
+    public function showNotyficationOnHead()
+    {
+        return Notyfication::find()->where(['user_id' => \Yii::$app->getUser()->id, 'read' => 0])->all();
+    }
 }
