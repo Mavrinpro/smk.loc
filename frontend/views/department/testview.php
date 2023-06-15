@@ -43,13 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 $a = [];
                 foreach ($tester as $itemq) {
-                    $ansId = explode(',', $itemq->ans_id);
-                    if ($ansId[0] != ''){
+                    $ansId =  $itemq->ans_id;
+
                         $a[] = $ansId;
-                    }
+
 
                     ?>
-                    <?php  $answered = \app\models\Answer::find()->where(['in', 'id', $ansId ])->all(); ?>
+                    <?php  $answered = \app\models\Answer::find()->where([ 'id' => $ansId ])->all(); ?>
                     <tr>
                         <td><?= $itemq->id ?></td>
                         <td><?= $itemq->question->name ?></td>

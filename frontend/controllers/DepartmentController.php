@@ -46,7 +46,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -269,6 +269,30 @@ class DepartmentController extends Controller
         $user->sendTelegramnotification($bot_token->bot_token, $text, $telegram->telegram_id, date('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
         \Yii::$app->session->setFlash('success', 'Уведомление отправлено.');
         return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
+    }
+
+    // Удаление результатов теста вместе с ответами (таблица result_test)
+
+    public function actionDeleteResultTest($id, $department_id)
+    {
+        $get = \Yii::$app->request->get();
+
+        $endTest = \app\models\EndTest::find()->where(['id' => $id])->one();
+
+        $resultTest = \app\models\ResultTest::find()->where(['test_id' => $endTest->test_id, 'user_id' =>
+            $endTest->user_id])->andWhere
+        (['>=', 'create_at', date('Y-m-d H:i:s', strtotime($endTest->date_end_test))])->all();
+        if ($this->request->isPost){
+            $endTest->delete();
+            foreach ($resultTest as $result) {
+                $result->delete();
+            }
+            \Yii::$app->session->setFlash('success', 'Результат тестирования удален.');
+            return $this->redirect(['department/result-test', 'department_id' => $department_id]);
+
+        }
+        return $this->redirect('/');
+
     }
 
     
