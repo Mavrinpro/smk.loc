@@ -106,6 +106,7 @@ danger.removeClass('badge-danger').addClass('badge-success');
 }else{
     return false;
 }
+
 JS;
 
 $this->registerJs($js);
