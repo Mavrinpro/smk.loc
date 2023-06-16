@@ -137,18 +137,18 @@ class ResultTestController extends \yii\web\Controller
 
             $ansId = \Yii::$app->request->post()['ResultTest']['answer_id'];
             //var_dump($ansId); die;
-            if ($ansId != null) {
-                foreach ($ansId as $key => $item) {
-                    if ($item == '0') {
-                        unset($ansId[$key]);
-                    }
-                }
-
-                if (implode(',', $ansId) == "") {
-
-                    return $this->refresh();
-                }
-            }
+//            if ($ansId != null) {
+//                foreach ($ansId as $key => $item) {
+//                    if ($item == '0') {
+//                        unset($ansId[$key]);
+//                    }
+//                }
+//
+//                if (implode(',', $ansId) == "") {
+//
+//                    return $this->refresh();
+//                }
+//            }
 
             //echo implode(',',$ansId); die();
 
@@ -187,7 +187,7 @@ class ResultTestController extends \yii\web\Controller
                 $userId = \Yii::$app->getUser()->id;
                 $testId = \Yii::$app->request->get('test_id');
                 if ($ansId != null) {
-                    $result->ans_id = implode(',', $ansId);
+                    $result->ans_id = $ansId;
                 }
 
                 $result->test_id = $testId;

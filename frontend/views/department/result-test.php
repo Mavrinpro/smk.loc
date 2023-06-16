@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             \Yii::$app->request->get('department_id')], ['class' =>
                             ' btn btn-xs btn-outline-danger', 'data' => [
                             'method' => 'post',
+                            'confirm' => 'Удалить результат тестирования этого сотрудника?',
                             'params' => [
                                 'id' => 6,
                                 'param2' => 'value2',
