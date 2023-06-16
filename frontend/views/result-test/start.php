@@ -57,45 +57,44 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                                                     <?= $form->field($result, 'answer_text')->textInput()->label('Ваш ответ') ?>
                                                     <input type="hidden" name="answer_null" value="null">
                                                 <?php else: ?>
-                                                <?php foreach ($answer as $ans) { ?>
-                                                    <!--                                                        <p class="text-dark">--><? //= $ans->name ?><!--</p>-->
+                                                    <?php foreach ($answer as $ans) { ?>
+                                                        <!--                                                        <p class="text-dark">--><? //= $ans->name ?><!--</p>-->
 
-                                                    <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+                                                        <div class="vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
 
-                                                    <div class="vertical-timeline-item vertical-timeline-element">
-                                                    <div>
+                                                            <div class="vertical-timeline-item vertical-timeline-element">
+                                                                <div>
                                                     <span class="vertical-timeline-element-icon bounce-in">
                                                                 <i class="badge badge-dot badge-dot-xl badge-primary"> </i>
                                                                 </span>
-                                                    <div class="vertical-timeline-element-content bounce-in">
+                                                                    <div class="vertical-timeline-element-content bounce-in">
 
-                                                    <h4 class="timeline-title">
+                                                                        <h4 class="timeline-title">
 
-                                                    <div class="custom-control custom-switch">
+                                                                            <div class="custom-control custom-switch">
 
-                                                        <?= $form->field($result, 'answer_id')
-                                                            ->checkbox(['id' => 'customSwitch-' . $ans->id,
-                                                                'class' => 'custom-control-input', 'value' => $ans->id])
-                                                            ->label($ans->name) ?>
+                                                                                <?= $form->field($result, 'answer_id')
+                                                                                    ->checkbox(['id' => 'customSwitch-' . $ans->id,
+                                                                                        'class' => 'custom-control-input', 'value' => $ans->id, 'uncheck' => null])
+                                                                                    ->label($ans->name) ?>
 
-                                                        <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
-                                                            ->id])->label(false) ?>
-                                                        <?= $form->field($result, 'test_id')
-                                                            ->hiddenInput(['value' =>
-                                                                $question->test_id])->label
-                                                            (false) ?>
-                                                        <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
-                                                        (false) ?>
+                                                                                <?= $form->field($result, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()
+                                                                                    ->id])->label(false) ?>
+                                                                                <?= $form->field($result, 'test_id')->hiddenInput(['value' =>
+                                                                                    $question->test_id])->label
+                                                                                (false) ?>
+                                                                                <?= $form->field($result, 'question_id')->hiddenInput(['value' => $question->id])->label
+                                                                                (false) ?>
 
+                                                                            </div>
+
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
-                                                        </h4>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                        <?php } ?>
-                                                        <?php endif; ?>
+                                                    <?php } ?>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>

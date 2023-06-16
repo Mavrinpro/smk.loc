@@ -49,19 +49,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     ?>
-                    <?php  $answered = \app\models\Answer::find()->where([ 'id' => $ansId ])->all(); ?>
+                    <?php  $answered = \app\models\Answer::find()->where([ 'id' => $ansId ])->one(); ?>
                     <tr>
                         <td><?= $itemq->id ?></td>
                         <td><?= $itemq->question->name ?></td>
                         <?php if (isset($itemq->ans_id)): ?>
-                            <td> <?php foreach ($answered as $key => $item) {
-                                    if (sizeof($answered) > 1){
-                                        echo $item->name. ', ';
-                                    }else{
-                                        echo $item->name;
-                                    }
+                            <td> <?php
 
-                                } ?></td>
+                                        echo $itemq->answer->name. ', ';
+
+
+                                 ?></td>
                         <?php else: ?>
                             <td><?= $itemq->answer_text ?></td>
                         <?php endif; ?>
