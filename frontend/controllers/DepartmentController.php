@@ -294,6 +294,5 @@ class DepartmentController extends Controller
         return $this->redirect('/');
 
     }
-
     
 }
