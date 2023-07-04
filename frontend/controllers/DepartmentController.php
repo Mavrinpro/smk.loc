@@ -198,8 +198,7 @@ class DepartmentController extends Controller
             \Yii::$app->session->setFlash('error', 'Вы что-то ввели неверно. Попробуйте еще раз.');
             return $this->redirect(['view', 'id' => \Yii::$app->request->post('SignupForm')['department_id']]);
         }
-
-
+        
     }
 
     public function actionDeleteUser()
@@ -294,5 +293,5 @@ class DepartmentController extends Controller
         return $this->redirect('/');
 
     }
-    
+
 }
