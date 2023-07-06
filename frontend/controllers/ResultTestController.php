@@ -159,9 +159,7 @@ class ResultTestController extends \yii\web\Controller
             //                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
             //                return $this->refresh();
             //            }
-
-
-
+            
 
             if (\Yii::$app->request->post('answer_null') == 'null') {
 //var_dump(\Yii::$app->request->post('ResultTest')['answer_text']); die();
