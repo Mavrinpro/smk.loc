@@ -159,7 +159,7 @@ class ResultTestController extends \yii\web\Controller
             //                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
             //                return $this->refresh();
             //            }
-            
+
 
             if (\Yii::$app->request->post('answer_null') == 'null') {
 //var_dump(\Yii::$app->request->post('ResultTest')['answer_text']); die();
@@ -229,8 +229,7 @@ class ResultTestController extends \yii\web\Controller
                 => $question->id]);
 
             }
-
-
+            
         }
 
         return $this->render('start', ['id' => $question->id,
@@ -283,7 +282,6 @@ class ResultTestController extends \yii\web\Controller
                 'test' => $test
             ]);
         }
-
 
     }
 
