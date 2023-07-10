@@ -46,8 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $ansId =  $itemq->ans_id;
 
                         $a[] = $ansId;
-
-
+                    
                     ?>
                     <?php  $answered = \app\models\Answer::find()->where([ 'id' => $ansId ])->one(); ?>
                     <tr>
