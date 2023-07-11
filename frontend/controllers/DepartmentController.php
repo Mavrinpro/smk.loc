@@ -262,6 +262,15 @@ class DepartmentController extends Controller
 
     public function actionTestFailed($id, $user_id, $res)
     {
+        $noty = new \app\models\Notyfication();
+        $test = \app\models\Test::find()->where(['id' => $id])->one();
+        $noty->user_id = $user_id;
+        $noty->user_create_id = \Yii::$app->getUser()->id;
+        $noty->text = 'Тест "'.$test->name.'" Провален';
+        $noty->create_at = time();
+        $noty->read = 0;
+        //var_dump($noty); die();
+        $noty->save();
         $user = new User();
         $bot_token = \app\models\Settings::find()->one();
         $telegram = User::find()->where(['id' => $user_id])->one();
