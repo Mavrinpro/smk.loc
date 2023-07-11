@@ -13,6 +13,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Результаты тестирования';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="row">
     <div class="col-md-12">
