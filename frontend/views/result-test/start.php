@@ -103,7 +103,6 @@ $q = \app\models\Question::find()->where(['id' => $id])->one();
                         </div>
                     </div>
                 </li>
-
                 <?= Html::submitButton('Дальше', ['class' => 'mt-3 btn btn-success']) ?>
                 <?php ActiveForm::end(); ?>
             </ul>
