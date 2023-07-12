@@ -268,6 +268,7 @@ class ResultTestController extends \yii\web\Controller
                 'question' => $q,
                 'test' => $test
             ]);
+
         }else{
             $endTest->user_id = $userId;
             $endTest->test_id = $testId;
