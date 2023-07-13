@@ -61,10 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-7">
                         <div class="app-logo"></div>
                         <h4 class="mb-0">
-                            <span class="d-block">Welcome back,</span>
-                            <span>Please sign in to your account.</span>
+                            <span class="d-block">Войти</span>
                         </h4>
-                        <h6 class="mt-3">No account? <a href="javascript:void(0);" class="text-primary">Sign up now</a>
+                        <h6 class="mt-3">Нет аккаунта? <a href="/site/signup" class="text-primary">Sign up
+                                now</a>
                         </h6>
                         <div class="divider row"></div>
                         <div>
