@@ -40,16 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                          tabindex="-1" style="width: 512px;">
                                         <div>
                                             <div style="width: 100%; display: inline-block;">
-                                                <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate"
+                                                <div class="position-relative h-100 d-flex justify-content-center
+                                                align-items-center" style="background-image: url(/img/bg_login.svg)"
                                                      tabindex="-1">
 
-                                                    <div class="slider-content">
-                                                        <h3>Scalable, Modular, Consistent</h3>
-                                                        <p>Easily exclude the components you don't require. Lightweight,
-                                                            consistent
-                                                            Bootstrap based styles across all elements and components
-                                                        </p>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
