@@ -6,6 +6,7 @@
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -67,6 +68,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'fio')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'company_id') ->dropDownList(ArrayHelper::map(app\models\Company::find()
+                    ->asArray()->all(), 'id','name'),['prompt'=>'Укажите компанию'])
+                ?>
+                <?= $form->field($model, 'city_id') ->dropDownList(ArrayHelper::map(app\models\Branch::find()->asArray()
+                    ->all(), 'id','name'),['prompt'=>'Выберите город']) ?>
+                <?= $form->field($model, 'department_id') ->dropDownList(ArrayHelper::map(app\models\Department::find()
+                    ->asArray()
+                ->all(), 'id','name'),['prompt'=>'Выберите свой отдел']) ?>
 
                 <?= $form->field($model, 'email') ?>
 

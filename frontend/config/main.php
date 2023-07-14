@@ -67,8 +67,10 @@ return [
             //'suffix' => '.html',
             'rules' => [
                 '' => 'site/index',
-               
-                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
+                'login' => 'site/login',
+                'signup' => 'site/signup',
+
+                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
 

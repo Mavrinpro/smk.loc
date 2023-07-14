@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h4 class="mb-0">
                             <span class="d-block">Войти</span>
                         </h4>
-                        <h6 class="mt-3">Нет аккаунта? <a href="/site/signup" class="text-primary">Sign up
+                        <h6 class="mt-3">Нет аккаунта? <a href="/signup" class="text-primary">Sign up
                                 now</a>
                         </h6>
                         <div class="divider row"></div>
