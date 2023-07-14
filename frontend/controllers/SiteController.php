@@ -42,7 +42,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout' , 'confirm-email'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -163,10 +163,11 @@ $model = new IndexForm();
      */
     public function actionSignup()
     {
+        $this->layout = 'login';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->render('confirm');
         }
 
         return $this->render('signup', [
@@ -265,5 +266,11 @@ $model = new IndexForm();
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionConfirm()
+    {
+        $this->layout = 'login';
+        return $this->render('confirm');
     }
 }

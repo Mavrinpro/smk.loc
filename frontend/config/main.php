@@ -69,8 +69,9 @@ return [
                 '' => 'site/index',
                 'login' => 'site/login',
                 'signup' => 'site/signup',
+                'confirm' => 'site/confirm',
 
-                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
+                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site|confirm)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
 
