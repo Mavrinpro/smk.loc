@@ -15,11 +15,11 @@ return [
     // Доступ только авторизованным пользователям
     'as beforeRequest' => [
         'class' => 'yii\filters\AccessControl',
-        'except' => ['confirm'], //
+        'except' => ['confirm', 'reset-password'], //
         // Разрешить доступ неавторизованным для экшена (API)
         'rules' => [
             [
-                'actions' => ['login', 'signup', 'confirm'],
+                'actions' => ['login', 'signup', 'confirm', 'reset-password'],
                 'allow' => true,
             ],
             [
