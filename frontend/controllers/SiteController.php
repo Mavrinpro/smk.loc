@@ -42,7 +42,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout' , 'confirm-email'],
+                        'actions' => ['logout' , 'confirm-email', 'reset-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -214,7 +214,7 @@ $model = new IndexForm();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Новый пароль установлен.');
 
             return $this->goHome();
         }
@@ -272,5 +272,22 @@ $model = new IndexForm();
     {
         $this->layout = 'login';
         return $this->render('confirm');
+    }
+
+    public function actionAjaxSelect()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $department = \app\models\Department::find()->where(['branch_id' => $post['id']])->all();
+        $arr = [];
+        $arr['label'] = '<label for="signupform-department_id">Отдел</label>';
+        $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
+        $arr['opt_empty'] = '<option value="">Выберите свой отдел</option>';
+        foreach ($department as $item) {
+            $arr['id'][] = '<option value="'.$item->id.'">'.$item->name.'</option>';
+            //$arr['name'][] = $item->name;
+        }
+        $arr['sel_close'] = '</select>';
+        return $arr;
     }
 }

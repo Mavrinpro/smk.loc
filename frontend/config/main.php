@@ -88,4 +88,21 @@ return [
 
     ],
     'params' => $params,
+    // Доступ только авторизованным пользователям
+    'as beforeRequest' => [
+        'class' => 'yii\filters\AccessControl',
+        'except' => ['confirm', 'reset-password'], //
+        // Разрешить доступ неавторизованным для экшена (API)
+        'rules' => [
+            [
+                'actions' => ['login', 'signup', 'confirm', 'reset-password', 'request-password-reset'],
+                'allow' => true,
+            ],
+            [
+
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+    ],
 ];

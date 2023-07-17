@@ -19,7 +19,7 @@ return [
         // Разрешить доступ неавторизованным для экшена (API)
         'rules' => [
             [
-                'actions' => ['login', 'signup', 'confirm', 'reset-password', 'request-password-reset'],
+                'actions' => ['login', 'signup', 'confirm', 'reset-password', 'request-password-reset', 'ajax-select'],
                 'allow' => true,
             ],
             [
