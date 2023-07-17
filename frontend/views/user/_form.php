@@ -29,18 +29,13 @@ use yii\helpers\Html;
         ->andWhere('id>0')->all(), 'id', 'name')) ?>
         </div>
         <div class="col-md-12">
-    <label for="signupform-department_id">Отдел</label>
-
-    <select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">
-        <?php $sql2 = app\models\Department::find()->select(['name', 'id'])->distinct()->all();
-        foreach ($sql2 as $item) { ?>
-            <option value="<?= $item->id ?>"><?= $item->name ?></option>
-        <?php }
-        ?> </select>
+            <?= $form->field($model, 'department_id')->dropDownList(\yii\helpers\ArrayHelper::map
+            (app\models\Department::find()
+                ->andWhere('id>0')->all(), 'id', 'name')) ?>
 
 
     <div class="form-group mt-3">
-        <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+        <?= Html::submitButton('Изменить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
         </div>
     <?php ActiveForm::end(); ?>
