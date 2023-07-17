@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
@@ -38,6 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'verification_token',
         ],
     ]) ?>
-    <input type="checkbox" class="checkbox" id="box" checked/>
-    <label for="box">Администратор</label>
+<!--    <input type="checkbox" class="checkbox" id="box" checked/>-->
+<!--    <label for="box">Администратор</label>-->
 </div>
+<?php
+// Узнать роль пользователя
+$roles = Yii::$app->authManager->getRolesByUser(48);
+$userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name'));
+//echo $userRole;
+//$item = $manager->getRole('user');

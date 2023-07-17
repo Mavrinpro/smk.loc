@@ -166,6 +166,9 @@ $model = new IndexForm();
         $this->layout = 'login';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            $roleUser = \Yii::$app->authManager->getRole('user');
+            $user = \common\models\User::find()->orderBy('id DESC')->one();
+            \Yii::$app->authManager->assign($roleUser, $user->getId());
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->render('confirm');
         }
@@ -289,5 +292,17 @@ $model = new IndexForm();
         }
         $arr['sel_close'] = '</select>';
         return $arr;
+    }
+
+    // сменить роль пользователя
+    public function actionRoles()
+    {
+        $manager = Yii::$app->authManager;
+        //$item = $manager->getRole('user');
+        //$item = $item ? : $manager->getPermission('user');
+        //$manager->revoke($item,'48');
+
+        $authorRole = $manager->getRole('admin');
+        $manager->assign($authorRole, 48);
     }
 }
