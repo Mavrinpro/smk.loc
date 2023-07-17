@@ -43,8 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="position-relative h-100 d-flex justify-content-center
                                                 align-items-center" style="background-image: url(/img/bg_login.svg)"
                                                      tabindex="-1">
-
-
                                                 </div>
                                             </div>
                                         </div>
