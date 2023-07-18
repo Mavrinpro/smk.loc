@@ -10,6 +10,7 @@ return [
 
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'name' => 'СМК ГлазЦентр',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'layout'=>'bootstrap',
@@ -88,21 +89,4 @@ return [
 
     ],
     'params' => $params,
-    // Доступ только авторизованным пользователям
-    'as beforeRequest' => [
-        'class' => 'yii\filters\AccessControl',
-        'except' => ['confirm', 'reset-password'], //
-        // Разрешить доступ неавторизованным для экшена (API)
-        'rules' => [
-            [
-                'actions' => ['login', 'signup', 'confirm', 'reset-password', 'request-password-reset'],
-                'allow' => true,
-            ],
-            [
-
-                'allow' => true,
-                'roles' => ['@'],
-            ],
-        ],
-    ],
 ];

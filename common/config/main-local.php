@@ -12,14 +12,10 @@ return [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.mail.ru',
-                'username' => 'mailer@glazcentre.ru',
-                'password' => 'bxarg0kvQuyXyqifxXmC',
-                'port' => '465',
-                'encryption' => 'SSL',
-            ],
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => true,
         ],
     ],
 ];
