@@ -31,14 +31,26 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
             'attributes' => [
                 'id',
                 'username',
-                'auth_key',
-                'password_hash',
-                'password_reset_token',
+                //'auth_key',
+                //'password_hash',
+                //'password_reset_token',
                 'email:email',
-                'status',
+                [
+                    'attribute' => 'status',
+                    'value' => function($model)
+                    {
+                        if ($model->status == 10){
+                            return 'Активный';
+                        }else if($model->status == 0){
+                            return 'Удален';
+                        }else{
+                            return 'Не активный';
+                        }
+                    },
+                ],
                 'created_at',
                 'updated_at',
-                'verification_token',
+                //'verification_token',
             ],
         ]) ?>
         <?php if ($userRole == 'superadmin' || $userRole == 'admin'): ?>
@@ -46,7 +58,7 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
                 <input type="checkbox" class="checkbox" id="box" data-id="<?php echo $model->id; ?>" checked/>
                 <label for="box">Администратор</label>
             <?php else: ?>
-                <input type="checkbox" class="checkbox" id="box" data-id="<?php echo $model->id; ?>" />
+                <input type="checkbox" class="checkbox" id="box" data-id="<?php echo $model->id; ?>"/>
                 <label for="box">Администратор</label>
             <?php endif; ?>
         <?php endif; ?>
