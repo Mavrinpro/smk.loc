@@ -108,9 +108,20 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = $this->findModel($id);
+        $user->status = 0;
+        $user->update();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'id' => $user->id]);
+    }
+
+    public function actionDeleteUser($id)
+    {
+        $user = $this->findModel($id);
+        $user->status = 0;
+        $user->update();
+
+        return $this->redirect(['index', 'id' => $user->id]);
     }
 
     /**

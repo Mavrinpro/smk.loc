@@ -1,14 +1,13 @@
+<?php
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+?>
 <ul class="todo-list-wrapper list-group list-group-flush">
     <li class="list-group-item">
         <div class="todo-indicator bg-focus"></div>
         <div class="widget-content p-0">
             <div class="widget-content-wrapper">
-                <div class="widget-content-left mr-2">
-                    <div class="custom-checkbox custom-control">
-                        <input type="checkbox" id="exampleCustomCheckbox<?= $model->id ?>" class="custom-control-input">
-                        <label class="custom-control-label" for="exampleCustomCheckbox<?= $model->id ?>">&nbsp;</label>
-                    </div>
-                </div>
+
                 <div class="widget-content-left">
                     <?php if ($model->status == 10){ ?>
                     <div class="widget-heading text-success"><?= $model->username ?></div>
@@ -37,6 +36,13 @@
                             <button type="button" disabled="" tabindex="-1" class="disabled dropdown-item">Action</button>
                             <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
                             <button type="button" tabindex="0" class="dropdown-item">Удалить</button>
+                            <?= Html::a('Delete', ['delete-user', 'id' => $model->id], [
+                                //'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to delete this item?',
+                                    'method' => 'get',
+                                ],
+                            ]) ?>
                         </div>
                     </div>
                 </div>
