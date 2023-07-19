@@ -49,7 +49,7 @@ $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUse
 // Узнать роль пользователя
 $roles = Yii::$app->authManager->getRolesByUser(1);
 $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name'));
-echo $userRole;
+//echo $userRole;
 //$item = $manager->getRole('user');
 
 
