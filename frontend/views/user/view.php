@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id), 'name'));
+$userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name'));
 ?>
     <div class="user-view">
         <p>
@@ -41,8 +42,13 @@ $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUse
             ],
         ]) ?>
         <?php if ($userRole == 'superadmin' || $userRole == 'admin'): ?>
-            <input type="checkbox" class="checkbox" id="box" checked/>
-            <label for="box">Администратор</label>
+            <?php if ($userRole2 == 'admin'): ?>
+                <input type="checkbox" class="checkbox" id="box" data-id="<?php echo $model->id; ?>" checked/>
+                <label for="box">Администратор</label>
+            <?php else: ?>
+                <input type="checkbox" class="checkbox" id="box" data-id="<?php echo $model->id; ?>" />
+                <label for="box">Администратор</label>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 <?php
@@ -51,5 +57,40 @@ $roles = Yii::$app->authManager->getRolesByUser(1);
 $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser($model->id), 'name'));
 //echo $userRole;
 //$item = $manager->getRole('user');
+
+
+$js = <<<JS
+var box = $('#box');
+var check = '';
+box.on('change', function (){
+    if (box.is(':checked')){
+        check = 1;
+	
+} else {
+        check = 0;
+	
+}
+    
+    $.ajax({
+            url: '/user/set-admin',
+            type: 'POST',
+            data: {
+                id: $(this).data('id'),
+                check: check
+            },
+           // dataType: 'JSON',
+            success: function(res){
+                 console.log(res);
+            },
+            error: function(){
+                //search_form_header.find('.result_search').html('').css('display', 'none');
+                alert('Error!');
+            }
+        })
+})
+
+JS;
+
+$this->registerJs($js);
 
 

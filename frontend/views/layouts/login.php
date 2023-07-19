@@ -27,6 +27,7 @@ AppAsset::register($this);
     <div class="h-100">
 
         <?php $this->beginBody() ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
         <?php $this->endBody() ?>
 

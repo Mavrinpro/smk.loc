@@ -140,4 +140,34 @@ class UserController extends Controller
 
         return $data;
     }
+
+    // Сделать админом через ajax
+    public function actionSetAdmin()
+    {
+        $manager = \Yii::$app->authManager;
+       $post = \Yii::$app->request->post();
+
+
+       if ($post['check'] == 1){
+
+           $item = $manager->getRole('user');
+           $item = $item ? : $manager->getPermission('user');
+           $manager->revoke($item, 48);
+
+           $authorRole = $manager->getRole('admin');
+           $manager->assign($authorRole, 48);
+
+       }else{
+           $item = $manager->getRole('admin');
+           $item = $item ? : $manager->getPermission('admin');
+           $manager->revoke($item, 48);
+
+           $authorRole = $manager->getRole('user');
+           $manager->assign($authorRole, 48);
+
+       }
+       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       return $post['id'];
+
+    }
 }
