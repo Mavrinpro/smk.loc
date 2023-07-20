@@ -121,7 +121,7 @@ class UserController extends Controller
         $user->status = 0;
         $user->update();
 
-        return $this->redirect(['index', 'id' => $user->id]);
+        return $this->redirect(['index']);
     }
 
     /**
