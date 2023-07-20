@@ -41,7 +41,7 @@ class DepartmentController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view'],
+                            'actions' => ['view', 'test'],
                             'roles' => ['view_manager'],
                         ],
                         [

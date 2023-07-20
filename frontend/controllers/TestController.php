@@ -7,6 +7,7 @@ use app\models\TestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TestController implements the CRUD actions for Test model.
@@ -25,6 +26,22 @@ class TestController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'index'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['create', 'index', 'view'],
+                            'roles' => ['create_admin', 'admin'],
+                        ],
                     ],
                 ],
             ]
