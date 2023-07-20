@@ -163,18 +163,18 @@ class UserController extends Controller
 
            $item = $manager->getRole('user');
            $item = $item ? : $manager->getPermission('user');
-           $manager->revoke($item, 48);
+           $manager->revoke($item, $post['id']);
 
            $authorRole = $manager->getRole('admin');
-           $manager->assign($authorRole, 48);
+           $manager->assign($authorRole, $post['id']);
 
        }else{
            $item = $manager->getRole('admin');
            $item = $item ? : $manager->getPermission('admin');
-           $manager->revoke($item, 48);
+           $manager->revoke($item, $post['id']);
 
            $authorRole = $manager->getRole('user');
-           $manager->assign($authorRole, 48);
+           $manager->assign($authorRole, $post['id']);
 
        }
        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
