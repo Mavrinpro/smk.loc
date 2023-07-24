@@ -21,27 +21,7 @@ $files = \app\models\Files::find()->all();
 
 AppAsset::register($this);
 
-Modal::begin( [
-    'id' => 'werex',
-    'title' => '<h5>Добавить название файлу</h5>',
-    //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
-    'footer' => 'Footer',
 
-] );
-echo "<div id='modalContent2'>";
-$formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
-
-echo $formFile->field($f, 'title')->textInput();
-echo $formFile->field($f, 'id')->hiddenInput()->label(false);
-echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
-
-echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
-
-
-ActiveForm::end();
-echo "</div>";
-
-Modal::end();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -55,8 +35,33 @@ Modal::end();
 </head>
 <body class="d-flex flex-column h-100">
 
+
+
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar fixed-footer">
 <?= $this->render('nav-menu')?>
+    <?php
+    Modal::begin( [
+        'id' => 'werex',
+        'title' => '<h5>Добавить название файлу</h5>',
+        //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
+        //'footer' => 'Footer',
+
+    ] );
+
+    $formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
+
+    echo $formFile->field($f, 'title')->textInput();
+    echo $formFile->field($f, 'id')->hiddenInput()->label(false);
+    echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
+
+    echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
+
+
+    ActiveForm::end();
+
+
+    Modal::end();
+    ?>
     <div class="ui-theme-settings">
         <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
             <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
@@ -300,7 +305,6 @@ Modal::end();
                                 </div>
                             </li>
 
-
                         </ul>
                     </div>
                     <h3 class="themeoptions-heading">
@@ -422,6 +426,7 @@ Modal::end();
                     </div>
                 </div>
             </div>
+
             <?= AlertWidget::widget() ?>
 <?= $content ?>
 
@@ -1050,6 +1055,7 @@ Modal::end();
     </div>
 </div>
 </div>
+
 <div class="app-drawer-wrapper">
     <div class="drawer-nav-btn">
         <button type="button" class="hamburger hamburger--elastic is-active">
@@ -1587,6 +1593,7 @@ Modal::end();
 <!--        </div>-->
 <!--    </nav>-->
 </section>
+
 <!--Modal create user-->
 <div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
