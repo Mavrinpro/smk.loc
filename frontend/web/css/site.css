@@ -183,4 +183,9 @@ ul.custom-breadcrumbs li.active {
 }
 .file_upload{
     cursor: pointer;
+    background: rgba(255, 247, 204, 0.6);
+}
+
+.dropzone.dz-clickable {
+    background: rgba(255, 247, 204, 0.6);
 }

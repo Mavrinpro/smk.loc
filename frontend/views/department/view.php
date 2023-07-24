@@ -17,12 +17,25 @@ $this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
 
-<?= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
-<?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
-<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa
-fa-user"></i> Добавить
-    сотрудника</a>
+<?//= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
+<!--<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa-->
+<!--fa-user"></i> Добавить-->
+<!--    сотрудника</a>-->
 <div class="row">
+    <div class="col-md-12 mb-3">
+        <?php
+        echo \kato\DropZone::widget([
+            'options' => [
+                'maxFilesize' => '10',
+                'dictDefaultMessage' => 'Перетащите файлы в эту область'
+            ],
+            'clientEvents' => [
+                'complete' => "function(file){console.log(file)}",
+                'removedfile' => "function(file){alert(file.name + ' is removed')}"
+            ],
+        ]);
+        ?></div>
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
@@ -175,19 +188,7 @@ fa-user"></i> Добавить
         </div>
     </div>
 </div>
-<div class="col-md-12">
-    <?php
-    echo \kato\DropZone::widget([
-        'options' => [
-            'maxFilesize' => '10',
-            'dictDefaultMessage' => 'Перетащите файлы в эту область'
-        ],
-        'clientEvents' => [
-            'complete' => "function(file){console.log(file)}",
-            'removedfile' => "function(file){alert(file.name + ' is removed')}"
-        ],
-    ]);
-    ?></div>
+
 <a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa
 fa-user"></i> Добавить
     сотрудника</a>
