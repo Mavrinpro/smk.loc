@@ -50,7 +50,7 @@ AppAsset::register($this);
 
     $formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
 
-    echo $formFile->field($f, 'title')->textInput();
+    echo $formFile->field($f, 'title')->textInput()->label('Название файла');
     echo $formFile->field($f, 'id')->hiddenInput()->label(false);
     echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
 
