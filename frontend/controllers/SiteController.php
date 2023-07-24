@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Files;
 use frontend\models\IndexForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -305,5 +306,35 @@ $model = new IndexForm();
 
         $authorRole = $manager->getRole('admin');
         $manager->assign($authorRole, 48);
+    }
+
+
+    // Загрузка файлов Dropzone
+    public function actionUpload()
+    {
+        $fileName = 'file';
+        $uploadPath = './files';
+        $files = new Files();
+        $user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        $get = Yii::$app->request->post('department_id');
+        if (isset($_FILES[$fileName])) {
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+                //var_dump(\Yii::$app->request->post()); die;
+                //Now save file data to database
+                $files->name = $file->name;
+                $files->department_id = $user->department_id;
+                $files->date_at = time();
+                $files->user_id = Yii::$app->user->getId();
+                $files->save();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
     }
 }

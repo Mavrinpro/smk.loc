@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\Department;
+use app\models\Files;
 use app\models\Page;
 use app\models\Branch;
 use app\models\Test;
@@ -46,7 +47,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test', 'remove-document', 'set-title'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -82,16 +83,19 @@ class DepartmentController extends Controller
         $depart = Department::find()->where(['id' => $id])->one();
         $page = Page::find()->where(['department_id' => $id])->all();
         $branch = Branch::find()->where(['id' => $depart->branch_id])->one();
-
+        $files = Files::find()->where(['department_id' => \Yii::$app->request->get('id')])->all();
         $user = User::find()->where(['department_id' => $depart->id])->all();
         $userForm = new User();
+        $f = new Files();
 
         return $this->render('view', [
             'user' => $user,
             'branch' => $branch,
             'page' => $page,
             'model' => $this->findModel($id),
-            'userform' => $userForm
+            'userform' => $userForm,
+            'files' => $files,
+            'f' => $f
         ]);
     }
 
@@ -301,6 +305,44 @@ class DepartmentController extends Controller
 
         }
         return $this->redirect('/');
+
+    }
+
+
+    // Удаление файла
+    public function actionRemoveDocument($id)
+    {
+        $request = \Yii::$app->request->get();
+        $files = Files::find()->where(['id' => $request['id']])->one();
+        //unlink('/files/'.$files->name);
+        unlink('files/' . $files->name);
+        $files->delete();
+        \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+        return $this->redirect(['view', 'id' => $request['modelid']]);
+
+
+        //var_dump($files);
+
+    }
+
+    // Установить заголовок для файла
+    public function actionSetTitle()
+    {
+        $pageId = \Yii::$app->request->get();
+        $request = \Yii::$app->request->post('Files');
+        $files = Files::find()->where(['id' => $request['id']])->one();
+       // var_dump($pageId); die();
+
+        //var_dump($pageId); die();
+        $files->title = $request['title'];
+        //$files->department_id = $request['res'];
+
+        $files->date_end = time();
+        $files->user_id_update = \Yii::$app->user->getId();
+        $files->update();
+        \Yii::$app->session->setFlash('success', 'Название задано',['progressBar' => true]);
+        return $this->redirect(['/department/view', 'id' => $request['department_id']]);
+
 
     }
 

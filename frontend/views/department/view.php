@@ -15,6 +15,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
+
 ?>
 
 <?//= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
@@ -27,14 +28,18 @@ $this->params['breadcrumbs'][] = $model->name;
         <?php
         echo \kato\DropZone::widget([
             'options' => [
-                'maxFilesize' => '10',
+                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область'
             ],
             'clientEvents' => [
-                'complete' => "function(file){console.log(file)}",
+                'complete' => "function(file){
+                
+                console.log(file)
+                }",
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
             ],
         ]);
+        echo '<input type="hidden" name="department_id" value="'.$model->id.'">'
         ?></div>
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
@@ -120,6 +125,144 @@ $this->params['breadcrumbs'][] = $model->name;
         </div>
 
     <?php } ?>
+</div>
+<div class="row">
+    <?php
+    foreach ($files as $file) {
+        //var_dump($files); die();
+
+        $url = 'files/';
+        $path_parts = pathinfo('/'.$url.$file->name);
+
+        $files = scandir('files/');
+        // $files2 = scandir($dir, 1);
+
+        //print_r($files1);
+        //print_r($files2);
+        //var_dump($files);
+        $ras = explode('.', $file->name);
+
+        //$kb = filesize("files/".$file->name);
+        //echo $url.$file->name;
+
+        //echo $url.$file->name;
+        switch ($path_parts['extension']) {
+            case 'xlsx':
+                $ind = '/img/icon_xlsx.png';
+                break;
+            case 'xls':
+                $ind = '/img/icon_xls.png';
+                break;
+            case 'txt':
+                $ind = '/img/icon_txt.png';
+                break;
+            case 'zip':
+                $ind = '/img/icon_zip.png';
+                break;
+            case 'json':
+                $ind = '/img/icon_js.png';
+                break;
+            case 'csv':
+                $ind = '/img/icon_csv.png';
+                break;
+            case 'docx':
+                $ind = '/img/icon_doc.png';
+                break;
+            case 'pdf':
+                $ind = '/img/icon_pdf.png';
+                break;
+            case 'png':
+                $ind = '/img/icon_png.png';
+                break;
+            case 'jpeg':
+                $ind = '/img/icon_jpg.png';
+                break;
+            case 'html':
+                $ind = '/img/icon_html.png';
+                break;
+            case 'psd':
+                $ind = '/img/icon_psd.png';
+                break;
+            case 'jpg':
+                $ind = '/img/icon_jpg.png';
+                break;
+            case 'MP4':
+                $ind = '/img/icon_mp4.png';
+                break;
+            case 'JPG':
+                $ind = '/img/icon_jpg.png';
+                break;
+            default:
+                $ind = '/img/icon_file.png';
+        }
+
+        if (!empty($file->name)) {
+            $kb = filesize("files/".$file->name);
+
+            echo '<div class="col-md-2 text-center mt-3"><div class="div_img">';
+
+            echo '<img src="' . $ind . '" width="40" data-id="'.$file->id.'" data-title="'.$file->title.'" class="file_upload"></br>';
+            //clearstatcache();
+            echo '<span class="badge badge-pill">'.round($kb / 1024, 1).'kb</span></br>';
+
+
+            if ($file->title != null){
+                echo Html::a($file->title, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>";
+            }else{
+                echo Html::a($file->name, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>"; //
+            }
+
+            //echo '<a href="/doctors/remove-document/'.$file->id.'" >&times</a>';
+            echo Html::a('&times', ['remove-document', 'id' => $file->id, 'modelid' => $model->id], ['class' =>
+                'badge badge-pill badge-danger', 'data-confirm' => Yii::t('yii', 'Удалить файл: '.$file->name.'?')]);
+            echo '</div></div>';
+
+        }
+    }
+    //    $files = \yii\helpers\FileHelper::findFiles('files/');
+    //    if (isset($files[0])) {
+    //        foreach ($files as $index => $file) {
+    //            //$nameFicheiro = substr($file, strrpos($file, '/') + 1);
+    //            $ras = explode('.', $file);
+    //            $kb = filesize($file);
+    //            switch ($ras[1]){
+    //                case 'xlsx':
+    //                    $ind = '/img/icon_xlsx.png';
+    //                    break;
+    //                case 'xls':
+    //                    $ind = '/img/icon_xls.png';
+    //                    break;
+    //                case 'csv':
+    //                    $ind = '/img/icon_csv.png';
+    //                    break;
+    //                case 'docx':
+    //                    $ind = '/img/icon_doc.png';
+    //                    break;
+    //                case 'pdf':
+    //                    $ind = '/img/icon_pdf.png';
+    //                    break;
+    //                case 'png':
+    //                    $ind = '/img/icon_png.png';
+    //                    break;
+    //                case 'jpeg':
+    //                    $ind = '/img/icon_jpg.png';
+    //                    break;
+    //                default: $ind = '/img/icon_png.png';
+    //            }
+    //            echo '<div class="col-md-2 text-center">';
+    //            echo '<img src="'. $ind.'" width="40"></br>';
+    //            echo '<span class="badge badge-pill">'.round($kb / 1024, 1).'kb</span></br>';
+    //
+    //            echo Html::a($file, \yii\helpers\Url::base() . '/' . $file) . "<br/>"; //
+    //            echo '</div>';
+    //            // render do
+    //            // ficheiro no browser
+    //        }
+    //    } else {
+    //        echo "There are no files available for download.";
+    //    }
+
+    ?>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -277,10 +420,17 @@ fa-user"></i> Добавить
 <?php } ?>
 
 <?php
-$js = <<<JS
 
-JS;
-$this->registerJs($js);
-?>
+$this->registerJs(<<<JS
+$('.file_upload').click(function (){
+    var id = $(this).data('id');
+    var title = $(this).data('title');
+    $('#files-id').val(id);
+    $('#files-title').val(title);
+    $('#werex').modal('show');
+    console.log(1)
+})
+JS
+); ?>
 
 

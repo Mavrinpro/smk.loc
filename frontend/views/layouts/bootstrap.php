@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
@@ -15,9 +16,32 @@ use yii\widgets\Breadcrumbs;
 $question = new app\models\Question();
 $answer = new app\models\Answer();
 $userform = new frontend\models\SignupForm();
-
+$f = new \app\models\Files();
+$files = \app\models\Files::find()->all();
 
 AppAsset::register($this);
+
+Modal::begin( [
+    'id' => 'werex',
+    'title' => '<h5>Добавить название файлу</h5>',
+    //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
+    'footer' => 'Footer',
+
+] );
+echo "<div id='modalContent2'>";
+$formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
+
+echo $formFile->field($f, 'title')->textInput();
+echo $formFile->field($f, 'id')->hiddenInput()->label(false);
+echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
+
+echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
+
+
+ActiveForm::end();
+echo "</div>";
+
+Modal::end();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -1684,6 +1708,7 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
 <?php $this->endBody() ?>
 <!-- Modal delete -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
