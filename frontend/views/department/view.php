@@ -332,9 +332,9 @@ $this->params['breadcrumbs'][] = $model->name;
     </div>
 </div>
 
-<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa
-fa-user"></i> Добавить
-    сотрудника</a>
+<!--<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa-->
+<!--fa-user"></i> Добавить-->
+<!--    сотрудника</a>-->
 <?php if (sizeof($user) > 0) { ?>
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -420,8 +420,9 @@ fa-user"></i> Добавить
 <?php } ?>
 
 <?php
+$js = <<<JS
+  
 
-$this->registerJs(<<<JS
 $('.file_upload').click(function (){
     var id = $(this).data('id');
     var title = $(this).data('title');
@@ -429,8 +430,12 @@ $('.file_upload').click(function (){
     $('#files-title').val(title);
     $('#werex').modal('show');
     console.log(1)
-})
-JS
-); ?>
+}) 
+
+
+JS;
+
+$this->registerJs($js);
+?>
 
 
