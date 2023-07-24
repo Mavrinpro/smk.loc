@@ -25,7 +25,8 @@
         "robregonm/yii2-pdf": "dev-master",
         "kartik-v/yii2-mpdf": "dev-master",
         "vova07/yii2-imperavi-widget": "*",
-        "kartik-v/yii2-editors": "dev-master"
+        "kartik-v/yii2-editors": "dev-master",
+        "perminder-klair/yii2-dropzone": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
