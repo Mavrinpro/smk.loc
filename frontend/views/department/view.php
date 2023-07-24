@@ -175,6 +175,19 @@ fa-user"></i> Добавить
         </div>
     </div>
 </div>
+<div class="col-md-12">
+    <?php
+    echo \kato\DropZone::widget([
+        'options' => [
+            'maxFilesize' => '10',
+            'dictDefaultMessage' => 'Перетащите файлы в эту область'
+        ],
+        'clientEvents' => [
+            'complete' => "function(file){console.log(file)}",
+            'removedfile' => "function(file){alert(file.name + ' is removed')}"
+        ],
+    ]);
+    ?></div>
 <a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa
 fa-user"></i> Добавить
     сотрудника</a>
