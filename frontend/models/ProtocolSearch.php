@@ -40,7 +40,7 @@ class ProtocolSearch extends Protocol
      */
     public function search($params)
     {
-        $query = Protocol::find();
+        $query = Protocol::find()->where(['department_id' => \Yii::$app->request->get('department_id')]);
 
         // add conditions that should always apply here
 

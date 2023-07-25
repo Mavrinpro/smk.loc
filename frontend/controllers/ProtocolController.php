@@ -7,6 +7,7 @@ use app\models\ProtocolSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * ProtocolController implements the CRUD actions for Protocol model.
@@ -130,5 +131,37 @@ class ProtocolController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    // Загрузка файлов Dropzone
+    public function actionUpload()
+    {
+        $department_id = \Yii::$app->request->get('department_id');
+        $fileName = 'file';
+        $uploadPath = './files/protocol/'.$department_id;
+        if (! FileHelper::createDirectory($uploadPath)) {
+            throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
+        }
+        $files = new Protocol();
+        //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        if (isset($_FILES[$fileName])) {
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+
+                $files->name = $file->name;
+                $files->department_id = $department_id; // id отдела
+                $files->create_at = time();
+                $files->user_id_create = \Yii::$app->user->getId();
+                $files->active = 1;
+                $files->save();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
     }
 }
