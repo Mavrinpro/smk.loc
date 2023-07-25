@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             [
@@ -140,7 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
 
             ],
-            'department_id',
+            //'department_id',
             [
                 'attribute' => 'create_at',
                 'format' => 'html',
