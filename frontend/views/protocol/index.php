@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="mt-3 mb-4">
         <?php
         //$files = FileHelper::changeOwnership('files/protocol/5/Safetov.png', 14, null );
-       // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
-       //print_r($files);
+        // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
+        //print_r($files);
 
         //$sourcePath = 'files/protocol/5/Safetov.png';
         //$destinationPath = 'files/protocol/14/Safetov.png';
@@ -67,8 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Передать',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a('Передать', ['/protocol/change-department/','id' => $model->id]
-                       );
+                    return Html::a('Передать', ['/protocol/change-department/', 'id' => $model->id]
+                    );
                 }
             ],
             [
@@ -81,9 +81,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($files as $file) {
                         //var_dump($files); die();
 
-                        $url = 'files/protocol/'.$files->department_id.'/'.$files->name;
+                        $url = 'files/protocol/' . $files->department_id . '/' . $files->name;
                         $path_parts = pathinfo($url);
-                        $file = scandir('files/protocol/'.$files->department_id);
+                        $file = scandir('files/protocol/' . $files->department_id);
 
                         switch ($path_parts['extension']) {
                             case 'xlsx':
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $ind = '/img/icon_file.png';
                         }
 
-                       return '<img src="'.$ind.'" width="40">';
+                        return '<img src="' . $ind . '" width="40">';
                     }
                 }
 
@@ -168,6 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'send_user_id',
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete} {change-department}',
                 'visibleButtons' => [
 
                     'delete' => function ($model) {
@@ -192,6 +193,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a(
                             '<i class="fa-solid fa fa-eye"></i>',
                             $url, ['class' => 'btn btn-sm btn-success']);
+                    },
+                    'change-department' => function ($url, $model, $key) {     // render your custom button
+                        return Html::a(
+                            ' <i class="fa fa-share"></i>',
+                            $url, ['class' => 'btn ml-2 btn-sm btn-success']);
                     },
                     'delete' => function ($url, $model, $key) {
                         return Html::a(
