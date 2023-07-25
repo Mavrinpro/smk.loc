@@ -327,7 +327,7 @@ $model = new IndexForm();
                 //var_dump(\Yii::$app->request->post()); die;
                 //Now save file data to database
                 $files->name = $file->name;
-                $files->department_id = $user->department_id;
+                $files->department_id = Yii::$app->request->get('id'); // id отдела
                 $files->date_at = time();
                 $files->user_id = Yii::$app->user->getId();
                 $files->save();
