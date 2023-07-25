@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         //$kb = filesize("files/".$file->name);
                         //echo $url.$file->name;
-                        var_dump($path_parts);
+                        //var_dump($path_parts);
                         //echo $url.$file->name;
                         switch ($path_parts['extension']) {
                             case 'xlsx':
