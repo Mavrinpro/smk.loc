@@ -67,8 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Передать',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a('Передать', ['/protocol/change-department/','id' => $model->id, 'department_id'
-                        => $model->department_id]
+                    return Html::a('Передать', ['/protocol/change-department/','id' => $model->id]
                        );
                 }
             ],

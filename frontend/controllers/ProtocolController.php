@@ -206,6 +206,9 @@ class ProtocolController extends Controller
 //        $model->department_id = 14;
 //        $model->update();
 
-        return $this->render('change-department', ['department_id' => 14]);
+        return $this->render('change-department', [
+            //'department_id' => $model->department_id,
+            'model' => $model
+        ]);
     }
 }
