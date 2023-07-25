@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\Protocol;
 use app\models\ProtocolSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,23 @@ class ProtocolController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'test', ' index'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'upload' , 'delete'],
+                            'roles' => ['create_admin', 'moderator', 'admin'],
+                        ],
                     ],
                 ],
             ]
@@ -112,9 +130,11 @@ class ProtocolController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $files = $this->findModel($id);
+        unlink('files/protocol/'.$files->department_id.'/'.$files->name);
+        $files->delete();
+        \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+        return $this->redirect(['index', 'department_id' => $files->department_id]);
     }
 
     /**

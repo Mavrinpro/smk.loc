@@ -16,8 +16,7 @@ use yii\widgets\Breadcrumbs;
 $question = new app\models\Question();
 $answer = new app\models\Answer();
 $userform = new frontend\models\SignupForm();
-$f = new \app\models\Files();
-$files = \app\models\Files::find()->all();
+
 
 AppAsset::register($this);
 
@@ -39,29 +38,29 @@ AppAsset::register($this);
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar fixed-footer">
 <?= $this->render('nav-menu')?>
-    <?php
-    Modal::begin( [
-        'id' => 'werex',
-        'title' => '<h5>Добавить название файлу</h5>',
-        //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
-        //'footer' => 'Footer',
-
-    ] );
-
-    $formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
-
-    echo $formFile->field($f, 'title')->textInput()->label('Название файла');
-    echo $formFile->field($f, 'id')->hiddenInput()->label(false);
-    echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
-
-    echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
-
-
-    ActiveForm::end();
-
-
-    Modal::end();
-    ?>
+<!--    --><?php
+//    Modal::begin( [
+//        'id' => 'werex',
+//        'title' => '<h5>Добавить название файлу</h5>',
+//        //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
+//        //'footer' => 'Footer',
+//
+//    ] );
+//
+//    $formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
+//
+//    echo $formFile->field($f, 'title')->textInput()->label('Название файла');
+//    echo $formFile->field($f, 'id')->hiddenInput()->label(false);
+//    echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
+//
+//    echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
+//
+//
+//    ActiveForm::end();
+//
+//
+//    Modal::end();
+//    ?>
     <div class="ui-theme-settings">
         <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
             <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>

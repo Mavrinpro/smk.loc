@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var app\models\ProtocolSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -18,13 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <!--    <p>-->
-    <!--        --><?//= Html::a('Create Protocol', ['create'], ['class' => 'btn btn-success']) ?>
+    <!--        --><? //= Html::a('Create Protocol', ['create'], ['class' => 'btn btn-success']) ?>
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
         echo \kato\DropZone::widget([
             'options' => [
-                'url' => '/protocol/upload/?department_id='.\Yii::$app->request->get('department_id'),
+                'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область'
             ],
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
             ],
         ]);
-        echo '<input type="hidden" name="department_id" value="'.$model->id.'">'
+        echo '<input type="hidden" name="department_id" value="' . $model->id . '">'
         ?>
     </div>
     <?php Pjax::begin(); ?>
@@ -49,9 +50,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
+            //'name',
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+
+                'value' => function ($model) {
+                    return Html::a(
+                        $model->name,
+                        '/files/protocol/' . $model->department_id . '/' . $model->name, ['target' => '_blank', 'data-pjax' => "0"]);
+                }
+
+            ],
             'department_id',
-            'create_at',
+            [
+                'attribute' => 'create_at',
+                'format' => 'html',
+
+                'value' => function ($model) {
+                    return date('d.m.Y H:i:s', $model->create_at);
+                }
+
+            ],
             //'update_at',
             //'user_id_create',
             //'user_id_update',
@@ -59,22 +79,37 @@ $this->params['breadcrumbs'][] = $this->title;
             //'send_user_id',
             [
                 'class' => ActionColumn::className(),
+                'visibleButtons' => [
+
+                    'delete' => function ($model) {
+                        return \Yii::$app->user->can('admin', ['post' => $model]);
+                    },
+                    'delete' => function ($model) {
+                        return \Yii::$app->user->can('superadmin', ['post' => $model]);
+                    },
+                    'update' => function ($model) {
+                        return '';
+                    },
+                    'view' => function ($model) {
+                        return '';
+                    },
+                ],
                 'buttons' => [
-                    'update' => function ($url,$model, $key) {
+                    'update' => function ($url, $model, $key) {
                         return Html::a('<i class="fa-solid fa fa-edit"></i>',
                             $url, ['class' => 'btn btn-sm btn-warning']);
                     },
-                    'view' => function ($url,$model, $key) {
+                    'view' => function ($url, $model, $key) {
                         return Html::a(
                             '<i class="fa-solid fa fa-eye"></i>',
                             $url, ['class' => 'btn btn-sm btn-success']);
                     },
-                    'delete' => function ($url,$model, $key) {
+                    'delete' => function ($url, $model, $key) {
                         return Html::a(
                             '<i class="fa fa-trash-alt"></i>',
-                            $url,['class' => 'btn btn-sm btn-danger',
+                            $url, ['class' => 'btn btn-sm btn-danger',
                             //'title' => Yii::t('app', 'Delete'),
-                            'data-confirm' => Yii::t('yii', 'Удалить протокол № '.$key.'?'),
+                            'data-confirm' => Yii::t('yii', 'Удалить протокол № ' . $key . '?'),
                             'data-method' => 'post', 'data-pjax' => '1',
                         ]);
                     },
