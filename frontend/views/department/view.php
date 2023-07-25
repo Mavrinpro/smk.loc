@@ -220,48 +220,6 @@ $this->params['breadcrumbs'][] = $model->name;
 
         }
     }
-    //    $files = \yii\helpers\FileHelper::findFiles('files/');
-    //    if (isset($files[0])) {
-    //        foreach ($files as $index => $file) {
-    //            //$nameFicheiro = substr($file, strrpos($file, '/') + 1);
-    //            $ras = explode('.', $file);
-    //            $kb = filesize($file);
-    //            switch ($ras[1]){
-    //                case 'xlsx':
-    //                    $ind = '/img/icon_xlsx.png';
-    //                    break;
-    //                case 'xls':
-    //                    $ind = '/img/icon_xls.png';
-    //                    break;
-    //                case 'csv':
-    //                    $ind = '/img/icon_csv.png';
-    //                    break;
-    //                case 'docx':
-    //                    $ind = '/img/icon_doc.png';
-    //                    break;
-    //                case 'pdf':
-    //                    $ind = '/img/icon_pdf.png';
-    //                    break;
-    //                case 'png':
-    //                    $ind = '/img/icon_png.png';
-    //                    break;
-    //                case 'jpeg':
-    //                    $ind = '/img/icon_jpg.png';
-    //                    break;
-    //                default: $ind = '/img/icon_png.png';
-    //            }
-    //            echo '<div class="col-md-2 text-center">';
-    //            echo '<img src="'. $ind.'" width="40"></br>';
-    //            echo '<span class="badge badge-pill">'.round($kb / 1024, 1).'kb</span></br>';
-    //
-    //            echo Html::a($file, \yii\helpers\Url::base() . '/' . $file) . "<br/>"; //
-    //            echo '</div>';
-    //            // render do
-    //            // ficheiro no browser
-    //        }
-    //    } else {
-    //        echo "There are no files available for download.";
-    //    }
 
     ?>
 </div>

@@ -6,6 +6,9 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap4\Modal;
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\FileHelper;
 
 /** @var yii\web\View $this */
 /** @var app\models\ProtocolSearch $searchModel */
@@ -14,6 +17,7 @@ use yii\widgets\Pjax;
 $this->title = 'Протоколы инцидентов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="protocol-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -23,6 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
+        //$files = FileHelper::changeOwnership('files/protocol/5/Safetov.png', 14, null );
+       // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
+       //print_r($files);
+
+        //$sourcePath = 'files/protocol/5/Safetov.png';
+        //$destinationPath = 'files/protocol/14/Safetov.png';
+
+        //rename($sourcePath, $destinationPath);
+        //FileHelper::move($sourcePath, $destinationPath);
         echo \kato\DropZone::widget([
             'options' => [
                 'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
@@ -51,9 +64,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             [
-                'attribute' => 'id',
+                'label' => 'Передать',
                 'format' => 'raw',
-
+                'value' => function ($model) {
+                    return Html::a('Передать', ['/protocol/change-department/','id' => $model->id, 'department_id'
+                        => $model->department_id]
+                       );
+                }
+            ],
+            [
+                'attribute' => 'id',
+                'label' => 'Файл',
+                'format' => 'raw',
+                'filter' => false,
                 'value' => function ($files) {
 
                     foreach ($files as $file) {
@@ -63,17 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         $path_parts = pathinfo($url);
                         $file = scandir('files/protocol/'.$files->department_id);
 
-                        // $files2 = scandir($dir, 1);
-
-                        //print_r($files1);
-                        //print_r($files2);
-                        //var_dump($files);
-                        //$ras = explode('.', $file);
-
-                        //$kb = filesize("files/".$file->name);
-                        //echo $url.$file->name;
-                        //var_dump($path_parts);
-                        //echo $url.$file->name;
                         switch ($path_parts['extension']) {
                             case 'xlsx':
                                 $ind = '/img/icon_xlsx.png';

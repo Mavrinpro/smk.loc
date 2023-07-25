@@ -47,16 +47,7 @@ AppAsset::register($this);
 //
 //    ] );
 //
-//    $formFile = ActiveForm::begin(['id' => 'formFile', 'action' => '/department/set-title']);
 //
-//    echo $formFile->field($f, 'title')->textInput()->label('Название файла');
-//    echo $formFile->field($f, 'id')->hiddenInput()->label(false);
-//    echo $formFile->field($f, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label(false);
-//
-//    echo Html::submitButton('Создать', ['class' => 'btn btn-success', 'name' => 'create_file_title']);
-//
-//
-//    ActiveForm::end();
 //
 //
 //    Modal::end();

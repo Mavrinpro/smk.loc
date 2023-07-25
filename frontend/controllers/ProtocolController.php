@@ -41,7 +41,7 @@ class ProtocolController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['index', 'upload' , 'delete'],
+                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department'],
                             'roles' => ['create_admin', 'moderator', 'admin'],
                         ],
                     ],
@@ -131,9 +131,18 @@ class ProtocolController extends Controller
     public function actionDelete($id)
     {
         $files = $this->findModel($id);
-        unlink('files/protocol/'.$files->department_id.'/'.$files->name);
-        $files->delete();
-        \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+        $url = 'files/protocol/'.$files->department_id.'/'.$files->name;
+        if (file_exists($url)) {
+            unlink($url);
+            \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+            $files->delete();
+            return $this->redirect(['index', 'department_id' => $files->department_id]);
+        }else{
+            \Yii::$app->session->setFlash('error', 'Файл не найден');
+        }
+
+
+
         return $this->redirect(['index', 'department_id' => $files->department_id]);
     }
 
@@ -165,6 +174,7 @@ class ProtocolController extends Controller
         $files = new Protocol();
         //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
         if (isset($_FILES[$fileName])) {
+            FileHelper::localize ( $uploadPath.'/'.$files->name, $language = null, $sourceLanguage = null );
             $file = \yii\web\UploadedFile::getInstanceByName($fileName);
 
             //Print file data
@@ -183,5 +193,19 @@ class ProtocolController extends Controller
         }
 
         return false;
+    }
+    
+    
+    public function actionChangeDepartment($id)
+    {
+        $model = $this->findModel($id);
+//        //var_dump(\Yii::$app->request->get('id')); die;
+//        $source_file = 'files/protocol/5/'.$model->name;
+//        $destination_path = 'files/protocol/14/'.$model->name;
+//        rename($source_file, $destination_path );
+//        $model->department_id = 14;
+//        $model->update();
+
+        return $this->render('change-department', ['department_id' => 14]);
     }
 }
