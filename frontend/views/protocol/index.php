@@ -49,8 +49,86 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            //'name',
+            //'id',
+            [
+                'attribute' => 'id',
+                'format' => 'raw',
+
+                'value' => function ($files) {
+
+                    foreach ($files as $file) {
+                        //var_dump($files); die();
+
+                        $url = 'files/protocol/'.$files->department_id.'/'.$files->name;
+                        $path_parts = pathinfo($url);
+                        $file = scandir('files/protocol/'.$files->department_id);
+
+                        // $files2 = scandir($dir, 1);
+
+                        //print_r($files1);
+                        //print_r($files2);
+                        //var_dump($files);
+                        //$ras = explode('.', $file);
+
+                        //$kb = filesize("files/".$file->name);
+                        //echo $url.$file->name;
+                        var_dump($path_parts);
+                        //echo $url.$file->name;
+                        switch ($path_parts['extension']) {
+                            case 'xlsx':
+                                $ind = '/img/icon_xlsx.png';
+                                break;
+                            case 'xls':
+                                $ind = '/img/icon_xls.png';
+                                break;
+                            case 'txt':
+                                $ind = '/img/icon_txt.png';
+                                break;
+                            case 'zip':
+                                $ind = '/img/icon_zip.png';
+                                break;
+                            case 'json':
+                                $ind = '/img/icon_js.png';
+                                break;
+                            case 'csv':
+                                $ind = '/img/icon_csv.png';
+                                break;
+                            case 'docx':
+                                $ind = '/img/icon_doc.png';
+                                break;
+                            case 'pdf':
+                                $ind = '/img/icon_pdf.png';
+                                break;
+                            case 'png':
+                                $ind = '/img/icon_png.png';
+                                break;
+                            case 'jpeg':
+                                $ind = '/img/icon_jpg.png';
+                                break;
+                            case 'html':
+                                $ind = '/img/icon_html.png';
+                                break;
+                            case 'psd':
+                                $ind = '/img/icon_psd.png';
+                                break;
+                            case 'jpg':
+                                $ind = '/img/icon_jpg.png';
+                                break;
+                            case 'MP4':
+                                $ind = '/img/icon_mp4.png';
+                                break;
+                            case 'JPG':
+                                $ind = '/img/icon_jpg.png';
+                                break;
+                            default:
+                                $ind = '/img/icon_file.png';
+                        }
+
+                       return '<img src="'.$ind.'" width="40">';
+                    }
+                }
+
+            ],
             [
                 'attribute' => 'name',
                 'format' => 'raw',
