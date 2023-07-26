@@ -3,8 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\VarDumper;
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
+/** @var yii\bootstrap4\ActiveForm $form */
 /** @var app\models\Protocol $model */
 
 $this->title = 'Передать файл';
@@ -17,6 +20,44 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 
-var_dump($model);
+//var_dump($model);
 
-VarDumper::dump($model, 10, true);
+//VarDumper::dump($model, 10, true);
+
+ $form = ActiveForm::begin([
+    'id' => 'formuser',
+    'validateOnBlur' => true,
+    'enableClientValidation' => true,
+    'errorCssClass' => 'error',
+    'fieldConfig' => [
+        'errorOptions' => [
+            'encode' => true,
+            'class' => 'help-block',
+
+        ],
+    ],
+
+    'options' => [
+        'class' =>'form mt-5',
+
+
+    ],
+
+]); ?>
+
+
+    <div class="form-group mr-md-3">
+
+
+        <?= $form->field($model, 'user_id_update')->dropDownList(ArrayHelper::map(common\models\User::find()->where(['status' => 10])
+            ->asArray()->all(), 'id', 'fio'), ['prompt' => 'Выберите сотрудника'])
+        ?>
+    </div>
+
+
+    <div class="form-group">
+        <?= Html::submitButton('Передать файл', ['class' => 'btn btn-lg btn-warning br-50', 'name' =>
+            'contact-button']) ?>
+    </div>
+
+<?php ActiveForm::end(); ?>

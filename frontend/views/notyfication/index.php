@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     badge-dot-lg"></div>
                                         <?php endif; ?>
                                         <div class="avatar-icon avatar-icon-lg rounded">
-                                            <img src="/img/3f1f570638db96e58ac12ccf94441c40.jpg" alt="">
+                                            <img src="/img/bot.png" alt="">
                                         </div>
                                     </div>
                                 </div>
