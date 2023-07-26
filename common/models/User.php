@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $verification_token
  * @property string $email
  * @property string $auth_key
+ * @property string $avatar
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -64,7 +65,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            [['city_id', 'company_id', 'department_id', 'email', 'username', 'telegram_id', 'fio'], 'safe'],
+            [['city_id', 'company_id', 'department_id', 'email', 'username', 'telegram_id', 'fio', 'avatar'], 'safe'],
         ];
     }
 

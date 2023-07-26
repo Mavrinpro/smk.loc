@@ -12,7 +12,7 @@ class m230726_110831_add extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%user}}', 'avatar', $this->integer()->after('telegram_id'));
+        $this->addColumn('{{%user}}', 'avatar', $this->string()->after('telegram_id'));
     }
 
     /**
