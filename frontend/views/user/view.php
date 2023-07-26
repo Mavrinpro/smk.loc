@@ -48,9 +48,25 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
                         }
                     },
                 ],
-                'created_at',
-                'updated_at',
-                //'verification_token',
+                //'created_at',
+                [
+                    'attribute' => 'created_at',
+                    'label' => 'Дата регистрации',
+                    'value' => function($model)
+                    {
+                        return date('d.m.Y H:i:s', $model->created_at);
+                    },
+                ],
+                //'updated_at',
+                [
+                    'attribute' => 'updated_at',
+                    'label' => 'Дата изменения',
+                    'value' => function($model)
+                    {
+                        return date('d.m.Y H:i:s', $model->updated_at);
+                    },
+                ],
+                'telegram_id',
             ],
         ]) ?>
         <?php if ($userRole == 'superadmin' || $userRole == 'admin'): ?>
