@@ -358,9 +358,9 @@ $noty = new \app\models\Notyfication();
                                                                  src="assets/images/avatars/1.jpg" alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">Alina Mcloughlin</div>
-                                                            <div class="widget-subheading opacity-8">A short profile
-                                                                description
+                                                            <div class="widget-heading"><?=
+                                                                \Yii::$app->user->identity->fio; ?></div>
+                                                            <div class="widget-subheading opacity-8"><?= \Yii::$app->user->identity->username; ?>
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
