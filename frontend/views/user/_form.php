@@ -9,11 +9,29 @@ use yii\helpers\Html;
 ?>
 
 <div class="user-form">
-
+    <div class="mb-5 mt-3">
+    <?php
+    echo 'Загрузить аватар';
+    echo \kato\DropZone::widget([
+        'options' => [
+            'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
+            'maxFilesize' => '10',
+            'dictDefaultMessage' => 'Перетащите файлы в эту область'
+        ],
+        'clientEvents' => [
+            'complete' => "function(file){
+                
+                console.log(file)
+                }",
+            'removedfile' => "function(file){alert(file.name + ' is removed')}"
+        ],
+    ]);
+    ?>
+    </div>
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 <div class="row">
     <div class="col-md-6">
-    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'fio')->textInput(['autofocus' => true]) ?>
 </div>
     <div class="col-md-6">
     <?= $form->field($model, 'email') ?>

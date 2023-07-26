@@ -26,7 +26,7 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
 //                ],
 //            ]) ?>
         </p>
-
+      
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [

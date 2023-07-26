@@ -4,6 +4,8 @@ namespace frontend\controllers;
 use frontend\models\SignupForm;
 use common\models\User;
 use app\models\UserSearch;
+use yii\filters\AccessControl;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +27,28 @@ class UserController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'test', 'update', 'upload'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view' , 'delete', 'update', 'upload'],
+                            'roles' => ['create_admin'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'update', 'upload'],
+                            'roles' => ['admin'],
+                        ],
                     ],
                 ],
             ]
@@ -180,5 +204,38 @@ class UserController extends Controller
        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
        return $post['id'];
 
+    }
+
+    // Загрузка аватара
+    public function actionUpload()
+    {
+        $user_id = \Yii::$app->request->get('user_id');
+        $fileName = 'file';
+        $uploadPath = './files/avatar/';
+        if (! FileHelper::createDirectory($uploadPath)) {
+            throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
+        }
+        //$files = new Protocol();
+        //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        if (isset($_FILES[$fileName])) {
+            FileHelper::localize ( $uploadPath.'/'.$files->name, $language = null, $sourceLanguage = null );
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+
+//                $files->name = $file->name;
+//                $files->department_id = $department_id; // id отдела
+//                $files->create_at = time();
+//                $files->user_id_create = \Yii::$app->user->getId();
+//                $files->active = 1;
+//                $files->save();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
     }
 }
