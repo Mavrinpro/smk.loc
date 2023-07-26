@@ -16,22 +16,23 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
 ?>
     <div class="user-view">
         <p>
-            <?= Html::a('Update ' . $this->title, ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('Изменить профиль ' . $this->title, ['update', 'id' => $model->id], ['class' => 'btn 
+            btn-primary']) ?>
+<!--            --><?//= Html::a('Delete', ['delete', 'id' => $model->id], [
+//                'class' => 'btn btn-danger',
+//                'data' => [
+//                    'confirm' => 'Are you sure you want to delete this item?',
+//                    'method' => 'post',
+//                ],
+//            ]) ?>
         </p>
 
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'id',
+                //'id',
                 'username',
-                //'auth_key',
+                'fio',
                 //'password_hash',
                 //'password_reset_token',
                 'email:email',
