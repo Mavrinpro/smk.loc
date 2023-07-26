@@ -211,7 +211,7 @@ class UserController extends Controller
     {
         $user_id = \Yii::$app->request->get('user_id');
         $fileName = 'file';
-        $uploadPath = './files/avatar/';
+        $uploadPath = './files/avatar/'.$user_id;
         if (! FileHelper::createDirectory($uploadPath)) {
             throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
         }
