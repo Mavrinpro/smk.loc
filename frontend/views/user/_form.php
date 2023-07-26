@@ -28,16 +28,19 @@ use yii\helpers\Html;
     <?= $form->field($model, 'city_id')->dropDownList(\yii\helpers\ArrayHelper::map(app\models\Branch::find()
         ->andWhere('id>0')->all(), 'id', 'name')) ?>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <?= $form->field($model, 'department_id')->dropDownList(\yii\helpers\ArrayHelper::map
             (app\models\Department::find()
                 ->andWhere('id>0')->all(), 'id', 'name')) ?>
-
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'telegram_id')->textInput() ?>
+        </div>
 
     <div class="form-group mt-3">
         <?= Html::submitButton('Изменить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
-        </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>

@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <?= $form->field($model, 'user_id_update')->dropDownList(ArrayHelper::map(common\models\User::find()->where(['status' => 10])
-            ->asArray()->all(), 'id', 'fio'), ['prompt' => 'Выберите сотрудника'])
+            ->asArray()->all(), 'id', 'fio'), ['prompt' => 'Выберите сотрудника'])->label('Фио сотрудника')
         ?>
     </div>
 

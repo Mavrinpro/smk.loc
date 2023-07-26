@@ -416,30 +416,33 @@ $noty = new \app\models\Notyfication();
                                             </div>
                                         </div>
                                     </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item-divider mb-0 nav-item"></li>
-                                    </ul>
-                                    <div class="grid-menu grid-menu-2col">
-                                        <div class="no-gutters row">
-                                            <div class="col-sm-6">
-                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
-                                                    <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>
-                                                    Message Inbox
-                                                </button>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
-                                                    <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>
-                                                    <b>Support Tickets</b>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <ul class="nav flex-column">-->
+<!--                                        <li class="nav-item-divider mb-0 nav-item"></li>-->
+<!--                                    </ul>-->
+<!--                                    <div class="grid-menu grid-menu-2col">-->
+<!--                                        <div class="no-gutters row">-->
+<!--                                            <div class="col-sm-6">-->
+<!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">-->
+<!--                                                    <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>-->
+<!--                                                    Message Inbox-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-sm-6">-->
+<!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">-->
+<!--                                                    <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>-->
+<!--                                                    <b>Support Tickets</b>-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <ul class="nav flex-column">
                                         <li class="nav-item-divider nav-item">
                                         </li>
                                         <li class="nav-item-btn text-center nav-item">
-                                            <button class="btn-wide btn btn-primary btn-sm"> Open Messages</button>
+                                             <?=
+                                                \yii\helpers\Html::a('Профиль', ['user/view', 'id' =>
+                                                    \Yii::$app->user->identity->id], ['data' => ['method' =>
+                                                    'post'], 'class' => 'btn-wide btn btn-primary btn-sm']) ?>
                                         </li>
                                     </ul>
                                 </div>

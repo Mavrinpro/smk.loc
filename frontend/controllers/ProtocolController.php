@@ -209,11 +209,18 @@ class ProtocolController extends Controller
         if ($this->request->isPost){
             $post = \Yii::$app->request->post('Protocol');
             $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
+            $source_file = 'files/protocol/'.$model->department_id.'/'.$model->name;
+            $destination_path = 'files/protocol/'.$user->department_id.'/'.$model->name;
+            $uploadPath = './files/protocol/'.$user->department_id;
 
             if (!empty($post['user_id_update'])){
+                FileHelper::createDirectory($uploadPath);
+                rename($source_file, $destination_path );
                 $model->user_id_update = $post['user_id_update'];
+                $model->department_id = $user->department_id;
                 $model->update();
-                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio);
+                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio.' - ' .
+                    $user->department_id);
             }else{
                 \Yii::$app->session->setFlash('error', 'Сотрудник не выбран');
             }
