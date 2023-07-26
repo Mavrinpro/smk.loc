@@ -208,10 +208,18 @@ class ProtocolController extends Controller
 
         if ($this->request->isPost){
             $post = \Yii::$app->request->post('Protocol');
-            $model->user_id_update = $post['user_id_update'];
-            $model->update();
-            return $this->render('change-department', [
-                'model' => $model
+            $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
+
+            if (!empty($post['user_id_update'])){
+                $model->user_id_update = $post['user_id_update'];
+                $model->update();
+                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio);
+            }else{
+                \Yii::$app->session->setFlash('error', 'Сотрудник не выбран');
+            }
+
+            return $this->redirect(['change-department',
+                'id' => $id
             ]);
         }
 
