@@ -14,8 +14,8 @@ use yii\helpers\Html;
     echo 'Загрузить аватар';
     echo \kato\DropZone::widget([
         'options' => [
-            'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
-            'maxFilesize' => '10',
+            'url' => '/user/upload/?user_id=' . $model->id,
+            'maxFilesize' => '4',
             'dictDefaultMessage' => 'Перетащите файлы в эту область'
         ],
         'clientEvents' => [
