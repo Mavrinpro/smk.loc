@@ -26,7 +26,8 @@ $userRole2 = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUs
 //                ],
 //            ]) ?>
         </p>
-      
+        <img src="<?= isset($model->avatar)? '/files/avatar/'.$model->id.'/'.$model->avatar : '/img/ava.jpg' ?>"
+             alt="avatar" width="50" class="rounded-circle mb-3">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [

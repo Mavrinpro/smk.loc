@@ -210,6 +210,7 @@ class UserController extends Controller
     public function actionUpload()
     {
         $user_id = \Yii::$app->request->get('user_id');
+        $user = User::findOne(['id' => $user_id]);
         $fileName = 'file';
         $uploadPath = './files/avatar/'.$user_id;
         if (! FileHelper::createDirectory($uploadPath)) {
@@ -226,12 +227,12 @@ class UserController extends Controller
 
             if ($file->saveAs($uploadPath . '/' . $file->name)) {
 
-//                $files->name = $file->name;
+                $user->avatar = $file->name;
 //                $files->department_id = $department_id; // id отдела
 //                $files->create_at = time();
 //                $files->user_id_create = \Yii::$app->user->getId();
 //                $files->active = 1;
-//                $files->save();
+                $user->update();
                 echo \yii\helpers\Json::encode($file->name);
             }
         }
