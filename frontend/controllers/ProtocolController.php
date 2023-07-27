@@ -206,9 +206,13 @@ class ProtocolController extends Controller
 //        $model->department_id = 14;
 //        $model->update();
 
+        $us = new \common\models\User();
+        $bot_token = \app\models\Settings::find()->one();
+
         if ($this->request->isPost){
             $post = \Yii::$app->request->post('Protocol');
             $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
+            //$telegram = \common\models\User::find()->where(['id' => $user->id])->one();
             $source_file = 'files/protocol/'.$model->department_id.'/'.$model->name;
             $destination_path = 'files/protocol/'.$user->department_id.'/'.$model->name;
             $uploadPath = './files/protocol/'.$user->department_id;
@@ -219,6 +223,9 @@ class ProtocolController extends Controller
                 $model->user_id_update = $post['user_id_update'];
                 $model->department_id = $user->department_id;
                 $model->update();
+                $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
+                ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+
                 \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio.' - ' .
                     $user->department_id);
             }else{
