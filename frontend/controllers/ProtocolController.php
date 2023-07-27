@@ -41,7 +41,7 @@ class ProtocolController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department'],
+                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department', 'view'],
                             'roles' => ['create_admin', 'moderator', 'admin'],
                         ],
                     ],
@@ -207,6 +207,7 @@ class ProtocolController extends Controller
 //        $model->update();
 
         $us = new \common\models\User();
+        $noty = new \app\models\Notyfication();
         $bot_token = \app\models\Settings::find()->one();
 
         if ($this->request->isPost){
@@ -225,6 +226,17 @@ class ProtocolController extends Controller
                 $model->update();
                 $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
                 ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+
+
+                $test = \app\models\Test::find()->where(['id' => $id])->one();
+
+                $noty->user_id = $user->id;
+                $noty->user_create_id = \Yii::$app->getUser()->id;
+                $noty->text = 'Вам передан файл: '.$model->name;
+                $noty->create_at = time();
+                $noty->read = 0;
+                //var_dump($noty); die();
+                $noty->save();
 
                 \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio.' - ' .
                     $user->department_id);

@@ -181,7 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '';
                     },
                     'view' => function ($model) {
-                        return '';
+                        return \Yii::$app->user->can('create_admin', ['post' => $model]);
                     },
                 ],
                 'buttons' => [

@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="protocol-view">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title. ': '. $model->name)  ?> </h1>
 </div>
 <?php
 
