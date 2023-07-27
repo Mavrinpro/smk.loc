@@ -32,7 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'department_id',
-            'create_at',
+            //'create_at',
+            [
+                'attribute' => 'create_at',
+                'value' => function ($model) {
+                    return date('d.m.Y H:i:s', $model->create_at);
+                },
+            ],
             'update_at',
             'user_id_create',
             'user_id_update',

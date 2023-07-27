@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\FileHelper;
+use yii\helpers\Html;
 
 /**
  * ProtocolController implements the CRUD actions for Protocol model.
@@ -221,18 +222,22 @@ class ProtocolController extends Controller
             if (!empty($post['user_id_update'])){
                 FileHelper::createDirectory($uploadPath);
                 rename($source_file, $destination_path );
-                $model->user_id_update = $post['user_id_update'];
+                $model->send_user_id = $post['user_id_update'];
                 $model->department_id = $user->department_id;
                 $model->update();
-                $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
-                ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+                if(!empty($user->telegram_id)){
+                    $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
+                    ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+                }
+
 
 
                 $test = \app\models\Test::find()->where(['id' => $id])->one();
 
                 $noty->user_id = $user->id;
                 $noty->user_create_id = \Yii::$app->getUser()->id;
-                $noty->text = 'Вам передан файл: '.$model->name;
+                $noty->text = 'Вам передан файл: ';
+                $noty->text .= Html::a($model->name, ['view', 'id' => $model->id]);
                 $noty->create_at = time();
                 $noty->read = 0;
                 //var_dump($noty); die();

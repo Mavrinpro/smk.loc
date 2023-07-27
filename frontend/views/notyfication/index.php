@@ -37,8 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="chat-box"><?=
-                                        $noty->text ?></div>
+                                    <div class="chat-box"><?= $noty->text ?></div>
                                     <small class="opacity-6">
                                         <i class="fa fa-calendar-alt mr-1"></i>
                                         <?= date('d.m.Y H:i', $noty->create_at) ?> <?php echo (date('d.m.Y') == date('d.m.Y', $noty->create_at)) ? '| Сегодня' : '' ?>

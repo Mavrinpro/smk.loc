@@ -189,3 +189,6 @@ ul.custom-breadcrumbs li.active {
 .dropzone.dz-clickable {
     background: rgba(255, 247, 204, 0.6);
 }
+.chat-box-wrapper .chat-box{
+    display: block;
+}
