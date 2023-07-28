@@ -16,34 +16,82 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+<!--        --><?//= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
 
+        <?= Html::a('Скачать <i class="fa fa-download"></i>', ['files/protocol/'.$model->department_id.'/'.$model->name, ], ['class' => 'btn 
+        btn-warning']) ?>
+    </p>
+<?php //var_dump($model->Brancher($model->department->branch_id)); ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'name',
-            'department_id',
+            //'department.name',
+            [
+                'attribute' => 'department_id',
+                'label' => 'Отдел',
+                'value' => function ($model) {
+                    return $model->department->name . ' (' .$model->Brancher($model->department->branch_id)->name. ')';
+                },
+            ],
             //'create_at',
             [
                 'attribute' => 'create_at',
+                'label' => 'Дата создания',
                 'value' => function ($model) {
                     return date('d.m.Y H:i:s', $model->create_at);
                 },
             ],
             'update_at',
-            'user_id_create',
+            //'user.fio',
+            [
+                'attribute' => 'user_id_create',
+                'label' => 'Кто создал',
+                'value' => function($model)
+                {
+                    if (!empty($model->user->fio))
+                    {
+                        return $model->user->fio;
+                    }else{
+                        $model->user->username;
+                    }
+                },
+            ],
             'user_id_update',
-            'active',
-            'send_user_id',
+            //'active',
+            [
+                'attribute' => 'active',
+                'value' => function ($model) {
+        if ($model->active == 1)
+        {
+            return 'Активный';
+        }else{
+            return 'В архиве';
+        }
+
+                },
+            ],
+            [
+                'attribute' => 'send_user_id',
+                'label' => 'Кто создал',
+                'value' => function($model)
+                {
+                    if (!empty($model->user->fio))
+                    {
+                        return $model->user->fio;
+                    }else{
+                        $model->user->username;
+                    }
+                },
+            ],
         ],
     ]) ?>
 
