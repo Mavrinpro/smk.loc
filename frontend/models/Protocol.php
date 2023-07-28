@@ -68,4 +68,20 @@ class Protocol extends \yii\db\ActiveRecord
     public function Brancher($id){
         return \app\models\Branch::find()->where(['id' => $id])->one();
     }
+
+    // Уведомление на email о передаче файла
+    public function sendEmailnoty($user)
+    {
+      
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'nity-html', 'text' => 'nity-html'],
+            ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo('g.katarakta@gmail.com')
+            ->setSubject('yyyyyyyyyyyyyyyyyyyy ' . Yii::$app->name)
+            ->send();
+    }
 }

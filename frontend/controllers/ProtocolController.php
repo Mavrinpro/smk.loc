@@ -75,6 +75,9 @@ class ProtocolController extends Controller
      */
     public function actionView($id)
     {
+        $mod = new Protocol();
+        $us = $this->findModel($id);
+        $mod->sendEmailnoty($mod->id);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
