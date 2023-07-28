@@ -37,7 +37,7 @@ class ProtocolController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'test', ' index'],
+                            'actions' => ['test', ' index'],
                             'roles' => ['view_manager'],
                         ],
                         [
