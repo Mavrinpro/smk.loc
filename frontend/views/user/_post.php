@@ -11,7 +11,12 @@ use yii\helpers\ArrayHelper;
 
                 <div class="widget-content-left">
 
-                    <div class="widget-heading text-success" id="user-<?= $model->id ?>"><?= $model->username ?></div>
+                    <div class="widget-heading " id="user-<?= $model->id ?>">
+                        <?= Html::a
+                        ($model->username, ['view', 'id' => $model->id], [
+                            'class' => 'dropdown-item text-success',
+                        ]) ?>
+                    </div>
                         <div class="widget-subheading">
                             <div>Активный
                             </div>
