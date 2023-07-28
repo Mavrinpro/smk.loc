@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Protocol $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Protocols', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Protocols', 'url' => ['index?department_id='.$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'user.fio',
             [
                 'attribute' => 'user_id_create',
+
                 'label' => 'Кто создал',
                 'value' => function($model)
                 {
