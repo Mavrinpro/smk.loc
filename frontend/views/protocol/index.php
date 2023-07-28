@@ -145,9 +145,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
 
                 'value' => function ($model) {
-                    return Html::a(
-                        $model->name,
-                        '/files/protocol/' . $model->department_id . '/' . $model->name, ['target' => '_blank', 'data-pjax' => "0"]);
+                    return
+                        $model->name;
                 }
 
             ],
