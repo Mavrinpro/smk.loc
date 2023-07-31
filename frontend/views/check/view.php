@@ -108,13 +108,14 @@ JS;
                 <?php foreach ($check as $items): ?>
                     <tr>
                     <?php if ($items->text2 != null): ?>
-                        <td rowspan="2"><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
-                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                        <td rowspan="2"><?= Html::a('<i class="fa fa-trash"></i>', ['/check/delete-checklist'],
                                 ['class' => 'btn btn-danger btn-sm', 'data' => [
                                     'confirm' => 'Хотите удалить запись?',
                                     'method' => 'post',
                                     'params' => [
-                                        'department_id' => $model->department_id
+                                        'id' => $items->id,
+                                        'department_id' => $model->department_id,
+                                        'check' => $model->id,
                                     ]
                                 ],
                                 ]) ?></td>
@@ -158,13 +159,14 @@ JS;
                                 ?></td>
                         </tr>
                     <?php else: ?>
-                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
-                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['/check/delete-checklist'],
                                 ['class' => 'btn btn-danger btn-sm', 'data' => [
                                     'confirm' => 'Хотите удалить запись?',
                                     'method' => 'post',
                                     'params' => [
-                                        'department_id' => $model->department_id
+                                        'id' => $items->id,
+                                        'department_id' => $model->department_id,
+                                        'check' => $model->id,
                                     ]
                                 ],
                                 ]) ?></td>

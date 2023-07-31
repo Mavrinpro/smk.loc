@@ -39,7 +39,7 @@ class CheckController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -243,6 +243,17 @@ class CheckController extends Controller
             $userScore->delete();
             \Yii::$app->session->setFlash('success', 'Запись удалена!');
             $this->redirect(['check/view', 'id' => \Yii::$app->request->get('check_id')]);
+        }
+    }
+
+    public function actionDeleteChecklist()
+    {
+        $post = \Yii::$app->request->post();
+        $checklist = \app\models\CheckList::find()->where(['id' => $post['id']])->one();
+        if ($this->request->isPost) {
+            $checklist->delete();
+            \Yii::$app->session->setFlash('success', 'Критерий удален!');
+            $this->redirect(['check/view', 'id' => $post['check'], 'department_id' => $post['department_id']]);
         }
     }
 }
