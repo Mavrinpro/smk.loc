@@ -19,6 +19,7 @@ use Yii;
  */
 class Protocol extends \yii\db\ActiveRecord
 {
+    const DOCUMENT_ARCHIVE = 0;
     /**
      * {@inheritdoc}
      */

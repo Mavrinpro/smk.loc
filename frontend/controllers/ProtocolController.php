@@ -42,7 +42,7 @@ class ProtocolController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department', 'view'],
+                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department', 'view', 'cron-send-archive'],
                             'roles' => ['create_admin', 'moderator', 'admin'],
                         ],
                     ],
@@ -261,5 +261,19 @@ class ProtocolController extends Controller
             //'department_id' => $model->department_id,
             'model' => $model
         ]);
+    }
+
+    public function actionCronSendArchive()
+    {
+        $protocol = Protocol::find()->where(['active' => 1])->andWhere(['not', ['send_user_id' => null]])->all();
+        //var_dump($protocol);
+        foreach ($protocol as $item) {
+            if ($item->create_at + 86400 < time()){
+                $item->department_id = 2;
+                $item->active = 0;
+                $item->update();
+            }
+            //return $item->create_at + '86400'.' - '. time();
+        }
     }
 }
