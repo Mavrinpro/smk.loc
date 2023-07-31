@@ -1677,8 +1677,12 @@ AppAsset::register($this);
             </div>
             <div class="modal-body">
                 <?php $form = ActiveForm::begin(['action' => '/answer/create']); ?>
+                <?php
+                for($i = 0; $i < 4; $i++){ ?>
+                    <?= $form->field($answer, 'name')->textInput(['maxlength' => true]) ?>
+               <?php  }
+                ?>
 
-                <?= $form->field($answer, 'name')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($answer, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label
                 (false) ?>

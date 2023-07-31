@@ -91,7 +91,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                     ?>" checked>
                                                                                     <label class="custom-control-label"
                                                                                            for="customSwitch-<?= $ans->id
-                                                                                           ?>"><?= $ans->name ?></label>
+                                                                                           ?>"><?= $ans->name
+                                                                                        ?></label> <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['answer/update', 'id' =>
+                                                                                        $ans->id], ['class' => 'border-0 btn-transition btn btn-outline-warning','data' => [
+                                                                                        'method' => 'post',
+                                                                                        'params' => [
+                                                                                            'id' => $ans->id,
+                                                                                            'test_id' => $model->id,
+                                                                                        ],
+                                                                                    ]]) ?>
                                                                                 </div>
 
                                                                             <?php else: ?>
@@ -144,13 +152,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 <!--    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>-->
-    <button data-swal-template="#my-template">
-        Trigger modal
-    </button>
-
-    <button data-swal-toast-template="#my-template">
-        Trigger toast
-    </button>
+<!--    <button data-swal-template="#my-template">-->
+<!--        Trigger modal-->
+<!--    </button>-->
+<!---->
+<!--    <button data-swal-toast-template="#my-template">-->
+<!--        Trigger toast-->
+<!--    </button>-->
 </div>
 <?php
 $js = <<<JS
