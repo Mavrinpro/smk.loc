@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
         <?php
-        var_dump($scoreUser);
+        //var_dump($scoreUser);
         if (sizeof($user) > 0) { ?>
             <select name="user_check" id="user_check" class="mb-2 form-control">
                 <option value="0" selected="selected">Выбрать сотрудника</option>
@@ -108,7 +108,16 @@ JS;
                 <?php foreach ($check as $items): ?>
                     <tr>
                     <?php if ($items->text2 != null): ?>
-                        <td rowspan="2"><?php echo $items->id; ?></td>
+                        <td rowspan="2"><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
+                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                                ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    'confirm' => 'Хотите удалить запись?',
+                                    'method' => 'post',
+                                    'params' => [
+                                        'department_id' => $model->department_id
+                                    ]
+                                ],
+                                ]) ?></td>
                         <td rowspan="2"><?php echo $items->name; ?></td>
                         <td><?php echo $items->text1; ?></td>
                         <td class="editable score" data-id="<?= $items->id ?>" data-type="score1" data-model="<?=
@@ -149,7 +158,16 @@ JS;
                                 ?></td>
                         </tr>
                     <?php else: ?>
-                        <td><?php echo $items->id; ?></td>
+                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
+                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                                ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    'confirm' => 'Хотите удалить запись?',
+                                    'method' => 'post',
+                                    'params' => [
+                                        'department_id' => $model->department_id
+                                    ]
+                                ],
+                                ]) ?></td>
                         <td><?php echo $items->name; ?></td>
                         <td><?php echo $items->text1; ?></td>
                         <td class="editable score" data-id="<?= $items->id ?>" data-type="score1" data-model="<?=

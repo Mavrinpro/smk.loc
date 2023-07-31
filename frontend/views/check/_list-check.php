@@ -3,7 +3,7 @@ use yii\helpers\Html;
 ?>
 
                 <li class="list-group-item">
-                    <h5 class="list-group-item-heading"><?= Html::a($model->name , ['view', 'id' => $model->id], ['class' => 'btn-block btn-link', 'data' => [
+                    <h5 class="list-group-item-heading"><?= Html::a($model->name , ['view', 'id' => $model->id, 'department_id' => $model->department_id], ['class' => 'btn-block btn-link', 'data' => [
                             'method' => 'post',
                             'params' => [
                                     'department_id' => $model->department_id,
