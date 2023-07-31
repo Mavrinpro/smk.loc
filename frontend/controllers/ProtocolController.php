@@ -270,7 +270,7 @@ class ProtocolController extends Controller
         foreach ($protocol as $item) {
             if ($item->create_at + 86400 < time()){
                 $item->department_id = 2;
-                $item->active = 0;
+                $item->active = Protocol::DOCUMENT_ARCHIVE;
                 $item->update();
             }
             //return $item->create_at + '86400'.' - '. time();
