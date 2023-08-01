@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 //var_dump($endtest);
 ?>
 <div class="test-view">
-
+    <?= Html::a('<i class="fa fa-edit"></i>', ['/test/view', 'id' => $model->id], ['class'
+    => 'btn btn-success  btn-lg']) ?>
     <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h1><?= Html::encode($this->title) ?></h1>
