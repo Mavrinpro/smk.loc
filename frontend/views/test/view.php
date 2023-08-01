@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                            for="customSwitch-<?= $ans->id
                                                                                            ?>"><?= $ans->name
                                                                                         ?></label> <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['answer/update', 'id' =>
-                                                                                        $ans->id], ['class' => 'border-0 btn-transition btn btn-outline-warning','data' => [
+                                                                                        $ans->id], ['class' => 'border-0 btn-transition btn mt-n2 btn-outline-warning btn-sm','data' => [
                                                                                         'method' => 'post',
                                                                                         'params' => [
                                                                                             'id' => $ans->id,
@@ -112,6 +112,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                     <label class="custom-control-label"
                                                                                            for="customSwitch-<?= $ans->id
                                                                                            ?>"><?= $ans->name ?></label>
+                                                                                    <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['answer/update', 'id' =>
+                                                                                        $ans->id], ['class' => 'border-0 btn-transition mt-n2 btn btn-outline-warning btn-sm','data' => [
+                                                                                        'method' => 'post',
+                                                                                        'params' => [
+                                                                                            'id' => $ans->id,
+                                                                                            'test_id' => $model->id,
+                                                                                        ],
+                                                                                    ]]) ?>
                                                                                 </div>
                                                                             <?php endif; ?>
                                                                         </h4>
