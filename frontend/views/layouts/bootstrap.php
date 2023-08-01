@@ -1677,24 +1677,26 @@ AppAsset::register($this);
             </div>
             <div class="modal-body">
                 <?php $form = ActiveForm::begin(['action' => '/answer/create']); ?>
+                <?php for ($i = 0; $i < 4; $i++) { ?>
+                    <?= $form->field($answer, "[$i]name")->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($answer, "[$i]user_id")->hiddenInput(['value' => \Yii::$app->getUser()->id])->label(false) ?>
+                                    <?= $form->field($answer, "[$i]test_id")->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
+                                    (false) ?>
+                                    <?= $form->field($answer, "[$i]question_id")->hiddenInput(['value' =>
+                        '', 'id' => "answer-question_id-".$i])
+                                        ->label
+                                    (false) ?>
 
-                <?= $form->field($answer, 'name')->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($answer, "[$i]create_at")->hiddenInput(['value' => time()])->label(false) ?>
 
-                <?= $form->field($answer, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label
+                <?php } ?>
+                <?= $form->field($answer, "test_id")->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
                 (false) ?>
-
-                <?= $form->field($answer, 'test_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
-                (false) ?>
-                <?= $form->field($answer, 'question_id')->hiddenInput(['value' => $question->id])
-                    ->label
-                (false) ?>
-
-                <?= $form->field($answer, 'create_at')->hiddenInput(['value' => time()])->label(false) ?>
-
-                <?= $form->field($answer, 'update_at')->hiddenInput(['value' => time()])->label(false) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?> <button class="border-0 btn-transition btn btn-outline-success" data-toggle="modal" data-target="#modalCreateAnswer" data-id="109" id="createAnswer">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
 
                 <?php ActiveForm::end(); ?>

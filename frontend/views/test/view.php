@@ -173,7 +173,7 @@ $js = <<<JS
 $(function (){
     $(document).on('click', '#createAnswer', function (){
         var id = $(this).data('id');
-        $('#answer-question_id').val(id);
+        $("[id^='answer-question_id']").val(id);
         console.log(id);
     });
     
