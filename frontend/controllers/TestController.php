@@ -34,7 +34,7 @@ class TestController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'index'],
+                            'actions' => ['index'],
                             'roles' => ['view_manager'],
                         ],
                         [
