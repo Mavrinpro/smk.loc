@@ -25,8 +25,6 @@ var_dump(\Yii::$app->request->post());
 
     <?= $form->field($model, 'update_at')->hiddenInput()->label(false) ?>
 
-
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'data' => [
             'method' => 'post',
