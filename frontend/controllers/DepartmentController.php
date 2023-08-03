@@ -320,9 +320,6 @@ class DepartmentController extends Controller
         \Yii::$app->session->setFlash('success', 'Файл успешно удален');
         return $this->redirect(['view', 'id' => $request['modelid']]);
 
-
-        //var_dump($files);
-
     }
 
     // Установить заголовок для файла
