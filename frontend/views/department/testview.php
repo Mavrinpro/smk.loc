@@ -36,7 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Вопрос</th>
                     <th>Ответ</th>
                     <th>Дата</th>
-                    <th><i class="fa fa-check"></i></th>
+                    <th><i class="fa fa-check text-success"></i></th>
+                    <th><i class="fa fa-times text-danger"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,9 +64,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><?= $itemq->answer_text ?></td>
                         <?php endif; ?>
                         <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
-                        <td><?= (isset($itemq->ans_id)) ? (isset($itemq->answer->answer_right) &&
-                                $itemq->answer->answer_right ==
-                                1) ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>':'<i class="fa fa-pencil-alt text-muted"></i>' ?>
+                        <td>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id ?>" class="custom-control-input">
+                                <label class="custom-control-label" for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id ?>"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
+                            </div>
                         </td>
 
                     </tr>
@@ -88,7 +98,72 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-
 <?php
+
+
+$this->registerJs(<<<JS
+
+$('[id^="checkbox_right"]').click(function (){
+    var id = $(this).data('id');
+    var num = null;
+    //console.log(id);
+    if ($(this).is(':checked')){
+	num = 1;
+} else {
+	num = null;
+}
+    $.ajax({
+            
+            url: '/department/checkbox-right',
+            type: 'POST',
+            data: {
+                id: id,
+                num: num,
+                //val: Number(e.value)
+            },
+            dataType: 'JSON',
+            success: function(res){
+                console.log(res);
+                               
+            },
+            error: function(){
+                alert('Error!');
+            }
+        })
+})
+
+//===============================================
+$('[id^="checkbox_left"]').click(function (){
+    var id = $(this).data('id')
+     var num = null;
+    //console.log(id);
+    if ($(this).is(':checked')){
+	num = 1;
+} else {
+	num = null;
+}
+    
+    $.ajax({
+            
+            url: '/department/checkbox-left',
+            type: 'POST',
+            data: {
+                id: id,
+                num: num,
+                //val: Number(e.value)
+            },
+            dataType: 'JSON',
+            success: function(res){
+                console.log(res);
+                               
+            },
+            error: function(){
+                alert('Error!');
+            }
+        })
+})
+
+JS
+);
 
 

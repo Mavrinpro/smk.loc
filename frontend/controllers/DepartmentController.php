@@ -47,7 +47,7 @@ class DepartmentController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test', 'remove-document', 'set-title'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test', 'remove-document', 'set-title', 'checkbox-right', 'checkbox-left'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -344,6 +344,38 @@ class DepartmentController extends Controller
         return $this->redirect(['/department/view', 'id' => $request['department_id']]);
 
 
+    }
+
+    // Оценка тестов (верно-не верно) чекбоксы  department/testview
+    public function actionCheckboxRight()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ResultTest::find()->where(['id' => $post['id']])->one();
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 1;
+        }
+        $result->completed = $num;
+        $result->update();
+        return $num;
+    }
+
+    // Оценка тестов (верно-не верно) чекбоксы  department/testview
+    public function actionCheckboxLeft()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ResultTest::find()->where(['id' => $post['id']])->one();
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 0;
+        }
+        $result->completed = $num;
+        $result->update();
+        return $num;
     }
 
 }

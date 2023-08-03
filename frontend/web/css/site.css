@@ -192,3 +192,7 @@ ul.custom-breadcrumbs li.active {
 .chat-box-wrapper .chat-box{
     display: block;
 }
+
+.custom-control-label{
+    cursor: pointer;
+}
