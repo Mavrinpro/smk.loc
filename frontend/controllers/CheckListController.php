@@ -91,7 +91,7 @@ class CheckListController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'checkmodel' => $check,
+            //'checkmodel' => $check,
 
         ]);
     }
