@@ -234,11 +234,18 @@ class DepartmentController extends Controller
         
         $test = \app\models\EndTest::find()->where(['id' => $res])->one();
         $testEnd = \app\models\ResultTest::find()->where(['test_id' => $id, 'user_id' => $user_id])->andWhere(['>', 'create_at', strtotime(date('Y-m-d', $test->date_end_test))])->all();
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $user_id, 'test_id' => $id])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $user_id, 'test_id' => $id, 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+
         return $this->render('testview',[
             'id' => 5,
             'tester' => $testEnd,
             'test' => $test,
-            'user' => $user
+            'user' => $user,
+            'counttest' => round($new_width)
         ]);
     }
 

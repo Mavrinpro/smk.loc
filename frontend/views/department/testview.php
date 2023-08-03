@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
 //$m = new \app\models\EndTest();
-
+//var_dump($test->testname);
 ?>
     <div class="row">
         <div class="col-md-12">
@@ -68,18 +68,40 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
                         <td>
                             <div class="custom-checkbox custom-control">
-                                <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
-                                ?>" class="custom-control-input" data-user_id="<?= $user->id ?>" data-test_id="<?=
-                                $test->testname->id ?>">
+                                <?php if ($itemq->completed == 1): ?>
+                                    <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                                    ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                           data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                                <?php else: ?>
+                        <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                        ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                               data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                               data-res="<?= \Yii::$app->request->get('res') ?>" >
+                                <?php endif; ?>
                                 <label class="custom-control-label"
                                        for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
                             </div>
                         </td>
                         <td>
                             <div class="custom-checkbox custom-control">
-                                <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id ?>"
-                                       class="custom-control-input" data-user_id="<?= $user->id ?>" data-test_id="<?=
-                                $test->testname->id ?>">
+                                <?php if ($itemq->completed == 0): ?>
+                                    <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>"
+                                           data-id="<?= $itemq->id ?>"
+                                           class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                           data-test_id="<?=
+                                           \Yii::$app->request->get('id') ?>"
+                                           data-res="<?= \Yii::$app->request->get('res')
+                                           ?>" checked>
+                                <?php else: ?>
+                        <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>"
+                               data-id="<?= $itemq->id ?>"
+                               class="custom-control-input" data-user_id="<?= $user->id ?>"
+                               data-test_id="<?=
+                               \Yii::$app->request->get('id') ?>"
+                               data-res="<?= \Yii::$app->request->get('res')
+                               ?>" >
+                                <?php endif; ?>
                                 <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
                             </div>
                         </td>
@@ -91,7 +113,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tbody>
             </table>
             <div class="col-12 mt-2 mb-3 alert alert-dark">Оценка: <span class="mr-auto"
-                                                                         id="count_checkbox"><b>0%</b> </span></div>
+                                                                         id="count_checkbox"><b><?= $counttest ?>%</b>
+                                                                         </span></div>
             <?= Html::a('<i class="fa fa-check"></i> Тест пройден', ['success-test', 'id' => \Yii::$app->request->get
             ('id'), 'user_id' => \Yii::$app->request->get
             ('user_id'), 'res' => \Yii::$app->request->get
@@ -116,13 +139,14 @@ $('[id^="checkbox_right"]').click(function (){
     var num = null;
     var user_id = $(this).data('user_id');
     var test_id = $(this).data('test_id');
+    var res = $(this).data('res');
     //console.log(id);
     if ($(this).is(':checked')){
         $("#checkbox_left-"+id).prop('checked', false);
 	num = 1;
 } else {
 	num = null;
-    $("#checkbox_left-"+id).prop('checked', false);
+    //$("#checkbox_left-"+id).prop('checked', false);
 }
     $.ajax({
             
@@ -133,6 +157,7 @@ $('[id^="checkbox_right"]').click(function (){
                 num: num,
                 user_id: user_id,
                 test_id: test_id,
+                res: res,
                 //val: Number(e.value)
             },
             dataType: 'JSON',
@@ -142,7 +167,8 @@ $('[id^="checkbox_right"]').click(function (){
                                
             },
             error: function(){
-                alert('Error!');
+                console.log('Error!');
+                
             }
         })
 })
@@ -151,17 +177,17 @@ $('[id^="checkbox_right"]').click(function (){
 $('[id^="checkbox_left"]').click(function (){
     var id = $(this).data('id')
      var num = null;
-    
+    var res = $(this).data('res');
   
    var user_id = $(this).data('user_id');
     var test_id = $(this).data('test_id');
     if ($(this).is(':checked')){
          $("#checkbox_right-"+id).prop('checked', false);
-         console.log($("#checkbox_right"+id));
+         //console.log($("#checkbox_right"+id));
         
 	num = 1;
 } else {
-          $("#checkbox_right-"+id).prop('checked', false);
+          //$("#checkbox_right-"+id).prop('checked', false);
 	num = null;
 }
     
@@ -174,6 +200,7 @@ $('[id^="checkbox_left"]').click(function (){
                 num: num,
                 user_id: user_id,
                 test_id: test_id,
+                res: res,
             },
             dataType: 'JSON',
             success: function(res){
@@ -181,7 +208,7 @@ $('[id^="checkbox_left"]').click(function (){
                   $('#count_checkbox').html('<b>'+res+"%</b>");             
             },
             error: function(){
-                alert('Error!');
+                console.log('Error!');
             }
         })
 })
