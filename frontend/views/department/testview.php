@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tbody>
             </table>
             <div class="col-12 mt-2 mb-3 alert alert-dark">Оценка: <span class="mr-auto"
-                                                                         id="count_checkbox">0</span></div>
+                                                                         id="count_checkbox"><b>0%</b> </span></div>
             <?= Html::a('<i class="fa fa-check"></i> Тест пройден', ['success-test', 'id' => \Yii::$app->request->get
             ('id'), 'user_id' => \Yii::$app->request->get
             ('user_id'), 'res' => \Yii::$app->request->get
@@ -138,7 +138,7 @@ $('[id^="checkbox_right"]').click(function (){
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                $('#count_checkbox').text(res+"%");
+                $('#count_checkbox').html('<b>'+res+"%</b>");
                                
             },
             error: function(){
@@ -178,7 +178,7 @@ $('[id^="checkbox_left"]').click(function (){
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                  $('#count_checkbox').text(res+"%");             
+                  $('#count_checkbox').html('<b>'+res+"%</b>");             
             },
             error: function(){
                 alert('Error!');
