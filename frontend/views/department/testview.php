@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
 
-            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+            <table style="width: 100%;" id="example"
+                   class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid"
+                   aria-describedby="example_info">
                 <thead class="bg-dark text-light">
                 <tr>
                     <th>ID</th>
@@ -44,36 +46,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 $a = [];
                 foreach ($tester as $itemq) {
-                    $ansId =  $itemq->ans_id;
+                    $ansId = $itemq->ans_id;
 
-                        $a[] = $ansId;
+                    $a[] = $ansId;
 
                     ?>
-                    <?php  $answered = \app\models\Answer::find()->where([ 'id' => $ansId ])->one(); ?>
+                    <?php $answered = \app\models\Answer::find()->where(['id' => $ansId])->one(); ?>
                     <tr>
                         <td><?= $itemq->id ?></td>
                         <td><?= $itemq->question->name ?></td>
                         <?php if (isset($itemq->ans_id)): ?>
                             <td> <?php
 
-                                        echo $itemq->answer->name. ', ';
+                                echo $itemq->answer->name . ', ';
 
 
-                                 ?></td>
+                                ?></td>
                         <?php else: ?>
                             <td><?= $itemq->answer_text ?></td>
                         <?php endif; ?>
                         <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
                         <td>
                             <div class="custom-checkbox custom-control">
-                                <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id ?>" class="custom-control-input">
-                                <label class="custom-control-label" for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
+                                <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                                ?>" class="custom-control-input" data-user_id="<?= $user->id ?>" data-test_id="<?=
+                                $test->testname->id ?>">
+                                <label class="custom-control-label"
+                                       for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
                             </div>
                         </td>
                         <td>
                             <div class="custom-checkbox custom-control">
                                 <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id ?>"
-                                       class="custom-control-input">
+                                       class="custom-control-input" data-user_id="<?= $user->id ?>" data-test_id="<?=
+                                $test->testname->id ?>">
                                 <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
                             </div>
                         </td>
@@ -84,12 +90,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </tbody>
             </table>
+            <div class="col-12 mt-2 mb-3 alert alert-dark">Оценка: <span class="mr-auto"
+                                                                         id="count_checkbox">0</span></div>
             <?= Html::a('<i class="fa fa-check"></i> Тест пройден', ['success-test', 'id' => \Yii::$app->request->get
             ('id'), 'user_id' => \Yii::$app->request->get
             ('user_id'), 'res' => \Yii::$app->request->get
             ('res')],
                 ['class' =>
-                'btn btn-success mb-3']) ?>
+                    'btn btn-success mb-3']) ?>
             <?= Html::a('<i class="fa fa-times"></i> Тест провален', ['test-failed', 'id' => \Yii::$app->request->get
             ('id'), 'user_id' => \Yii::$app->request->get
             ('user_id'), 'res' => \Yii::$app->request->get
@@ -106,11 +114,15 @@ $this->registerJs(<<<JS
 $('[id^="checkbox_right"]').click(function (){
     var id = $(this).data('id');
     var num = null;
+    var user_id = $(this).data('user_id');
+    var test_id = $(this).data('test_id');
     //console.log(id);
     if ($(this).is(':checked')){
+        $("#checkbox_left-"+id).prop('checked', false);
 	num = 1;
 } else {
 	num = null;
+    $("#checkbox_left-"+id).prop('checked', false);
 }
     $.ajax({
             
@@ -119,11 +131,14 @@ $('[id^="checkbox_right"]').click(function (){
             data: {
                 id: id,
                 num: num,
+                user_id: user_id,
+                test_id: test_id,
                 //val: Number(e.value)
             },
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
+                $('#count_checkbox').text(res+"%");
                                
             },
             error: function(){
@@ -136,10 +151,17 @@ $('[id^="checkbox_right"]').click(function (){
 $('[id^="checkbox_left"]').click(function (){
     var id = $(this).data('id')
      var num = null;
-    //console.log(id);
+    
+  
+   var user_id = $(this).data('user_id');
+    var test_id = $(this).data('test_id');
     if ($(this).is(':checked')){
+         $("#checkbox_right-"+id).prop('checked', false);
+         console.log($("#checkbox_right"+id));
+        
 	num = 1;
 } else {
+          $("#checkbox_right-"+id).prop('checked', false);
 	num = null;
 }
     
@@ -150,12 +172,13 @@ $('[id^="checkbox_left"]').click(function (){
             data: {
                 id: id,
                 num: num,
-                //val: Number(e.value)
+                user_id: user_id,
+                test_id: test_id,
             },
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                               
+                  $('#count_checkbox').text(res+"%");             
             },
             error: function(){
                 alert('Error!');

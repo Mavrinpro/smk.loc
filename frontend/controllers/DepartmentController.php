@@ -352,6 +352,7 @@ class DepartmentController extends Controller
         $post = \Yii::$app->request->post();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $result = \app\models\ResultTest::find()->where(['id' => $post['id']])->one();
+
         $num = null;
 
         if ($post['num'] == 1){
@@ -359,7 +360,12 @@ class DepartmentController extends Controller
         }
         $result->completed = $num;
         $result->update();
-        return $num;
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id']])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'], 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+        return round($new_width);
     }
 
     // Оценка тестов (верно-не верно) чекбоксы  department/testview
@@ -375,7 +381,12 @@ class DepartmentController extends Controller
         }
         $result->completed = $num;
         $result->update();
-        return $num;
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id']])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'], 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+        return round($new_width);
     }
 
 }
