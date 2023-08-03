@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\CheckList $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index?department_id='.$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -29,12 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
         btn-success']) ?>
 
         <?= Html::a('<i class="fa fa-trash"></i> Очистить все оценки', ['check/clear-score', 'check_id' =>
-            \Yii::$app->request->get('id')],
+            \Yii::$app->request->get('id'), 'department_id' => \Yii::$app->request->get('department_id')],
             ['class' => 'btn btn-danger', 'data' => [
-                        'confirm' => 'Хотите очистить все?',
-                        'method' => 'post',
-                    ],
-        ]) ?>
+                'confirm' => 'Хотите очистить все?',
+                'method' => 'post',
+            ],
+            ]) ?>
+
+        <?= Html::a('<i class="fa fa-edit"></i>', ['update', 'id' => $model->id],
+            ['class' => 'btn 
+        btn-primary','data' => [
+
+                'method' => 'post',
+                'params' => [
+                    'id' => $model->id,
+                    'department_id' => $model->department_id,
+                    'check' => $model->id,
+                ]
+            ],]) ?>
     </p>
 
     <!--    --><? //= DetailView::widget([
@@ -61,12 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
         <?php
-        //var_dump($scoreUser);
+        //var_dump($user);
         if (sizeof($user) > 0) { ?>
             <select name="user_check" id="user_check" class="mb-2 form-control">
                 <option value="0" selected="selected">Выбрать сотрудника</option>
                 <?php foreach ($user as $item) {
-                    echo '<option value="' . $item->id . '">' . $item->username . '</option>>';
+                    echo '<option value="' . $item->id . '">' . $item->fio . '</option>>';
                 } ?>
             </select>
         <?php } else {
@@ -94,7 +106,7 @@ JS;
                 <tr>
                     <th>#</th>
                     <th>Критерий</th>
-                    <th>Lasik</th>
+                    <th>Критерий</th>
                     <th>Баллы</th>
                     <th class="phone_editable" data-model="<?= $model->id
                     ?>" data-type="num1"><?= $check[0]->phone1 ?></th>
@@ -213,7 +225,8 @@ JS;
         <h3>По завершении отправьте данные по выбранному сотруднику в базу</h3>
         <!--    --><? //= Html::button('<i class="fa fa-paper-plane"></i> Отправить данные', ['', 'check_id' =>
         //        \Yii::$app->request->get('id')], ['class' => 'btn btn-dark btn-lg mb-5', 'id' => 'send_user_data']) ?>
-        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data" data-model="<?= $model->id ?>"><i
+        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data" data-model="<?= $model->id ?>"
+                data-user_create_id="<?= \Yii::$app->user->getId() ?>" data-title="<?= $model->name ?>"><i
                     class="fa
         fa-paper-plane"></i>
             Отправить
@@ -232,7 +245,9 @@ JS;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($scoreall as $score) { ?>
+                <?php
+                //var_dump($scoreall);
+                foreach ($scoreall as $score) { ?>
                     <tr>
                         <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
                         <td><?= $score->user->username ?></td>
@@ -243,7 +258,7 @@ JS;
                                     'confirm' => 'Хотите удалить запись?',
                                     'method' => 'post',
                                     'params' => [
-                                            'department_id' => $model->department_id
+                                        'department_id' => $model->department_id
                                     ]
                                 ],
                                 ]) ?></td>
@@ -411,6 +426,8 @@ $('#send_user_data').on('click', function (){
     var userId = $('#user_check').val();
     var score_count = $('#score_count4').text();
     var modelId = $(this).data('model');
+    var user_create_id = $(this).data('user_create_id');
+    var title = $(this).data('title');
     if (userId == 0 || userId == ''){
        Swal.fire({
 title: 'Сотрудник не выбран.',
@@ -443,7 +460,9 @@ type: 'warning',
             data: {
                 userid: userId,
                 score_count: score_count,
-                model: modelId
+                model: modelId,
+                user_create_id: user_create_id,
+                title: title
             },
             dataType: 'JSON',
             success: function(res){
