@@ -35,12 +35,12 @@ class CheckController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'index', 'userscore'],
+                            'actions' => ['view', 'index', 'userscore', 'scoreview'],
                             'roles' => ['view_manager'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -77,7 +77,7 @@ class CheckController extends Controller
         $post = \Yii::$app->request->post();
         $dep_id =  \Yii::$app->request->get();
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
-      
+
 
         //var_dump($post); die;
         $m = $this->findModel($id);
@@ -89,36 +89,30 @@ class CheckController extends Controller
         }
         // Сотрудники в select
         $user = \common\models\User::find()->where(['department_id' => $getId, 'status' => 10])->all();
-
-        $check1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score');
-        $check2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score2');
-        $num1 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score3');
-        $num2 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score4');
-        $num3 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score5');
-        $num4 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score6');
-        $num5 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score7');
-        $num6 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score8');
-
+        
+        
         $userId = \Yii::$app->getUser()->id;
+        
+        $check3 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' => $userId ])->all();
+        
+        
+        $check1 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score');
+        $check2 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score2');
+        $num1 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score3');
+        $num2 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score4');
+        $num3 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score5');
+        $num4 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score6');
+        $num5 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score7');
+        $num6 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score8');
+
+
         $users = \common\models\User::findOne(['id' => $userId]);
         $userRole = current(ArrayHelper::getColumn(\Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
             'name'));
         $scoreall2 =  \app\models\UserScore::find()->where(['check_id' => $id, 'user_id' => $userId])->orderBy('id ASC')
             ->all();
         if ($userRole == 'user'){
-            return $this->render('userscore',[
-                'user' => $user,
-                'model' => $this->findModel($id),
-                'check' => $check,
-                'countcheck' => [
-                    'check' =>  $check2 + $check1,
-                    'col1' => $num1 + $num4,
-                    'col2' => $num2 + $num5,
-                    'col3' => $num3 + $num6,
-                    'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
-                ],
-                'scoreall' => $scoreall2
-            ]);
+            return $this->redirect('userscore');
         }
         return $this->render('view', [
             'user' => $user,
@@ -279,5 +273,113 @@ class CheckController extends Controller
             \Yii::$app->session->setFlash('success', 'Критерий удален!');
             $this->redirect(['check/view', 'id' => $post['check'], 'department_id' => $post['department_id']]);
         }
+    }
+
+    public function actionUserscore()
+    {
+
+
+        // view userscore
+        //$post = \Yii::$app->request->post();
+        //$dep_id = \Yii::$app->request->get();
+        //$scoreall = \app\models\UserScore::find()->where(['check_id' => 5])->orderBy('id ASC')->all();
+
+
+        //var_dump($post); die;
+        //$m = $this->findModel($id);
+       // $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+
+        //$getId = \Yii::$app->request->get('department_id');
+        //if (empty($post['department_id'])) {
+           // $post['department_id'] = $getId;
+       // }
+        // Сотрудники в select
+        //$user = \common\models\User::find()->where(['department_id' => $getId, 'status' => 10])->all();
+
+
+//        $userId = \Yii::$app->getUser()->id;
+//
+//        $check3 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->all();
+//
+//
+//        $check1 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score');
+//        $check2 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score2');
+//        $num1 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score3');
+//        $num2 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score4');
+//        $num3 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score5');
+//        $num4 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score6');
+//        $num5 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score7');
+//        $num6 = \app\models\CheckList::find()->where(['service_id' => 5, 'user_id' => $userId])->sum('score8');
+//
+//
+//        $users = \common\models\User::findOne(['id' => $userId]);
+//        $userRole = current(ArrayHelper::getColumn(\Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+//            'name'));
+//        $scoreall2 = \app\models\UserScore::find()->where(['check_id' => $id, 'user_id' => $userId])->orderBy('id ASC')
+//            ->all();
+        $userId = \Yii::$app->getUser()->id;
+        $scoreall =  \app\models\UserScore::find()->where(['user_id' => $userId])->orderBy('id ASC')
+            ->all();
+        $department = \common\models\User::find()->where(['id' => $userId])->one();
+            return $this->render('userscore', ['score' => $scoreall, 'department_id' => $department->department_id]);
+
+
+    }
+
+    public function actionScoreview($id)
+    {
+        $userId = \Yii::$app->getUser()->id;
+        $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+              $post = \Yii::$app->request->post();
+                $dep_id =  \Yii::$app->request->get();
+                $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
+
+
+                //var_dump($post); die;
+                //$m = $this->findModel($id);
+                $check = \app\models\CheckList::find()->where(['service_id' => $id])->all();
+
+                $getId = \Yii::$app->request->get('department_id');
+                if (empty($post['department_id'])){
+                    $post['department_id'] = $getId;
+                }
+                // Сотрудники в select
+                $user = \common\models\User::find()->where(['department_id' => $getId, 'status' => 10])->all();
+
+
+                $userId = \Yii::$app->getUser()->id;
+
+                $check3 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' => $userId ])->all();
+
+
+                $check1 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score');
+                $check2 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score2');
+                $num1 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score3');
+                $num2 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score4');
+                $num3 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score5');
+                $num4 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score6');
+                $num5 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score7');
+                $num6 = \app\models\CheckList::find()->where(['service_id' => $id, 'user_id' =>$userId ])->sum('score8');
+
+
+
+                $userRole = current(ArrayHelper::getColumn(\Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+                    'name'));
+                $scoreall2 =  \app\models\UserScore::find()->where(['check_id' => $id, 'user_id' => $userId])->orderBy('id ASC')
+                    ->all();
+        $scoreall =  \app\models\UserScore::find()->where(['user_id' => $userId])->orderBy('id ASC')
+            ->all();
+        return $this->render('scoreview', ['user' => $user,
+            'model' => $this->findModel($id),
+            'check' => $check,
+            'countcheck' => [
+                'check' =>  $check2 + $check1,
+                'col1' => $num1 + $num4,
+                'col2' => $num2 + $num5,
+                'col3' => $num3 + $num6,
+                'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
+            ],
+            'scoreall' => $scoreall]);
+
     }
 }
