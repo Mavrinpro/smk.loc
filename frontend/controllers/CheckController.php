@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 /**
  * CheckController implements the CRUD actions for Check model.
@@ -34,12 +35,12 @@ class CheckController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'index'],
+                            'actions' => ['view', 'index', 'userscore'],
                             'roles' => ['view_manager'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -76,6 +77,7 @@ class CheckController extends Controller
         $post = \Yii::$app->request->post();
         $dep_id =  \Yii::$app->request->get();
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
+      
 
         //var_dump($post); die;
         $m = $this->findModel($id);
@@ -96,6 +98,28 @@ class CheckController extends Controller
         $num4 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score6');
         $num5 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score7');
         $num6 = \app\models\CheckList::find()->where(['service_id' => $id])->sum('score8');
+
+        $userId = \Yii::$app->getUser()->id;
+        $users = \common\models\User::findOne(['id' => $userId]);
+        $userRole = current(ArrayHelper::getColumn(\Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+            'name'));
+        $scoreall2 =  \app\models\UserScore::find()->where(['check_id' => $id, 'user_id' => $userId])->orderBy('id ASC')
+            ->all();
+        if ($userRole == 'user'){
+            return $this->render('userscore',[
+                'user' => $user,
+                'model' => $this->findModel($id),
+                'check' => $check,
+                'countcheck' => [
+                    'check' =>  $check2 + $check1,
+                    'col1' => $num1 + $num4,
+                    'col2' => $num2 + $num5,
+                    'col3' => $num3 + $num6,
+                    'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
+                ],
+                'scoreall' => $scoreall2
+            ]);
+        }
         return $this->render('view', [
             'user' => $user,
             'model' => $this->findModel($id),

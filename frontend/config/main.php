@@ -72,7 +72,7 @@ return [
                 'signup' => 'site/signup',
                 'confirm' => 'site/confirm',
 
-                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site|confirm|protocol)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
+                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site|confirm|protocol)>/<action:(index|update|delete|view|create|change-password|userscore)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
 
