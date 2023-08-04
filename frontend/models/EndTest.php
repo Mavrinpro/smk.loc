@@ -52,7 +52,7 @@ class EndTest extends \yii\db\ActiveRecord
 
     public function getTestname()
     {
-        return $this->hasMany(\app\models\Test::class, ['id' => 'test_id']);
+        return $this->hasOne(\app\models\Test::class, ['id' => 'test_id']);
     }
 
 }
