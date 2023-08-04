@@ -5,7 +5,7 @@ $branch = new app\models\Branch();
 
 
 $this->title = 'СМК';
-//var_dump($depart->department(1));
+//var_dump($user);
 ?>
 
 <!--<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">-->

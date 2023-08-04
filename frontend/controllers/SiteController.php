@@ -7,6 +7,7 @@ use frontend\models\IndexForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
+use \common\models\User;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -19,6 +20,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\swiftmailer;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -81,19 +83,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-//        Yii::$app->mailer->compose()
-//            ->setFrom('blourator@yandex.ru')
-//            ->setTo('mavrin79@mail.ru')
-//            ->setSubject('Тестинг сообщений5555555555555555')
-//            ->setTextBody('body')
-//            ->send();
-$model = new IndexForm();
-        $this->view->registerMetaTag(
-            ['name' => 'description', 'content' => 'Уничтожение документов проводиться опытными архивистами мы приступаем к работе на следующий день после заключения договора. Процесс утилизации 1 тонны бумаг занимает 10 минут']
-        );
-        return $this->render('index',[
-            'model' => $model
-        ]);
+
+        $userId = \Yii::$app->getUser()->id;
+        $user = User::findOne(['id' => $userId]);
+        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+            'name'));
+
+      if ($userRole == 'admin' || $userRole == 'superadmin'){
+          return $this->render('index',[
+              //'model' => $model,
+              'user' => $user
+          ]);
+      }else{
+
+          return $this->redirect(['/department/view', 'id' => $user->department_id]);
+      }
+
     }
 
     /**
