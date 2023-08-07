@@ -13,10 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //var_dump($score); die;
 ?>
 <div class="check-list-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
-
 </div>
 <div class="row">
 
@@ -40,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <th scope="row"><?= date('d.m.Y', $scores->create_at) ?></th>
                         <td><?= Html::a($scores->check->name, ['scoreview', 'id' => $scores->check_id]) ?></td>
                         <td><span class="badge badge-success badge-pill"><?= $scores->score ?></span></td>
-
                     </tr>
                 <?php } ?>
 
