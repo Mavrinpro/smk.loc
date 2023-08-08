@@ -2,19 +2,17 @@
 
 namespace frontend\controllers;
 
-use app\models\Passport;
-use app\models\PassportSearch;
-use yii\helpers\FileHelper;
-use yii\helpers\Html;
+use app\models\Plan;
+use app\models\PlanDoctors;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * PassportController implements the CRUD actions for Passport model.
+ * PlanController implements the CRUD actions for Plan model.
  */
-class PassportController extends Controller
+class PlanController extends Controller
 {
     /**
      * @inheritDoc
@@ -30,6 +28,7 @@ class PassportController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+
                 'access' => [
                     'class' => AccessControl::class,
 
@@ -41,7 +40,7 @@ class PassportController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'upload', 'delete', 'change-department'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'upload', 'delete'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -51,13 +50,13 @@ class PassportController extends Controller
     }
 
     /**
-     * Lists all Passport models.
+     * Lists all Plan models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PassportSearch();
+        $searchModel = new PlanDoctors();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -67,7 +66,7 @@ class PassportController extends Controller
     }
 
     /**
-     * Displays a single Passport model.
+     * Displays a single Plan model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -80,13 +79,13 @@ class PassportController extends Controller
     }
 
     /**
-     * Creates a new Passport model.
+     * Creates a new Plan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Passport();
+        $model = new Plan();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -102,7 +101,7 @@ class PassportController extends Controller
     }
 
     /**
-     * Updates an existing Passport model.
+     * Updates an existing Plan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -122,7 +121,7 @@ class PassportController extends Controller
     }
 
     /**
-     * Deletes an existing Passport model.
+     * Deletes an existing Plan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -131,7 +130,7 @@ class PassportController extends Controller
     public function actionDelete($id)
     {
         $files = $this->findModel($id);
-        $url = 'files/passport/'.$files->department_id.'/'.$files->name;
+        $url = 'files/plan/'.$files->department_id.'/'.$files->name;
         if (file_exists($url)) {
             unlink($url);
             \Yii::$app->session->setFlash('success', 'Файл успешно удален');
@@ -145,15 +144,15 @@ class PassportController extends Controller
     }
 
     /**
-     * Finds the Passport model based on its primary key value.
+     * Finds the Plan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Passport the loaded model
+     * @return Plan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Passport::findOne(['id' => $id])) !== null) {
+        if (($model = Plan::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
@@ -166,25 +165,25 @@ class PassportController extends Controller
         $department_id = \Yii::$app->request->get('department_id');
         $fileName = 'file';
         //$uploadPath = './files/protocol/';
-        $uploadPath = './files/passport/'.$department_id;
+        $uploadPath = './files/plan/'.$department_id;
         if (! FileHelper::createDirectory($uploadPath)) {
             throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
         }
-        $files = new Passport();
+        $files = new Plan();
         //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
-        $url = 'files/passport/'.$files->department_id.'/'.$files->name;
+        $url = 'files/plan/'.$files->department_id.'/'.$files->name;
         if (isset($_FILES[$fileName])) {
 
 
 
             $file = \yii\web\UploadedFile::getInstanceByName( $fileName );
-            $url  = 'files/passport/' . $files->department_id . '/' . $file->name;
+            $url  = 'files/plan/' . $files->department_id . '/' . $file->name;
             //Print file data
             //print_r($file);
 
             if ( $file->saveAs( $uploadPath . '/' . $file->name ) ) {
-                $f = Passport::find()->where(['name' => $file->name])->one();
-                if (sizeof((array)$f) > 0){
+                $f = Plan::find()->where(['name' => $file->name])->one();
+                if (sizeof($f) > 0){
                     $f->delete();
                 }
 
@@ -202,68 +201,5 @@ class PassportController extends Controller
         }
 
         return false;
-    }
-
-    public function actionChangeDepartment($id)
-    {
-        $model = $this->findModel($id);
-        //        //var_dump(\Yii::$app->request->get('id')); die;
-        //        $source_file = 'files/protocol/5/'.$model->name;
-        //        $destination_path = 'files/protocol/14/'.$model->name;
-        //        rename($source_file, $destination_path );
-        //        $model->department_id = 14;
-        //        $model->update();
-
-        $us = new \common\models\User();
-        $noty = new \app\models\Notyfication();
-        $bot_token = \app\models\Settings::find()->one();
-
-        if ($this->request->isPost){
-            $post = \Yii::$app->request->post('Protocol');
-            $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
-            //$telegram = \common\models\User::find()->where(['id' => $user->id])->one();
-            $source_file = 'files/protocol/'.$model->department_id.'/'.$model->name;
-            $destination_path = 'files/protocol/'.$user->department_id.'/'.$model->name;
-            $uploadPath = './files/protocol/'.$user->department_id;
-
-            if (!empty($post['user_id_update'])){
-                FileHelper::createDirectory($uploadPath);
-                rename($source_file, $destination_path );
-                $model->send_user_id = $post['user_id_update'];
-                $model->department_id = $user->department_id;
-                $model->update();
-                if(!empty($user->telegram_id)){
-                    $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
-                    ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
-                }
-
-
-
-                $test = \app\models\Test::find()->where(['id' => $id])->one();
-
-                $noty->user_id = $user->id;
-                $noty->user_create_id = \Yii::$app->getUser()->id;
-                $noty->text = 'Вам передан файл: ';
-                $noty->text .= Html::a($model->name, ['view', 'id' => $model->id]);
-                $noty->create_at = time();
-                $noty->read = 0;
-                //var_dump($noty); die();
-                $noty->save();
-
-                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio.' - ' .
-                    $user->department_id);
-            }else{
-                \Yii::$app->session->setFlash('error', 'Сотрудник не выбран');
-            }
-
-            return $this->redirect(['change-department',
-                'id' => $id
-            ]);
-        }
-
-        return $this->render('change-department', [
-            //'department_id' => $model->department_id,
-            'model' => $model
-        ]);
     }
 }

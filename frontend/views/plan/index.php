@@ -12,16 +12,16 @@ use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
-/** @var app\models\SopSearch $searchModel */
+/** @var app\models\PlanDoctors $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Паспорта рисков процесса';
+$this->title = 'План внутреннего аудита';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="protocol-index">
 
-    <h1><div class="badge badge-dark"><i class="lnr-file-empty btn-icon-wrapper"> </i> <?= Html::encode
+    <h1><div class="badge badge-dark d-block"><i class="lnr-file-empty btn-icon-wrapper"> </i> <?= Html::encode
             ($this->title) ?></div></h1>
     <div class="alert alert-danger">После загрузки файла обновить страницу <a href="#" onclick="location.reload();
         return false;" class="btn btn-outline-dark"><i class="fa fa-undo"></i></a></div>
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         echo \kato\DropZone::widget([
             'options' => [
-                'url' => '/passport/upload/?department_id=' . \Yii::$app->request->get('department_id'),
+                'url' => '/plan/upload/?department_id=' . \Yii::$app->request->get('department_id'),
                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область'
             ],
@@ -65,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($files as $file) {
                         //var_dump($files); die();
 
-                        $url = 'files/passport/' . $files->department_id . '/' . $files->name;
+                        $url = 'files/plan/' . $files->department_id . '/' . $files->name;
                         $path_parts = pathinfo($url);
-                        $file = scandir('files/passport/' . $files->department_id);
+                        $file = scandir('files/plan/' . $files->department_id);
 
                         switch ($path_parts['extension']) {
                             case 'xlsx':
@@ -151,20 +151,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'send_user_id',
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {update} {delete} {change-department}',
+                'template' => '{view} {update} {delete}',
                 'visibleButtons' => [
 
                     'delete' => function ($model) {
                         return \Yii::$app->user->can('admin', ['post' => $model]);
                     },
                     'delete' => function ($model) {
-                        return \Yii::$app->user->can('superadmin', ['post' => $model]);
+                        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()), 'name'));
+
+                        if ($userRole == 'admin' || $userRole == 'superadmin'){
+                            return true;
+                        }
                     },
                     'update' => function ($model) {
                         return '';
                     },
                     'view' => function ($model) {
-                        return \Yii::$app->user->can('create_admin', ['post' => $model]);
+                        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()), 'name'));
+
+                        if ($userRole == 'admin' || $userRole == 'superadmin'){
+                            return true;
+                        }
                     },
                 ],
                 'buttons' => [
@@ -177,17 +185,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<i class="fa-solid fa fa-eye"></i>',
                             $url, ['class' => 'btn btn-sm btn-success']);
                     },
-                    'change-department' => function ($url, $model, $key) {     // render your custom button
-                        return Html::a(
-                            ' <i class="fa fa-share"></i>',
-                            $url, ['class' => 'btn ml-2 btn-sm btn-success']);
-                    },
+
                     'delete' => function ($url, $model, $key) {
                         return Html::a(
                             '<i class="fa fa-trash-alt"></i>',
                             $url, ['class' => 'btn btn-sm btn-danger',
                             //'title' => Yii::t('app', 'Delete'),
-                            'data-confirm' => Yii::t('yii', 'Удалить паспорт № ' . $key . '?'),
+                            'data-confirm' => Yii::t('yii', 'Удалить план "' . $model->name . '"?'),
                             'data-method' => 'post', 'data-pjax' => '1',
                         ]);
                     },

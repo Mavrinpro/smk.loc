@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Doc;
+use app\models\Sop;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -12,10 +12,10 @@ use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
-/** @var app\models\DocSearch $searchModel */
+/** @var app\models\SopSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Документированная процедура';
+$this->title = 'СОПы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         echo \kato\DropZone::widget([
             'options' => [
-                'url' => '/doc/upload/?department_id=' . \Yii::$app->request->get('department_id'),
+                'url' => '/sop/upload/?department_id=' . \Yii::$app->request->get('department_id'),
                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область'
             ],
@@ -65,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($files as $file) {
                         //var_dump($files); die();
 
-                        $url = 'files/doc/' . $files->department_id . '/' . $files->name;
+                        $url = 'files/sop/' . $files->department_id . '/' . $files->name;
                         $path_parts = pathinfo($url);
-                        $file = scandir('files/doc/' . $files->department_id);
+                        $file = scandir('files/sop/' . $files->department_id);
 
                         switch ($path_parts['extension']) {
                             case 'xlsx':
@@ -191,7 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<i class="fa fa-trash-alt"></i>',
                             $url, ['class' => 'btn btn-sm btn-danger',
                             //'title' => Yii::t('app', 'Delete'),
-                            'data-confirm' => Yii::t('yii', 'Удалить документированную процедуру № ' . $key . '?'),
+                            'data-confirm' => Yii::t('yii', 'Удалить протокол № ' . $key . '?'),
                             'data-method' => 'post', 'data-pjax' => '1',
                         ]);
                     },
