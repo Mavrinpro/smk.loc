@@ -380,6 +380,5 @@ class CheckController extends Controller
                 'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
             ],
             'scoreall' => $scoreall]);
-
     }
 }
