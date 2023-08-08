@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\Sop;
 use app\models\SopSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +26,23 @@ class SopController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'index'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview'],
+                            'roles' => ['create_admin', 'admin'],
+                        ],
                     ],
                 ],
             ]
