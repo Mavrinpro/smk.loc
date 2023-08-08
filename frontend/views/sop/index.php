@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="protocol-index">
 
-    <h1><div class="badge badge-dark"><i class="lnr-book btn-icon-wrapper "></i> <?= Html::encode
+    <h1><div class="badge badge-dark"><i class="lnr-file-empty btn-icon-wrapper"> </i> <?= Html::encode
             ($this->title) ?></div></h1>
     <div class="alert alert-danger">После загрузки файла обновить страницу <a href="#" onclick="location.reload();
         return false;" class="btn btn-outline-dark"><i class="fa fa-undo"></i></a></div>
@@ -30,15 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
-        //$files = FileHelper::changeOwnership('files/protocol/5/Safetov.png', 14, null );
-        // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
-        //print_r($files);
-
-        //$sourcePath = 'files/protocol/5/Safetov.png';
-        //$destinationPath = 'files/protocol/14/Safetov.png';
-
-        //rename($sourcePath, $destinationPath);
-        //FileHelper::move($sourcePath, $destinationPath);
         echo \kato\DropZone::widget([
             'options' => [
                 'url' => '/sop/upload/?department_id=' . \Yii::$app->request->get('department_id'),
