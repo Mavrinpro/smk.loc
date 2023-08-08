@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * SopController implements the CRUD actions for Sop model.
@@ -35,12 +36,12 @@ class SopController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'index'],
+                            'actions' => ['view', 'index', 'upload'],
                             'roles' => ['view_manager'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'upload', 'delete'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -129,9 +130,18 @@ class SopController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $files = $this->findModel($id);
+        $url = 'files/sop/'.$files->department_id.'/'.$files->name;
+        if (file_exists($url)) {
+            unlink($url);
+            \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+            $files->delete();
+            return $this->redirect(['index', 'department_id' => $files->department_id]);
+        }else{
+            \Yii::$app->session->setFlash('error', 'Файл не найден');
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'department_id' => $files->department_id]);
     }
 
     /**
@@ -148,5 +158,49 @@ class SopController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    // Загрузка файлов Dropzone
+    public function actionUpload()
+    {
+        $department_id = \Yii::$app->request->get('department_id');
+        $fileName = 'file';
+        //$uploadPath = './files/protocol/';
+        $uploadPath = './files/sop/'.$department_id;
+        if (! FileHelper::createDirectory($uploadPath)) {
+            throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
+        }
+        $files = new Sop();
+        //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        $url = 'files/sop/'.$files->department_id.'/'.$files->name;
+        if (isset($_FILES[$fileName])) {
+
+
+
+            $file = \yii\web\UploadedFile::getInstanceByName( $fileName );
+            $url  = 'files/sop/' . $files->department_id . '/' . $file->name;
+            //Print file data
+            //print_r($file);
+
+            if ( $file->saveAs( $uploadPath . '/' . $file->name ) ) {
+                $f = Sop::find()->where(['name' => $file->name])->one();
+                if (sizeof((array)$f) > 0){
+                    $f->delete();
+                }
+
+                $files->name           = $file->name;
+                $files->department_id  = $department_id; // id отдела
+                $files->create_at      = time();
+                $files->user_id_create = \Yii::$app->user->getId();
+                $files->active         = 1;
+                $files->save();
+                echo \yii\helpers\Json::encode( $file->name );
+
+
+            }
+
+        }
+
+        return false;
     }
 }
