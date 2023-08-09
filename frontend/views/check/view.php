@@ -242,45 +242,87 @@ JS;
     </div>
     <div class="col-md-12">
         <div id="user-data-backend">
-            <table class="mb-0 table table-bordered" id="tabledata">
-                <thead>
-                <tr>
-                    <th>Дата</th>
-                    <th>Сотрудник</th>
-                    <th>Баллы</th>
-                    <th style="width: 30px">Удалить</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                //var_dump($scoreall);
-                foreach ($scoreall as $score) { ?>
-                    <tr>
-                        <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
-                        <td><?= $score->user->username ?></td>
-                        <td><?= $score->score ?></td>
-                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
-                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
-                                ['class' => 'btn btn-danger btn-sm', 'data' => [
-                                    'confirm' => 'Хотите удалить запись?',
-                                    'method' => 'post',
-                                    'params' => [
-                                        'department_id' => $model->department_id
-                                    ]
-                                ],
-                                ]) ?></td>
-                    </tr>
-                <?php } ?>
 
-                <span></span>
-                </tbody>
-            </table>
-            <?php  if (sizeof($checklistMedical) > 0){
-                echo 'Yes';
-            }else{
-                echo 'NO';
-            }
-            ?>
+            <?php  if (sizeof($checklistMedical) > 0){ ?>
+                <table data-toggle="table" data-sort-name="stargazers_count" data-sort-order="desc" class="table table-bordered table-hover">
+                    <thead class="bg-dark text-light">
+                    <tr>
+
+                        <th>Критерий</th>
+                        <th>Дата</th>
+                        <th><span class="text-success">Да</span></th>
+                        <th><span class="text-warning">Нет</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $a = [];
+                    foreach ($checklistMedical as $itemq) {
+                        $ansId = $itemq->check_id;
+
+                        $a[] = $ansId;
+
+                        ?>
+                        <?php $answered = \app\models\Answer::find()->where(['id' => $ansId])->one(); ?>
+                        <tr>
+
+                            <td><?= $itemq->name ?></td>
+                            <td><?= date('d.m.Y H:i:s', $itemq->create_at) ?></td>
+                            <td>
+                                <div class="custom-checkbox custom-control">
+
+                                    <label class="custom-control-label"
+                                           for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="custom-checkbox custom-control">
+
+                                    <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    <?php } ?>
+
+                    </tbody>
+                </table>
+           <? }else{ ?>
+                <table class="mb-0 table table-bordered" id="tabledata">
+                    <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Сотрудник</th>
+                        <th>Баллы</th>
+                        <th style="width: 30px">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    //var_dump($scoreall);
+                    foreach ($scoreall as $score) { ?>
+                        <tr>
+                            <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
+                            <td><?= $score->user->username ?></td>
+                            <td><?= $score->score ?></td>
+                            <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
+                                    $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                                    ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                        'confirm' => 'Хотите удалить запись?',
+                                        'method' => 'post',
+                                        'params' => [
+                                            'department_id' => $model->department_id
+                                        ]
+                                    ],
+                                    ]) ?></td>
+                        </tr>
+                    <?php } ?>
+
+                    <span></span>
+                    </tbody>
+                </table>
+            <?php } ?>
         </div>
     </div>
 </div>
