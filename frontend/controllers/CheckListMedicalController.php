@@ -98,7 +98,7 @@ class CheckListMedicalController extends Controller
             }
             $post = \Yii::$app->request->post('ChecklistMedical');
 
-            return $this->redirect(['check/view', 'id' => $post[0]['check_id']]);
+            return $this->redirect(['check/view', 'id' => $post[0]['check_id'], 'department_id' => $post[0]['department_id']]);
         }
 
         return $this->render('create', [

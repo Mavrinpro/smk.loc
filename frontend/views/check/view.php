@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         btn-success']);
         if($model->department_id == 4){ ?>
             <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии Да/Нет', ['check-list-medical/create', 'check_id' =>
-                \Yii::$app->request->get('id')],
+                \Yii::$app->request->get('id'), 'department_id' =>  \Yii::$app->request->get('department_id')],
                 ['class' => 'btn 
         btn-outline-warning']) ?>
         <?php } ?>
@@ -264,7 +264,7 @@ JS;
                         <tr>
                             <td><?= Html::a('<i class="fa fa-trash"></i>', ['check-list-medical/delete', 'id' =>
                                     $itemq->id, 'department_id' => \Yii::$app->request->get('department_id')],
-                                    ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    ['class' => 'btn btn-outline-danger btn-sm', 'data' => [
                                         'confirm' => 'Хотите удалить критерий?',
                                         'method' => 'post',
                                         'params' => [
@@ -274,7 +274,7 @@ JS;
                                         ]
                                     ],
                                     ]) ?></td>
-                            <td><?= $itemq->name ?></td>
+                            <td class="w-100"><?= $itemq->name ?></td>
 
                             <td>
                                 <div class="custom-checkbox custom-control">
