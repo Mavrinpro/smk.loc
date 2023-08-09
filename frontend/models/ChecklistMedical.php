@@ -15,6 +15,7 @@ use Yii;
  * @property int|null $user_id_create
  * @property int|null $user_id_update
  * @property int|null $active
+ * @property int|null $check_id
  */
 class ChecklistMedical extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class ChecklistMedical extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'safe'],
-            [['department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update', 'active'], 'integer'],
+            [['department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update', 'active', 'check_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }

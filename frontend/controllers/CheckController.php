@@ -78,6 +78,7 @@ class CheckController extends Controller
         $dep_id =  \Yii::$app->request->get();
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
 
+        $check_listMedical = \app\models\ChecklistMedical::find()->where(['check_id' => $id])->all();
 
         //var_dump($post); die;
         $m = $this->findModel($id);
@@ -125,7 +126,8 @@ class CheckController extends Controller
                 'col3' => $num3 + $num6,
                 'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
             ],
-            'scoreall' => $scoreall
+            'scoreall' => $scoreall,
+            'checklistMedical' => $check_listMedical
         ]);
     }
 

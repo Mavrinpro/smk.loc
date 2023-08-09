@@ -219,12 +219,13 @@ class PassportController extends Controller
         $bot_token = \app\models\Settings::find()->one();
 
         if ($this->request->isPost){
-            $post = \Yii::$app->request->post('Protocol');
+            $post = \Yii::$app->request->post('Passport');
+            //var_dump($post); die;
             $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
             //$telegram = \common\models\User::find()->where(['id' => $user->id])->one();
-            $source_file = 'files/protocol/'.$model->department_id.'/'.$model->name;
-            $destination_path = 'files/protocol/'.$user->department_id.'/'.$model->name;
-            $uploadPath = './files/protocol/'.$user->department_id;
+            $source_file = 'files/passport/'.$model->department_id.'/'.$model->name;
+            $destination_path = 'files/passport/'.$user->department_id.'/'.$model->name;
+            $uploadPath = './files/passport/'.$user->department_id;
 
             if (!empty($post['user_id_update'])){
                 FileHelper::createDirectory($uploadPath);

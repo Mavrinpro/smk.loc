@@ -26,7 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии', ['check-list/create', 'check_id' =>
             \Yii::$app->request->get('id')],
             ['class' => 'btn 
-        btn-success']) ?>
+        btn-success']);
+        if($model->department_id == 4){ ?>
+            <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии Да/Нет', ['check-list-medical/create', 'check_id' =>
+                \Yii::$app->request->get('id')],
+                ['class' => 'btn 
+        btn-outline-warning']) ?>
+        <?php } ?>
+
 
         <?= Html::a('<i class="fa fa-trash"></i> Очистить все оценки', ['check/clear-score', 'check_id' =>
             \Yii::$app->request->get('id'), 'department_id' => \Yii::$app->request->get('department_id')],
@@ -268,6 +275,12 @@ JS;
                 <span></span>
                 </tbody>
             </table>
+            <?php  if (sizeof($checklistMedical) > 0){
+                echo 'Yes';
+            }else{
+                echo 'NO';
+            }
+            ?>
         </div>
     </div>
 </div>

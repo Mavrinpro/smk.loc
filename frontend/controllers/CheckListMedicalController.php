@@ -68,13 +68,35 @@ class CheckListMedicalController extends Controller
     public function actionCreate()
     {
         $model = new CheckListMedical();
+//
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        //==============================
+        // Создание множественных записей одной модели
+        $count = count(\Yii::$app->request->post('ChecklistMedical', []));
+        $products  = [new CheckListMedical()];
+
+        for($i = 1; $i < $count; $i++) {
+            $products[] = new CheckListMedical();
+        }
+
+        if (CheckListMedical::loadMultiple($products, \Yii::$app->request->post()) && CheckListMedical::validateMultiple($products)) {
+
+            foreach ($products as $product) {
+
+                if (!empty($product->name)){
+                    $product->save(false);
+                    $post = \Yii::$app->request->post('ChecklistMedical');
+                    return $this->redirect(['check/view', 'id' => $post[0]['check_id']]);
+                }
             }
-        } else {
-            $model->loadDefaultValues();
+
         }
 
         return $this->render('create', [
