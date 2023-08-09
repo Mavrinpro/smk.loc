@@ -92,11 +92,13 @@ class CheckListMedicalController extends Controller
 
                 if (!empty($product->name)){
                     $product->save(false);
-                    $post = \Yii::$app->request->post('ChecklistMedical');
-                    return $this->redirect(['check/view', 'id' => $post[0]['check_id']]);
                 }
-            }
 
+
+            }
+            $post = \Yii::$app->request->post('ChecklistMedical');
+
+            return $this->redirect(['check/view', 'id' => $post[0]['check_id']]);
         }
 
         return $this->render('create', [
@@ -152,5 +154,39 @@ class CheckListMedicalController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionCheckboxRight()
+    {
+//        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        $post = \Yii::$app->request->post();
+//        return $post;
+
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ChecklistMedical::find()->where(['id' => $post['id']])->one();
+
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 1;
+        }
+        $result->active = $num;
+        $result->update();
+        //$countTest = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' =>
+        // $post['test_id']])
+            //->count();
+        //$test = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'],
+        //'completed' => 1])
+            //->count();
+        //$new_width =  ($test / $countTest) * 100;
+        return round($result);
+    }
+
+    public function actionCheckboxLeft()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $post = \Yii::$app->request->post();
+        return $post;
     }
 }
