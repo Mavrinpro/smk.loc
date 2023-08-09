@@ -266,20 +266,34 @@ JS;
 
                             <td>
                                 <div class="custom-checkbox custom-control">
+                                    <?php if ($itemq->active === 1): ?>
                                     <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
                                     ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
                                            data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                           data-res="<?= \Yii::$app->request->get('res') ?>">
+                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                                    <?php else: ?>
+                            <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                   data-res="<?= \Yii::$app->request->get('res') ?>">
+                            <?php endif; ?>
                                     <label class="custom-control-label"
                                            for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="custom-checkbox custom-control">
+                        <?php if ($itemq->active === 0): ?>
                                     <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
                                     ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
                                            data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                           data-res="<?= \Yii::$app->request->get('res') ?>">
+                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                        <?php else: ?>
+                            <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                   data-res="<?= \Yii::$app->request->get('res') ?>">
+                        <?php endif; ?>
                                     <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
                                 </div>
                             </td>

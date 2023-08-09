@@ -185,8 +185,25 @@ class CheckListMedicalController extends Controller
 
     public function actionCheckboxLeft()
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+//        $post = \Yii::$app->request->post();
+//        return $post;
+
         $post = \Yii::$app->request->post();
-        return $post;
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ChecklistMedical::find()->where(['id' => $post['id']])->one();
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 0;
+        }
+        $result->active = $num;
+        $result->update();
+//        $countTest = \app\models\ChecklistMedical::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id']])
+//            ->count();
+//        $test = \app\models\ChecklistMedical::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'], 'completed' => 1])
+//            ->count();
+//        $new_width =  ($test / $countTest) * 100;
+        return round($post);
     }
 }
