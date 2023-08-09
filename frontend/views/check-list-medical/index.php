@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Check List Medical', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Check List Medical', ['create', 'department_id' =>
+            \Yii::$app->request->get('department_id')], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'name',
             'department_id',
             'create_at',

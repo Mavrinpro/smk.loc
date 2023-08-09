@@ -32,7 +32,7 @@ class ChecklistMedical extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name'], 'safe'],
             [['department_id', 'create_at', 'update_at', 'user_id_create', 'user_id_update', 'active'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -45,7 +45,7 @@ class ChecklistMedical extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Критерий',
             'department_id' => 'Department ID',
             'create_at' => 'Create At',
             'update_at' => 'Update At',

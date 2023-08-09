@@ -40,7 +40,7 @@ class CheckController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'delete-user-score'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
