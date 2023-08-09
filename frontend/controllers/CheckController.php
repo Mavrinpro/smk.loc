@@ -115,6 +115,15 @@ class CheckController extends Controller
         if ($userRole == 'user'){
             return $this->redirect('userscore');
         }
+
+        $count = \app\models\ChecklistMedical::find()->where(['check_id' => $id])->count();
+        $count2 = \app\models\ChecklistMedical::find()->where(['check_id' => $id, 'active' => 1])->count();
+        if  ($count > 0){
+        $new_width =  ($count2 * 100) / $count;
+
+        }else{
+            $new_width = 0;
+        }
         return $this->render('view', [
             'user' => $user,
             'model' => $this->findModel($id),
@@ -127,7 +136,8 @@ class CheckController extends Controller
                 'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
             ],
             'scoreall' => $scoreall,
-            'checklistMedical' => $check_listMedical
+            'checklistMedical' => $check_listMedical,
+            'countResult' => round($new_width)
         ]);
     }
 

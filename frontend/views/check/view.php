@@ -248,6 +248,7 @@ JS;
                     <thead class="bg-dark text-light">
                     <tr>
 
+                        <th>#</th>
                         <th>Критерий</th>
                         <th><span class="text-success">Да</span></th>
                         <th><span class="text-warning">Нет</span></th>
@@ -261,7 +262,18 @@ JS;
 
                         ?>
                         <tr>
-
+                            <td><?= Html::a('<i class="fa fa-trash"></i>', ['check-list-medical/delete', 'id' =>
+                                    $itemq->id, 'department_id' => \Yii::$app->request->get('department_id')],
+                                    ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                        'confirm' => 'Хотите удалить критерий?',
+                                        'method' => 'post',
+                                        'params' => [
+                                            'department_id' => \Yii::$app->request->get('department_id'),
+                                            'id' => $itemq->id,
+                                            'check_id' => $model->id
+                                        ]
+                                    ],
+                                    ]) ?></td>
                             <td><?= $itemq->name ?></td>
 
                             <td>
@@ -304,6 +316,7 @@ JS;
 
                     </tbody>
                 </table>
+                <div class="alert alert-success">Результат: <b><span id="result_count"><?= $countResult; ?>%</span></b></div>
            <? }else{ ?>
                 <table class="mb-0 table table-bordered" id="tabledata">
                     <thead>
@@ -356,7 +369,7 @@ $js = <<<JS
 $(function(){
     
     $('[id^="checkbox_right"]').change(function (event){
-        console.log('event');
+        //console.log('event');
     var id = $(this).data('id');
     var num = null;
     var user_id = $(this).data('user_id');
@@ -385,7 +398,7 @@ $(function(){
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                $('#count_checkbox').html('<b>'+res+"%</b>");
+                $('#result_count').html('<b>'+res+"%</b>");
                                
             },
             error: function(){
@@ -428,7 +441,7 @@ $('[id^="checkbox_left"]').click(function (){
             dataType: 'JSON',
             success: function(res){
                 console.log(res);
-                  $('#count_checkbox').html('<b>'+res+"%</b>");             
+                  $('#result_count').html('<b>'+res+"%</b>");             
             },
             error: function(){
                 console.log('Error!');
