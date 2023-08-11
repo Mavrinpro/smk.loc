@@ -19,12 +19,14 @@ use yii\web\IdentityInterface;
  * @property string $verification_token
  * @property string $email
  * @property string $auth_key
+ * @property string $avatar
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $city_id
  * @property integer $company_id
  * @property integer $department_id
+ * @property integer $telegram_id
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -61,9 +63,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            [['city_id', 'company_id', 'department_id'], 'safe'],
+            [['city_id', 'company_id', 'department_id', 'email', 'username', 'telegram_id', 'fio', 'avatar'], 'safe'],
         ];
     }
 
@@ -71,6 +73,16 @@ class User extends ActiveRecord implements IdentityInterface
      * {@inheritdoc}
      */
     public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+
+    // delete user
+    public static function deleteuser($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
@@ -230,9 +242,27 @@ class User extends ActiveRecord implements IdentityInterface
             $txt .= "<b>👤 </b> ".$user. PHP_EOL;
         }
 
-        $txt .= "<b>🔗 </b> https://crm.glazcentre.ru/deals/update/".$deal. PHP_EOL;
+        //$txt .= "<b>🔗 </b> https://crm.glazcentre.ru/deals/update/".$deal. PHP_EOL;
         $txt .= "<b>📱 </b> ".$phone. PHP_EOL;
 
         file_get_contents('https://api.telegram.org/' . $tokenCRM . '/sendMessage?chat_id=' . $user_id . '&parse_mode=html&text=' . urlencode($txt));
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Логин',
+            'fio' => 'ФИО',
+            'company_id' => 'Компания',
+            'department_id' => 'Отдел',
+            'city_id' => 'Город',
+            'password' => 'Пароль',
+            'update_at' => 'Update At',
+            'user_id_create' => 'User Id Create',
+            'user_id_update' => 'User Id Update',
+            'active' => 'Active',
+            'user_id' => 'User ID',
+        ];
     }
 }

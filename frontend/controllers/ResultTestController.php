@@ -126,7 +126,7 @@ class ResultTestController extends \yii\web\Controller
             ->orderBy(['id' => SORT_ASC])
             ->one();
         $endtest = \app\models\EndTest::find()->where(['>', 'date_end_test', strtotime(date('Y-m-d'))])
-            ->andWhere(['user_id' => \Yii::$app->getUser()->id])->one();
+            ->andWhere(['user_id' => \Yii::$app->getUser()->id, 'test_id' => $question->test_id])->one();
         if (sizeof((array)$endtest) > 0){
 
             \Yii::$app->session->setFlash('error', 'Вы уже проходили данный тест ');
@@ -137,18 +137,18 @@ class ResultTestController extends \yii\web\Controller
 
             $ansId = \Yii::$app->request->post()['ResultTest']['answer_id'];
             //var_dump($ansId); die;
-            if ($ansId != null) {
-                foreach ($ansId as $key => $item) {
-                    if ($item == '0') {
-                        unset($ansId[$key]);
-                    }
-                }
-
-                if (implode(',', $ansId) == "") {
-
-                    return $this->refresh();
-                }
-            }
+//            if ($ansId != null) {
+//                foreach ($ansId as $key => $item) {
+//                    if ($item == '0') {
+//                        unset($ansId[$key]);
+//                    }
+//                }
+//
+//                if (implode(',', $ansId) == "") {
+//
+//                    return $this->refresh();
+//                }
+//            }
 
             //echo implode(',',$ansId); die();
 
@@ -159,8 +159,6 @@ class ResultTestController extends \yii\web\Controller
             //                \Yii::$app->session->setFlash('error', 'Выберите вариант ответа');
             //                return $this->refresh();
             //            }
-
-
 
 
             if (\Yii::$app->request->post('answer_null') == 'null') {
@@ -187,7 +185,7 @@ class ResultTestController extends \yii\web\Controller
                 $userId = \Yii::$app->getUser()->id;
                 $testId = \Yii::$app->request->get('test_id');
                 if ($ansId != null) {
-                    $result->ans_id = implode(',', $ansId);
+                    $result->ans_id = $ansId;
                 }
 
                 $result->test_id = $testId;
@@ -206,7 +204,8 @@ class ResultTestController extends \yii\web\Controller
             }
 
             \Yii::$app->session->setFlash('success', $ansId);
-            $result->ans_id = implode(',', $ansId);
+            //$result->ans_id = implode(',', $ansId);
+            $result->ans_id = $ansId;
             $result->test_id = $testId;
             $result->question_id = $question_Id;
             $result->create_at = time();
@@ -230,8 +229,7 @@ class ResultTestController extends \yii\web\Controller
                 => $question->id]);
 
             }
-
-
+            
         }
 
         return $this->render('start', ['id' => $question->id,
@@ -270,6 +268,7 @@ class ResultTestController extends \yii\web\Controller
                 'question' => $q,
                 'test' => $test
             ]);
+
         }else{
             $endTest->user_id = $userId;
             $endTest->test_id = $testId;
@@ -284,7 +283,6 @@ class ResultTestController extends \yii\web\Controller
                 'test' => $test
             ]);
         }
-
 
     }
 

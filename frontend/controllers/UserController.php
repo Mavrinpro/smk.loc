@@ -4,6 +4,8 @@ namespace frontend\controllers;
 use frontend\models\SignupForm;
 use common\models\User;
 use app\models\UserSearch;
+use yii\filters\AccessControl;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +27,28 @@ class UserController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'test', 'update', 'upload'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view' , 'delete', 'update', 'upload'],
+                            'roles' => ['create_admin'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['view', 'update', 'upload'],
+                            'roles' => ['admin'],
+                        ],
                     ],
                 ],
             ]
@@ -108,7 +132,18 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = $this->findModel($id);
+        $user->status = 0;
+        $user->update();
+
+        return $this->redirect(['index', 'id' => $user->id]);
+    }
+
+    public function actionDeleteUser($id)
+    {
+        $user = $this->findModel($id);
+        $user->status = 0;
+        $user->update();
 
         return $this->redirect(['index']);
     }
@@ -139,5 +174,69 @@ class UserController extends Controller
             }
 
         return $data;
+    }
+
+    // Сделать админом через ajax
+    public function actionSetAdmin()
+    {
+        $manager = \Yii::$app->authManager;
+       $post = \Yii::$app->request->post();
+
+
+       if ($post['check'] == 1){
+
+           $item = $manager->getRole('user');
+           $item = $item ? : $manager->getPermission('user');
+           $manager->revoke($item, $post['id']);
+
+           $authorRole = $manager->getRole('admin');
+           $manager->assign($authorRole, $post['id']);
+
+       }else{
+           $item = $manager->getRole('admin');
+           $item = $item ? : $manager->getPermission('admin');
+           $manager->revoke($item, $post['id']);
+
+           $authorRole = $manager->getRole('user');
+           $manager->assign($authorRole, $post['id']);
+
+       }
+       \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       return $post['id'];
+
+    }
+
+    // Загрузка аватара
+    public function actionUpload()
+    {
+        $user_id = \Yii::$app->request->get('user_id');
+        $user = User::findOne(['id' => $user_id]);
+        $fileName = 'file';
+        $uploadPath = './files/avatar/'.$user_id;
+        if (! FileHelper::createDirectory($uploadPath)) {
+            throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
+        }
+        //$files = new Protocol();
+        //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        if (isset($_FILES[$fileName])) {
+            FileHelper::localize ( $uploadPath.'/'.$files->name, $language = null, $sourceLanguage = null );
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+
+                $user->avatar = $file->name;
+//                $files->department_id = $department_id; // id отдела
+//                $files->create_at = time();
+//                $files->user_id_create = \Yii::$app->user->getId();
+//                $files->active = 1;
+                $user->update();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
     }
 }

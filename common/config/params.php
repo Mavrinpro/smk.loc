@@ -1,7 +1,7 @@
 <?php
 return [
     'adminEmail' => 'mavrin79@mail.ru',
-    'supportEmail' => 'support@example.com',
+    'supportEmail' => 'mavrin79@mail.ru',
     'senderEmail' => 'blourator@yandex.ru',
     'senderName' => 'Example.com mailer',
     'user.passwordResetTokenExpire' => 3600,

@@ -43,4 +43,8 @@ class Check extends \yii\db\ActiveRecord
             'name' => 'Название',
         ];
     }
+    public function getTesto()
+    {
+        return $this->hasMany(\app\models\CheckList::class, ['service_id' => 'id']);
+    }
 }

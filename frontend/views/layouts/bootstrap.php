@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
@@ -18,6 +19,8 @@ $userform = new frontend\models\SignupForm();
 
 
 AppAsset::register($this);
+
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,8 +34,24 @@ AppAsset::register($this);
 </head>
 <body class="d-flex flex-column h-100">
 
+
+
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar fixed-footer">
 <?= $this->render('nav-menu')?>
+<!--    --><?php
+//    Modal::begin( [
+//        'id' => 'werex',
+//        'title' => '<h5>Добавить название файлу</h5>',
+//        //'toggleButton' => ['label' => 'Добавить задачу', 'class' => 'btn btn-warning'],
+//        //'footer' => 'Footer',
+//
+//    ] );
+//
+//
+//
+//
+//    Modal::end();
+//    ?>
     <div class="ui-theme-settings">
         <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
             <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
@@ -276,7 +295,6 @@ AppAsset::register($this);
                                 </div>
                             </li>
 
-
                         </ul>
                     </div>
                     <h3 class="themeoptions-heading">
@@ -398,6 +416,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
+
             <?= AlertWidget::widget() ?>
 <?= $content ?>
 
@@ -1026,6 +1045,7 @@ AppAsset::register($this);
     </div>
 </div>
 </div>
+
 <div class="app-drawer-wrapper">
     <div class="drawer-nav-btn">
         <button type="button" class="hamburger hamburger--elastic is-active">
@@ -1563,6 +1583,7 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
+
 <!--Modal create user-->
 <div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -1656,24 +1677,26 @@ AppAsset::register($this);
             </div>
             <div class="modal-body">
                 <?php $form = ActiveForm::begin(['action' => '/answer/create']); ?>
+                <?php for ($i = 0; $i < 4; $i++) { ?>
+                    <?= $form->field($answer, "[$i]name")->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($answer, "[$i]user_id")->hiddenInput(['value' => \Yii::$app->getUser()->id])->label(false) ?>
+                                    <?= $form->field($answer, "[$i]test_id")->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
+                                    (false) ?>
+                                    <?= $form->field($answer, "[$i]question_id")->hiddenInput(['value' =>
+                        '', 'id' => "answer-question_id-".$i])
+                                        ->label
+                                    (false) ?>
 
-                <?= $form->field($answer, 'name')->textInput(['maxlength' => true]) ?>
+                                    <?= $form->field($answer, "[$i]create_at")->hiddenInput(['value' => time()])->label(false) ?>
 
-                <?= $form->field($answer, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label
+                <?php } ?>
+                <?= $form->field($answer, "test_id")->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
                 (false) ?>
-
-                <?= $form->field($answer, 'test_id')->hiddenInput(['value' => \Yii::$app->request->get('id')])->label
-                (false) ?>
-                <?= $form->field($answer, 'question_id')->hiddenInput(['value' => $question->id])
-                    ->label
-                (false) ?>
-
-                <?= $form->field($answer, 'create_at')->hiddenInput(['value' => time()])->label(false) ?>
-
-                <?= $form->field($answer, 'update_at')->hiddenInput(['value' => time()])->label(false) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?> <button class="border-0 btn-transition btn btn-outline-success" data-toggle="modal" data-target="#modalCreateAnswer" data-id="109" id="createAnswer">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -1684,6 +1707,7 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
 <?php $this->endBody() ?>
 <!-- Modal delete -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"

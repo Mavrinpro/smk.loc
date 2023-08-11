@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\Department;
+use app\models\Files;
 use app\models\Page;
 use app\models\Branch;
 use app\models\Test;
@@ -41,12 +42,12 @@ class DepartmentController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view'],
+                            'actions' => ['view', 'test'],
                             'roles' => ['view_manager'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test'],
+                            'actions' => ['view', 'create', 'pdf', 'index', 'create-doc', 'test', 'create-user', 'delete-user', 'result-test', 'testview', 'success-test', 'test-failed', 'delete-result-test', 'remove-document', 'set-title', 'checkbox-right', 'checkbox-left'],
                             'roles' => ['create_admin', 'moderator'],
                         ],
                     ],
@@ -82,16 +83,19 @@ class DepartmentController extends Controller
         $depart = Department::find()->where(['id' => $id])->one();
         $page = Page::find()->where(['department_id' => $id])->all();
         $branch = Branch::find()->where(['id' => $depart->branch_id])->one();
-
+        $files = Files::find()->where(['department_id' => \Yii::$app->request->get('id')])->all();
         $user = User::find()->where(['department_id' => $depart->id])->all();
         $userForm = new User();
+        $f = new Files();
 
         return $this->render('view', [
             'user' => $user,
             'branch' => $branch,
             'page' => $page,
             'model' => $this->findModel($id),
-            'userform' => $userForm
+            'userform' => $userForm,
+            'files' => $files,
+            'f' => $f
         ]);
     }
 
@@ -199,7 +203,6 @@ class DepartmentController extends Controller
             return $this->redirect(['view', 'id' => \Yii::$app->request->post('SignupForm')['department_id']]);
         }
 
-
     }
 
     public function actionDeleteUser()
@@ -231,16 +234,33 @@ class DepartmentController extends Controller
         
         $test = \app\models\EndTest::find()->where(['id' => $res])->one();
         $testEnd = \app\models\ResultTest::find()->where(['test_id' => $id, 'user_id' => $user_id])->andWhere(['>', 'create_at', strtotime(date('Y-m-d', $test->date_end_test))])->all();
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $user_id, 'test_id' => $id])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $user_id, 'test_id' => $id, 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+
         return $this->render('testview',[
             'id' => 5,
             'tester' => $testEnd,
             'test' => $test,
-            'user' => $user
+            'user' => $user,
+            'counttest' => round($new_width)
         ]);
     }
 
     public function actionSuccessTest($id, $user_id, $res)
     {
+        $noty = new \app\models\Notyfication();
+        $test = \app\models\Test::find()->where(['id' => $id])->one();
+        $noty->user_id = $user_id;
+        $noty->user_create_id = \Yii::$app->getUser()->id;
+        $noty->text = 'Тест "'.$test->name.'" пройден';
+        $noty->create_at = time();
+        $noty->read = 0;
+        //var_dump($noty); die();
+        $noty->save();
+        //var_dump($noty);
         $user = new User();
         $bot_token = \app\models\Settings::find()->one();
         $telegram = User::find()->where(['id' => $user_id])->one();
@@ -250,4 +270,127 @@ class DepartmentController extends Controller
         return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
     }
     
+
+    public function actionTestFailed($id, $user_id, $res)
+    {
+        $noty = new \app\models\Notyfication();
+        $test = \app\models\Test::find()->where(['id' => $id])->one();
+        $noty->user_id = $user_id;
+        $noty->user_create_id = \Yii::$app->getUser()->id;
+        $noty->text = 'Тест "'.$test->name.'" Провален';
+        $noty->create_at = time();
+        $noty->read = 0;
+        //var_dump($noty); die();
+        $noty->save();
+        $user = new User();
+        $bot_token = \app\models\Settings::find()->one();
+        $telegram = User::find()->where(['id' => $user_id])->one();
+        $text = "⛔ Тест Провален ⛔";
+        $user->sendTelegramnotification($bot_token->bot_token, $text, $telegram->telegram_id, date('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+        \Yii::$app->session->setFlash('success', 'Уведомление отправлено.');
+        return $this->redirect(['department/testview', 'id' => $id, 'user_id' => $user_id, 'res' => $res]);
+    }
+
+    // Удаление результатов теста вместе с ответами (таблица result_test)
+
+    public function actionDeleteResultTest($id, $department_id)
+    {
+        $get = \Yii::$app->request->get();
+
+        $endTest = \app\models\EndTest::find()->where(['id' => $id])->one();
+
+        $resultTest = \app\models\ResultTest::find()->where(['test_id' => $endTest->test_id, 'user_id' =>
+            $endTest->user_id])->andWhere
+        (['>=', 'create_at', date('Y-m-d H:i:s', strtotime($endTest->date_end_test))])->all();
+        if ($this->request->isPost){
+            $endTest->delete();
+            foreach ($resultTest as $result) {
+                $result->delete();
+            }
+            \Yii::$app->session->setFlash('success', 'Результат тестирования удален.');
+            return $this->redirect(['department/result-test', 'department_id' => $department_id]);
+
+        }
+        return $this->redirect('/');
+
+    }
+
+
+    // Удаление файла
+    public function actionRemoveDocument($id)
+    {
+        $request = \Yii::$app->request->get();
+        $files = Files::find()->where(['id' => $request['id']])->one();
+        //unlink('/files/'.$files->name);
+        unlink('files/' . $files->name);
+        $files->delete();
+        \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+        return $this->redirect(['view', 'id' => $request['modelid']]);
+
+    }
+
+    // Установить заголовок для файла
+    public function actionSetTitle()
+    {
+        $pageId = \Yii::$app->request->get();
+        $request = \Yii::$app->request->post('Files');
+        $files = Files::find()->where(['id' => $request['id']])->one();
+       // var_dump($pageId); die();
+
+        //var_dump($pageId); die();
+        $files->title = $request['title'];
+        //$files->department_id = $request['res'];
+
+        $files->date_end = time();
+        $files->user_id_update = \Yii::$app->user->getId();
+        $files->update();
+        \Yii::$app->session->setFlash('success', 'Название задано',['progressBar' => true]);
+        return $this->redirect(['/department/view', 'id' => $request['department_id']]);
+
+
+    }
+
+    // Оценка тестов (верно-не верно) чекбоксы  department/testview
+    public function actionCheckboxRight()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ResultTest::find()->where(['id' => $post['id']])->one();
+
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 1;
+        }
+        $result->completed = $num;
+        $result->update();
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id']])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'], 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+        return round($new_width);
+    }
+
+    // Оценка тестов (верно-не верно) чекбоксы  department/testview
+    public function actionCheckboxLeft()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $result = \app\models\ResultTest::find()->where(['id' => $post['id']])->one();
+        $num = null;
+
+        if ($post['num'] == 1){
+            $num = 0;
+        }
+        $result->completed = $num;
+        $result->update();
+        $countTest = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id']])
+            ->count();
+        $test = \app\models\ResultTest::find()->where(['user_id' => $post['user_id'], 'test_id' => $post['test_id'], 'completed' => 1])
+            ->count();
+        $new_width =  ($test / $countTest) * 100;
+        return round($new_width);
+    }
+
 }

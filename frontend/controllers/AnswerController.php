@@ -67,18 +67,37 @@ class AnswerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Answer();
+        // Создание множественных записей одной модели
+        $count = count(\Yii::$app->request->post('Answer', []));
+        $products  = [new Answer()];
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['test/view', 'id' => $model->test_id]);
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post()) && $model->save()) {
+//                return $this->redirect(['test/view', 'id' => $model->test_id]);
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
+
+        for($i = 1; $i < $count; $i++) {
+            $products[] = new Answer();
+        }
+
+        if (Answer::loadMultiple($products, \Yii::$app->request->post()) && Answer::validateMultiple($products)) {
+
+            foreach ($products as $product) {
+
+              if (!empty($product->name)){
+                  $product->save(false);
+              }
+
+
             }
-        } else {
-            $model->loadDefaultValues();
+            return $this->redirect(['/test/view', 'id' => \Yii::$app->request->post('Answer')['test_id']]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $products ,
         ]);
     }
 
@@ -94,7 +113,7 @@ class AnswerController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/test/view', 'id' => $model->test_id]);
         }
 
         return $this->render('update', [
