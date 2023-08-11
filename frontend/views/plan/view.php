@@ -4,10 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Protocol $model */
+/** @var app\models\Doc $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Protocols', 'url' => ['index?department_id='.$model->department_id]];
+$this->params['breadcrumbs'][] = ['label' => 'План внутреннего аудита', 'url' => ['index?department_id='
+    .$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,19 +17,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-<!--        --><?//= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
+        <!--        --><?//= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id, 'department_id' => $model->department_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Удалить план "'.$model->name.'"?',
                 'method' => 'post',
             ],
         ]) ?>
 
-        <?= Html::a('Скачать <i class="fa fa-download"></i>', ['files/protocol/'.$model->department_id.'/'.$model->name, ], ['class' => 'btn 
+        <?= Html::a('Скачать <i class="fa fa-download"></i>', ['files/plan/'.$model->department_id.'/'.$model->name, ],
+            ['class' => 'btn 
         btn-warning']) ?>
     </p>
-<?php //var_dump($model->Brancher($model->department->branch_id)); ?>
+    <?php //var_dump($model->Brancher($model->department->branch_id)); ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -50,11 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('d.m.Y H:i:s', $model->create_at);
                 },
             ],
-            'update_at',
+            //'update_at',
             //'user.fio',
             [
                 'attribute' => 'user_id_create',
-
                 'label' => 'Кто создал',
                 'value' => function($model)
                 {
@@ -66,33 +67,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
-            'user_id_update',
+            //'user_id_update',
             //'active',
             [
                 'attribute' => 'active',
+                'format' => 'html',
                 'value' => function ($model) {
-        if ($model->active == 1)
-        {
-            return 'Активный';
-        }else{
-            return 'В архиве';
-        }
+                    if ($model->active == 1)
+                    {
+                        return '<span class="text-success">Активный</span>';
+                    }else{
+                        return 'В архиве';
+                    }
 
                 },
             ],
-            [
-                'attribute' => 'send_user_id',
-                'label' => 'Кто создал',
-                'value' => function($model)
-                {
-                    if (!empty($model->user->fio))
-                    {
-                        return $model->user->fio;
-                    }else{
-                        $model->user->username;
-                    }
-                },
-            ],
+            //            [
+            //                'attribute' => 'send_user_id',
+            //                //'label' => 'Кто создал',
+            //                'value' => function($model)
+            //                {
+            //                    if (!empty($model->usersend->fio))
+            //                    {
+            //                        return $model->usersend->fio;
+            //                    }else{
+            //                        $model->usersend->username;
+            //                    }
+            //                },
+            //            ],
         ],
     ]) ?>
 

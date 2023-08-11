@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Protocol;
+use app\models\Sop;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,36 +9,30 @@ use yii\widgets\Pjax;
 use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\FileHelper;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
-/** @var app\models\ProtocolSearch $searchModel */
+/** @var app\models\SopSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Протоколы инцидентов';
+$this->title = 'СОПы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="protocol-index">
 
-    <h1><?= Html::encode($this->title) ?><?= $model->name ?></h1>
-
+    <h1><div class="badge badge-dark"><i class="lnr-file-empty btn-icon-wrapper"> </i> <?= Html::encode
+            ($this->title) ?></div></h1>
+    <div class="alert alert-danger">После загрузки файла обновить страницу <a href="#" onclick="location.reload();
+        return false;" class="btn btn-outline-dark"><i class="fa fa-undo"></i></a></div>
     <!--    <p>-->
     <!--        --><? //= Html::a('Create Protocol', ['create'], ['class' => 'btn btn-success']) ?>
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
-        //$files = FileHelper::changeOwnership('files/protocol/5/Safetov.png', 14, null );
-        // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
-        //print_r($files);
-
-        //$sourcePath = 'files/protocol/5/Safetov.png';
-        //$destinationPath = 'files/protocol/14/Safetov.png';
-
-        //rename($sourcePath, $destinationPath);
-        //FileHelper::move($sourcePath, $destinationPath);
         echo \kato\DropZone::widget([
             'options' => [
-                'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
+                'url' => '/sop/upload/?department_id=' . \Yii::$app->request->get('department_id'),
                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область'
             ],
@@ -60,17 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
-            [
-                'label' => 'Передать',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return Html::a('Передать', ['/protocol/change-department/', 'id' => $model->id]
-                    );
-                }
-            ],
             [
                 'attribute' => 'id',
                 'label' => 'Файл',
@@ -81,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ($files as $file) {
                         //var_dump($files); die();
 
-                        $url = 'files/protocol/' . $files->department_id . '/' . $files->name;
+                        $url = 'files/sop/' . $files->department_id . '/' . $files->name;
                         $path_parts = pathinfo($url);
-                        $file = scandir('files/protocol/' . $files->department_id);
+                        $file = scandir('files/sop/' . $files->department_id);
 
                         switch ($path_parts['extension']) {
                             case 'xlsx':
@@ -167,20 +151,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'send_user_id',
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {update} {delete} {change-department}',
+                'template' => '{view} {update} {delete}',
                 'visibleButtons' => [
 
                     'delete' => function ($model) {
                         return \Yii::$app->user->can('admin', ['post' => $model]);
                     },
                     'delete' => function ($model) {
-                        return \Yii::$app->user->can('superadmin', ['post' => $model]);
+                        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()), 'name'));
+
+                        if ($userRole == 'admin' || $userRole == 'superadmin'){
+                            return true;
+                        }
                     },
                     'update' => function ($model) {
                         return '';
                     },
                     'view' => function ($model) {
-                        return \Yii::$app->user->can('create_admin', ['post' => $model]);
+                        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()), 'name'));
+
+                        if ($userRole == 'admin' || $userRole == 'superadmin'){
+                            return true;
+                        }
                     },
                 ],
                 'buttons' => [
@@ -193,11 +185,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<i class="fa-solid fa fa-eye"></i>',
                             $url, ['class' => 'btn btn-sm btn-success']);
                     },
-                    'change-department' => function ($url, $model, $key) {     // render your custom button
-                        return Html::a(
-                            ' <i class="fa fa-share"></i>',
-                            $url, ['class' => 'btn ml-2 btn-sm btn-success']);
-                    },
+
                     'delete' => function ($url, $model, $key) {
                         return Html::a(
                             '<i class="fa fa-trash-alt"></i>',
