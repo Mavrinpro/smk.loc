@@ -52,4 +52,8 @@ class UserScore extends \yii\db\ActiveRecord
     public function getUser(){
         return $this->hasOne(\common\models\User::class, ['id' => 'user_id']);
     }
+
+    public function getCheck(){
+        return $this->hasOne(\app\models\Check::class, ['id' => 'check_id']);
+    }
 }

@@ -4,9 +4,12 @@ namespace frontend\controllers;
 
 use app\models\Protocol;
 use app\models\ProtocolSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
+use yii\helpers\Html;
 
 /**
  * ProtocolController implements the CRUD actions for Protocol model.
@@ -25,6 +28,23 @@ class ProtocolController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+
+                'access' => [
+                    'class' => AccessControl::class,
+
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['test', ' index'],
+                            'roles' => ['view_manager'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'upload' , 'delete', 'change-directory', 'change-department', 'view', 'cron-send-archive'],
+                            'roles' => ['create_admin', 'moderator', 'admin'],
+                        ],
                     ],
                 ],
             ]
@@ -55,6 +75,9 @@ class ProtocolController extends Controller
      */
     public function actionView($id)
     {
+        $mod = new Protocol();
+        $us = $this->findModel($id);
+        $mod->sendEmailnoty($mod->id);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -111,9 +134,20 @@ class ProtocolController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $files = $this->findModel($id);
+        $url = 'files/protocol/'.$files->department_id.'/'.$files->name;
+        if (file_exists($url)) {
+            unlink($url);
+            \Yii::$app->session->setFlash('success', 'Файл успешно удален');
+            $files->delete();
+            return $this->redirect(['index', 'department_id' => $files->department_id]);
+        }else{
+            \Yii::$app->session->setFlash('error', 'Файл не найден');
+        }
 
-        return $this->redirect(['index']);
+
+
+        return $this->redirect(['index', 'department_id' => $files->department_id]);
     }
 
     /**
@@ -130,5 +164,116 @@ class ProtocolController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    // Загрузка файлов Dropzone
+    public function actionUpload()
+    {
+        $department_id = \Yii::$app->request->get('department_id');
+        $fileName = 'file';
+        $uploadPath = './files/protocol/'.$department_id;
+        if (! FileHelper::createDirectory($uploadPath)) {
+            throw new \yii\base\ErrorException('Cannot create folder: ' . $uploadPath);
+        }
+        $files = new Protocol();
+        //$user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        if (isset($_FILES[$fileName])) {
+            FileHelper::localize ( $uploadPath.'/'.$files->name, $language = null, $sourceLanguage = null );
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+
+                $files->name = $file->name;
+                $files->department_id = $department_id; // id отдела
+                $files->create_at = time();
+                $files->user_id_create = \Yii::$app->user->getId();
+                $files->active = 1;
+                $files->save();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
+    }
+    
+    
+    public function actionChangeDepartment($id)
+    {
+        $model = $this->findModel($id);
+//        //var_dump(\Yii::$app->request->get('id')); die;
+//        $source_file = 'files/protocol/5/'.$model->name;
+//        $destination_path = 'files/protocol/14/'.$model->name;
+//        rename($source_file, $destination_path );
+//        $model->department_id = 14;
+//        $model->update();
+
+        $us = new \common\models\User();
+        $noty = new \app\models\Notyfication();
+        $bot_token = \app\models\Settings::find()->one();
+
+        if ($this->request->isPost){
+            $post = \Yii::$app->request->post('Protocol');
+            $user = \common\models\User::find()->where(['id' => $post['user_id_update'] ])->one();
+            //$telegram = \common\models\User::find()->where(['id' => $user->id])->one();
+            $source_file = 'files/protocol/'.$model->department_id.'/'.$model->name;
+            $destination_path = 'files/protocol/'.$user->department_id.'/'.$model->name;
+            $uploadPath = './files/protocol/'.$user->department_id;
+
+            if (!empty($post['user_id_update'])){
+                FileHelper::createDirectory($uploadPath);
+                rename($source_file, $destination_path );
+                $model->send_user_id = $post['user_id_update'];
+                $model->department_id = $user->department_id;
+                $model->update();
+                if(!empty($user->telegram_id)){
+                    $us->sendTelegramnotification($bot_token->bot_token, 'Вам передан файл', $user->telegram_id, date
+                    ('H:i:s | d.m.Y'), '123', '+79099999999', 'Alex'  );
+                }
+
+
+
+                $test = \app\models\Test::find()->where(['id' => $id])->one();
+
+                $noty->user_id = $user->id;
+                $noty->user_create_id = \Yii::$app->getUser()->id;
+                $noty->text = 'Вам передан файл: ';
+                $noty->text .= Html::a($model->name, ['view', 'id' => $model->id]);
+                $noty->create_at = time();
+                $noty->read = 0;
+                //var_dump($noty); die();
+                $noty->save();
+
+                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio.' - ' .
+                    $user->department_id);
+            }else{
+                \Yii::$app->session->setFlash('error', 'Сотрудник не выбран');
+            }
+
+            return $this->redirect(['change-department',
+                'id' => $id
+            ]);
+        }
+
+        return $this->render('change-department', [
+            //'department_id' => $model->department_id,
+            'model' => $model
+        ]);
+    }
+
+    public function actionCronSendArchive()
+    {
+        $protocol = Protocol::find()->where(['active' => 1])->andWhere(['not', ['send_user_id' => null]])->all();
+        //var_dump($protocol);
+        foreach ($protocol as $item) {
+            if ($item->create_at + 86400 < time()){
+                $item->department_id = 2;
+                $item->active = Protocol::DOCUMENT_ARCHIVE;
+                $item->update();
+            }
+            //return $item->create_at + '86400'.' - '. time();
+        }
     }
 }

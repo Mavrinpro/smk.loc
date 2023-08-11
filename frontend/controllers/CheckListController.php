@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\CheckList;
+use app\models\Notyfication;
 use app\models\Check;
 use app\models\CheckListSearch;
 use yii\web\Controller;
@@ -90,7 +91,7 @@ class CheckListController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'checkmodel' => $check,
+            //'checkmodel' => $check,
 
         ]);
     }
@@ -223,6 +224,7 @@ class CheckListController extends Controller
     //Отправить данные по пользователю
     public function actionSendUserData()
     {
+        $noty = new Notyfication();
         $post = \Yii::$app->request->post();
         $getId = \Yii::$app->request->get('id');
         $userScore = new \app\models\UserScore();
@@ -239,6 +241,15 @@ class CheckListController extends Controller
                 $userScore->check_id = $post['model'];
                 $userScore->save();
 
+                $noty->text = 'Ваша оценка за '.date('m.Y'). ' ('.$post['title'] .')  составила: '.$post['score_count'].
+                    ' баллов';
+                $noty->user_id = $post['userid'];
+                $noty->user_create_id = $post['user_create_id'];
+                $noty->create_at = time();
+                $noty->read = 0;
+                $noty->save();
+
+
                 $userCount =  \app\models\UserScore::find()->where(['user_id' => $post['userid']])->orderBy('id DESC')->one();
                 $user =  \common\models\User::find()->where(['id' => $post['userid']])->one();
             }
@@ -248,7 +259,7 @@ class CheckListController extends Controller
                 'user' => $user,
                 'usercount' => $userCount,
                 'html' => '<tr><td><b>'.date('d.m.Y', $userCount->create_at).'</b></td><td>'.$user->username.'</td><td>'
-                        .$userCount->score.'</td></tr>',
+                    .$userCount->score.'</td></tr>',
                 'scoreUser' => $scoreUser
             ];
 

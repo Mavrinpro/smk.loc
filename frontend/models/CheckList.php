@@ -80,4 +80,10 @@ class CheckList extends \yii\db\ActiveRecord
             'active' => 'Active',
         ];
     }
+
+    public function getTest()
+    {
+        return $this->hasOne(\app\models\Check::class, ['id' => 'service_id']);
+    }
+
 }

@@ -1,30 +1,26 @@
+<?php
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+?>
 <ul class="todo-list-wrapper list-group list-group-flush">
+    <?php if ($model->status == 10){ ?>
     <li class="list-group-item">
         <div class="todo-indicator bg-focus"></div>
         <div class="widget-content p-0">
             <div class="widget-content-wrapper">
-                <div class="widget-content-left mr-2">
-                    <div class="custom-checkbox custom-control">
-                        <input type="checkbox" id="exampleCustomCheckbox<?= $model->id ?>" class="custom-control-input">
-                        <label class="custom-control-label" for="exampleCustomCheckbox<?= $model->id ?>">&nbsp;</label>
-                    </div>
-                </div>
+
                 <div class="widget-content-left">
-                    <?php if ($model->status == 10){ ?>
-                    <div class="widget-heading text-success"><?= $model->username ?></div>
+
+                    <div class="widget-heading " id="user-<?= $model->id ?>">
+                        <?= Html::a
+                        ($model->username, ['view', 'id' => $model->id], [
+                            'class' => 'dropdown-item text-success',
+                        ]) ?>
+                    </div>
                         <div class="widget-subheading">
                             <div>Активный
-
                             </div>
                         </div>
-                    <?php }else{ ?>
-                    <div class="widget-heading text-danger"><?= $model->username ?></div>
-                        <div class="widget-subheading">
-                            <div>Не активный
-
-                            </div>
-                        </div>
-                    <?php } ?>
 
                 </div>
                 <div class="widget-content-right widget-content-actions">
@@ -36,11 +32,18 @@
                             <h6 tabindex="-1" class="dropdown-header">Header</h6>
                             <button type="button" disabled="" tabindex="-1" class="disabled dropdown-item">Action</button>
                             <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
-                            <button type="button" tabindex="0" class="dropdown-item">Удалить</button>
+                            <?= Html::a('Удалить', ['delete-user', 'id' => $model->id], [
+                                'class' => 'dropdown-item',
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to delete this item?',
+                                    'method' => 'get',
+                                ],
+                            ]) ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </li>
+    <?php } ?>
 </ul>

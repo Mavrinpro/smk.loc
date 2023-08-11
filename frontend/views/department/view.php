@@ -15,19 +15,38 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Отделы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
 \yii\web\YiiAsset::register($this);
+
 ?>
 
-<?= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
-<?= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
-<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa
-fa-user"></i> Добавить
-    сотрудника</a>
+<?//= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
+<!--<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa-->
+<!--fa-user"></i> Добавить-->
+<!--    сотрудника</a>-->
 <div class="row">
+    <div class="col-md-12 mb-3">
+        <?php
+        echo \kato\DropZone::widget([
+            'options' => [
+                    'url' => '/site/upload/?id='.$model->id,
+                 'maxFilesize' => '10',
+                'dictDefaultMessage' => 'Перетащите файлы в эту область'
+            ],
+            'clientEvents' => [
+                'complete' => "function(file){
+                
+                console.log(file)
+                }",
+                'removedfile' => "function(file){alert(file.name + ' is removed')}"
+            ],
+        ]);
+        echo '<input type="hidden" name="department_id" value="'.$model->id.'">'
+        ?></div>
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
                 <div class="col-sm-3">
-                    <?= Html::a('<i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов', ['/protocol'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-primary']) ?>
+                    <?= Html::a('<i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов', ['/protocol', 'department_id' => $model->id], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-primary']) ?>
                 </div>
                 <div class="col-sm-3">
                     <?= Html::a('<i class="lnr-license btn-icon-wrapper"> </i>Приказы', ['/order'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-secondary']) ?>
@@ -109,6 +128,102 @@ fa-user"></i> Добавить
     <?php } ?>
 </div>
 <div class="row">
+    <?php
+    foreach ($files as $file) {
+        //var_dump($files); die();
+
+        $url = 'files/';
+        $path_parts = pathinfo('/'.$url.$file->name);
+
+        $files = scandir('files/');
+        // $files2 = scandir($dir, 1);
+
+        //print_r($files1);
+        //print_r($files2);
+        //var_dump($files);
+        $ras = explode('.', $file->name);
+
+        //$kb = filesize("files/".$file->name);
+        //echo $url.$file->name;
+
+        //echo $url.$file->name;
+        switch ($path_parts['extension']) {
+            case 'xlsx':
+                $ind = '/img/icon_xlsx.png';
+                break;
+            case 'xls':
+                $ind = '/img/icon_xls.png';
+                break;
+            case 'txt':
+                $ind = '/img/icon_txt.png';
+                break;
+            case 'zip':
+                $ind = '/img/icon_zip.png';
+                break;
+            case 'json':
+                $ind = '/img/icon_js.png';
+                break;
+            case 'csv':
+                $ind = '/img/icon_csv.png';
+                break;
+            case 'docx':
+                $ind = '/img/icon_doc.png';
+                break;
+            case 'pdf':
+                $ind = '/img/icon_pdf.png';
+                break;
+            case 'png':
+                $ind = '/img/icon_png.png';
+                break;
+            case 'jpeg':
+                $ind = '/img/icon_jpg.png';
+                break;
+            case 'html':
+                $ind = '/img/icon_html.png';
+                break;
+            case 'psd':
+                $ind = '/img/icon_psd.png';
+                break;
+            case 'jpg':
+                $ind = '/img/icon_jpg.png';
+                break;
+            case 'MP4':
+                $ind = '/img/icon_mp4.png';
+                break;
+            case 'JPG':
+                $ind = '/img/icon_jpg.png';
+                break;
+            default:
+                $ind = '/img/icon_file.png';
+        }
+
+        if (!empty($file->name)) {
+            $kb = filesize("files/".$file->name);
+
+            echo '<div class="col-md-2 text-center mt-3"><div class="div_img">';
+
+            echo '<img src="' . $ind . '" width="40" data-id="'.$file->id.'" data-title="'.$file->title.'" class="file_upload"></br>';
+            //clearstatcache();
+            echo '<span class="badge badge-pill">'.round($kb / 1024, 1).'kb</span></br>';
+
+
+            if ($file->title != null){
+                echo Html::a($file->title, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>";
+            }else{
+                echo Html::a($file->name, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>"; //
+            }
+
+            //echo '<a href="/doctors/remove-document/'.$file->id.'" >&times</a>';
+            echo Html::a('&times', ['remove-document', 'id' => $file->id, 'modelid' => $model->id], ['class' =>
+                'badge badge-pill badge-danger', 'data-confirm' => Yii::t('yii', 'Удалить файл: '.$file->name.'?')]);
+            echo '</div></div>';
+
+        }
+    }
+
+    ?>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="drawer-section p-0">
             <div class="files-box">
@@ -175,9 +290,10 @@ fa-user"></i> Добавить
         </div>
     </div>
 </div>
-<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa
-fa-user"></i> Добавить
-    сотрудника</a>
+
+<!--<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 mt-3"><i class="fa-->
+<!--fa-user"></i> Добавить-->
+<!--    сотрудника</a>-->
 <?php if (sizeof($user) > 0) { ?>
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -264,8 +380,20 @@ fa-user"></i> Добавить
 
 <?php
 $js = <<<JS
+  
+
+$('.file_upload').click(function (){
+    var id = $(this).data('id');
+    var title = $(this).data('title');
+    $('#files-id').val(id);
+    $('#files-title').val(title);
+    $('#werex').modal('show');
+    console.log(1)
+}) 
+
 
 JS;
+
 $this->registerJs($js);
 ?>
 

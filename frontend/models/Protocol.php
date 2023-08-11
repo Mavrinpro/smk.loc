@@ -19,6 +19,7 @@ use Yii;
  */
 class Protocol extends \yii\db\ActiveRecord
 {
+    const DOCUMENT_ARCHIVE = 0;
     /**
      * {@inheritdoc}
      */
@@ -46,14 +47,42 @@ class Protocol extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя файла',
             'department_id' => 'Department ID',
-            'create_at' => 'Create At',
-            'update_at' => 'Update At',
+            'create_at' => 'Дата создания',
+            'update_at' => 'Дата обновления',
             'user_id_create' => 'User Id Create',
-            'user_id_update' => 'User Id Update',
+            'user_id_update' => 'Кто обновил',
             'active' => 'Active',
-            'send_user_id' => 'Send User ID',
+            'send_user_id' => 'Кому передан',
         ];
+    }
+
+    public function getUser(){
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id_create']);
+    }
+
+    public function getDepartment(){
+        return $this->hasOne(\app\models\Department::className(), ['id' => 'department_id']);
+    }
+
+    public function Brancher($id){
+        return \app\models\Branch::find()->where(['id' => $id])->one();
+    }
+
+    // Уведомление на email о передаче файла
+    public function sendEmailnoty($user)
+    {
+      
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'nity-html', 'text' => 'nity-html'],
+            ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo('g.katarakta@gmail.com')
+            ->setSubject('yyyyyyyyyyyyyyyyyyyy ' . Yii::$app->name)
+            ->send();
     }
 }

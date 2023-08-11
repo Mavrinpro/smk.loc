@@ -13,6 +13,7 @@ use yii\widgets\Pjax;
 
 $this->title = 'Результаты тестирования';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -25,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th>Тест</th>
                 <th>Сотрудник</th>
                 <th>Дата</th>
+                <th>Удалить</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +37,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             $itemq->test_id, 'user_id' => $itemq->user_id, 'res' => $itemq->id], ['class' => ' btn btn-outline-link'])
                         ?></td>
                     <td><i class="fa fa-clock"></i> <?= date('d.m.Y H:i:s', $itemq->date_end_test) ?></td>
+                    <td><?= Html::a('<i class="fa fa-trash"></i> ', ['delete-result-test', 'id' =>$itemq->id ,'test_id' =>
+                            $itemq->test_id, 'user_id' => $itemq->user_id, 'res' => $itemq->id, 'department_id' =>
+                            \Yii::$app->request->get('department_id')], ['class' =>
+                            ' btn btn-xs btn-outline-danger', 'data' => [
+                            'method' => 'post',
+                            'confirm' => 'Удалить результат тестирования этого сотрудника?',
+                            'params' => [
+                                'id' => 6,
+                                'param2' => 'value2',
+                            ],
+                        ]])
+                        ?></td>
                 </tr>
 
             <?php } ?>
