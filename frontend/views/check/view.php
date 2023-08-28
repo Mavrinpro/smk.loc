@@ -236,8 +236,6 @@ JS;
         </div>
     </div>
 </div>
-
-
 <?php
 $js = <<<JS
   
