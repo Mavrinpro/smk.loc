@@ -1,0 +1,56 @@
+Message-ID: <8dd9784e65ab6933fb707abab18547b1@smk.glazcentre.ru>
+Date: Wed, 19 Jul 2023 08:48:21 +0300
+Subject: Password reset for =?utf-8?Q?=D0=A1=D0=9C=D0=9A_?=
+ =?utf-8?Q?=D0=93=D0=BB=D0=B0=D0=B7=D0=A6=D0=B5=D0=BD=D1=82=D1=80?=
+From: =?utf-8?Q?=D0=A1=D0=9C=D0=9A_=D0=93=D0=BB=D0=B0=D0=B7?=
+ =?utf-8?Q?=D0=A6=D0=B5=D0=BD=D1=82=D1=80?= robot <mailer@glazcentre.ru>
+To: design@glazcentre.ru
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="_=_swift_1689745701_6551f00aa807250c17e25d18f7ebd3a7_=_"
+
+
+--_=_swift_1689745701_6551f00aa807250c17e25d18f7ebd3a7_=_
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello yii,
+
+Follow the link below to reset your password:
+
+https://=
+smk.glazcentre.ru/site/reset-password?token=3DgwWiI7U549YjydrQgf1QUhJu2hZpr=
+Zt-_1689745701
+
+--_=_swift_1689745701_6551f00aa807250c17e25d18f7ebd3a7_=_
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns=3D"http://www.w3.org/1999/=
+xhtml">
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/ht=
+ml; charset=3DUTF-8" />
+    <title></title>
+    </head>
+<body>
+    =
+    <div class=3D"password-reset">
+    <p>Hello yii,</p>
+
+    <p>Foll=
+ow the link below to reset your password:</p>
+
+    <p><a href=3D"https:=
+//smk.glazcentre.ru/site/reset-password?token=3DgwWiI7U549YjydrQgf1QUhJu2hZ=
+prZt-_1689745701">https://smk.glazcentre.ru/site/reset-password?token=3DgwW=
+iI7U549YjydrQgf1QUhJu2hZprZt-_1689745701</a></p>
+</div>
+    </body>
+<=
+/html>
+
+
+--_=_swift_1689745701_6551f00aa807250c17e25d18f7ebd3a7_=_--
