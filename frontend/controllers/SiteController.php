@@ -2,10 +2,12 @@
 
 namespace frontend\controllers;
 
+use app\models\Files;
 use frontend\models\IndexForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
+use \common\models\User;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -18,6 +20,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\swiftmailer;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -42,7 +45,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout' , 'confirm-email', 'reset-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -80,19 +83,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-//        Yii::$app->mailer->compose()
-//            ->setFrom('blourator@yandex.ru')
-//            ->setTo('mavrin79@mail.ru')
-//            ->setSubject('Тестинг сообщений5555555555555555')
-//            ->setTextBody('body')
-//            ->send();
-$model = new IndexForm();
-        $this->view->registerMetaTag(
-            ['name' => 'description', 'content' => 'Уничтожение документов проводиться опытными архивистами мы приступаем к работе на следующий день после заключения договора. Процесс утилизации 1 тонны бумаг занимает 10 минут']
-        );
-        return $this->render('index',[
-            'model' => $model
-        ]);
+
+        $userId = \Yii::$app->getUser()->id;
+        $user = User::findOne(['id' => $userId]);
+        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+            'name'));
+
+      if ($userRole == 'admin' || $userRole == 'superadmin'){
+          return $this->render('index',[
+              //'model' => $model,
+              'user' => $user
+          ]);
+      }else{
+
+          return $this->redirect(['/department/view', 'id' => $user->department_id]);
+      }
+
     }
 
     /**
@@ -163,10 +169,14 @@ $model = new IndexForm();
      */
     public function actionSignup()
     {
+        $this->layout = 'login';
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            $roleUser = \Yii::$app->authManager->getRole('user');
+            $user = \common\models\User::find()->orderBy('id DESC')->one();
+            \Yii::$app->authManager->assign($roleUser, $user->getId());
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->render('confirm');
         }
 
         return $this->render('signup', [
@@ -181,6 +191,7 @@ $model = new IndexForm();
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout = 'login';
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -213,7 +224,7 @@ $model = new IndexForm();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Новый пароль установлен.');
 
             return $this->goHome();
         }
@@ -265,5 +276,70 @@ $model = new IndexForm();
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionConfirm()
+    {
+        $this->layout = 'login';
+        return $this->render('confirm');
+    }
+
+    public function actionAjaxSelect()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $department = \app\models\Department::find()->where(['branch_id' => $post['id']])->all();
+        $arr = [];
+        $arr['label'] = '<label for="signupform-department_id">Отдел</label>';
+        $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
+        $arr['opt_empty'] = '<option value="">Выберите свой отдел</option>';
+        foreach ($department as $item) {
+            $arr['id'][] = '<option value="'.$item->id.'">'.$item->name.'</option>';
+            //$arr['name'][] = $item->name;
+        }
+        $arr['sel_close'] = '</select>';
+        return $arr;
+    }
+
+    // сменить роль пользователя
+    public function actionRoles()
+    {
+        $manager = Yii::$app->authManager;
+        //$item = $manager->getRole('user');
+        //$item = $item ? : $manager->getPermission('user');
+        //$manager->revoke($item,'48');
+
+        $authorRole = $manager->getRole('admin');
+        $manager->assign($authorRole, 48);
+    }
+
+
+    // Загрузка файлов Dropzone
+    public function actionUpload()
+    {
+        $fileName = 'file';
+        $uploadPath = './files';
+        $files = new Files();
+        $user = \common\models\User::find()->where(['id' => Yii::$app->user->getId()])->one();
+        $get = Yii::$app->request->post('department_id');
+        if (isset($_FILES[$fileName])) {
+            $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+
+            //Print file data
+            //print_r($file);
+
+            if ($file->saveAs($uploadPath . '/' . $file->name)) {
+                //var_dump(\Yii::$app->request->post()); die;
+                //Now save file data to database
+                $files->name = $file->name;
+                $files->department_id = Yii::$app->request->get('id'); // id отдела
+                $files->date_at = time();
+                $files->user_id = Yii::$app->user->getId();
+                $files->save();
+                echo \yii\helpers\Json::encode($file->name);
+            }
+        }
+
+        return false;
     }
 }

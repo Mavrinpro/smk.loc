@@ -56,20 +56,4 @@ class Plan extends \yii\db\ActiveRecord
             'send_user_id' => 'Send User ID',
         ];
     }
-
-    public function getUser(){
-        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id_create']);
-    }
-
-    public function getUsersend(){
-        return $this->hasOne(\common\models\User::className(), ['id' => 'send_user_id']);
-    }
-
-    public function getDepartment(){
-        return $this->hasOne(\app\models\Department::className(), ['id' => 'department_id']);
-    }
-
-    public function Brancher($id){
-        return \app\models\Branch::find()->where(['id' => $id])->one();
-    }
 }

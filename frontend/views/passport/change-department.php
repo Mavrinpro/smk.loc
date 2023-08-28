@@ -49,7 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group mr-md-3">
 
 
+<<<<<<< HEAD
         <?= $form->field($model, 'user_id_update')->dropDownList(ArrayHelper::map(common\models\User::find()->where(['status' => 10])
+=======
+        <?= $form->field($model, 'send_user_id')->dropDownList(ArrayHelper::map(common\models\User::find()->where(['status' => 10])
+>>>>>>> origin/master
             ->asArray()->all(), 'id', 'fio'), ['prompt' => 'Выберите сотрудника'])->label('Фио сотрудника')
         ?>
     </div>

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\CheckList $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index?department_id='.$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -26,15 +26,34 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии', ['check-list/create', 'check_id' =>
             \Yii::$app->request->get('id')],
             ['class' => 'btn 
-        btn-success']) ?>
+        btn-success']);
+        if($model->department_id == 4){ ?>
+            <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии Да/Нет', ['check-list-medical/create', 'check_id' =>
+                \Yii::$app->request->get('id'), 'department_id' =>  \Yii::$app->request->get('department_id')],
+                ['class' => 'btn 
+        btn-outline-warning']) ?>
+        <?php } ?>
+
 
         <?= Html::a('<i class="fa fa-trash"></i> Очистить все оценки', ['check/clear-score', 'check_id' =>
-            \Yii::$app->request->get('id')],
+            \Yii::$app->request->get('id'), 'department_id' => \Yii::$app->request->get('department_id')],
             ['class' => 'btn btn-danger', 'data' => [
-                        'confirm' => 'Хотите очистить все?',
-                        'method' => 'post',
-                    ],
-        ]) ?>
+                'confirm' => 'Хотите очистить все?',
+                'method' => 'post',
+            ],
+            ]) ?>
+
+        <?= Html::a('<i class="fa fa-edit"></i>', ['update', 'id' => $model->id],
+            ['class' => 'btn 
+        btn-primary','data' => [
+
+                'method' => 'post',
+                'params' => [
+                    'id' => $model->id,
+                    'department_id' => $model->department_id,
+                    'check' => $model->id,
+                ]
+            ],]) ?>
     </p>
 
     <!--    --><? //= DetailView::widget([
@@ -61,12 +80,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12">
 
         <?php
-        var_dump($scoreUser);
+        //var_dump($user);
         if (sizeof($user) > 0) { ?>
             <select name="user_check" id="user_check" class="mb-2 form-control">
                 <option value="0" selected="selected">Выбрать сотрудника</option>
                 <?php foreach ($user as $item) {
-                    echo '<option value="' . $item->id . '">' . $item->username . '</option>>';
+                    echo '<option value="' . $item->id . '">' . $item->fio . '</option>>';
                 } ?>
             </select>
         <?php } else {
@@ -94,7 +113,7 @@ JS;
                 <tr>
                     <th>#</th>
                     <th>Критерий</th>
-                    <th>Lasik</th>
+                    <th>Критерий</th>
                     <th>Баллы</th>
                     <th class="phone_editable" data-model="<?= $model->id
                     ?>" data-type="num1"><?= $check[0]->phone1 ?></th>
@@ -108,7 +127,17 @@ JS;
                 <?php foreach ($check as $items): ?>
                     <tr>
                     <?php if ($items->text2 != null): ?>
-                        <td rowspan="2"><?php echo $items->id; ?></td>
+                        <td rowspan="2"><?= Html::a('<i class="fa fa-trash"></i>', ['/check/delete-checklist'],
+                                ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    'confirm' => 'Хотите удалить запись?',
+                                    'method' => 'post',
+                                    'params' => [
+                                        'id' => $items->id,
+                                        'department_id' => $model->department_id,
+                                        'check' => $model->id,
+                                    ]
+                                ],
+                                ]) ?></td>
                         <td rowspan="2"><?php echo $items->name; ?></td>
                         <td><?php echo $items->text1; ?></td>
                         <td class="editable score" data-id="<?= $items->id ?>" data-type="score1" data-model="<?=
@@ -149,7 +178,17 @@ JS;
                                 ?></td>
                         </tr>
                     <?php else: ?>
-                        <td><?php echo $items->id; ?></td>
+                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['/check/delete-checklist'],
+                                ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                    'confirm' => 'Хотите удалить запись?',
+                                    'method' => 'post',
+                                    'params' => [
+                                        'id' => $items->id,
+                                        'department_id' => $model->department_id,
+                                        'check' => $model->id,
+                                    ]
+                                ],
+                                ]) ?></td>
                         <td><?php echo $items->name; ?></td>
                         <td><?php echo $items->text1; ?></td>
                         <td class="editable score" data-id="<?= $items->id ?>" data-type="score1" data-model="<?=
@@ -193,7 +232,8 @@ JS;
         <h3>По завершении отправьте данные по выбранному сотруднику в базу</h3>
         <!--    --><? //= Html::button('<i class="fa fa-paper-plane"></i> Отправить данные', ['', 'check_id' =>
         //        \Yii::$app->request->get('id')], ['class' => 'btn btn-dark btn-lg mb-5', 'id' => 'send_user_data']) ?>
-        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data" data-model="<?= $model->id ?>"><i
+        <button type="button" class="btn btn-dark btn-lg mb-5" id="send_user_data" data-model="<?= $model->id ?>"
+                data-user_create_id="<?= \Yii::$app->user->getId() ?>" data-title="<?= $model->name ?>"><i
                     class="fa
         fa-paper-plane"></i>
             Отправить
@@ -202,281 +242,446 @@ JS;
     </div>
     <div class="col-md-12">
         <div id="user-data-backend">
-            <table class="mb-0 table table-bordered" id="tabledata">
-                <thead>
-                <tr>
-                    <th>Дата</th>
-                    <th>Сотрудник</th>
-                    <th>Баллы</th>
-                    <th style="width: 30px">Удалить</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($scoreall as $score) { ?>
-                    <tr>
-                        <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
-                        <td><?= $score->user->username ?></td>
-                        <td><?= $score->score ?></td>
-                        <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
-                                $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
-                                ['class' => 'btn btn-danger btn-sm', 'data' => [
-                                    'confirm' => 'Хотите удалить запись?',
-                                    'method' => 'post',
-                                    'params' => [
-                                            'department_id' => $model->department_id
-                                    ]
-                                ],
-                                ]) ?></td>
-                    </tr>
-                <?php } ?>
 
-                <span></span>
-                </tbody>
-            </table>
+            <?php  if (sizeof($checklistMedical) > 0){ ?>
+                <table  class="table table-bordered table-hover">
+                    <thead class="bg-dark text-light">
+                    <tr>
+
+                        <th>#</th>
+                        <th>Критерий</th>
+                        <th><span class="text-success">Да</span></th>
+                        <th><span class="text-warning">Нет</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+
+                    foreach ($checklistMedical as $itemq) {
+
+
+                        ?>
+                        <tr>
+                            <td><?= Html::a('<i class="fa fa-trash"></i>', ['check-list-medical/delete', 'id' =>
+                                    $itemq->id, 'department_id' => \Yii::$app->request->get('department_id')],
+                                    ['class' => 'btn btn-outline-danger btn-sm', 'data' => [
+                                        'confirm' => 'Хотите удалить критерий?',
+                                        'method' => 'post',
+                                        'params' => [
+                                            'department_id' => \Yii::$app->request->get('department_id'),
+                                            'id' => $itemq->id,
+                                            'check_id' => $model->id
+                                        ]
+                                    ],
+                                    ]) ?></td>
+                            <td class="w-100"><?= $itemq->name ?></td>
+
+                            <td>
+                                <div class="custom-checkbox custom-control">
+                                    <?php if ($itemq->active === 1): ?>
+                                    <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                                    ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                           data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                                    <?php else: ?>
+                            <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                   data-res="<?= \Yii::$app->request->get('res') ?>">
+                            <?php endif; ?>
+                                    <label class="custom-control-label"
+                                           for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="custom-checkbox custom-control">
+                        <?php if ($itemq->active === 0): ?>
+                                    <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                                    ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                           data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                        <?php else: ?>
+                            <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
+                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                   data-res="<?= \Yii::$app->request->get('res') ?>">
+                        <?php endif; ?>
+                                    <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    <?php } ?>
+
+                    </tbody>
+                </table>
+                <div class="alert alert-success">Результат: <b><span id="result_count"><?= $countResult; ?>%</span></b></div>
+           <? }else{ ?>
+                <table class="mb-0 table table-bordered" id="tabledata">
+                    <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Сотрудник</th>
+                        <th>Баллы</th>
+                        <th style="width: 30px">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    //var_dump($scoreall);
+                    foreach ($scoreall as $score) { ?>
+                        <tr>
+                            <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
+                            <td><?= $score->user->username ?></td>
+                            <td><?= $score->score ?></td>
+                            <td><?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-user-score', 'id' =>
+                                    $score->id, 'check_id' => $model->id, 'department_id' => $model->department_id],
+                                    ['class' => 'btn btn-danger btn-sm', 'data' => [
+                                        'confirm' => 'Хотите удалить запись?',
+                                        'method' => 'post',
+                                        'params' => [
+                                            'department_id' => $model->department_id
+                                        ]
+                                    ],
+                                    ]) ?></td>
+                        </tr>
+                    <?php } ?>
+
+                    <span></span>
+                    </tbody>
+                </table>
+            <?php } ?>
         </div>
     </div>
 </div>
 <?php
 $js = <<<JS
   
-var loading = '<div class="blockUI blockOverlay" style="display: none; border: none; margin: 0px; padding: 0px;'+ 
-'width: 100%; height: 100%; top: 0px; left: 0px; position: absolute;">'+
-'<div class="blockUI undefined blockElement" style="position: absolute;"><div class="loader mx-auto">'+
-'<div class="line-scale-pulse-out"><div class="bg-success"></div><div class="bg-success"></div><div '+
-'class="bg-success"></div>'+
-'<div class="bg-success"></div><div class="bg-success"></div></div></div></div></div>';
+// var loading = '<div class="blockUI blockOverlay" style="display: none; border: none; margin: 0px; padding: 0px;'+ 
+// 'width: 100%; height: 100%; top: 0px; left: 0px; position: absolute;">'+
+// '<div class="blockUI undefined blockElement" style="position: absolute;"><div class="loader mx-auto">'+
+// '<div class="line-scale-pulse-out"><div class="bg-success"></div><div class="bg-success"></div><div '+
+// 'class="bg-success"></div>'+
+// '<div class="bg-success"></div><div class="bg-success"></div></div></div></div></div>';
 $(function(){
-    $('td.editable').each(function (){
-        var th = $(this);
-        $(this).editable('click', function (e){
-             
-            if (e.value == undefined){
-                return false;
-            }else{
-             if ( e.value == ''){
-                  e.value = null;
-             }
-            $.ajax({
+    
+    $('[id^="checkbox_right"]').change(function (event){
+        //console.log('event');
+    var id = $(this).data('id');
+    var num = null;
+    var user_id = $(this).data('user_id');
+    var test_id = $(this).data('test_id');
+    var res = $(this).data('res');
+    
+    if ($(this).is(':checked')){
+        $("#checkbox_left-"+id).prop('checked', false);
+	num = 1;
+} else {
+	num = null;
+    $("#checkbox_left-"+id).prop('checked', false);
+}
+    $.ajax({
             
-            url: '/check-list/ajax-table',
+            url: '/check-list-medical/checkbox-right',
             type: 'POST',
             data: {
-                id: th.data('id'),
-                score: th.data('type'),
-                val: Number(e.value)
+                id: id,
+                num: num,
+                user_id: user_id,
+                test_id: test_id,
+                res: res,
+                //val: Number(e.value)
             },
             dataType: 'JSON',
             success: function(res){
-                console.log($('#user_check').val());
-                if (res.val != '' && res.val != '0' && res.val != 'NaN'){
-                toastr.success('', 'Данные успешно сохранены!', {
+                console.log(res);
+                $('#result_count').html('<b>'+res+"%</b>");
+                               
+            },
+            error: function(){
+                console.log('Error!');
                 
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                } else{
-                    toastr.error('', 'Вы не указали значение!', {
-                
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                }
-                setTimeout(function (){
-                    $.ajax({
+            }
+        })
+})
+    
+    
+    //===============================================
+$('[id^="checkbox_left"]').click(function (){
+    var id = $(this).data('id')
+     var num = null;
+    var res = $(this).data('res');
+  
+   var user_id = $(this).data('user_id');
+    var test_id = $(this).data('test_id');
+    if ($(this).is(':checked')){
+         $("#checkbox_right-"+id).prop('checked', false);
+         //console.log($("#checkbox_right"+id));
+        
+	num = 1;
+} else {
+          //$("#checkbox_right-"+id).prop('checked', false);
+	num = null;
+}
+    
+    $.ajax({
             
-            url: '/check/ajax-count',
+            url: '/check-list-medical/checkbox-left',
             type: 'POST',
             data: {
-                id: th.data('id'),
-                score: th.data('type'),
-                val: e.value,
-                modelid: th.data('model')
+                id: id,
+                num: num,
+                user_id: user_id,
+                test_id: test_id,
+                res: res,
             },
             dataType: 'JSON',
             success: function(res){
-                //console.log(res);
-                $('#score_count').text(Number(res.check1) + Number(res.check2));
-                $('#score_count1').text(res.col1);
-                $('#score_count2').text(res.col2);
-                $('#score_count3').text(res.col3);
-                $('#score_count4').text(res.count);
+                console.log(res);
+                  $('#result_count').html('<b>'+res+"%</b>");             
             },
             error: function(){
-                //search_form_header.find('.result_search').html('').css('display', 'none');
-                alert('Error!');
+                console.log('Error!');
             }
         })
-                },1500)
-                 //console.log(res);
-            },
-            error: function(){
-                //search_form_header.find('.result_search').html('').css('display', 'none');
-                alert('Error!');
-            }
-        })
-            }
-
-        })
-    })
+})
+    
+//    $('td.editable').each(function (){
+//        var th = $(this);
+//        $(this).editable('click', function (e){
+//             
+//            if (e.value == undefined){
+//                return false;
+//            }else{
+//             if ( e.value == ''){
+//                  e.value = null;
+//             }
+//            $.ajax({
+//            
+//            url: '/check-list/ajax-table',
+//            type: 'POST',
+//            data: {
+//                id: th.data('id'),
+//                score: th.data('type'),
+//                val: Number(e.value)
+//            },
+//            dataType: 'JSON',
+//            success: function(res){
+//                console.log($('#user_check').val());
+//                if (res.val != '' && res.val != '0' && res.val != 'NaN'){
+//                toastr.success('', 'Данные успешно сохранены!', {
+//                
+//                   timeOut: 5000,
+//                   closeButton: true,
+//                   progressBar: true
+//               });
+//                } else{
+//                    toastr.error('', 'Вы не указали значение!', {
+//                
+//                   timeOut: 5000,
+//                   closeButton: true,
+//                   progressBar: true
+//               });
+//                }
+//                setTimeout(function (){
+//                    $.ajax({
+//            
+//            url: '/check/ajax-count',
+//            type: 'POST',
+//            data: {
+//                id: th.data('id'),
+//                score: th.data('type'),
+//                val: e.value,
+//                modelid: th.data('model')
+//            },
+//            dataType: 'JSON',
+//            success: function(res){
+//                //console.log(res);
+//                $('#score_count').text(Number(res.check1) + Number(res.check2));
+//                $('#score_count1').text(res.col1);
+//                $('#score_count2').text(res.col2);
+//                $('#score_count3').text(res.col3);
+//                $('#score_count4').text(res.count);
+//            },
+//            error: function(){
+//                //search_form_header.find('.result_search').html('').css('display', 'none');
+//                alert('Error!');
+//            }
+//        })
+//                },1500)
+//                 //console.log(res);
+//            },
+//            error: function(){
+//                //search_form_header.find('.result_search').html('').css('display', 'none');
+//                alert('Error!');
+//            }
+//        })
+//            }
+//
+//        })
+//    })
     
 });
 // Изменить телефон
-$('th.phone_editable').each(function (){
-    var th = $(this);
-    $(this).editable('click', function (e){
-             
-            if (e.value == undefined){
-                return false;
-            }else{
-             if ( e.value == ''){
-                  e.value = null;
-             }
-            $.ajax({
-            
-            url: '/check-list/ajax-change-phone',
-            type: 'POST',
-            data: {
-                id: th.data('model'),
-                score: th.data('type'),
-                val: Number(e.value)
-            },
-            dataType: 'JSON',
-            success: function(res){
-                console.log(res);
-                if (res.val != '' && res.val != '0' && res.val != 'NaN'){
-                toastr.success('', 'Данные успешно сохранены!', {
-                
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                } else{
-                    toastr.error('', 'Вы не указали значение!', {
-                
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                }
-                
-            },
-            error: function(){
-                alert('Error!');
-            }
-        })
-            }
-
-        })
-});
+// $('th.phone_editable').each(function (){
+//     var th = $(this);
+//     $(this).editable('click', function (e){
+//             
+//             if (e.value == undefined){
+//                 return false;
+//             }else{
+//              if ( e.value == ''){
+//                   e.value = null;
+//              }
+//             $.ajax({
+//            
+//             url: '/check-list/ajax-change-phone',
+//             type: 'POST',
+//             data: {
+//                 id: th.data('model'),
+//                 score: th.data('type'),
+//                 val: Number(e.value)
+//             },
+//             dataType: 'JSON',
+//             success: function(res){
+//                 console.log(res);
+//                 if (res.val != '' && res.val != '0' && res.val != 'NaN'){
+//                 toastr.success('', 'Данные успешно сохранены!', {
+//                
+//                    timeOut: 5000,
+//                    closeButton: true,
+//                    progressBar: true
+//                });
+//                 } else{
+//                     toastr.error('', 'Вы не указали значение!', {
+//                
+//                    timeOut: 5000,
+//                    closeButton: true,
+//                    progressBar: true
+//                });
+//                 }
+//                
+//             },
+//             error: function(){
+//                 alert('Error!');
+//             }
+//         })
+//             }
+//
+//         })
+// });
 
 // selected
 
-(function(){
-    var select = document.querySelector('#user_check');
-    if (localStorage.selectedIndex !== undefined) {
-        select.selectedIndex = localStorage.selectedIndex;
-    }
-    select.onchange = function() {
-        localStorage.selectedIndex = this.selectedIndex;
-    }
-})()
+// (function(){
+//     var select = document.querySelector('#user_check');
+//     if (localStorage.selectedIndex !== undefined) {
+//         select.selectedIndex = localStorage.selectedIndex;
+//     }
+//     select.onchange = function() {
+//         localStorage.selectedIndex = this.selectedIndex;
+//     }
+// })()
 
 // send user data
-$('#send_user_data').on('click', function (){
-    $('#tabledata').append(loading);
-    var userId = $('#user_check').val();
-    var score_count = $('#score_count4').text();
-    var modelId = $(this).data('model');
-    if (userId == 0 || userId == ''){
-       Swal.fire({
-title: 'Сотрудник не выбран.',
-confirmButtonColor: '#f44336',
-icon: "warning",
-type: 'warning',
- customClass: 'reeee',
-});
-       $('.blockUI').remove();
-       return false;
-    }
-    if (score_count == 0){
-         Swal.fire({
-title: 'Сначала оцените сотрудника.',
-confirmButtonColor: '#f44336',
-icon: "warning",
-type: 'warning',
- customClass: 'reeee',
-});
-         $('.blockUI').remove();
-       return false;
-    }
-    
-    $(this).find('.fa').removeClass('fa-paper-plane');
-    $(this).find('.fa').addClass('spinner-grow spinner-grow-sm');
-    $.ajax({
-            
-            url: '/check-list/send-user-data',
-            type: 'POST',
-            data: {
-                userid: userId,
-                score_count: score_count,
-                model: modelId
-            },
-            dataType: 'JSON',
-            success: function(res){
-                 $('.blockUI').remove();
-                if (res.post == '2'){
-                    $('.blockUI').remove();
-                    Swal.fire({
-                    title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
-                    confirmButtonColor: '#d92550',
-                    icon: "warning",
-                    type: 'error',
-                    showConfirmButton: true,
-                    customClass: 'reeee p-3',
-                    showCloseButton: true,
-      
-                 
-                });
-                    $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
-                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
-                    return false;
-                }
-                $('#tabledata').find('tbody').append(res.html);
-                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
-                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
-                console.log(res);
-                if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
-                toastr.success('', 'Данные успешно сохранены! '+res.post.score_count, {
-                
-                   timeOut: 5000,
-                   closeButton: true,
-                   progressBar: true
-               });
-                } else{
-                    toastr.error('', 'Вы не указали значение!', {
-                    timeOut: 5000,
-                    closeButton: true,
-                    progressBar: true
-               });
-                }
-                
-            },
-            error: function(){
-                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
-                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
-                 Swal.fire({
-                    title: 'Что-то пошло не так. Обратитесь к администратору.',
-                    confirmButtonColor: '#f44336',
-                    icon: "warning",
-                    type: 'warning',
-                    customClass: 'reeee',
-                });
-            }
-        })
-        return false;
-});
+//$('#send_user_data').on('click', function (){
+//    $('#tabledata').append(loading);
+//    var userId = $('#user_check').val();
+//    var score_count = $('#score_count4').text();
+//    var modelId = $(this).data('model');
+//    var user_create_id = $(this).data('user_create_id');
+//    var title = $(this).data('title');
+//    if (userId == 0 || userId == ''){
+//       Swal.fire({
+//title: 'Сотрудник не выбран.',
+//confirmButtonColor: '#f44336',
+//icon: "warning",
+//type: 'warning',
+// customClass: 'reeee',
+//});
+//       $('.blockUI').remove();
+//       return false;
+//    }
+//    if (score_count == 0){
+//         Swal.fire({
+//title: 'Сначала оцените сотрудника.',
+//confirmButtonColor: '#f44336',
+//icon: "warning",
+//type: 'warning',
+// customClass: 'reeee',
+//});
+//         $('.blockUI').remove();
+//       return false;
+//    }
+//    
+//    $(this).find('.fa').removeClass('fa-paper-plane');
+//    $(this).find('.fa').addClass('spinner-grow spinner-grow-sm');
+//    $.ajax({
+//            
+//            url: '/check-list/send-user-data',
+//            type: 'POST',
+//            data: {
+//                userid: userId,
+//                score_count: score_count,
+//                model: modelId,
+//                user_create_id: user_create_id,
+//                title: title
+//            },
+//            dataType: 'JSON',
+//            success: function(res){
+//                 $('.blockUI').remove();
+//                if (res.post == '2'){
+//                    $('.blockUI').remove();
+//                    Swal.fire({
+//                    title: '<span class="text-danger">Данные по этому пользователю за этот период уже есть.</span>',
+//                    confirmButtonColor: '#d92550',
+//                    icon: "warning",
+//                    type: 'error',
+//                    showConfirmButton: true,
+//                    customClass: 'reeee p-3',
+//                    showCloseButton: true,
+//      
+//                 
+//                });
+//                    $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+//                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+//                    return false;
+//                }
+//                $('#tabledata').find('tbody').append(res.html);
+//                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+//                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+//                console.log(res);
+//                if (res.userid != '' && res.userid != '0' && res.userid != 'NaN'){
+//                toastr.success('', 'Данные успешно сохранены! '+res.post.score_count, {
+//                
+//                   timeOut: 5000,
+//                   closeButton: true,
+//                   progressBar: true
+//               });
+//                } else{
+//                    toastr.error('', 'Вы не указали значение!', {
+//                    timeOut: 5000,
+//                    closeButton: true,
+//                    progressBar: true
+//               });
+//                }
+//                
+//            },
+//            error: function(){
+//                $('#send_user_data').find('.fa').removeClass('spinner-grow spinner-grow-sm');
+//                $('#send_user_data').find('.fa').addClass('fa-paper-plane');
+//                 Swal.fire({
+//                    title: 'Что-то пошло не так. Обратитесь к администратору.',
+//                    confirmButtonColor: '#f44336',
+//                    icon: "warning",
+//                    type: 'warning',
+//                    customClass: 'reeee',
+//                });
+//            }
+//        })
+//        return false;
+//});
 
 JS;
 

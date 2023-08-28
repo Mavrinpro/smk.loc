@@ -104,6 +104,8 @@ class SignupForm extends Model
             'id' => 'ID',
             'username' => 'Логин',
             'fio' => 'ФИО',
+            'company_id' => 'Компания',
+            'city_id' => 'Город',
             'password' => 'Пароль',
             'update_at' => 'Update At',
             'user_id_create' => 'User Id Create',

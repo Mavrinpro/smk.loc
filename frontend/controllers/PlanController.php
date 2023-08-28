@@ -8,7 +8,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\helpers\FileHelper;
 
 /**
  * PlanController implements the CRUD actions for Plan model.
@@ -184,7 +183,7 @@ class PlanController extends Controller
 
             if ( $file->saveAs( $uploadPath . '/' . $file->name ) ) {
                 $f = Plan::find()->where(['name' => $file->name])->one();
-                if (sizeof((array)$f) > 0){
+                if (sizeof($f) > 0){
                     $f->delete();
                 }
 

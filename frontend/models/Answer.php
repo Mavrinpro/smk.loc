@@ -44,7 +44,7 @@ class Answer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'user_id' => 'User ID',
             'test_id' => 'Test ID',
             'question_id' => 'Question ID',

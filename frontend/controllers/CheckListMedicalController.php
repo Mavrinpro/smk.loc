@@ -212,4 +212,8 @@ class CheckListMedicalController extends Controller
             return 0;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

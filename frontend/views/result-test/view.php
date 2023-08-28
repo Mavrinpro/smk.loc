@@ -7,7 +7,7 @@ use yii\bootstrap4\ActiveForm;
 
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['/department/test?test_id='.$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -15,10 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--        --><? //= Html::a('Добавить вопрос', ['question/create'], ['class' => 'btn btn-primary', 'data-target' => 'modal',
 //            'data-toggle' => '#modalDelete'
 //        ])
-//var_dump($endtest);
+
 ?>
 <div class="test-view">
-
+    <?= Html::a('<i class="fa fa-edit"></i>', ['/test/view', 'id' => $model->id], ['class'
+    => 'btn btn-success ']) ?>
     <div class="row justify-content-center">
         <div class="col-md-12 text-center">
             <h1><?= Html::encode($this->title) ?></h1>

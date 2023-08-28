@@ -12,4 +12,21 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
+    // Доступ только авторизованным пользователям
+//    'as beforeRequest' => [
+//        'class' => 'yii\filters\AccessControl',
+//        'except' => ['confirm', 'reset-password'], //
+//        // Разрешить доступ неавторизованным для экшена (API)
+//        'rules' => [
+//            [
+//                'actions' => ['login', 'signup', 'confirm', 'reset-password', 'request-password-reset', 'ajax-select'],
+//                'allow' => true,
+//            ],
+//            [
+//
+//                'allow' => true,
+//                'roles' => ['@'],
+//            ],
+//        ],
+//    ],
 ];

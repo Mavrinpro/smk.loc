@@ -53,7 +53,7 @@ class Sop extends \yii\db\ActiveRecord
             'user_id_create' => 'User Id Create',
             'user_id_update' => 'User Id Update',
             'active' => 'Active',
-            'send_user_id' => 'Кому отправлен',
+            'send_user_id' => 'Send User ID',
         ];
     }
     public function getUser(){

@@ -4,9 +4,11 @@ namespace frontend\controllers;
 
 use app\models\Branch;
 use app\models\BranchSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use \commom\models\UIser;
 
 /**
  * BranchController implements the CRUD actions for Branch model.
@@ -55,6 +57,14 @@ class BranchController extends Controller
      */
     public function actionView($id)
     {
+        $userId = \Yii::$app->getUser()->id;
+        $user = \common\models\User::findOne(['id' => $userId]);
+        $userRole = current(ArrayHelper::getColumn(\Yii::$app->authManager->getRolesByUser(\Yii::$app->getUser()->id),
+            'name'));
+
+        if ($userRole == 'user'){
+            return $this->redirect(['/department/view', 'id' => $user->department_id]);
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

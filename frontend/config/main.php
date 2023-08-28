@@ -10,6 +10,7 @@ return [
 
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'name' => 'СМК ГлазЦентр',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'layout'=>'bootstrap',
@@ -67,8 +68,11 @@ return [
             //'suffix' => '.html',
             'rules' => [
                 '' => 'site/index',
-               
-                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking)>/<action:(index|update|delete|view|create|change-password)>/<id:\d+>' =>
+                'login' => 'site/login',
+                'signup' => 'site/signup',
+                'confirm' => 'site/confirm',
+
+                '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site|confirm|protocol)>/<action:(index|update|delete|view|create|change-password|userscore)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
 
