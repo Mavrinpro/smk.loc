@@ -448,10 +448,5 @@ class CheckController extends Controller
             return $this->redirect(['index', 'department_id' => $post['department_id']]);
         }
 
-
-
-
-        var_dump($checklist); die;
-
     }
 }
