@@ -35,12 +35,12 @@ class CheckController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['view', 'index', 'userscore', 'scoreview'],
+                            'actions' => ['view', 'index', 'userscore', 'scoreview', 'delete-comment-check'],
                             'roles' => ['view_manager'],
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'delete-user-score'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'delete-user-score', 'delete-comment-check'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -74,8 +74,23 @@ class CheckController extends Controller
      */
     public function actionView($id)
     {
+        $commentCheck = new \app\models\CommentCheck();
         $post = \Yii::$app->request->post();
         $dep_id =  \Yii::$app->request->get();
+
+        $comment = \app\models\CommentCheck::find()->where(['active' => true, 'check_id' => $dep_id['id']])->all();
+
+        if ($this->request->isPost) {
+            //var_dump($post); die;
+            if ($commentCheck->load($this->request->post()) && $commentCheck->save()) {
+                return $this->redirect(['view', 'id' => $post['CommentCheck']['check_id'], 'department_id' =>  $post['CommentCheck']['department_id']]);
+            }
+        } else {
+            $commentCheck->loadDefaultValues();
+        }
+
+
+
         $scoreall =  \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
 
         $check_listMedical = \app\models\ChecklistMedical::find()->where(['check_id' => $id])->all();
@@ -137,7 +152,9 @@ class CheckController extends Controller
             ],
             'scoreall' => $scoreall,
             'checklistMedical' => $check_listMedical,
-            'countResult' => round($new_width)
+            'countResult' => round($new_width),
+            'commentCheck' => $commentCheck,
+            'comment' => $comment
         ]);
     }
 
@@ -392,5 +409,20 @@ class CheckController extends Controller
                 'count' => $check2 + $check1 +$num1+$num4+$num2+$num5+$num3+$num6
             ],
             'scoreall' => $scoreall]);
+    }
+
+    // Удаление комментариев для check листов
+
+    public function actionDeleteCommentCheck()
+    {
+        $post = \Yii::$app->request->post();
+        //var_dump($post);
+        $comment = \app\models\CommentCheck::findOne(['id' => $post['comment_id']]);
+        //var_dump($comment); die;
+
+            $comment->active = 0;
+            $comment->update();
+            $this->redirect(['check/view', 'id' => $post['check_id'], 'department_id' => $post['department_id']]);
+
     }
 }

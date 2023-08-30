@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\CheckList $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index?department_id='.$model->department_id]];
+$this->params['breadcrumbs'][] = ['label' => 'Чек-листы', 'url' => ['index?department_id=' . $model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -27,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
             \Yii::$app->request->get('id')],
             ['class' => 'btn 
         btn-success']);
-        if($model->department_id == 4){ ?>
+        if ($model->department_id == 4) { ?>
             <?= Html::a('<i class="fa fa-plus-circle"></i> Добавить критерии Да/Нет', ['check-list-medical/create', 'check_id' =>
-                \Yii::$app->request->get('id'), 'department_id' =>  \Yii::$app->request->get('department_id')],
+                \Yii::$app->request->get('id'), 'department_id' => \Yii::$app->request->get('department_id')],
                 ['class' => 'btn 
         btn-outline-warning']) ?>
         <?php } ?>
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= Html::a('<i class="fa fa-edit"></i>', ['update', 'id' => $model->id],
             ['class' => 'btn 
-        btn-primary','data' => [
+        btn-primary', 'data' => [
 
                 'method' => 'post',
                 'params' => [
@@ -243,8 +243,8 @@ JS;
     <div class="col-md-12">
         <div id="user-data-backend">
 
-            <?php  if (sizeof($checklistMedical) > 0){ ?>
-                <table  class="table table-bordered table-hover">
+            <?php if (sizeof($checklistMedical) > 0) { ?>
+                <table class="table table-bordered table-hover">
                     <thead class="bg-dark text-light">
                     <tr>
 
@@ -279,34 +279,39 @@ JS;
                             <td>
                                 <div class="custom-checkbox custom-control">
                                     <?php if ($itemq->active === 1): ?>
-                                    <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
-                                    ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
-                                           data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                                        <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>"
+                                               data-id="<?= $itemq->id
+                                               ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                               data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                               data-res="<?= \Yii::$app->request->get('res') ?>" checked>
                                     <?php else: ?>
-                            <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>" data-id="<?= $itemq->id
-                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
-                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                   data-res="<?= \Yii::$app->request->get('res') ?>">
-                            <?php endif; ?>
+                                        <input type="checkbox" id="checkbox_right-<?= $itemq->id ?>"
+                                               data-id="<?= $itemq->id
+                                               ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                               data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                               data-res="<?= \Yii::$app->request->get('res') ?>">
+                                    <?php endif; ?>
                                     <label class="custom-control-label"
                                            for="checkbox_right-<?= $itemq->id ?>">&nbsp;</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="custom-checkbox custom-control">
-                        <?php if ($itemq->active === 0): ?>
-                                    <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
-                                    ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
-                                           data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                           data-res="<?= \Yii::$app->request->get('res') ?>" checked>
-                        <?php else: ?>
-                            <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>" data-id="<?= $itemq->id
-                            ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
-                                   data-test_id="<?= \Yii::$app->request->get('id') ?>"
-                                   data-res="<?= \Yii::$app->request->get('res') ?>">
-                        <?php endif; ?>
-                                    <label class="custom-control-label" for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
+                                    <?php if ($itemq->active === 0): ?>
+                                        <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>"
+                                               data-id="<?= $itemq->id
+                                               ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                               data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                               data-res="<?= \Yii::$app->request->get('res') ?>" checked>
+                                    <?php else: ?>
+                                        <input type="checkbox" id="checkbox_left-<?= $itemq->id ?>"
+                                               data-id="<?= $itemq->id
+                                               ?>" class="custom-control-input" data-user_id="<?= $user->id ?>"
+                                               data-test_id="<?= \Yii::$app->request->get('id') ?>"
+                                               data-res="<?= \Yii::$app->request->get('res') ?>">
+                                    <?php endif; ?>
+                                    <label class="custom-control-label"
+                                           for="checkbox_left-<?= $itemq->id ?>">&nbsp;</label>
                                 </div>
                             </td>
 
@@ -316,8 +321,9 @@ JS;
 
                     </tbody>
                 </table>
-                <div class="alert alert-success">Результат: <b><span id="result_count"><?= $countResult; ?>%</span></b></div>
-           <? }else{ ?>
+                <div class="alert alert-success">Результат: <b><span id="result_count"><?= $countResult; ?>%</span></b>
+                </div>
+            <? } else { ?>
                 <table class="mb-0 table table-bordered" id="tabledata">
                     <thead>
                     <tr>
@@ -352,6 +358,53 @@ JS;
                     </tbody>
                 </table>
             <?php } ?>
+            <?php if (sizeof($comment) > 0) { ?>
+                <?php foreach ($comment as $comments) { ?>
+                    <div class="chat-box-wrapper">
+                        <div>
+                            <div class="avatar-icon-wrapper mr-1">
+                                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                </div>
+                                <div class="avatar-icon avatar-icon-lg rounded">
+                                    <img src="assets/images/avatars/2.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chat-box"><?= $comments->text ?>
+                            </div>
+                            <small class="opacity-6">
+                                <i class="fa fa-calendar-alt mr-1"></i>
+                                <?= date('d.m.Y H:i:s', $comments->create_at) ?>
+                            </small>
+                        </div>
+                    </div>
+                <?php } ?>
+
+            <?php } ?>
+            <div class="comment_check mt-3">
+                <?php $formComment = \yii\bootstrap4\ActiveForm::begin(['class' => 'mt-5']) ?>
+                <?= $formComment->field($commentCheck, 'text')->textarea(['maxlength' => true]) ?>
+                <?= $formComment->field($commentCheck, 'department_id')->hiddenInput(['value' => $model->department_id])
+                    ->label
+                    (false) ?>
+                <?= $formComment->field($commentCheck, 'user_id')->hiddenInput(['value' => \Yii::$app->getUser()->id])
+                    ->label
+                    (false) ?>
+                <?= $formComment->field($commentCheck, 'check_id')->hiddenInput(['value' => $model->id])
+                    ->label
+                    (false) ?>
+                <?= $formComment->field($commentCheck, 'create_at')->hiddenInput(['value' => time()])
+                    ->label
+                    (false) ?>
+                <?= $formComment->field($commentCheck, 'active')->hiddenInput(['value' => true])
+                    ->label
+                    (false) ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Добавить комментарий', ['class' => 'btn btn-success']) ?>
+                </div>
+                <?php \yii\bootstrap4\ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
 </div>
