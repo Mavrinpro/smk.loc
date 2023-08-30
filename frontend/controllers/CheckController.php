@@ -40,7 +40,7 @@ class CheckController extends Controller
                         ],
                         [
                             'allow' => true,
-                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'delete-user-score', 'delete-comment-check'],
+                            'actions' => ['create', 'index', 'view', 'delete-checklist' , 'userscore', 'scoreview', 'delete-user-score', 'delete-comment-check', 'delete-check'],
                             'roles' => ['create_admin', 'admin'],
                         ],
                     ],
@@ -423,6 +423,35 @@ class CheckController extends Controller
             $comment->active = 0;
             $comment->update();
             $this->redirect(['check/view', 'id' => $post['check_id'], 'department_id' => $post['department_id']]);
+    }
+
+    // Удаление чек-листов вместе с критериями
+    public function actionDeleteCheck()
+    {
+        $post = \Yii::$app->request->post();
+        $check = \app\models\Check::find()->where(['id' => $post['id']])->one();
+
+        $listMedical = \app\models\ChecklistMedical::find()->where(['check_id' => $post['id']])->all();
+        $checklist = \app\models\Checklist::find()->where(['service_id' => $post['id']])->all();
+
+        if ($post['listmedical'] > 0){
+            $list = $listMedical;
+        }else{
+            $list = $checklist;
+        }
+
+        if (\Yii::$app->request->isPost){
+            $check->delete();
+            foreach ($list as $itemList) {
+                $itemList->delete();
+            }
+            return $this->redirect(['index', 'department_id' => $post['department_id']]);
+        }
+
+
+
+
+        var_dump($checklist); die;
 
     }
 }

@@ -54,6 +54,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'check' => $model->id,
                 ]
             ],]) ?>
+
+        <?= Html::a('<i class="fa fa-trash"></i>', ['check/delete-check', 'check_id' =>
+            \Yii::$app->request->get('id'), 'department_id' => \Yii::$app->request->get('department_id')],
+            ['class' => 'btn btn-outline-danger', 'data' => [
+                'confirm' => 'Хотите удалить чек-лист?',
+                'method' => 'post',
+                'params' => [
+                        'department_id' => $model->department_id,
+                        'id' => $model->id,
+                    'listmedical' => sizeof($checklistMedical),
+                    'list' => sizeof($check)
+
+                ]
+            ],
+            ]) ?>
     </p>
 
     <!--    --><? //= DetailView::widget([
@@ -366,7 +381,17 @@ JS;
                                 <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
                                 </div>
                                 <div class="avatar-icon avatar-icon-lg rounded">
-                                    <img src="assets/images/avatars/2.jpg" alt="">
+                                    <?php if ($commentCheck->userCommentAvatar
+                                        ($comments->user_id)
+                                            ->avatar != null) {?>
+                                    <img src="/files/avatar/<?php echo $comments->user_id ?>/<?php echo
+                                    $commentCheck->userCommentAvatar
+                                        ($comments->user_id)
+                                        ->avatar;
+                                    ?>" alt="">
+                        <?php }else{ ?>
+                                        <img src="/img/ava.jpg" alt="">
+                                    <?php }?>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +400,17 @@ JS;
                             </div>
                             <small class="opacity-6">
                                 <i class="fa fa-calendar-alt mr-1"></i>
-                                <?= date('d.m.Y H:i:s', $comments->create_at) ?>
+                                <?= date('d.m.Y H:i:s', $comments->create_at) ?> | <?= Html::a('<i class="fa fa-trash text-danger"></i>', ['check/delete-comment-check'],
+                                    [ 'data' => [
+                                        'confirm' => 'Хотите удалить запись?',
+                                        'method' => 'post',
+                                        'params' => [
+                                            'department_id' => $model->department_id,
+                                            'check_id' => $model->id,
+                                            'comment_id' => $comments->id
+                                        ]
+                                    ],
+                                    ]) ?>
                             </small>
                         </div>
                     </div>
