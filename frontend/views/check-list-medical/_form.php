@@ -23,7 +23,6 @@ use yii\widgets\ActiveForm;
         (false) ?>
     <?= $form->field($model, "[$i]user_id_create")->hiddenInput(['value' => \Yii::$app->getUser()->id])->label(false) ?>
 
-
     <?= $form->field($model, "[$i]active")->hiddenInput(['value' => null])->label(false) ?>
     <?php } ?>
 
