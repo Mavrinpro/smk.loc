@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
 /** @var yii\web\View $this */
 /** @var app\models\CheckList $model */
 
@@ -254,6 +253,17 @@ JS;
             Отправить
             данные
         </button>
+        <?= Html::a('<i class="fa fa-download"></i>', ['export-excel', 'id' => $model->id],
+            ['class' => 'btn 
+        btn-primary mb-5', 'data' => [
+
+                'method' => 'post',
+                'params' => [
+                    'id' => $model->id,
+                    'department_id' => $model->department_id,
+                    'check' => $model->id,
+                ]
+            ],]) ?>
     </div>
     <div class="col-md-12">
         <div id="user-data-backend">
@@ -443,6 +453,7 @@ JS;
         </div>
     </div>
 </div>
+
 <?php
 $js = <<<JS
   

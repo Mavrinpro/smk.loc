@@ -16,6 +16,10 @@ return [
     'layout'=>'bootstrap',
     'modules' => [
         'redactor' => 'yii\redactor\RedactorModule',
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
+            // other module settings
+        ]
     ],
     'components' => [
         'response' => [
