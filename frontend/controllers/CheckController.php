@@ -90,8 +90,10 @@ class CheckController extends Controller
             $commentCheck->loadDefaultValues();
         }
 
-
-        $scoreall = \app\models\UserScore::find()->where(['check_id' => $id])->orderBy('id ASC')->all();
+        $date = strtotime(date('Y-m-d H:i:s'));
+        $scoreall = \app\models\UserScore::find()->where(['check_id' => $id])->andWhere(['<=', 'create_at', $date])
+            ->orderBy('id ASC')
+            ->all();
 
         $check_listMedical = \app\models\ChecklistMedical::find()->where(['check_id' => $id])->all();
 
@@ -514,22 +516,41 @@ class CheckController extends Controller
             // Miscellaneous glyphs, UTF-8
             $id = [];
             foreach ($sql as $key => $value) {
-                
-                if ($key == 1) {
-                    $id[] = $value->user_id;
-                    $key = 2;
+                $id[] = $value->user_id;
+                if ($key == 0 ) {
+
+                    next($value);
                 }
 
                 $user = \common\models\User::find()->where(['in' , 'id',  $ids])->all();
-                //var_dump($ids); die;
+                //var_dump($user); die;
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A' . $key, date('d.m.Y', $value->create_at))
-                    ->setCellValue('B' . $key, $user[$value->user_id]->fio.'=='.$value->user_id)
-                    ->setCellValue('C' . $key, $value->score);
+                    ->setCellValue('A' . ($key+2), date('d.m.Y', $value->create_at))
+                    ->setCellValue('B' . ($key+2), $user[$key]->fio)
+                    ->setCellValue('C' . ($key+2), $value->score);
 
             }
             // Rename worksheet
             $objPHPExcel->getActiveSheet()->setTitle(date('Отчет от  d.m.Y'));
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+
+            $objPHPExcel->getActiveSheet()->getStyle("A1:C1")->getFont()->getColor()->setRGB('cccccc');
+            $objPHPExcel->getActiveSheet()->getStyle("A1:C1")->getFont()->setBold(true);
+            $objPHPExcel->getActiveSheet()->getStyle( "A1:C1" )
+                ->getFill()
+                ->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)
+                ->getStartColor()->setRGB('343a40');
+            $objPHPExcel->getActiveSheet()->getStyle("A1:C1")->getFont()->setSize(15);
+
+            $objPHPExcel->getActiveSheet()
+                ->getStyle( "A1:C1" )
+                ->getFill()
+                ->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)
+                ->getStartColor()->setRGB('343a40');
+            $objPHPExcel->getDefaultStyle()->getFont()->setSize(14);
+
 
 
             // Set active sheet index to the first sheet, so Excel opens this as the first sheet
