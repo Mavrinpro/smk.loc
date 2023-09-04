@@ -360,7 +360,7 @@ JS;
                     </thead>
                     <tbody>
                     <?php
-                    //var_dump($scoreall);
+                    
                     foreach ($scoreall as $score) { ?>
                         <tr>
                             <th scope="row"><?= date('d.m.Y', $score->create_at) ?></th>
