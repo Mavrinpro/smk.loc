@@ -454,12 +454,13 @@ class CheckController extends Controller
     public function actionExportExcel()
     {
         $post = \Yii::$app->request->post();
+        //var_dump($post);die;
         if (isset($_POST['check'])) {
             //            header("Content-Type: text/csv; charset=utf-8");
             //            header("Content-Disposition: attachment; filename=download.csv");
             //            $output = fopen("php://output", "w");
             //            fputcsv($output, array('ID', 'Имя', 'Фамилия', 'Ставка'));
-            $sql = \app\models\UserScore::find()->all();
+            $sql = \app\models\UserScore::find()->where(['check_id' => $post['id']])->all();
             $ids = [];
             foreach ($sql as $value) {
 
@@ -513,18 +514,17 @@ class CheckController extends Controller
             // Miscellaneous glyphs, UTF-8
             $id = [];
             foreach ($sql as $key => $value) {
-
-
+                
                 if ($key == 1) {
                     $id[] = $value->user_id;
                     $key = 2;
                 }
 
                 $user = \common\models\User::find()->where(['in' , 'id',  $ids])->all();
-                //var_dump($user); die;
+                //var_dump($ids); die;
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A' . $key, date('d.m.Y', $value->create_at))
-                    ->setCellValue('B' . $key, $value->user_id)
+                    ->setCellValue('B' . $key, $user[$value->user_id]->fio.'=='.$value->user_id)
                     ->setCellValue('C' . $key, $value->score);
 
             }
