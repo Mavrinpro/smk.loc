@@ -469,6 +469,7 @@ class CheckController extends Controller
                 $ids[] = $value->user_id;
             }
 
+            
             //            $result = $sql;
             //
             //            foreach ($result as $row) {
