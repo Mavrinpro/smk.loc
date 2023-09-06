@@ -159,14 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--            <div id="timer"></div>-->
         </div>
     </div>
-<!--    <div id="regi">Start timer <span id="time">05:00</span> minutes!</div>-->
-<!--    <button data-swal-template="#my-template">-->
-<!--        Trigger modal-->
-<!--    </button>-->
-<!---->
-<!--    <button data-swal-toast-template="#my-template">-->
-<!--        Trigger toast-->
-<!--    </button>-->
+
 </div>
 <?php
 $js = <<<JS
