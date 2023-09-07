@@ -10,7 +10,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Тесты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="test-create">
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
