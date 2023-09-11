@@ -12,6 +12,7 @@ use Yii;
  * @property int|null $department_id
  * @property int|null $create_at
  * @property int|null $update_at
+ * @property int|null $branch_id
  */
 class Doctor extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class Doctor extends \yii\db\ActiveRecord
     {
         return [
             [['fio'], 'string'],
-            [['department_id', 'create_at', 'update_at'], 'integer'],
+            [['department_id', 'create_at', 'update_at', 'branch_id'], 'integer'],
         ];
     }
 
