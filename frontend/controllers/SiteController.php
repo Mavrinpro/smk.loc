@@ -291,7 +291,13 @@ class SiteController extends Controller
         $department = \app\models\Department::find()->where(['branch_id' => $post['id']])->all();
         $arr = [];
         $arr['label'] = '<label for="signupform-department_id">Отдел</label>';
-        $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
+
+        if (isset($post['model'])){
+            $arr['sel'] = '<select id="doctor-department_id" class="form-control" name="Doctor[department_id]">';
+        }else{
+            $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
+        }
+
         $arr['opt_empty'] = '<option value="">Выберите свой отдел</option>';
         foreach ($department as $item) {
             $arr['id'][] = '<option value="'.$item->id.'">'.$item->name.'</option>';

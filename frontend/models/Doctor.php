@@ -31,7 +31,10 @@ class Doctor extends \yii\db\ActiveRecord
     {
         return [
             [['fio'], 'string'],
-            [['department_id', 'create_at', 'update_at', 'branch_id'], 'integer'],
+            [['fio'], 'unique', 'message' => 'Такой врач уже есть в базе'],
+            [['branch_id'], 'safe'],
+            [['create_at', 'update_at',], 'integer'],
+            [['branch_id'], 'required'],
         ];
     }
 
@@ -42,10 +45,15 @@ class Doctor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fio' => 'Fio',
-            'department_id' => 'Department ID',
+            'fio' => 'ФИО врача',
+            'department_id' => 'Отдел',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
+            'branch_id' => 'Филиал клиники',
         ];
+    }
+
+    public function getUsersend(){
+        return $this->hasOne(\app\models\Branch::className(), ['id' => 'branch_id']);
     }
 }
