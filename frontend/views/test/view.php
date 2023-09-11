@@ -62,7 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="widget-content-left">
                                     <div class="widget-heading ml-2" data-toggle="collapse"
                                          data-target="#collapseOne<?= $i ?>" aria-expanded="false"
-                                         aria-controls="collapseThree" style="cursor: pointer"><?= $i . '. ' . $quest->name ?></div>
+                                         aria-controls="collapseThree"
+                                         style="cursor: pointer"><?= $i . '. ' . $quest->name ?></div>
                                     <div class="widget-subheading ml-2">
                                         <div>
                                             <?= $model->name ?>
@@ -93,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                            for="customSwitch-<?= $ans->id
                                                                                            ?>"><?= $ans->name
                                                                                         ?></label> <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['answer/update', 'id' =>
-                                                                                        $ans->id], ['class' => 'border-0 btn-transition btn mt-n2 btn-outline-warning btn-sm','data' => [
+                                                                                        $ans->id], ['class' => 'border-0 btn-transition btn mt-n2 btn-outline-warning btn-sm', 'data' => [
                                                                                         'method' => 'post',
                                                                                         'params' => [
                                                                                             'id' => $ans->id,
@@ -113,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                            for="customSwitch-<?= $ans->id
                                                                                            ?>"><?= $ans->name ?></label>
                                                                                     <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['answer/update', 'id' =>
-                                                                                        $ans->id], ['class' => 'border-0 btn-transition mt-n2 btn btn-outline-warning btn-sm','data' => [
+                                                                                        $ans->id], ['class' => 'border-0 btn-transition mt-n2 btn btn-outline-warning btn-sm', 'data' => [
                                                                                         'method' => 'post',
                                                                                         'params' => [
                                                                                             'id' => $ans->id,
@@ -156,7 +157,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 <?php } ?>
             </ul>
-<!--            <div id="timer"></div>-->
+            <!--            <div id="timer"></div>-->
         </div>
     </div>
 
@@ -280,9 +281,7 @@ this.innerHTML = 0;
 //
 // } 
 // }, 0); 
-// } 
-
-
+// }
 JS;
 
 $this->registerJs($js);
