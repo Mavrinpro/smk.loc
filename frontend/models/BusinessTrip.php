@@ -48,12 +48,12 @@ class BusinessTrip extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'doctor_id' => 'Врач',
-            'department_id' => 'Department ID',
-            'user_id_create' => 'User Id Create',
-            'user_id_update' => 'User Id Update',
+            'department_id' => 'Отдел',
+            'user_id_create' => 'Кто создал',
+            'user_id_update' => 'Кто изменил',
             'check_id' => 'Check ID',
-            'create_at' => 'Create At',
-            'update_at' => 'Update At',
+            'create_at' => 'Дата создания',
+            'update_at' => 'Дата обновления',
             'start_trip' => 'Начало командировки',
             'end_trip' => 'Конец командировки',
             'date_of_departure' => 'Дата выезда',
@@ -63,5 +63,9 @@ class BusinessTrip extends \yii\db\ActiveRecord
 
     public function getDoctor(){
         return $this->hasOne(\app\models\Doctor::className(), ['id' => 'doctor_id']);
+    }
+
+    public function getUser(){
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id_create']);
     }
 }

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'doctor_id',
+            //'doctor_id',
             [
                 'attribute' => 'doctor_id',
                 'value' => 'doctor.fio',
@@ -40,9 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->indexBy
                     ('id')->column(),
             ],
-            'department_id',
-            'user_id_create',
-            'user_id_update',
+            //'department_id',
+            //'user_id_create',
+            //'user_id_update',
             //'check_id',
             //'create_at',
             //'update_at',

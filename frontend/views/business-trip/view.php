@@ -30,37 +30,48 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'doctor_id',
+            'doctor.fio',
             'department_id',
-            'user_id_create',
-            'user_id_update',
-            'check_id',
-            'create_at',
-            'update_at',
+            'user.username',
+            'user.username',
+            //'check_id',
             [
-                    'attribute' => 'start_trip',
-                'value' => function($model){
-                return date('Y-m-d', $model->start_trip);
+                'attribute' => 'create_at',
+                'value' => function ($model) {
+                    return date('d.m.Y', $model->create_at);
+                },
+            ],
+
+            [
+                'attribute' => 'update_at',
+                'value' => function ($model) {
+                    return date('d.m.Y', $model->update_at);
+                },
+            ],
+            [
+                'attribute' => 'start_trip',
+                'value' => function ($model) {
+                    return date('Y-m-d', $model->start_trip);
                 },
             ],
 
             [
                 'attribute' => 'end_trip',
-                'value' => function($model){
+                'value' => function ($model) {
                     return date('Y-m-d', $model->end_trip);
                 },
             ],
 
             [
                 'attribute' => 'date_of_departure',
-                'value' => function($model){
+                'value' => function ($model) {
                     return date('Y-m-d', $model->date_of_departure);
                 },
             ],
 
             [
                 'attribute' => 'return_date',
-                'value' => function($model){
+                'value' => function ($model) {
                     return date('Y-m-d', $model->return_date);
                 },
             ],
