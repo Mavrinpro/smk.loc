@@ -55,8 +55,12 @@ class BusinessTripController extends Controller
      */
     public function actionView($id)
     {
+        $noty = new \app\models\Notyfication();
+        $user = \common\models\User::find()->where(['status' =>10])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'user' => $user,
+            'noty' => $noty
         ]);
     }
 
@@ -138,5 +142,39 @@ class BusinessTripController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    // отправка пользователям о командировке врача
+    public function actionSendTrip()
+    {
+
+
+        $post = \Yii::$app->request->post('Notyfication');
+
+        //$post = \yii\web\Response::FORMAT_JSON;
+        $user = \common\models\User::find()->where(['in', 'id', $post['user_id']])->all();
+        if ($this->request->isPost) {
+            //var_dump($post); die();
+            foreach ($user as $it) {
+                $doctor = \app\models\Doctor::find()->where(['id' => $post['doc']])->one();
+                $noty = new \app\models\Notyfication();
+                $noty->user_id = $it->id;
+                $noty->user_create_id = \Yii::$app->getUser()->id;
+                $noty->text = 'Информация о командировке врача '. '<a href="/business-trip/view/?id='.$post['doc'].'">"'.$doctor->fio.'"</a>';
+                $noty->create_at = time();
+                $noty->read = 0;
+                //var_dump($noty); die();
+                $noty->save();
+            }
+            if (sizeof($user) > 0){
+                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio);
+            }else{
+                \Yii::$app->session->setFlash('error', 'Вы не выбрали сотрудников');
+            }
+
+            return $this->redirect(['view', 'id' => $post['doc']]);
+        }
+        //var_dump($post);
     }
 }

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\BusinessTrip $model */
@@ -79,4 +80,53 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+
+
+        <a href="##" id="all_box" class="btn btn-sm btn-success">Отметить все</a>   <a href="##" id="all_box_no" class="btn btn-sm
+                                                                              btn-warning">Снять</a><br><br>
+
+        <?php $form = ActiveForm::begin([
+                'action' => '/business-trip/send-trip',
+            'id' => 'controls',
+
+        ]); ?>
+        <?php
+        //var_dump($model);
+        $items = \common\models\User::find()->where(['status' => 10])
+            ->select(['username'])
+            ->indexBy('id')
+            ->column();
+
+            echo $form->field($noty, 'user_id[]')
+                ->checkboxList($items);
+        echo $form->field($noty, 'doc')
+            ->hiddenInput(['value' => $model->id])->label(false);
+        echo $form->field($noty, 'id')
+            ->hiddenInput(['value' => $model->doctor_id])->label(false);
+
+        ?>
+    <div class="form-group">
+        <?= Html::submitButton('Известить', ['class' => 'btn btn-success']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+
 </div>
+
+<?php
+
+
+$js = <<< JS
+$('#all_box').click(function(){
+	
+		$('#controls input:checkbox').prop('checked', true);
+	
+});
+
+$('#all_box_no').click(function(){
+	
+		$('#controls input:checkbox').prop('checked', false);
+	
+});
+
+JS;
+$this->registerJs($js);
