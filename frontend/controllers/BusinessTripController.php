@@ -68,8 +68,12 @@ class BusinessTripController extends Controller
     public function actionCreate()
     {
         $model = new BusinessTrip();
-
+        $post = \Yii::$app->request->post();
         if ($this->request->isPost) {
+            $model->start_trip = strtotime($post['BusinessTrip']['start_trip'] .' 00:00:00');
+            $model->end_trip = strtotime($post['BusinessTrip']['end_trip'] .' 00:00:00');
+            $model->date_of_departure = strtotime($post['BusinessTrip']['date_of_departure'] .' 00:00:00');
+            $model->return_date = strtotime($post['BusinessTrip']['return_date'] .' 00:00:00');
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -94,8 +98,9 @@ class BusinessTripController extends Controller
         $model = $this->findModel($id);
         $post = \Yii::$app->request->post();
         $d = strtotime('2011-09-12 00:00:00');
-        $model->start_trip = strtotime($post['BusinessTrip']['start_trip'] .' 00:00:00');
-        //var_dump($model); die;
+        $model->date_of_departure = strtotime($post['BusinessTrip']['date_of_departure'] .' 00:00:00');
+        $model->return_date = strtotime($post['BusinessTrip']['return_date'] .' 00:00:00');
+        //var_dump($post); die;
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

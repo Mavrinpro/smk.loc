@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\FileHelper;
+use kartik\export\ExportMenu;
 
 /** @var yii\web\View $this */
 /** @var app\models\ProtocolSearch $searchModel */
@@ -16,6 +17,18 @@ use yii\helpers\FileHelper;
 
 $this->title = 'Протоколы инцидентов';
 $this->params['breadcrumbs'][] = $this->title;
+
+$gridColumns = [
+    ['class' => 'yii\grid\SerialColumn'],
+    'id',
+    'name',
+    //'department_id',
+    ['class' => 'yii\grid\ActionColumn'],
+];
+
+// Renders a export dropdown menu
+
+
 ?>
 
 <div class="protocol-index">
@@ -217,3 +230,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+<?php echo ExportMenu::widget([
+    'dataProvider' => $dataProvider,
+    //'columns' => $gridColumns,
+    'clearBuffers' => true, //optional
+]); ?>

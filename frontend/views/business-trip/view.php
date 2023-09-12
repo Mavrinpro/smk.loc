@@ -43,9 +43,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 return date('Y-m-d', $model->start_trip);
                 },
             ],
-            'end_trip',
-            'date_of_departure',
-            'return_date',
+
+            [
+                'attribute' => 'end_trip',
+                'value' => function($model){
+                    return date('Y-m-d', $model->end_trip);
+                },
+            ],
+
+            [
+                'attribute' => 'date_of_departure',
+                'value' => function($model){
+                    return date('Y-m-d', $model->date_of_departure);
+                },
+            ],
+
+            [
+                'attribute' => 'return_date',
+                'value' => function($model){
+                    return date('Y-m-d', $model->return_date);
+                },
+            ],
+
         ],
     ]) ?>
 

@@ -36,7 +36,7 @@ class BusinessTrip extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
+            [['doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at'], 'integer'],
         ];
     }
 
@@ -54,10 +54,14 @@ class BusinessTrip extends \yii\db\ActiveRecord
             'check_id' => 'Check ID',
             'create_at' => 'Create At',
             'update_at' => 'Update At',
-            'start_trip' => 'Start Trip',
-            'end_trip' => 'End Trip',
-            'date_of_departure' => 'Date Of Departure',
-            'return_date' => 'Return Date',
+            'start_trip' => 'Начало командировки',
+            'end_trip' => 'Конец командировки',
+            'date_of_departure' => 'Дата выезда',
+            'return_date' => 'Дата возвращения',
         ];
+    }
+
+    public function getDoctor(){
+        return $this->hasOne(\app\models\Doctor::className(), ['id' => 'doctor_id']);
     }
 }

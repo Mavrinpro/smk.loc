@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'js/toastr.js',
         '//cdn.jsdelivr.net/npm/sweetalert2@11',
         'js/jquery.editable.min.js',
-        'js/bootstrap-datepicker.min.js',
+        'js/bootstrap-datepicker.ru.min.js',
         'js/custom.js',
     ];
     public $depends = [

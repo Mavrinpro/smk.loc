@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var app\models\BusinessTripSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -30,8 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'doctor_id',
+            [
+                'attribute' => 'doctor_id',
+                'value' => 'doctor.fio',
+                'filter'=>\app\models\Doctor::find()->select(['fio', 'id'])
+                    ->indexBy
+                    ('id')->column(),
+            ],
             'department_id',
             'user_id_create',
             'user_id_update',
@@ -44,9 +52,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'return_date',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, BusinessTrip $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'buttons' => [
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa-solid fa fa-edit"></i>',
+                            $url, ['class' => 'btn btn-sm btn-warning']);
+                    },
+                    'view' => function ($url, $model, $key) {
+                        return Html::a(
+                            '<i class="fa-solid fa fa-eye"></i>',
+                            $url, ['class' => 'btn btn-sm btn-success']);
+                    },
+                    'change-department' => function ($url, $model, $key) {     // render your custom button
+                        return Html::a(
+                            ' <i class="fa fa-share"></i>',
+                            $url, ['class' => 'btn ml-2 btn-sm btn-success']);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a(
+                            '<i class="fa fa-trash-alt"></i>',
+                            $url, ['class' => 'btn btn-sm btn-danger',
+                            //'title' => Yii::t('app', 'Delete'),
+                            'data-confirm' => Yii::t('yii', 'Удалить командировку № ' . $key . '?'),
+                            'data-method' => 'post', 'data-pjax' => '1',
+                        ]);
+                    },
+
+
+                ],
             ],
         ],
     ]); ?>
