@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -37,7 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'check_id',
             'create_at',
             'update_at',
-            'start_trip',
+            [
+                    'attribute' => 'start_trip',
+                'value' => function($model){
+                return date('Y-m-d', $model->start_trip);
+                },
+            ],
             'end_trip',
             'date_of_departure',
             'return_date',

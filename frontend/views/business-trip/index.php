@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var app\models\BusinessTripSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Business Trips';
+$this->title = 'График командировок';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="business-trip-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Business Trip', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новая командировка', ['create', 'department_id' => 5], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

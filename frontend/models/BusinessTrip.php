@@ -36,7 +36,7 @@ class BusinessTrip extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'start_trip', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
+            [['doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
         ];
     }
 
@@ -47,7 +47,7 @@ class BusinessTrip extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'doctor_id' => 'Doctor ID',
+            'doctor_id' => 'Врач',
             'department_id' => 'Department ID',
             'user_id_create' => 'User Id Create',
             'user_id_update' => 'User Id Update',
