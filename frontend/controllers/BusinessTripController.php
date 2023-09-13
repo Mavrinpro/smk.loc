@@ -172,7 +172,7 @@ class BusinessTripController extends Controller
                 $noty->save();
             }
             if (sizeof($user) > 0){
-                \Yii::$app->session->setFlash('success', 'Файл успешно передан сотруднику: '. $user->fio);
+                \Yii::$app->session->setFlash('success', 'Уведомление о командировке отправлено: '. $doctor->fio);
             }else{
                 \Yii::$app->session->setFlash('error', 'Вы не выбрали сотрудников');
             }
