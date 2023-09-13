@@ -99,9 +99,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             echo $form->field($noty, 'user_id[]')
                 ->checkboxList($items);
-        echo $form->field($noty, 'doc')
+        echo $form->field($noty, 'model_id')
             ->hiddenInput(['value' => $model->id])->label(false);
-        echo $form->field($noty, 'id')
+        echo $form->field($noty, 'doctor_id')
             ->hiddenInput(['value' => $model->doctor_id])->label(false);
 
         ?>

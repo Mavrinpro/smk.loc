@@ -151,17 +151,21 @@ class BusinessTripController extends Controller
 
 
         $post = \Yii::$app->request->post('Notyfication');
+        //$post['user_id'] - массив юзеров, которым нужно отправитиь уведомление
+        //$post['model_id'] - ID модели business-trip
+        //$post['doctor_id'] - ID доктора
 
-        //$post = \yii\web\Response::FORMAT_JSON;
+
+
         $user = \common\models\User::find()->where(['in', 'id', $post['user_id']])->all();
         if ($this->request->isPost) {
             //var_dump($post); die();
             foreach ($user as $it) {
-                $doctor = \app\models\Doctor::find()->where(['id' => $post['doc']])->one();
+                $doctor = \app\models\Doctor::find()->where(['id' => $post['doctor_id']])->one();
                 $noty = new \app\models\Notyfication();
                 $noty->user_id = $it->id;
                 $noty->user_create_id = \Yii::$app->getUser()->id;
-                $noty->text = 'Информация о командировке врача '. '<a href="/business-trip/view/?id='.$post['doc'].'">"'.$doctor->fio.'"</a>';
+                $noty->text = 'Информация о командировке врача '. '<a href="/business-trip/view/?id='.$post['model_id'].'">"'.$doctor->fio.'"</a>';
                 $noty->create_at = time();
                 $noty->read = 0;
                 //var_dump($noty); die();
@@ -173,7 +177,7 @@ class BusinessTripController extends Controller
                 \Yii::$app->session->setFlash('error', 'Вы не выбрали сотрудников');
             }
 
-            return $this->redirect(['view', 'id' => $post['doc']]);
+            return $this->redirect(['view', 'id' => $post['model_id']]);
         }
         //var_dump($post);
     }
