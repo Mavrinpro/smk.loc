@@ -17,7 +17,7 @@ class BusinessTripSearch extends BusinessTrip
     public function rules()
     {
         return [
-            [['id', 'doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'start_trip', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
+            [['id', 'doctor_id', 'branch_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'start_trip', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
         ];
     }
 
@@ -60,6 +60,7 @@ class BusinessTripSearch extends BusinessTrip
             'id' => $this->id,
             'doctor_id' => $this->doctor_id,
             'department_id' => $this->department_id,
+            'branch_id' => $this->branch_id,
             'user_id_create' => $this->user_id_create,
             'user_id_update' => $this->user_id_update,
             'check_id' => $this->check_id,

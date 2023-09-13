@@ -17,7 +17,7 @@ class DoctorSearch extends Doctor
     public function rules()
     {
         return [
-            [['id', 'department_id', 'create_at', 'update_at'], 'integer'],
+            [['id', 'department_id', 'branch_id', 'create_at', 'update_at'], 'integer'],
             [['fio'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class DoctorSearch extends Doctor
         $query->andFilterWhere([
             'id' => $this->id,
             'department_id' => $this->department_id,
+            'branch_id' => $this->branch_id,
             'create_at' => $this->create_at,
             'update_at' => $this->update_at,
         ]);

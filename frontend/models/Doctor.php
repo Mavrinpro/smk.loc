@@ -53,7 +53,7 @@ class Doctor extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getUsersend(){
+    public function getBranch(){
         return $this->hasOne(\app\models\Branch::className(), ['id' => 'branch_id']);
     }
 }

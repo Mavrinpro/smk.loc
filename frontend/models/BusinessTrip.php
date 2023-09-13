@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int|null $doctor_id
  * @property int|null $department_id
+ * @property int|null $branch_id
  * @property int|null $user_id_create
  * @property int|null $user_id_update
  * @property int|null $check_id
@@ -36,7 +37,8 @@ class BusinessTrip extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at'], 'integer'],
+            [['doctor_id', 'department_id', 'branch_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at',
+                'update_at'], 'integer'],
         ];
     }
 
@@ -49,6 +51,7 @@ class BusinessTrip extends \yii\db\ActiveRecord
             'id' => 'ID',
             'doctor_id' => 'Врач',
             'department_id' => 'Отдел',
+            'branch_id' => 'Филиал',
             'user_id_create' => 'Кто создал',
             'user_id_update' => 'Кто изменил',
             'check_id' => 'Check ID',
@@ -67,5 +70,13 @@ class BusinessTrip extends \yii\db\ActiveRecord
 
     public function getUser(){
         return $this->hasOne(\common\models\User::className(), ['id' => 'user_id_create']);
+    }
+
+    public function getBranch(){
+        return $this->hasOne(\app\models\Branch::className(), ['id' => 'branch_id']);
+    }
+
+    public function getDepartment(){
+        return $this->hasOne(\app\models\Department::className(), ['id' => 'department_id']);
     }
 }

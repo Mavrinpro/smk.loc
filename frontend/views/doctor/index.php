@@ -6,13 +6,14 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var app\models\DoctorSearch $searchModel */
-/** @var app\models\Doctor $model */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Doctors';
+$this->title = 'Врачи';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="doctor-index">
 
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,22 +32,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'fio:ntext',
-            'branch.name',
-            'create_at',
+
             [
-                    'attribute' => 'create_at',
-                'value' => function ($data) {
-                    return date('d.m.Y', $model->create_at);
+                'attribute' => 'branch_id',
+                'value' => 'branch.name',
+                'label' => 'Филиал',
+                'filter'=>\app\models\Branch::find()->select(['name'])
+                    ->indexBy('id')->column(),
+            ],
+
+            [
+                'attribute' => 'create_at',
+                'value' => function ($model) {
+                    return date('d.m.Y H:i', $model->create_at);
                 },
             ],
-            'update_at',
+
+            [
+                'attribute' => 'update_at',
+                'value' => function ($model) {
+                    return date('d.m.Y H:i', $model->update_at);
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Doctor $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

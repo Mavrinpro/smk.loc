@@ -40,14 +40,47 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->indexBy
                     ('id')->column(),
             ],
+            [
+                'attribute' => 'branch_id',
+                'value' => 'branch.name',
+                'filter'=>\app\models\Branch::find()->select(['name', 'id'])
+                    ->indexBy
+                    ('id')->column(),
+            ],
             //'department_id',
             //'user_id_create',
             //'user_id_update',
             //'check_id',
             //'create_at',
             //'update_at',
-            //'start_trip',
-            //'end_trip',
+            [
+                'attribute' => 'start_trip',
+                'value' => function ($model) {
+                    $dt = $model->start_trip;
+                    $formatter = new IntlDateFormatter(
+                        'ru_RU',
+                        IntlDateFormatter::LONG,
+                        IntlDateFormatter::LONG
+                    );
+                    $formatter->setPattern('d MMMM yyyy');
+                    return $formatter->format($dt);
+
+                },
+            ],
+
+            [
+                'attribute' => 'end_trip',
+                'value' => function ($model) {
+                    $dt = $model->end_trip;
+                    $formatter = new IntlDateFormatter(
+                        'ru_RU',
+                        IntlDateFormatter::LONG,
+                        IntlDateFormatter::LONG
+                    );
+                    $formatter->setPattern('d MMMM yyyy');
+                    return $formatter->format($dt);
+                },
+            ],
             //'date_of_departure',
             //'return_date',
             [

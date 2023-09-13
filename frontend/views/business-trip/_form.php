@@ -18,6 +18,8 @@ use yii\helpers\ArrayHelper;
         <?= $form->field($model, 'department_id')->hiddenInput(['value' => \Yii::$app->request->get('department_id')])->label(false) ?>
         <?= $form->field($model, 'doctor_id')->dropDownList(ArrayHelper::map(app\models\Doctor::find()->asArray()
             ->all(), 'id', 'fio'), ['prompt' => 'Выбрать врача']) ?>
+<?= $form->field($model, 'branch_id')->dropDownList(ArrayHelper::map(app\models\Branch::find()->asArray()
+    ->all(), 'id', 'name'), ['prompt' => 'Выбрать филиал']) ?>
 
         <?php if ($action == 'create'): ?>
             <?= $form->field($model, 'user_id_create')->hiddenInput(['value' => \Yii::$app->getUser()->id])->label(false) ?>
@@ -96,7 +98,6 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         <?php endif; ?>
-
 
         <?php if ($action == 'create'): ?>
             <div class="form-group">
