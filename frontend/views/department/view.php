@@ -61,6 +61,7 @@ $this->params['breadcrumbs'][] = $model->name;
                         <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
                     </button>
                 </div>
+
             </div>
         </div>
         <div class="grid-menu grid-menu-4col">
@@ -88,6 +89,14 @@ $this->params['breadcrumbs'][] = $model->name;
                      btn
                     btn-outline-info">
                         <i class="lnr-map btn-icon-wrapper"> </i>Критерии оценки
+                    </a>
+                </div>
+                <div class="col-sm-12">
+                    <a href="/business-trip/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
+                    btn-transition
+                     btn
+                    btn-outline-info">
+                        <i class="lnr-map btn-icon-wrapper"> </i>График командировок
                     </a>
                 </div>
             </div>

@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Новая командировка', ['create', 'department_id' => 5], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новая командировка', ['create', 'department_id' => \Yii::$app->request->get('department_id')], ['class' => 'btn 
+        btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

@@ -6,7 +6,8 @@ use yii\helpers\Html;
 /** @var app\models\BusinessTrip $model */
 
 $this->title = 'Создать командировку';
-$this->params['breadcrumbs'][] = ['label' => 'График командировок', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'График командировок', 'url' => ['/business-trip?department_id='
+    .\Yii::$app->request->get('department_id')]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="business-trip-create">

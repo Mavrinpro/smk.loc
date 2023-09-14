@@ -8,7 +8,8 @@ use yii\widgets\ActiveForm;
 /** @var app\models\BusinessTrip $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Business Trips', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'График командировок', 'url' => ['/business-trip?department_id='
+    .$model->department_id]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

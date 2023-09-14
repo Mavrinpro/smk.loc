@@ -39,7 +39,7 @@ class BusinessTripSearch extends BusinessTrip
      */
     public function search($params)
     {
-        $query = BusinessTrip::find();
+        $query = BusinessTrip::find()->where(['department_id' => \Yii::$app->request->get('department_id')]);
 
         // add conditions that should always apply here
 
