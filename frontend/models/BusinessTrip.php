@@ -39,6 +39,8 @@ class BusinessTrip extends \yii\db\ActiveRecord
         return [
             [['doctor_id', 'department_id', 'branch_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at',
                 'update_at'], 'integer'],
+            [['doctor_id'], 'required'],
+            [['branch_id'], 'required'],
         ];
     }
 

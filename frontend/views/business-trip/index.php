@@ -86,6 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'return_date',
             [
                 'class' => ActionColumn::className(),
+                'header' =>    Html::a('Сбросить фильтр', ['/business-trip/'], ['class' => 'btn btn-sm btn-outline-primary']),
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
                         return Html::a('<i class="fa-solid fa fa-edit"></i>',
@@ -106,8 +107,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             '<i class="fa fa-trash-alt"></i>',
                             $url, ['class' => 'btn btn-sm btn-danger',
                             //'title' => Yii::t('app', 'Delete'),
-                            'data-confirm' => Yii::t('yii', 'Удалить командировку № ' . $key . '?'),
-                            'data-method' => 'post', 'data-pjax' => '1',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                                'params' => [
+                                    'department_id' => $model->department_id
+                                ]
+                            ],
                         ]);
                     },
 
@@ -120,3 +126,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+<?php
+$js = <<< JS
+
+$('input[name="BusinessTripSearch[start_trip]"], input[name="BusinessTripSearch[end_trip]"]').datepicker({
+format: "yyyy-mm-dd",
+    //orientation: "top auto",
+    toggleActive: true,
+     language: "ru",
+     autoclose: true,
+     todayHighlight: true,
+     
+  
+});
+
+JS;
+$this->registerJs($js);

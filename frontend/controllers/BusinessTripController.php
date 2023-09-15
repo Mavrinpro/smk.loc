@@ -124,9 +124,11 @@ class BusinessTripController extends Controller
      */
     public function actionDelete($id)
     {
+        $post = \Yii::$app->request->post();
+        //var_dump(\Yii::$app->request->post()); die;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/business-trip?department_id='.$post['department_id']]);
     }
 
     /**

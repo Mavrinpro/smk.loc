@@ -17,7 +17,8 @@ class BusinessTripSearch extends BusinessTrip
     public function rules()
     {
         return [
-            [['id', 'doctor_id', 'branch_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'start_trip', 'end_trip', 'date_of_departure', 'return_date'], 'integer'],
+            [['id', 'doctor_id', 'branch_id', 'department_id', 'user_id_create', 'user_id_update', 'check_id', 'create_at', 'update_at', 'date_of_departure', 'return_date'], 'integer'],
+            [['start_trip', 'end_trip',], 'safe']
         ];
     }
 
@@ -39,7 +40,7 @@ class BusinessTripSearch extends BusinessTrip
      */
     public function search($params)
     {
-        $query = BusinessTrip::find()->where(['department_id' => \Yii::$app->request->get('department_id')]);
+        $query = BusinessTrip::find();
 
         // add conditions that should always apply here
 
@@ -66,12 +67,13 @@ class BusinessTripSearch extends BusinessTrip
             'check_id' => $this->check_id,
             'create_at' => $this->create_at,
             'update_at' => $this->update_at,
-            'start_trip' => $this->start_trip,
-            'end_trip' => $this->end_trip,
+           // 'start_trip' => $this->start_trip,
+            //'end_trip' => $this->end_trip,
             'date_of_departure' => $this->date_of_departure,
             'return_date' => $this->return_date,
         ]);
-
+        $query->andFilterWhere(['like', 'start_trip',  strtotime($this->start_trip)]);
+        $query->andFilterWhere(['like', 'end_trip',  strtotime($this->end_trip)]);
         return $dataProvider;
     }
 }
