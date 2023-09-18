@@ -48,12 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ->indexBy
                     ('id')->column(),
             ],
-            //'department_id',
-            //'user_id_create',
-            //'user_id_update',
-            //'check_id',
-            //'create_at',
-            //'update_at',
+           
             [
                 'attribute' => 'start_trip',
                 'value' => function ($model) {
