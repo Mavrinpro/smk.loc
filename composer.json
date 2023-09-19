@@ -27,7 +27,10 @@
         "vova07/yii2-imperavi-widget": "*",
         "kartik-v/yii2-editors": "dev-master",
         "perminder-klair/yii2-dropzone": "dev-master",
-        "kartik-v/yii2-export": "dev-master"
+        "kartik-v/yii2-export": "*",
+        "codemix/yii2-excelexport": "^2.7",
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "workerman/workerman": "^4.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

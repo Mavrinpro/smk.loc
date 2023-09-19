@@ -119,6 +119,11 @@ box.on('change', function (){
         })
 })
 
+ws = new WebSocket("ws://127.0.0.1:8001/?user=tester01");
+ws.onmessage = function(evt) {
+    console.log(evt.data);
+};
+
 JS;
 
 $this->registerJs($js);
