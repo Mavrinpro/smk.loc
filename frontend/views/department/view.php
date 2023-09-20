@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
@@ -18,30 +19,55 @@ $this->params['breadcrumbs'][] = $model->name;
 
 ?>
 
-<?//= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
-<?//= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
+<? //= Html::a('<i class="fa fa-plus-circle"></i> Создать материал', ['/page/create', 'id' => $model->id], ['class' => 'btn btn-success mb-3']) ?>
+<? //= Html::a('<i class="fa fa-pencil-alt"></i>', ['department/update', 'id' => $model->id], ['class' => 'ml-3 btn btn-warning mb-3']) ?>
 <!--<a href="" data-target="#modalCreateUser" data-toggle="modal" class="btn btn-success mb-3 ml-3"><i class="fa-->
 <!--fa-user"></i> Добавить-->
 <!--    сотрудника</a>-->
 <div class="row">
+    <div class="col-12">
+        <?= Html::a('<i class="fa fa-folder"></i> Создать новый раздел файлов', ['/file-folder/create', 'department_id'
+        => $model->id], ['class' => ' btn btn-primary btn-block mb-3 btn-lg
+        ']) ?>
+    </div>
     <div class="col-md-12 mb-3">
+
         <?php
+
+        $csrfToken = \Yii::$app->request->getCsrfToken();
+        $htmlElement = '<div id="filefolder"></div>';
+        echo $htmlElement;
+        $htmlDom = new DOMDocument();
+        $htmlDom->loadHTML($htmlElement);
+        $paragraphTags = $htmlDom->getElementsByTagName($htmlElement);
+        var_dump($htmlDom);
         echo \kato\DropZone::widget([
             'options' => [
-                    'url' => '/site/upload/?id='.$model->id,
-                 'maxFilesize' => '10',
-                'dictDefaultMessage' => 'Перетащите файлы в эту область'
+                'url' => '/site/upload/?id=' . $model->id.'&filefolder='.$htmlDom->textContent,
+                'maxFilesize' => '10',
+                'dictDefaultMessage' => 'Перетащите файлы в эту область',
             ],
             'clientEvents' => [
-                'complete' => "function(file){
+                'sending' => "function(file, xhr, formData) {
+                 
+                 }",
+
+                'complete' => "function(file, xhr){
                 
                 console.log(file)
                 }",
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
             ],
         ]);
-        echo '<input type="hidden" name="department_id" value="'.$model->id.'">'
+        echo '<input type="hidden" name="department_id" value="' . $model->id . '">'
         ?></div>
+    <?php
+    $form = ActiveForm::begin();
+    echo $form->field($model, 'name')->dropDownList(ArrayHelper::map(app\models\FileFolder::find()
+        ->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите категорию файлов']);
+
+    ActiveForm::end();
+    ?>
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
@@ -142,7 +168,7 @@ $this->params['breadcrumbs'][] = $model->name;
         //var_dump($files); die();
 
         $url = 'files/';
-        $path_parts = pathinfo('/'.$url.$file->name);
+        $path_parts = pathinfo('/' . $url . $file->name);
 
         $files = scandir('files/');
         // $files2 = scandir($dir, 1);
@@ -207,24 +233,24 @@ $this->params['breadcrumbs'][] = $model->name;
         }
 
         if (!empty($file->name)) {
-            $kb = filesize("files/".$file->name);
+            $kb = filesize("files/" . $file->name);
 
             echo '<div class="col-md-2 text-center mt-3"><div class="div_img">';
 
-            echo '<img src="' . $ind . '" width="40" data-id="'.$file->id.'" data-title="'.$file->title.'" class="file_upload"></br>';
+            echo '<img src="' . $ind . '" width="40" data-id="' . $file->id . '" data-title="' . $file->title . '" class="file_upload"></br>';
             //clearstatcache();
-            echo '<span class="badge badge-pill">'.round($kb / 1024, 1).'kb</span></br>';
+            echo '<span class="badge badge-pill">' . round($kb / 1024, 1) . 'kb</span></br>';
 
 
-            if ($file->title != null){
-                echo Html::a($file->title, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>";
-            }else{
-                echo Html::a($file->name, \yii\helpers\Url::base() .'/'.$url. $file->name, ['class' => 'small']) . "<br/>"; //
+            if ($file->title != null) {
+                echo Html::a($file->title, \yii\helpers\Url::base() . '/' . $url . $file->name, ['class' => 'small']) . "<br/>";
+            } else {
+                echo Html::a($file->name, \yii\helpers\Url::base() . '/' . $url . $file->name, ['class' => 'small']) . "<br/>"; //
             }
 
             //echo '<a href="/doctors/remove-document/'.$file->id.'" >&times</a>';
             echo Html::a('&times', ['remove-document', 'id' => $file->id, 'modelid' => $model->id], ['class' =>
-                'badge badge-pill badge-danger', 'data-confirm' => Yii::t('yii', 'Удалить файл: '.$file->name.'?')]);
+                'badge badge-pill badge-danger', 'data-confirm' => Yii::t('yii', 'Удалить файл: ' . $file->name . '?')]);
             echo '</div></div>';
 
         }
@@ -307,14 +333,14 @@ $this->params['breadcrumbs'][] = $model->name;
     <div class="row">
         <div class="col-md-12 mt-3">
             <h3 class="mb-3">Сотрудники</h3>
-<!--                        --><?//= Html::a('<i class="fa fa-user"></i> Добавить сотрудника', ['create-user', 'id' =>
-//                            $model->id],['class' => 'btn btn-success mb-3', 'data' => [
-//                            'method' => 'post',
-//                            'params' => [
-//                                'id' => $model->id,
-//                                'param2' => 'value2',
-//                            ],
-//                        ],]) ?>
+            <!--                        --><? //= Html::a('<i class="fa fa-user"></i> Добавить сотрудника', ['create-user', 'id' =>
+            //                            $model->id],['class' => 'btn btn-success mb-3', 'data' => [
+            //                            'method' => 'post',
+            //                            'params' => [
+            //                                'id' => $model->id,
+            //                                'param2' => 'value2',
+            //                            ],
+            //                        ],]) ?>
             <ul class="todo-list-wrapper list-group list-group-flush">
                 <?php
                 foreach ($user as $users) { ?>
@@ -369,12 +395,12 @@ $this->params['breadcrumbs'][] = $model->name;
                                             <?= Html::a('Удалить', ['department/delete-user', 'id' =>
                                                 $users->id, 'department_id' => $model->id], ['class' => 'dropdown-item',
                                                 'data' => [
-                                                'method' => 'post',
-                                                'params' => [
-                                                    'id' => 6,
-                                                    'param2' => 'value2',
-                                                ],
-                                            ],]) ?>
+                                                    'method' => 'post',
+                                                    'params' => [
+                                                        'id' => 6,
+                                                        'param2' => 'value2',
+                                                    ],
+                                                ],]) ?>
                                         </div>
                                     </div>
                                 </div>
@@ -400,6 +426,17 @@ $('.file_upload').click(function (){
     console.log(1)
 }) 
 
+
+
+// Передать id категори и файлов при  выборе select
+var sel =  $('#department-name');
+var filefolder =  $('#filefolder');
+                   
+sel.change(function (){
+   
+     filefolder.text(sel.val());
+})
+                  
 
 JS;
 

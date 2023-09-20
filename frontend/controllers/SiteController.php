@@ -291,13 +291,7 @@ class SiteController extends Controller
         $department = \app\models\Department::find()->where(['branch_id' => $post['id']])->all();
         $arr = [];
         $arr['label'] = '<label for="signupform-department_id">Отдел</label>';
-
-        if (isset($post['model'])){
-            $arr['sel'] = '<select id="doctor-department_id" class="form-control" name="Doctor[department_id]">';
-        }else{
-            $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
-        }
-
+        $arr['sel'] = '<select id="signupform-department_id" class="form-control" name="SignupForm[department_id]">';
         $arr['opt_empty'] = '<option value="">Выберите свой отдел</option>';
         foreach ($department as $item) {
             $arr['id'][] = '<option value="'.$item->id.'">'.$item->name.'</option>';
@@ -339,6 +333,7 @@ class SiteController extends Controller
                 //Now save file data to database
                 $files->name = $file->name;
                 $files->department_id = Yii::$app->request->get('id'); // id отдела
+                $files->file_folder = Yii::$app->request->get('file_folder'); // id раздела файлов
                 $files->date_at = time();
                 $files->user_id = Yii::$app->user->getId();
                 $files->save();
