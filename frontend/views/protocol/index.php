@@ -53,17 +53,21 @@ $gridColumns = [
             'options' => [
                 'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
                 'maxFilesize' => '10',
-                'dictDefaultMessage' => 'Перетащите файлы в эту область'
+                'dictDefaultMessage' => 'Перетащите файлы в эту область',
+                'params' => [
+                        'a' => 900
+                ]
             ],
             'clientEvents' => [
                 'complete' => "function(file){
-                
+                $.pjax.reload({container:'#w0'});
                 console.log(file)
                 }",
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
             ],
         ]);
-        echo '<input type="hidden" name="department_id" value="' . $model->id . '">'
+        echo '<input type="hidden" name="department_id" value="' . $model->id . '">';
+        echo '<input type="hidden" name="department" value="6">';
         ?>
     </div>
     <?php Pjax::begin(); ?>
@@ -230,8 +234,8 @@ $gridColumns = [
     <?php Pjax::end(); ?>
 
 </div>
-<?php echo ExportMenu::widget([
-    'dataProvider' => $dataProvider,
-    //'columns' => $gridColumns,
-    'clearBuffers' => true, //optional
-]); ?>
+<?php //echo ExportMenu::widget([
+//    'dataProvider' => $dataProvider,
+//    //'columns' => $gridColumns,
+//    'clearBuffers' => true, //optional
+//]); ?>
