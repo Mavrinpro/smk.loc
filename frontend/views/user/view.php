@@ -119,10 +119,16 @@ box.on('change', function (){
         })
 })
 
-ws = new WebSocket("ws://127.0.0.1:8001/?user=tester01");
-ws.onmessage = function(evt) {
-    console.log(evt.data);
-};
+let ws = new WebSocket("ws://127.0.0.1:8001/?user=tester01");
+
+            ws.addEventListener('message', (event) => {
+                console.info('Frontend got message: ' + event.data); // get from server
+            })
+
+            const func = () => {
+                ws.send('Hello Martians!'); //send on server
+            };
+            setTimeout(func, 2 * 1000);
 
 JS;
 
