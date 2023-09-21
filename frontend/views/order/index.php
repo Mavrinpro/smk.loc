@@ -54,8 +54,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         ->indexBy
                         ('id')->column(),
                 ],
-                'department_id',
-                'branch_id',
+               // 'department_id',
+                [
+                        'attribute' => 'department_id',
+                    'filter' => \app\models\Department::find()->select(['name', 'id'])
+                        ->indexBy
+                        ('id')->column(),
+
+                ],
+                //'branch_id',
+                [
+                    'attribute' => 'branch_id',
+                    'filter' => \app\models\Branch::find()->select(['name', 'id'])
+                        ->indexBy
+                        ('id')->column(),
+
+                ],
                 //'user_id',
                 //'create_at',
                 //'update_at',
@@ -79,7 +93,7 @@ $js = <<<JS
 var sel = $('[id^="sel-"]');
 sel.each(function (){
     $(this).change(function (){
-        $.pjax.reload({container:'#p0'});
+        //$.pjax.reload({container:'#p0'});
     let id = $(this).val();
     let modelId = $(this).data('id');
     console.log($(this).data('id'));
