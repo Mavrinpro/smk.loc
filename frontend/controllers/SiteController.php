@@ -329,7 +329,10 @@ class SiteController extends Controller
             //print_r($file);
 
             if ($file->saveAs($uploadPath . '/' . $file->name)) {
-                //var_dump(\Yii::$app->request->post()); die;
+//                $cookies = Yii::$app->request->cookies;
+//                if (($cookie = $cookies->get('filefolder')) !== null) {
+//                    $filefolder = $cookie->value;
+//                }
                 //Now save file data to database
                 $files->name = $file->name;
                 $files->department_id = Yii::$app->request->get('id'); // id отдела

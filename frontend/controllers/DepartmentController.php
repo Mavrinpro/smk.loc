@@ -87,6 +87,7 @@ class DepartmentController extends Controller
         $user = User::find()->where(['department_id' => $depart->id])->all();
         $userForm = new User();
         $f = new Files();
+        $numFolder = $_COOKIE['filefolder']; // Раздел файлов по умолчанию
 
         return $this->render('view', [
             'user' => $user,
@@ -95,7 +96,8 @@ class DepartmentController extends Controller
             'model' => $this->findModel($id),
             'userform' => $userForm,
             'files' => $files,
-            'f' => $f
+            'f' => $f,
+            'numFolder' => $numFolder
         ]);
     }
 

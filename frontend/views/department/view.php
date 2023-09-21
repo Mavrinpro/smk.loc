@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\bootstrap4\Modal;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var app\models\Department $model */
@@ -30,18 +31,20 @@ $this->params['breadcrumbs'][] = $model->name;
         => $model->id], ['class' => ' btn btn-primary btn-block mb-3 btn-lg
         ']) ?>
     </div>
-    <div class="col-md-12 mb-3">
+    <div class="col-md-12 mb-3" id="eee">
         <div id="filefolder"></div>
+        <input class="urlForDropzone" type="hidden" value="<?= '/site/upload/?id=' . $model->id . '&filefolder='; ?>">
         <?php
 
-       //$csrfToken = \Yii::$app->request->getCsrfToken();
+        //$csrfToken = \Yii::$app->request->getCsrfToken();
         //$htmlElement = '<div id="filefolder"></div>';
         //echo $htmlElement;
         $htmlDom = new DOMDocument();
         //$htmlDom->loadHTML($htmlElement);
 
         $paragraphTags = $htmlDom->getElementById('filefolder');
-        $url = '/site/upload/?id=' . $model->id.'&filefolder=4'.$htmlDom->textContent;
+        //$numFolder = $paragraphTags->textContent;
+        $url = '/site/upload/?id=' . $model->id . '&filefolder=';
         var_dump($htmlDom);
         echo \kato\DropZone::widget([
             'options' => [
@@ -50,12 +53,22 @@ $this->params['breadcrumbs'][] = $model->name;
                 'dictDefaultMessage' => 'Перетащите файлы в эту область',
             ],
             'clientEvents' => [
+
+                'processing' => "function(file) {
+                
+                    // Ссылку получаем из скрытого инпута, и добавляем к ней переменную из селекта
+                    this.options.url = $('.urlForDropzone').val()+$('#department-name').val();
+    
+                    
+                 }",
+
                 'sending' => "function(file, xhr, formData) {
-                 
+                
+                 console.log(formData);
                  }",
 
                 'complete' => "function(file, xhr){
-                
+                $.pjax.reload({container:'#p0'});
                 console.log(file)
                 }",
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
@@ -63,13 +76,15 @@ $this->params['breadcrumbs'][] = $model->name;
         ]);
         echo '<input type="hidden" name="department_id" value="' . $model->id . '">'
         ?></div>
-    <?php
-    $form = ActiveForm::begin();
-    echo $form->field($model, 'name')->dropDownList(ArrayHelper::map(app\models\FileFolder::find()
-        ->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите категорию файлов']);
+    <div class="col-4">
+        <?php
+        $form = ActiveForm::begin();
+        echo $form->field($model, 'name')->dropDownList(ArrayHelper::map(app\models\FileFolder::find()
+            ->asArray()->all(), 'id', 'name'), ['prompt' => 'Укажите категорию файлов', 'value' => 1])->label('Раздел файлов');
 
-    ActiveForm::end();
-    ?>
+        ActiveForm::end();
+        ?>
+    </div>
     <div class="col-md-12 mb-5">
         <div class="grid-menu grid-menu-4col">
             <div class="no-gutters row">
@@ -164,7 +179,9 @@ $this->params['breadcrumbs'][] = $model->name;
 
     <?php } ?>
 </div>
-<div class="row">
+<?php Pjax::begin(); ?>
+
+<div class="row" id="rex">
     <?php
     foreach ($files as $file) {
         //var_dump($files); die();
@@ -235,7 +252,7 @@ $this->params['breadcrumbs'][] = $model->name;
         }
 
         if (!empty($file->name)) {
-            $kb = filesize("files/" . $file->name);
+            $kb = @filesize("files/" . $file->name);
 
             echo '<div class="col-md-2 text-center mt-3"><div class="div_img">';
 
@@ -245,9 +262,11 @@ $this->params['breadcrumbs'][] = $model->name;
 
 
             if ($file->title != null) {
-                echo Html::a($file->title, \yii\helpers\Url::base() . '/' . $url . $file->name, ['class' => 'small']) . "<br/>";
+                echo Html::a($file->title, \yii\helpers\Url::base() . '/' . $url . $file->name, ['target' => '_blank',
+                        'class' => 'small']) . "<br/>";
             } else {
-                echo Html::a($file->name, \yii\helpers\Url::base() . '/' . $url . $file->name, ['class' => 'small']) . "<br/>"; //
+                echo Html::a($file->name, \yii\helpers\Url::base() . '/' . $url . $file->name, ['target' => '_blank',
+                        'class' => 'small']) . "<br/>"; //
             }
 
             //echo '<a href="/doctors/remove-document/'.$file->id.'" >&times</a>';
@@ -260,6 +279,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
     ?>
 </div>
+<?php Pjax::end(); ?>
 <div class="row">
     <div class="col-md-12">
         <div class="drawer-section p-0">
@@ -433,10 +453,18 @@ $('.file_upload').click(function (){
 // Передать id категори и файлов при  выборе select
 var sel =  $('#department-name');
 var filefolder =  $('#filefolder');
-                   
-sel.change(function (){
-     filefolder.text(sel.val());
-})
+
+/*
+    setTimeout(function () {
+        jQuery('#department-name').on('change', function (e) {
+            let qqq = $(this);
+            console.log(myDropzone.dropzone);
+            console.log(myDropzone.dropzone.options);
+            myDropzone.dropzone.options.url = $('.urlForDropzone').val()+qqq;
+            console.log('$url'+qqq); // user
+        })
+    }, 1000);
+*/
                   
 
 JS;

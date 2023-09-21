@@ -153,4 +153,22 @@ class OrderController extends Controller
             echo "<option>-</option>";
         }
     }
+    public function actionChangeUser()
+    {
+        $post = \Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if ($post){
+            $order = Orders::findOne(['id' => $post['modelId']]);
+            $order->user_id = $post['id'];
+            $order->update();
+            if($order->save()){
+                return ['count' => 1, 'order' => $order];
+            }else{
+                return ['count' => 0, 'order' => $order];
+            }
+
+        }
+
+
+    }
 }
