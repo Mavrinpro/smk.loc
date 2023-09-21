@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "files".
  *
  * @property int $id
+ * @property int $file_folder
  * @property string|null $name
  * @property string|null $title
  * @property int|null $date_at
@@ -32,7 +33,7 @@ class Files extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date_at', 'date_end', 'user_id', 'user_id_update', 'department_id'], 'integer'],
+            [['date_at', 'date_end', 'user_id', 'user_id_update', 'department_id', 'file_folder'], 'integer'],
             [['name', 'title'], 'string', 'max' => 255],
         ];
     }

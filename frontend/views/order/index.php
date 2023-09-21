@@ -8,6 +8,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var app\models\OrderSearch $searchModel */
+/** @var app\models\Order $model */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Приказы';
@@ -17,6 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('<i class="fa fa-plus-circle"></i> Создать приказ', ['create'], ['class' => 'btn btn-success']) ?>
+
+        <?= Html::a('<i class="fa fa-plus-circle"></i> Создать раздел файлов', ['/file-folder/create', 'department_id' => \Yii::$app->request->get('department_id')],
+            ['class'
+        => 'btn 
+        btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

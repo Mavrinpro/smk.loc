@@ -31,19 +31,21 @@ $this->params['breadcrumbs'][] = $model->name;
         ']) ?>
     </div>
     <div class="col-md-12 mb-3">
-
+        <div id="filefolder"></div>
         <?php
 
-        $csrfToken = \Yii::$app->request->getCsrfToken();
-        $htmlElement = '<div id="filefolder"></div>';
-        echo $htmlElement;
+       //$csrfToken = \Yii::$app->request->getCsrfToken();
+        //$htmlElement = '<div id="filefolder"></div>';
+        //echo $htmlElement;
         $htmlDom = new DOMDocument();
-        $htmlDom->loadHTML($htmlElement);
-        $paragraphTags = $htmlDom->getElementsByTagName($htmlElement);
+        //$htmlDom->loadHTML($htmlElement);
+
+        $paragraphTags = $htmlDom->getElementById('filefolder');
+        $url = '/site/upload/?id=' . $model->id.'&filefolder=4'.$htmlDom->textContent;
         var_dump($htmlDom);
         echo \kato\DropZone::widget([
             'options' => [
-                'url' => '/site/upload/?id=' . $model->id.'&filefolder='.$htmlDom->textContent,
+                'url' => $url,
                 'maxFilesize' => '10',
                 'dictDefaultMessage' => 'Перетащите файлы в эту область',
             ],
@@ -433,7 +435,6 @@ var sel =  $('#department-name');
 var filefolder =  $('#filefolder');
                    
 sel.change(function (){
-   
      filefolder.text(sel.val());
 })
                   

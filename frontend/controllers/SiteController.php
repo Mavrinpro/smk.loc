@@ -333,7 +333,7 @@ class SiteController extends Controller
                 //Now save file data to database
                 $files->name = $file->name;
                 $files->department_id = Yii::$app->request->get('id'); // id отдела
-                $files->file_folder = Yii::$app->request->get('file_folder'); // id раздела файлов
+                $files->file_folder = Yii::$app->request->get('filefolder'); // id раздела файлов
                 $files->date_at = time();
                 $files->user_id = Yii::$app->user->getId();
                 $files->save();
