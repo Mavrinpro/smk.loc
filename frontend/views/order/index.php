@@ -79,6 +79,7 @@ $js = <<<JS
 var sel = $('[id^="sel-"]');
 sel.each(function (){
     $(this).change(function (){
+        $.pjax.reload({container:'#p0'});
     let id = $(this).val();
     let modelId = $(this).data('id');
     console.log($(this).data('id'));
@@ -98,6 +99,7 @@ sel.each(function (){
                 // },
                 success: function (data) {
                     console.log(data);
+                    
                    if (data.count == 1){
                    toastr.success('Новый сотрудник: '+data.order.user_id, 'Сотрудник изменен!', {
                    timeOut: 5000,
