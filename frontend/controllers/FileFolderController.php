@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\FileFolder;
 use app\models\FileFolderSearch;
+use yii\validators\CompareValidator;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -70,6 +71,7 @@ class FileFolderController extends Controller
         $model = new FileFolder();
 
         if ($this->request->isPost) {
+
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

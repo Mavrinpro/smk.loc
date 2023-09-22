@@ -32,10 +32,8 @@ class FileFolder extends \yii\db\ActiveRecord
         return [
             [['file_id', 'department_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['name'],'unique', 'when' => function ($model) {
-                return $model->department_id == Yii::$app->request->get('department_id');
-                }
-            ],
+            ['name', 'validateDepartment'],
+            ['department_id', 'validateDepartment'],
         ];
     }
 
@@ -50,5 +48,14 @@ class FileFolder extends \yii\db\ActiveRecord
             'file_id' => 'Категория файлов',
             'department_id' => 'Отдел',
         ];
+    }
+
+    // Проверка есть ли данный раздел документов в отделе (department)
+    public function validateDepartment($attribute, $params, $validator)
+    {
+        $model = $this::find()->where(['name' => $this->name, 'department_id' => $this->department_id])->one();
+        if ($this->department_id == $model->department_id) {
+            $this->addError('name', 'Раздел (' .$this->name. ') для документов уже есть".');
+        }
     }
 }
