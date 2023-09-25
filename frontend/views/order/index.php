@@ -42,12 +42,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'user_id',
                     'format' => 'raw',
                     'value' => function ($model) {
-                        return Html::activeDropDownList($model, 'user_id', ArrayHelper::map(\common\models\User::find()
-                            ->asArray()
-                            ->all
-                            (), 'id', 'username'), ['class' => 'form-control', 'id' => 'sel-' . $model->id, 'data-id' =>
-                            $model->id,
-                            'prompt' => 'Выбрать сотрудника']);
+
+                        $userRole = current(ArrayHelper::getColumn(Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId()), 'name'));
+
+                        if ($userRole == 'admin' || $userRole == 'superadmin'){
+                            return Html::activeDropDownList($model, 'user_id', ArrayHelper::map(\common\models\User::find()
+                                ->asArray()
+                                ->all
+                                (), 'id', 'username'), ['class' => 'form-control', 'id' => 'sel-' . $model->id, 'data-id' =>
+                                $model->id,
+                                'prompt' => 'Выбрать сотрудника']);
+                        }else{
+                            return $model->user->username;
+                        }
+
+
                     },
                     'label' => 'Сотрудник',
                     'filter' => \common\models\User::find()->select(['username', 'id'])
