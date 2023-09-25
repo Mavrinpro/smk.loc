@@ -132,7 +132,6 @@ sel.each(function (){
 })
 })
 
-
 JS;
 
 $this->registerJs($js);
