@@ -208,7 +208,6 @@ class WebsocketController extends \yii\web\Controller
 
         };
 
-
         $worker->onError = function ($connection, $code, $msg) use ($worker) {
 
             @file_get_contents('https://api.telegram.org/bo111111111/sendMessage?text=' . urlencode("ОШИБКА СОКЕТА error $code $msg\n") . '&chat_id=164835803');
