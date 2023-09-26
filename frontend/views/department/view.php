@@ -34,6 +34,42 @@ $this->params['breadcrumbs'][] = $model->name;
     <div class="col-md-12 mb-3" id="eee">
         <div id="filefolder"></div>
         <input class="urlForDropzone" type="hidden" value="<?= '/site/upload/?id=' . $model->id . '&filefolder='; ?>">
+        <!-- форма для отправки сообщений -->
+        <form name="publish">
+            <input type="text" name="message" id="inp">
+            <input type="submit" value="Отправить" id="btn" class="btn btn-danger" data-user="<?= \Yii::$app->getUser
+            ()->id ?>">
+        </form>
+
+        <!-- здесь будут появляться входящие сообщения -->
+        <div id="subscribe">
+            <?php foreach ($chat as $chater) { ?>
+                <div class="chat-box-wrapper">
+                <div>
+                <div class="avatar-icon-wrapper mr-1">
+                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                </div>
+                <div class="avatar-icon avatar-icon-lg rounded">
+                <?php if (isset($chater->user->avatar)): ?>
+                    <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>" alt="">
+                    <?php else: ?>
+                    <img src="/img/ava.jpg" alt="">
+                <?php endif; ?>
+                    </div>
+                    </div>
+                    </div>
+                    <div>
+                        <div class="chat-box"><?= $chater->text ?></div>
+                        <small class="opacity-6">
+                            <i class="fa fa-calendar-alt mr-1"></i>
+                            <?= date('d.m.Y H:i',$chater->create_at) ?>
+                        </small>
+                    </div>
+                    </div>
+                    <?php } ?>
+        </div>
+
+
         <?php
 
         //$csrfToken = \Yii::$app->request->getCsrfToken();
@@ -45,7 +81,7 @@ $this->params['breadcrumbs'][] = $model->name;
         $paragraphTags = $htmlDom->getElementById('filefolder');
         //$numFolder = $paragraphTags->textContent;
         $url = '/site/upload/?id=' . $model->id . '&filefolder=';
-        var_dump($htmlDom);
+
         echo \kato\DropZone::widget([
             'options' => [
                 'url' => $url,
@@ -466,7 +502,48 @@ var filefolder =  $('#filefolder');
     }, 1000);
 */
                   
+ws = new WebSocket("ws://127.0.0.1:8090");
 
+
+    let btn = $('#btn');
+    let inp = $('#inp');
+    let subscribe = $('#subscribe');
+    ws.onopen = function() {
+    btn.on('click', function (e){
+        e.preventDefault();
+         let obj = {
+             'type': 'UserMessage',
+             'user_id': $(this).data('user'),
+             'message': inp.val()
+         };
+       ws.send(JSON.stringify(obj)); 
+       
+       })
+       
+    };
+    
+    
+
+ws.onmessage = function(e) {
+    let myobj = JSON.parse(e.data);
+
+    
+    
+    // subscribe.append("<div class='chat-box-wrapper'><div class='chat-box'>"+myobj.user_id+" - "+myobj
+    // .message+"</div></div>");
+    
+   
+   
+    // subscribe.prepend('<div class="chat-box-wrapper"><div class="chat-box">'+(myobj.message || '-')+'</div></div>');
+     subscribe.append('<div class="chat-box-wrapper"><div>' +
+      '<div class="avatar-icon-wrapper mr-1">' +
+       '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
+        '<div class="avatar-icon avatar-icon-lg rounded"><img src="/img/ava.jpg" alt=""></div>' +
+         '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><class="fa fa-calendar-alt mr-1"></i>11:01 AM | Yesterday</small></div>' +
+          '</div>');
+    
+    
+};
 JS;
 
 $this->registerJs($js);

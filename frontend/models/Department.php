@@ -50,5 +50,8 @@ class Department extends \yii\db\ActiveRecord
     {
         return Department::find()->where(['branch_id' => $id])->all();
     }
+    public function getUser(){
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
+    }
    
 }
