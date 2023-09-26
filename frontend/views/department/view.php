@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $model->name;
         <div id="filefolder"></div>
         <input class="urlForDropzone" type="hidden" value="<?= '/site/upload/?id=' . $model->id . '&filefolder='; ?>">
         <!-- форма для отправки сообщений -->
+        <?php Pjax::begin() ?>
         <form name="publish">
             <input type="text" name="message" id="inp">
             <input type="submit" value="Отправить" id="btn" class="btn btn-danger" data-user="<?= \Yii::$app->getUser
@@ -45,30 +46,31 @@ $this->params['breadcrumbs'][] = $model->name;
         <div id="subscribe">
             <?php foreach ($chat as $chater) { ?>
                 <div class="chat-box-wrapper">
-                <div>
-                <div class="avatar-icon-wrapper mr-1">
-                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
-                </div>
-                <div class="avatar-icon avatar-icon-lg rounded">
-                <?php if (isset($chater->user->avatar)): ?>
-                    <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>" alt="">
-                    <?php else: ?>
-                    <img src="/img/ava.jpg" alt="">
-                <?php endif; ?>
-                    </div>
-                    </div>
+                    <div>
+                        <div class="avatar-icon-wrapper mr-1">
+                            <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                            </div>
+                            <div class="avatar-icon avatar-icon-lg rounded">
+                                <?php if (isset($chater->user->avatar)): ?>
+                                    <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>"
+                                         alt="">
+                                <?php else: ?>
+                                    <img src="/img/ava.jpg" alt="">
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <div class="chat-box"><?= $chater->text ?></div>
                         <small class="opacity-6">
                             <i class="fa fa-calendar-alt mr-1"></i>
-                            <?= date('d.m.Y H:i',$chater->create_at) ?>
+                            <?= date('d.m.Y H:i', $chater->create_at) ?>
                         </small>
                     </div>
-                    </div>
-                    <?php } ?>
+                </div>
+            <?php } ?>
         </div>
-
+        <?php Pjax::end() ?>
 
         <?php
 
@@ -501,14 +503,15 @@ var filefolder =  $('#filefolder');
         })
     }, 1000);
 */
-                  
+    function setupWebSocket(){              
 ws = new WebSocket("ws://127.0.0.1:8090");
-
+pingTimeout: 30000;
 
     let btn = $('#btn');
     let inp = $('#inp');
     let subscribe = $('#subscribe');
     ws.onopen = function() {
+        
     btn.on('click', function (e){
         e.preventDefault();
          let obj = {
@@ -517,7 +520,7 @@ ws = new WebSocket("ws://127.0.0.1:8090");
              'message': inp.val()
          };
        ws.send(JSON.stringify(obj)); 
-       
+       inp.val('');
        })
        
     };
@@ -526,24 +529,44 @@ ws = new WebSocket("ws://127.0.0.1:8090");
 
 ws.onmessage = function(e) {
     let myobj = JSON.parse(e.data);
-
     
     
     // subscribe.append("<div class='chat-box-wrapper'><div class='chat-box'>"+myobj.user_id+" - "+myobj
     // .message+"</div></div>");
     
    
-   
     // subscribe.prepend('<div class="chat-box-wrapper"><div class="chat-box">'+(myobj.message || '-')+'</div></div>');
-     subscribe.append('<div class="chat-box-wrapper"><div>' +
+    if  (myobj.avatar != null){ 
+             var avatar = '<img src="/files/avatar/'+(myobj.user_id)+'/'+(myobj.avatar)+'" alt="">';
+        }else{ 
+            avatar = '<img src="/img/ava.jpg" alt="">';
+       }
+    
+    if (myobj.message != null){
+        subscribe.append('<div class="chat-box-wrapper"><div>' +
       '<div class="avatar-icon-wrapper mr-1">' +
        '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
-        '<div class="avatar-icon avatar-icon-lg rounded"><img src="/img/ava.jpg" alt=""></div>' +
-         '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><class="fa fa-calendar-alt mr-1"></i>11:01 AM | Yesterday</small></div>' +
+        '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div>' +
+         '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
           '</div>');
+    }
+     
     
-    
+   
 };
+// ping-pong
+// this.ws.onopen = function(){
+//         setTimeout(setupWebSocket, 1000);
+//     };
+ws.onclose = function(e) {
+    setTimeout(function() {
+      setupWebSocket();
+    }, 1000);
+    console.log('Disconnected!');
+};
+};
+    
+    setupWebSocket();
 JS;
 
 $this->registerJs($js);

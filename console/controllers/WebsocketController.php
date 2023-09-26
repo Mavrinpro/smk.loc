@@ -50,7 +50,10 @@ class WebsocketController extends \yii\web\Controller
         $worker->count = 1;
         $worker->user  = 'alex';
         $worker->name  = 'messages';
-/*
+
+
+
+
         // код таймера для пинга пользователей.
         $worker->onWorkerStart = function ($worker) use ($TCP) {
 
@@ -74,7 +77,7 @@ class WebsocketController extends \yii\web\Controller
                             $c->destroy(); // уничтожаем соединение
                         } else {
                             echo PHP_EOL."Отправляем пинг: cid: ".$c->id;
-                            $c->send(json_encode(['type' => 'Ping', 'message' => 'Ping', ]));
+                            $c->send(json_encode(['type' => 'Ping']));
                             $c->pingWithoutResponseCount++; // увеличиваем счетчик пингов
                         }
 
@@ -121,7 +124,7 @@ class WebsocketController extends \yii\web\Controller
 
 
         };
-*/
+
 
         $worker->onConnect = function ($connection) {
 
@@ -131,7 +134,7 @@ class WebsocketController extends \yii\web\Controller
             $connection->onWebSocketConnect = function ($connection) {
                 global $USERS;
                 global $CONNECT_LIST;
-
+                $connection->pingWithoutResponseCount = 0;
 
                 $connection->userInfo = (object)[
                     'id' => rand(0, 100),
@@ -172,37 +175,45 @@ class WebsocketController extends \yii\web\Controller
             echo PHP_EOL."Входящее сообщение: " . $data . " \n";
 
             $DATA = json_decode($data, true);
-
             $USER = @$worker->connections[@$connection->id]->userInfo;
             $chat = new \console\models\Chat();
-            $chat->text = $DATA['message'];
-            $chat->user_id = $DATA['user_id'];
-            $chat->create_at = time();
-            $chat->active = 1;
-            $chat->save();
-            if($chat->save()){
-                $message = \console\models\Chat::findOne(['id' => $chat->id]);
+            \Yii::$app->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+            if (!empty($DATA['message'])){
+                $chat->text = $DATA['message'];
+                $chat->user_id = $DATA['user_id'];
+                $chat->create_at = time();
+                $chat->active = 1;
+                $chat->save();
             }
 
-            // Тут мы получаем массив из которого по методам определяем куда адресовано и делаем что нужно
-            switch ($DATA['type']) {
+            if($chat->save()) {
+                $message = \console\models\Chat::findOne(['id' => $chat->id]);
+                $user = \common\models\User::find()->where(['id' => $message->user_id])->one();
 
-                // Тестовая удаленная отправка
-                case 'UserMessage':
 
-                    foreach ($CONNECT_LIST as $c) {
-                        // if($c->userInfo->group == 'managers')
-                        $c->send(json_encode([
-                            //'type' => 'JsGetMessage',
-                            'message' => $message->text,
-                            'create_at' => $message->create_at,
-                            //'user_id' => $message->user->username
-                        ]));
+                // Тут мы получаем массив из которого по методам определяем куда адресовано и делаем что нужно
+                switch ($DATA['type']) {
 
-                    }
+                    // Тестовая удаленная отправка
+                    case 'UserMessage':
 
-                    break;
+                        foreach ($CONNECT_LIST as $c) {
+                            // if($c->userInfo->group == 'managers')
+                            $c->send(json_encode([
+                                //'type' => 'JsGetMessage',
+                                'message' => $message->text,
+                                'create_at' => date('d.m.Y H:i', $message->create_at),
+                                'user_id' => $user->id,
+                                'username' => $user->username,
+                                'avatar' => $user->avatar,
+                            ]));
 
+                        }
+
+                        break;
+
+
+                }
 
             }
 
