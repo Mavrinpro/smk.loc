@@ -35,42 +35,7 @@ $this->params['breadcrumbs'][] = $model->name;
         <div id="filefolder"></div>
         <input class="urlForDropzone" type="hidden" value="<?= '/site/upload/?id=' . $model->id . '&filefolder='; ?>">
         <!-- форма для отправки сообщений -->
-        <?php Pjax::begin() ?>
-        <form name="publish">
-            <input type="text" name="message" id="inp">
-            <input type="submit" value="Отправить" id="btn" class="btn btn-danger" data-user="<?= \Yii::$app->getUser
-            ()->id ?>">
-        </form>
 
-        <!-- здесь будут появляться входящие сообщения -->
-        <div id="subscribe">
-            <?php foreach ($chat as $chater) { ?>
-                <div class="chat-box-wrapper">
-                    <div>
-                        <div class="avatar-icon-wrapper mr-1">
-                            <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
-                            </div>
-                            <div class="avatar-icon avatar-icon-lg rounded">
-                                <?php if (isset($chater->user->avatar)): ?>
-                                    <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>"
-                                         alt="">
-                                <?php else: ?>
-                                    <img src="/img/ava.jpg" alt="">
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="chat-box"><?= $chater->text ?></div>
-                        <small class="opacity-6">
-                            <i class="fa fa-calendar-alt mr-1"></i>
-                            <?= date('d.m.Y H:i', $chater->create_at) ?>
-                        </small>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-        <?php Pjax::end() ?>
 
         <?php
 
@@ -123,99 +88,165 @@ $this->params['breadcrumbs'][] = $model->name;
         ActiveForm::end();
         ?>
     </div>
-    <div class="col-md-12 mb-5">
-        <div class="grid-menu grid-menu-4col">
-            <div class="no-gutters row">
-                <div class="col-sm-3">
-                    <?= Html::a('<i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов', ['/protocol', 'department_id' => $model->id], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-primary']) ?>
-                </div>
-                <div class="col-sm-3">
-                    <?= Html::a('<i class="lnr-license btn-icon-wrapper"> </i>Приказы', ['/order'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-secondary']) ?>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-success">
-                        <i class="lnr-paperclip btn-icon-wrapper"> </i>Документированная процедура
-                    </button>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
-                        <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
-                    </button>
-                </div>
-
-            </div>
+    <div class="col-12">
+        <form name="publish">
+            <textarea type="text" name="message" id="inp" class="form-control-lg form-control"></textarea>
+            <input type="submit" value="Отправить" id="btn" class="btn btn-danger mt-3 btn-block" data-user="<?=
+            \Yii::$app->getUser
+            ()->id ?>">
+        </form>
+    </div>
+        <!-- здесь будут появляться входящие сообщения -->
+        <div id="subscribe" class="chat-wrapper d-flex flex-column w-100">
+            <?php foreach ($chat as $chater) { ?>
+                <?php if ($chater->user_id == \Yii::$app->getUser()->id): ?>
+                    <div class="float-right ml-auto">
+                        <div class="chat-box-wrapper chat-box-wrapper-right">
+                            <div>
+                                <div class="chat-box bg-info text-white"><?= $chater->text ?></div>
+                                <small class="opacity-6">
+                                    <i class="fa fa-calendar-alt mr-1"></i>
+                                    <?= date('d.m.Y H:i', $chater->create_at).'--'.$chater->user->username ?>
+                                </small>
+                            </div>
+                            <div>
+                                <div class="avatar-icon-wrapper ml-1">
+                                    <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>
+                                    <div class="avatar-icon avatar-icon-lg rounded">
+                                        <?php if (isset($chater->user->avatar)): ?>
+                                            <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>"
+                                                 alt="">
+                                        <?php else: ?>
+                                            <img src="/img/ava.jpg" alt="">
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="chat-box-wrapper">
+                        <div>
+                            <div class="avatar-icon-wrapper mr-1">
+                                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                </div>
+                                <div class="avatar-icon avatar-icon-lg rounded">
+                                    <?php if (isset($chater->user->avatar)): ?>
+                                        <img src="/files/avatar/<?= $chater->user_id ?>/<?= $chater->user->avatar ?>"
+                                             alt="">
+                                    <?php else: ?>
+                                        <img src="/img/ava.jpg" alt="">
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chat-box"><?= $chater->text ?></div>
+                            <small class="opacity-6">
+                                <i class="fa fa-calendar-alt mr-1"></i>
+                                <?= date('d.m.Y H:i', $chater->create_at).'--'.$chater->user->username ?>
+                            </small>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php } ?>
         </div>
-        <div class="grid-menu grid-menu-4col">
-            <div class="no-gutters row">
-                <div class="col-sm-3">
-                    <a href="/department/test/?test_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
+
+</div>
+
+<div class="col-md-12 mb-5">
+    <div class="grid-menu grid-menu-4col">
+        <div class="no-gutters row">
+            <div class="col-sm-3">
+                <?= Html::a('<i class="lnr-book btn-icon-wrapper"> </i>Протоколы инцидентов', ['/protocol', 'department_id' => $model->id], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-primary']) ?>
+            </div>
+            <div class="col-sm-3">
+                <?= Html::a('<i class="lnr-license btn-icon-wrapper"> </i>Приказы', ['/order'], ['class' => 'btn-icon-vertical btn-square btn-transition btn btn-outline-secondary']) ?>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-success">
+                    <i class="lnr-paperclip btn-icon-wrapper"> </i>Документированная процедура
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-info">
+                    <i class="lnr-map btn-icon-wrapper"> </i>План внутреннего аудита
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="grid-menu grid-menu-4col">
+        <div class="no-gutters row">
+            <div class="col-sm-3">
+                <a href="/department/test/?test_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
                     btn-transition
                      btn
                     btn-outline-primary">
-                        <i class="lnr-graduation-hat btn-icon-wrapper"> </i>Тесты
-                    </a>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
-                        <i class="lnr-file-empty btn-icon-wrapper"> </i>СОПы
-                    </button>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-danger">
-                        <i class="lnr-warning btn-icon-wrapper"> </i>Паспорта рисков процесса
-                    </button>
-                </div>
-                <div class="col-sm-3">
-                    <a href="/check/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square btn-transition
+                    <i class="lnr-graduation-hat btn-icon-wrapper"> </i>Тесты
+                </a>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-secondary">
+                    <i class="lnr-file-empty btn-icon-wrapper"> </i>СОПы
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-danger">
+                    <i class="lnr-warning btn-icon-wrapper"> </i>Паспорта рисков процесса
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <a href="/check/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square btn-transition
                      btn
                     btn-outline-info">
-                        <i class="lnr-map btn-icon-wrapper"> </i>Критерии оценки
-                    </a>
-                </div>
-                <div class="col-sm-12">
-                    <a href="/business-trip/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
+                    <i class="lnr-map btn-icon-wrapper"> </i>Критерии оценки
+                </a>
+            </div>
+            <div class="col-sm-12">
+                <a href="/business-trip/?department_id=<?= $model->id ?>" class="btn-icon-vertical btn-square
                     btn-transition
                      btn
                     btn-outline-info">
-                        <i class="lnr-map btn-icon-wrapper"> </i>График командировок
-                    </a>
-                </div>
+                    <i class="lnr-map btn-icon-wrapper"> </i>График командировок
+                </a>
             </div>
         </div>
     </div>
-    <?php foreach ($page as $pages) { ?>
-        <div class="col-md-3">
-            <div class="mb-3 card text-white card-body bg-white text-dark">
-                <h5 class="text-dark card-title"><?= $pages->name ?></h5>
-                With supporting text below as a natural lead-in to additional content.
+</div>
+<?php foreach ($page as $pages) { ?>
+    <div class="col-md-3">
+        <div class="mb-3 card text-white card-body bg-white text-dark">
+            <h5 class="text-dark card-title"><?= $pages->name ?></h5>
+            With supporting text below as a natural lead-in to additional content.
 
-                <div class="menu-header-content btn-pane-right mt-3">
+            <div class="menu-header-content btn-pane-right mt-3">
 
-                    <a href="/page/view/<?= $pages->id; ?>" class="btn-wide btn-hover-shine btn-pill btn
+                <a href="/page/view/<?= $pages->id; ?>" class="btn-wide btn-hover-shine btn-pill btn
                             btn-inline-block
                             btn-outline-success">Перейти
-                    </a>
-                    <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/update', 'id' => $pages->id], [
-                        'class' => 'btn-wide btn-hover-shine btn-pill btn
+                </a>
+                <?= Html::a('<i class="fa fa-pencil-alt"></i>', ['page/update', 'id' => $pages->id], [
+                    'class' => 'btn-wide btn-hover-shine btn-pill btn
                             btn-inline-block
                             btn-outline-warning',
-                    ]) ?>
+                ]) ?>
 
-                    <?= Html::a('<i class="fa fa-trash"></i>', ['page/delete', 'id' => $pages->id], [
-                        'class' => 'btn-wide btn-hover-shine btn-pill btn
+                <?= Html::a('<i class="fa fa-trash"></i>', ['page/delete', 'id' => $pages->id], [
+                    'class' => 'btn-wide btn-hover-shine btn-pill btn
                             btn-inline-block
                             btn-outline-danger',
-                        'data' => [
-                            'confirm' => 'Хотите удалить запись ' . $pages->id . '?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                    'data' => [
+                        'confirm' => 'Хотите удалить запись ' . $pages->id . '?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
 
-                </div>
             </div>
         </div>
+    </div>
 
-    <?php } ?>
+<?php } ?>
 </div>
 <?php Pjax::begin(); ?>
 
@@ -474,6 +505,7 @@ $this->params['breadcrumbs'][] = $model->name;
 <?php } ?>
 
 <?php
+
 $js = <<<JS
   
 
@@ -543,12 +575,24 @@ ws.onmessage = function(e) {
        }
     
     if (myobj.message != null){
-        subscribe.append('<div class="chat-box-wrapper"><div>' +
+        if  (myobj.user_id == btn.data('user')){
+            subscribe.append('<div class="float-right ml-auto"><div class="chat-box-wrapper chat-box-wrapper-right"><div>' +
+             '<div class="chat-box bg-info text-white">'+(myobj.message)+'</div>' +
+              '<small class="opacity-6">' +
+               '<i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
+               '<div>' +
+                '<div class="avatar-icon-wrapper ml-1">' +
+                 '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
+                  '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div></div></div></div></div>');
+        }else{
+           subscribe.append('<div class="chat-box-wrapper"><div>' +
       '<div class="avatar-icon-wrapper mr-1">' +
        '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
         '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div>' +
          '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
-          '</div>');
+          '</div>'); 
+        }
+        
     }
      
     

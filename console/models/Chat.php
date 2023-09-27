@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace console\models;
 
 use Yii;
 
@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string|null $text
  * @property int|null $user_id
+ * @property int|null $ip_adress
  * @property int|null $create_at
  * @property int|null $update_at
  * @property int|null $active
@@ -30,8 +31,9 @@ class Chat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text'], 'string'],
+            [['text', 'ip_adress'], 'string'],
             [['user_id', 'create_at', 'update_at', 'active'], 'integer'],
+
         ];
     }
 

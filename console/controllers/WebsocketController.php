@@ -181,9 +181,12 @@ class WebsocketController extends \yii\web\Controller
             if (!empty($DATA['message'])){
                 $chat->text = $DATA['message'];
                 $chat->user_id = $DATA['user_id'];
+                $chat->ip_adress = $DATA['ip'];
                 $chat->create_at = time();
                 $chat->active = 1;
                 $chat->save();
+            }else{
+                return false;
             }
 
             if($chat->save()) {
