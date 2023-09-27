@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ])->label(false); ?>
         <div class="form-group">
-            <?= Html::submitButton('Отправить', ['class' => 'btn btn-success ', 'id' => 'btn', 'data-user' =>
+            <?= Html::submitButton('Отправить', ['class' => 'btn btn-success btn-lg btn-block', 'id' => 'btn', 'data-user' =>
                 \Yii::$app->getUser()->id, 'data-ip' => Yii::$app->request->userIP ]) ?>
         </div>
         <?php $form = ActiveForm::end() ?>
