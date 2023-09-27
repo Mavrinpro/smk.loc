@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php foreach ($chat as $chater) { ?>
             <?php if ($chater->user_id == \Yii::$app->getUser()->id): ?>
                 <div class="float-right ml-auto">
-                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                    <div class="chat-box-wrapper chat-box-wrapper-right rex-<?= $chater->id ?>" data-id="<?= $chater->id ?>">
                         <div>
                             <div class="chat-box bg-info text-white"><?= $chater->text ?></div>
                             <small class="opacity-6">
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             <?php else: ?>
-                <div class="chat-box-wrapper">
+                <div class="chat-box-wrapper rex-<?= $chater->id ?>" data-id="<?= $chater->id ?>">
                     <div>
                         <div class="avatar-icon-wrapper mr-1">
                             <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
@@ -82,12 +82,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
     </div>
     <div class="col-12">
-        <form name="publish">
-            <textarea type="text" name="message" id="inp" class="form-control-lg form-control"></textarea>
-            <input type="submit" value="Отправить" id="btn" class="btn btn-success btn-lg mt-3 btn-block" data-user="<?=
-            \Yii::$app->getUser
-            ()->id ?>" data-ip="<?= Yii::$app->request->userIP ?>">
-        </form>
+<!--        <form name="publish">-->
+<!--            <textarea type="text" name="message" id="inp" class="form-control-lg form-control"></textarea>-->
+<!--            <input type="submit" value="Отправить" id="btn2" class="btn btn-success btn-lg mt-3 btn-block"-->
+<!--                   data-user="--><?//=
+//            \Yii::$app->getUser
+//            ()->id ?><!--" data-ip="--><?//= Yii::$app->request->userIP ?><!--">-->
+<!--        </form>-->
         <?php $form = ActiveForm::begin(['id' => 'formsocket']) ?>
         <?= $form->field($model, 'text', [
             'inputOptions' => [
@@ -114,6 +115,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ])->label(false); ?>
+        <div class="form-group">
+            <?= Html::submitButton('Отправить', ['class' => 'btn btn-success ', 'id' => 'btn', 'data-user' =>
+                \Yii::$app->getUser()->id, 'data-ip' => Yii::$app->request->userIP ]) ?>
+        </div>
         <?php $form = ActiveForm::end() ?>
     </div>
 
@@ -122,14 +127,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $js = <<<JS
 
-
+//$('#inp').redactor();
 
 
 
 
 window.onload = function() { 
   $('#subscribe').animate({
-     scrollTop: $('#subscribe').offset().top = 6000
+     scrollTop: $('#subscribe').offset().top = 10000
        }, 200 
    );
 }
@@ -138,20 +143,38 @@ ws = new WebSocket("ws://127.0.0.1:8090");
 pingTimeout: 30000;
 
     let btn = $('#btn');
-    let inp = $('#inp');
+    let inp = $('.redactor-editor');
     let subscribe = $('#subscribe');
+    let idElement = $('.chat-box-wrapper');
     ws.onopen = function() {
-        
+        var at = idElement.last().data('id');
+         console.log(at)
+        // Создаем новый observer (наблюдатель)
+let observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+// Выводим в консоль сам элемент
+        console.log(entry.target.className);
+// Выводим в консоль true (если элемент виден) или false (если нет)
+        console.log(entry.isIntersecting);
+    });
+});
+
+// Задаем элемент для наблюдения
+let el = document.querySelector('.rex-'+at);
+
+// Прикрепляем его к «наблюдателю»
+observer.observe(el);
     btn.on('click', function (e){
+        console.log(inp.html())
         e.preventDefault();
          let obj = {
              'type': 'UserMessage',
              'user_id': $(this).data('user'),
-             'message': inp.val(),
+             'message': inp.html(),
              'ip': $(this).data('ip')
          };
        ws.send(JSON.stringify(obj)); 
-       inp.val('');
+       inp.html('');
        })
        
     };
@@ -175,7 +198,7 @@ ws.onmessage = function(e) {
     
     if (myobj.message != null){
          $('#subscribe').animate({
-     scrollTop: $('#subscribe').offset().top = 6000
+     scrollTop: $('#subscribe').offset().top = 10000
        }, 200 
    );
         if  (myobj.user_id == btn.data('user')){
