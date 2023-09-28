@@ -150,20 +150,20 @@ pingTimeout: 30000;
         var at = idElement.last().data('id');
          console.log(at)
         // Создаем новый observer (наблюдатель)
-let observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-// Выводим в консоль сам элемент
-        console.log(entry.target.className);
-// Выводим в консоль true (если элемент виден) или false (если нет)
-        console.log(entry.isIntersecting);
-    });
-});
-
-// Задаем элемент для наблюдения
-let el = document.querySelector('.rex-'+at);
-
-// Прикрепляем его к «наблюдателю»
-observer.observe(el);
+// let observer = new IntersectionObserver(function (entries) {
+//     entries.forEach(function (entry) {
+// // Выводим в консоль сам элемент
+//         console.log(entry.target.className);
+// // Выводим в консоль true (если элемент виден) или false (если нет)
+//         console.log(entry.isIntersecting);
+//     });
+// });
+//
+// // Задаем элемент для наблюдения
+// let el = document.querySelector('.rex-'+at);
+//
+// // Прикрепляем его к «наблюдателю»
+// observer.observe(el);
     btn.on('click', function (e){
         console.log(inp.html())
         e.preventDefault();
