@@ -180,7 +180,6 @@ observer.observe(el);
     };
     
     
-
 ws.onmessage = function(e) {
     let myobj = JSON.parse(e.data);
     
