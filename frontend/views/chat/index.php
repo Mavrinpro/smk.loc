@@ -134,7 +134,7 @@ $js = <<<JS
 
 window.onload = function() { 
   $('#subscribe').animate({
-     scrollTop: $('#subscribe').offset().top = 10000
+     scrollTop: $('#subscribe').offset().top = 1000000
        }, 200 
    );
 }
@@ -146,6 +146,7 @@ pingTimeout: 30000;
     let inp = $('.redactor-editor');
     let subscribe = $('#subscribe');
     let idElement = $('.chat-box-wrapper');
+    
     ws.onopen = function() {
         var at = idElement.last().data('id');
          console.log(at)
@@ -176,7 +177,13 @@ pingTimeout: 30000;
        ws.send(JSON.stringify(obj)); 
        inp.html('');
        })
-       
+       $(document).keyup(function(e) {
+            let obj111 = {
+             'type': 'eee',
+            
+         };
+	console.dir(e);
+});
     };
     
     
@@ -197,7 +204,7 @@ ws.onmessage = function(e) {
     
     if (myobj.message != null){
          $('#subscribe').animate({
-     scrollTop: $('#subscribe').offset().top = 10000
+     scrollTop: $('#subscribe').offset().top = 1000000
        }, 200 
    );
         if  (myobj.user_id == btn.data('user')){
@@ -236,7 +243,6 @@ ws.onmessage = function(e) {
     }
      
     
-   
 };
 // ping-pong
 // this.ws.onopen = function(){
@@ -285,6 +291,8 @@ ws.onclose = function(e) {
             		window.open('https://phppot.com');
             	};
             }
+            
+            
 JS;
 
 $this->registerJs($js);
