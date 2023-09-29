@@ -39,9 +39,6 @@ class WebsocketController extends \yii\web\Controller
         $worker->user  = 'alex';
         $worker->name  = 'messages';
 
-
-
-
         // код таймера для пинга пользователей.
         $worker->onWorkerStart = function ($worker) use ($TCP) {
 
@@ -83,7 +80,6 @@ class WebsocketController extends \yii\web\Controller
             $tcp_worker->onMessage = function ($connection, $data) {
                 global $USERS;
                 global $CONNECT_LIST;
-
 
                 echo PHP_EOL."Входные данные: ".$data;
 
