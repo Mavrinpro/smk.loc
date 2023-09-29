@@ -84,7 +84,12 @@ return [
         ],
         'assetManager' => [
             'basePath' => '@webroot/assets',
-            'baseUrl' => '@web/assets'
+            'baseUrl' => '@web/assets',
+            'bundles' => [
+                'kartik\form\ActiveFormAsset' => [
+                    'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
+                ],
+            ],
         ],
         'request' => [
             'baseUrl' => ''
