@@ -292,7 +292,6 @@ ws.onclose = function(e) {
             	};
             }
             
-            
 JS;
 
 $this->registerJs($js);
