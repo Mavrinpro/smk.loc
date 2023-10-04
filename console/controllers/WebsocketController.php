@@ -30,8 +30,7 @@ class WebsocketController extends \yii\web\Controller
 
     public function actionIndex()
     {
-
-
+        
         $TCP            = "tcp://127.0.0.1:8095";
 
         $worker = new Worker('websocket://127.0.0.1:8090');
