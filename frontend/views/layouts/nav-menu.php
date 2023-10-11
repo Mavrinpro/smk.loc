@@ -1,6 +1,6 @@
 <?php
 $noty = new \app\models\Notyfication();
-
+$countMessage = new \app\models\ChatMessage();
 ?>
 <div class="app-header header-shadow">
     <div class="app-header__logo">
@@ -44,95 +44,95 @@ $noty = new \app\models\Notyfication();
                 <button class="close"></button>
             </div>
             <ul class="header-megamenu nav">
-<!--                <li class="nav-item">-->
-<!--                    <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300"-->
-<!--                       data-toggle="popover-custom" class="nav-link" data-original-title="" title="">-->
-<!--                        <i class="nav-link-icon pe-7s-gift"> </i> Меню-->
-<!--                        <i class="fa fa-angle-down ml-2 opacity-5"></i>-->
-<!--                    </a>-->
-<!--                    <div class="rm-max-width">-->
-<!--                        <div class="d-none popover-custom-content">-->
-<!--                            <div class="dropdown-mega-menu">-->
-<!--                                <div class="grid-menu grid-menu-3col">-->
-<!--                                    <div class="no-gutters row">-->
-<!--                                        <div class="col-sm-6 col-xl-4">-->
-<!--                                            <ul class="nav flex-column">-->
-<!--                                                <li class="nav-item-header nav-item"> Overview</li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
-<!--                                                        <i class="nav-link-icon lnr-inbox"></i>-->
-<!--                                                        <span> Contacts</span>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
-<!--                                                        <i class="nav-link-icon lnr-book"></i>-->
-<!--                                                        <span> Incidents</span>-->
-<!--                                                        <div class="ml-auto badge badge-pill badge-danger">5</div>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">-->
-<!--                                                        <i class="nav-link-icon lnr-picture"></i>-->
-<!--                                                        <span> Companies</span>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a disabled="" href="javascript:void(0);"-->
-<!--                                                       class="nav-link disabled">-->
-<!--                                                        <i class="nav-link-icon lnr-file-empty"></i>-->
-<!--                                                        <span> Dashboards</span>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-sm-6 col-xl-4">-->
-<!--                                            <ul class="nav flex-column">-->
-<!--                                                <li class="nav-item-header nav-item"> Favourites</li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link"> Reports-->
-<!--                                                        Conversions </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link"> Quick Start-->
-<!--                                                        <div class="ml-auto badge badge-success">New</div>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Users &amp;-->
-<!--                                                        Groups</a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Proprieties</a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-sm-6 col-xl-4">-->
-<!--                                            <ul class="nav flex-column">-->
-<!--                                                <li class="nav-item-header nav-item">Sales &amp; Marketing</li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Queues </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Resource-->
-<!--                                                        Groups </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Goal Metrics-->
-<!--                                                        <div class="ml-auto badge badge-warning">3</div>-->
-<!--                                                    </a>-->
-<!--                                                </li>-->
-<!--                                                <li class="nav-item">-->
-<!--                                                    <a href="javascript:void(0);" class="nav-link">Campaigns</a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </li>-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a href="javascript:void(0);" data-placement="bottom" rel="popover-focus" data-offset="300"-->
+                <!--                       data-toggle="popover-custom" class="nav-link" data-original-title="" title="">-->
+                <!--                        <i class="nav-link-icon pe-7s-gift"> </i> Меню-->
+                <!--                        <i class="fa fa-angle-down ml-2 opacity-5"></i>-->
+                <!--                    </a>-->
+                <!--                    <div class="rm-max-width">-->
+                <!--                        <div class="d-none popover-custom-content">-->
+                <!--                            <div class="dropdown-mega-menu">-->
+                <!--                                <div class="grid-menu grid-menu-3col">-->
+                <!--                                    <div class="no-gutters row">-->
+                <!--                                        <div class="col-sm-6 col-xl-4">-->
+                <!--                                            <ul class="nav flex-column">-->
+                <!--                                                <li class="nav-item-header nav-item"> Overview</li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+                <!--                                                        <i class="nav-link-icon lnr-inbox"></i>-->
+                <!--                                                        <span> Contacts</span>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+                <!--                                                        <i class="nav-link-icon lnr-book"></i>-->
+                <!--                                                        <span> Incidents</span>-->
+                <!--                                                        <div class="ml-auto badge badge-pill badge-danger">5</div>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">-->
+                <!--                                                        <i class="nav-link-icon lnr-picture"></i>-->
+                <!--                                                        <span> Companies</span>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a disabled="" href="javascript:void(0);"-->
+                <!--                                                       class="nav-link disabled">-->
+                <!--                                                        <i class="nav-link-icon lnr-file-empty"></i>-->
+                <!--                                                        <span> Dashboards</span>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                            </ul>-->
+                <!--                                        </div>-->
+                <!--                                        <div class="col-sm-6 col-xl-4">-->
+                <!--                                            <ul class="nav flex-column">-->
+                <!--                                                <li class="nav-item-header nav-item"> Favourites</li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link"> Reports-->
+                <!--                                                        Conversions </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link"> Quick Start-->
+                <!--                                                        <div class="ml-auto badge badge-success">New</div>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Users &amp;-->
+                <!--                                                        Groups</a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Proprieties</a>-->
+                <!--                                                </li>-->
+                <!--                                            </ul>-->
+                <!--                                        </div>-->
+                <!--                                        <div class="col-sm-6 col-xl-4">-->
+                <!--                                            <ul class="nav flex-column">-->
+                <!--                                                <li class="nav-item-header nav-item">Sales &amp; Marketing</li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Queues </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Resource-->
+                <!--                                                        Groups </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Goal Metrics-->
+                <!--                                                        <div class="ml-auto badge badge-warning">3</div>-->
+                <!--                                                    </a>-->
+                <!--                                                </li>-->
+                <!--                                                <li class="nav-item">-->
+                <!--                                                    <a href="javascript:void(0);" class="nav-link">Campaigns</a>-->
+                <!--                                                </li>-->
+                <!--                                            </ul>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </li>-->
                 <li class="btn-group nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
                         <span class="badge badge-pill badge-danger ml-0 mr-2">4</span> Настройки
@@ -211,94 +211,107 @@ $noty = new \app\models\Notyfication();
         </div>
         <div class="app-header-right">
             <div class="header-dots">
-<!--                <div class="dropdown">-->
-<!--                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"-->
-<!--                            class="p-0 mr-2 btn btn-link">-->
-<!--<span class="icon-wrapper icon-wrapper-alt rounded-circle">-->
-<!--<span class="icon-wrapper-bg bg-primary"></span>-->
-<!--<i class="icon text-primary ion-android-apps"></i>-->
-<!--</span>-->
-<!--                    </button>-->
-<!--                    <div tabindex="-1" role="menu" aria-hidden="true"-->
-<!--                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">-->
-<!--                        <div class="dropdown-menu-header">-->
-<!--                            <div class="dropdown-menu-header-inner bg-plum-plate">-->
-<!--                                <div class="menu-header-image"-->
-<!--                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>-->
-<!--                                <div class="menu-header-content text-white">-->
-<!--                                    <h5 class="menu-header-title">Grid Dashboard</h5>-->
-<!--                                    <h6 class="menu-header-subtitle">Easy grid navigation inside dropdowns</h6>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="grid-menu grid-menu-xl grid-menu-3col">-->
-<!--                            <div class="no-gutters row">-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
-<!--                                        Automation-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-piggy icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
-<!--                                        Reports-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-config icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
-<!--                                        Settings-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-browser icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
-<!--                                        Content-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-hourglass icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
-<!--                                        Activity-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="col-sm-6 col-xl-4">-->
-<!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
-<!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
-<!--                                        Contacts-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <ul class="nav flex-column">-->
-<!--                            <li class="nav-item-divider nav-item"></li>-->
-<!--                            <li class="nav-item-btn text-center nav-item">-->
-<!--                                <button class="btn-shadow btn btn-primary btn-sm">Follow-ups</button>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="dropdown">-->
+                <!--                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"-->
+                <!--                            class="p-0 mr-2 btn btn-link">-->
+                <!--<span class="icon-wrapper icon-wrapper-alt rounded-circle">-->
+                <!--<span class="icon-wrapper-bg bg-primary"></span>-->
+                <!--<i class="icon text-primary ion-android-apps"></i>-->
+                <!--</span>-->
+                <!--                    </button>-->
+                <!--                    <div tabindex="-1" role="menu" aria-hidden="true"-->
+                <!--                         class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">-->
+                <!--                        <div class="dropdown-menu-header">-->
+                <!--                            <div class="dropdown-menu-header-inner bg-plum-plate">-->
+                <!--                                <div class="menu-header-image"-->
+                <!--                                     style="background-image: url('assets/images/dropdown-header/abstract4.jpg');"></div>-->
+                <!--                                <div class="menu-header-content text-white">-->
+                <!--                                    <h5 class="menu-header-title">Grid Dashboard</h5>-->
+                <!--                                    <h6 class="menu-header-subtitle">Easy grid navigation inside dropdowns</h6>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="grid-menu grid-menu-xl grid-menu-3col">-->
+                <!--                            <div class="no-gutters row">-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
+                <!--                                        Automation-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-piggy icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+                <!--                                        Reports-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-config icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+                <!--                                        Settings-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-browser icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+                <!--                                        Content-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-hourglass icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>-->
+                <!--                                        Activity-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                                <div class="col-sm-6 col-xl-4">-->
+                <!--                                    <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">-->
+                <!--                                        <i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"> </i>-->
+                <!--                                        Contacts-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <ul class="nav flex-column">-->
+                <!--                            <li class="nav-item-divider nav-item"></li>-->
+                <!--                            <li class="nav-item-btn text-center nav-item">-->
+                <!--                                <button class="btn-shadow btn btn-primary btn-sm">Follow-ups</button>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="dropdown">
+                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                            class="p-0 mr-2 btn">
+<span class="icon-wrapper icon-wrapper-alt rounded-circle">
+<span class="icon-wrapper-bg bg-success"></span>
+<i class="pe-7s-chat text-success"></i>
+<span class="badge badge-pill badge-danger badge_count_message"><?= $countMessage->messageCount(\Yii::$app->getUser()
+        ->id) ?></span>
+</span>
+                    </button>
+
+                </div>
                 <div class="dropdown">
                     <?php if (sizeof($noty->showNotyficationOnHead()) > 0): ?>
-                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-                            class="p-0 mr-2 btn btn-link">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                                class="p-0 mr-2 btn btn-link">
 <span class="icon-wrapper icon-wrapper-alt rounded-circle">
 <span class="icon-wrapper-bg bg-danger"></span>
 <i class="icon text-danger icon-anim-pulse ion-android-notifications"></i>
 <span class="badge badge-dot badge-dot-sm badge-danger">Notifications</span>
 </span>
-                    </button>
+                        </button>
                     <?php else: ?>
-                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-                            class="p-0 mr-2 btn btn-link">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+                                class="p-0 mr-2 btn btn-link">
 <span class="icon-wrapper icon-wrapper-alt rounded-circle">
 <span class="icon-wrapper-bg bg-success"></span>
 <i class="icon text-success ion-android-notifications"></i>
 <span class="badge badge-dot badge-dot-sm badge-success">Notifications</span>
 </span>
-                    </button>
-<?php endif; ?>
+                        </button>
+                    <?php endif; ?>
                     <div tabindex="-1" role="menu" aria-hidden="true"
                          class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-header mb-0">
@@ -308,11 +321,11 @@ $noty = new \app\models\Notyfication();
                                 <div class="menu-header-content text-dark">
                                     <h5 class="menu-header-title">Уведомления</h5>
                                     <?php if (sizeof($noty->showNotyficationOnHead()) > 0): ?>
-                                    <h6 class="menu-header-subtitle">У вас есть <b><?=
-                                            sizeof($noty->showNotyficationOnHead());
-                                    ?></b> непрочитанных собщения</h6>
+                                        <h6 class="menu-header-subtitle">У вас есть <b><?=
+                                                sizeof($noty->showNotyficationOnHead());
+                                                ?></b> непрочитанных собщения</h6>
                                     <?php else: ?>
-                                    <h6 class="menu-header-subtitle">Новых сообщений нет</h6>
+                                        <h6 class="menu-header-subtitle">Новых сообщений нет</h6>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -340,11 +353,11 @@ $noty = new \app\models\Notyfication();
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                    class="p-0 btn">
                                     <?php if (isset(\Yii::$app->user->identity->avatar)): ?>
-                                    <img width="42" class="rounded-circle"
-                                         src="<?='/files/avatar/'.\Yii::$app->user->identity->id.'/'.
-                                         \Yii::$app->user->identity->avatar; ?>" alt="avatar">
+                                        <img width="42" class="rounded-circle"
+                                             src="<?= '/files/avatar/' . \Yii::$app->user->identity->id . '/' .
+                                             \Yii::$app->user->identity->avatar; ?>" alt="avatar">
                                     <?php else: ?>
-                                    <img width="42" class="rounded-circle" src="/img/ava.jpg" alt="avatar">
+                                        <img width="42" class="rounded-circle" src="/img/ava.jpg" alt="avatar">
                                     <?php endif; ?>
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
@@ -421,33 +434,33 @@ $noty = new \app\models\Notyfication();
                                             </div>
                                         </div>
                                     </div>
-<!--                                    <ul class="nav flex-column">-->
-<!--                                        <li class="nav-item-divider mb-0 nav-item"></li>-->
-<!--                                    </ul>-->
-<!--                                    <div class="grid-menu grid-menu-2col">-->
-<!--                                        <div class="no-gutters row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">-->
-<!--                                                    <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>-->
-<!--                                                    Message Inbox-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">-->
-<!--                                                    <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>-->
-<!--                                                    <b>Support Tickets</b>-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                    <!--                                    <ul class="nav flex-column">-->
+                                    <!--                                        <li class="nav-item-divider mb-0 nav-item"></li>-->
+                                    <!--                                    </ul>-->
+                                    <!--                                    <div class="grid-menu grid-menu-2col">-->
+                                    <!--                                        <div class="no-gutters row">-->
+                                    <!--                                            <div class="col-sm-6">-->
+                                    <!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">-->
+                                    <!--                                                    <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>-->
+                                    <!--                                                    Message Inbox-->
+                                    <!--                                                </button>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="col-sm-6">-->
+                                    <!--                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">-->
+                                    <!--                                                    <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>-->
+                                    <!--                                                    <b>Support Tickets</b>-->
+                                    <!--                                                </button>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
                                     <ul class="nav flex-column">
                                         <li class="nav-item-divider nav-item">
                                         </li>
                                         <li class="nav-item-btn text-center nav-item">
-                                             <?=
-                                                \yii\helpers\Html::a('Профиль', ['user/view', 'id' =>
-                                                    \Yii::$app->user->identity->id], ['data' => ['method' =>
-                                                    'post'], 'class' => 'btn-wide btn btn-primary btn-sm']) ?>
+                                            <?=
+                                            \yii\helpers\Html::a('Профиль', ['user/view', 'id' =>
+                                                \Yii::$app->user->identity->id], ['data' => ['method' =>
+                                                'post'], 'class' => 'btn-wide btn btn-primary btn-sm']) ?>
                                         </li>
                                     </ul>
                                 </div>

@@ -160,6 +160,15 @@ class WebsocketController extends \yii\web\Controller
             $DATA = json_decode($data, true);
             $USER = @$worker->connections[@$connection->id]->userInfo;
             $chat = new \console\models\Chat();
+
+            $userMessage = \common\models\User::find()->where(['status' => 10])->andWhere(['!=', 'id', $DATA['user_id']])->all();
+
+            $usID = [];
+
+            foreach ($userMessage as $item) {
+                $usID[] = $item->id;
+            }
+
             \Yii::$app->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
             if (!empty($DATA['message'])){
                 $chat->text = $DATA['message'];
@@ -168,6 +177,15 @@ class WebsocketController extends \yii\web\Controller
                 $chat->create_at = time();
                 $chat->active = 1;
                 $chat->save();
+
+                // Chat message table
+                foreach ($userMessage as $mess) {
+                    $chat_message = new \console\models\ChatMessage();
+                    $chat_message->user_id = $mess->id;
+                    $chat_message->message_id = $chat->id;
+                    $chat_message->save();
+                }
+
             }else{
                 return false;
             }
@@ -175,8 +193,28 @@ class WebsocketController extends \yii\web\Controller
             if($chat->save()) {
                 $message = \console\models\Chat::findOne(['id' => $chat->id]);
                 $user = \common\models\User::find()->where(['id' => $message->user_id])->one();
+                $mess = \console\models\ChatMessage::find()->where(['in', 'user_id', $usID])
+                ->count();
 
+                $countMessage = new \console\models\ChatMessage();
+                $results = $countMessage->getUsersMessageCount();
 
+                //$cookies = \Yii::$app->response->cookies;
+                $arrayUSER = [];
+                $arrayCOUNT = [];
+                foreach ($results as $result) {
+//                    $cookies->add(new \yii\web\Cookie([
+//                        'name' => $result['user_id'],
+//                        'value' => $result['COUNT(user_id)']
+//                    ]));
+
+                    $arrayUSER[] =  $result['user_id'];
+                    $arrayCOUNT[] =  $result['COUNT(user_id)'];
+
+//                    echo $arrayCockie['id'] . $result['user_id'] . ", Message Count: " . $result['COUNT(user_id)'] . "<br>";
+
+                }
+                //var_dump($arrayCockie) . '-';
                 // Тут мы получаем массив из которого по методам определяем куда адресовано и делаем что нужно
                 switch ($DATA['type']) {
 
@@ -192,6 +230,9 @@ class WebsocketController extends \yii\web\Controller
                                 'user_id' => $user->id,
                                 'username' => $user->username,
                                 'avatar' => $user->avatar,
+                                'countMessage' =>  $arrayCOUNT,
+                                'idUSER' =>$arrayUSER,
+
                             ]));
 
                         }

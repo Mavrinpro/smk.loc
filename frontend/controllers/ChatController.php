@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\Chat;
+use app\models\ChatMessage;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,10 +40,12 @@ class ChatController extends Controller
     {
 
        $chat = Chat::find()->where(['active' => 1])->all();
+       $chatMessage = ChatMessage::find()->where(['user_id' => \Yii::$app->getUser()->id])->count();
         $model = new Chat();
         return $this->render('index', [
             'chat' => $chat,
             'model' => $model,
+            'countMessage' => $chatMessage
         ]);
     }
 

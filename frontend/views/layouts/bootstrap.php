@@ -1712,7 +1712,144 @@ AppAsset::register($this);
 <!-- Modal delete -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
 <!--     Modal create question-->
+<?php
+$js = <<<JS
 
+
+function setupWebSocket(){              
+ws = new WebSocket("ws://127.0.0.1:8090");
+pingTimeout: 30000;
+
+    let btn = $('#btn');
+    let inp = $('.redactor-editor');
+    let subscribe = $('#subscribe');
+    let idElement = $('.chat-box-wrapper');
+    
+    ws.onopen = function() {
+        var at = idElement.last().data('id');
+         console.log(at)
+        // Создаем новый observer (наблюдатель)
+// let observer = new IntersectionObserver(function (entries) {
+//     entries.forEach(function (entry) {
+// // Выводим в консоль сам элемент
+//         console.log(entry.target.className);
+// // Выводим в консоль true (если элемент виден) или false (если нет)
+//         console.log(entry.isIntersecting);
+//     });
+// });
+//
+// // Задаем элемент для наблюдения
+// let el = document.querySelector('.rex-'+at);
+//
+// // Прикрепляем его к «наблюдателю»
+// observer.observe(el);
+    btn.on('click', function (e){
+        //console.log(inp.html())
+        e.preventDefault();
+         let obj = {
+             'type': 'UserMessage',
+             'user_id': $(this).data('user'),
+             'message': inp.html(),
+             'ip': $(this).data('ip')
+         };
+       ws.send(JSON.stringify(obj)); 
+       inp.html('');
+       })
+       $(document).keyup(function(e) {
+            let obj111 = {
+             'type': 'eee',
+            
+         };
+	//console.dir(e);
+});
+    };
+    
+    
+ws.onmessage = function(e) {
+    let myobj = JSON.parse(e.data);
+    
+    try {
+    //console.log(myobj.idUSER.indexOf(String(btn.data('user'))));
+    } catch (e) {
+  console.log(e)
+}
+    
+    // subscribe.append("<div class='chat-box-wrapper'><div class='chat-box'>"+myobj.user_id+" - "+myobj
+    // .message+"</div></div>");
+    
+   
+    // subscribe.prepend('<div class="chat-box-wrapper"><div class="chat-box">'+(myobj.message || '-')+'</div></div>');
+    if  (myobj.avatar != null){ 
+             var avatar = '<img src="/files/avatar/'+(myobj.user_id)+'/'+(myobj.avatar)+'" alt="">';
+        }else{ 
+            avatar = '<img src="/img/ava.jpg" alt="">';
+       }
+    
+    if (myobj.message != null){
+        if (document.location.pathname == '/chat'){
+           $('#subscribe').animate({
+     scrollTop: $('#subscribe').offset().top = 1000000
+       }, 200 
+   ); 
+        }
+         
+        if  (myobj.user_id == btn.data('user')){
+            $('.badge_count_message').text(myobj.countMessage);
+            subscribe.append('<div class="float-right ml-auto"><div class="chat-box-wrapper chat-box-wrapper-right"><div>' +
+             '<div class="chat-box bg-info text-white">'+(myobj.message)+'</div>' +
+              '<small class="opacity-6">' +
+               '<i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
+               '<div>' +
+                '<div class="avatar-icon-wrapper ml-1">' +
+                 '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
+                  '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div></div></div></div></div>');
+        }else{
+            $('.badge_count_message').text(myobj.countMessage);
+           subscribe.append('<div class="chat-box-wrapper"><div>' +
+      '<div class="avatar-icon-wrapper mr-1">' +
+       '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
+        '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div>' +
+         '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
+          '</div>'); 
+        }
+       
+        if (myobj.user_id != btn.data('user')){
+            var numCount = $('.ml-auto.badge.badge-pill.badge-info');
+           
+            var h = $('.chat-box').text();
+            numCount.text(600);
+          
+          var audio = new Audio('/files/audio/notification-sound.mp3');
+          var playPromise = audio.play();
+            toastr.success('От сотрудника '+myobj.username, 'Новое сообщение', {
+                   timeOut: 5000,
+                   closeButton: true,
+                   progressBar: true
+               });
+        }
+        
+    }
+     
+    
+};
+// ping-pong
+// this.ws.onopen = function(){
+//         setTimeout(setupWebSocket, 1000);
+//     };
+ws.onclose = function(e) {
+    setTimeout(function() {
+      setupWebSocket();
+    }, 1000);
+    console.log('Disconnected!');
+};
+};
+    
+    setupWebSocket();
+
+JS;
+$this->registerJs($js);
+
+?>
 </body>
 </html>
 <?php $this->endPage();
