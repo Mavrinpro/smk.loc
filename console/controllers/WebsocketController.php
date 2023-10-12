@@ -203,18 +203,12 @@ class WebsocketController extends \yii\web\Controller
                 $arrayUSER = [];
                 $arrayCOUNT = [];
                 foreach ($results as $result) {
-//                    $cookies->add(new \yii\web\Cookie([
-//                        'name' => $result['user_id'],
-//                        'value' => $result['COUNT(user_id)']
-//                    ]));
 
                     $arrayUSER[] =  $result['user_id'];
                     $arrayCOUNT[] =  $result['COUNT(user_id)'];
 
-//                    echo $arrayCockie['id'] . $result['user_id'] . ", Message Count: " . $result['COUNT(user_id)'] . "<br>";
-
                 }
-                //var_dump($arrayCockie) . '-';
+
                 // Тут мы получаем массив из которого по методам определяем куда адресовано и делаем что нужно
                 switch ($DATA['type']) {
 

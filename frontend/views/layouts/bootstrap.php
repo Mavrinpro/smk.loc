@@ -1768,8 +1768,11 @@ pingTimeout: 30000;
 ws.onmessage = function(e) {
     let myobj = JSON.parse(e.data);
     
+    let count = myobj.countMessage;
     try {
-    //console.log(myobj.idUSER.indexOf(String(btn.data('user'))));
+    var userID = myobj.idUSER.indexOf(String(btn.data('user')));
+    
+    //console.log(count[userID]);
     } catch (e) {
   console.log(e)
 }
@@ -1794,7 +1797,7 @@ ws.onmessage = function(e) {
         }
          
         if  (myobj.user_id == btn.data('user')){
-            $('.badge_count_message').text(myobj.countMessage);
+            $('.badge_count_message').text(count[userID]);
             subscribe.append('<div class="float-right ml-auto"><div class="chat-box-wrapper chat-box-wrapper-right"><div>' +
              '<div class="chat-box bg-info text-white">'+(myobj.message)+'</div>' +
               '<small class="opacity-6">' +
@@ -1804,7 +1807,7 @@ ws.onmessage = function(e) {
                  '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
                   '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div></div></div></div></div>');
         }else{
-            $('.badge_count_message').text(myobj.countMessage);
+            $('.badge_count_message').text(count[userID]);
            subscribe.append('<div class="chat-box-wrapper"><div>' +
       '<div class="avatar-icon-wrapper mr-1">' +
        '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +

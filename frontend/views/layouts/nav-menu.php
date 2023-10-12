@@ -342,8 +342,6 @@ $countMessage = new \app\models\ChatMessage();
                         </ul>
                     </div>
                 </div>
-
-
             </div>
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
