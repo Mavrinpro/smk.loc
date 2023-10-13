@@ -193,8 +193,6 @@ class WebsocketController extends \yii\web\Controller
             if($chat->save()) {
                 $message = \console\models\Chat::findOne(['id' => $chat->id]);
                 $user = \common\models\User::find()->where(['id' => $message->user_id])->one();
-                $mess = \console\models\ChatMessage::find()->where(['in', 'user_id', $usID])
-                ->count();
 
                 $countMessage = new \console\models\ChatMessage();
                 $results = $countMessage->getUsersMessageCount();
