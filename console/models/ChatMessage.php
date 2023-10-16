@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace console\models;
 
 use Yii;
 
@@ -41,5 +41,14 @@ class ChatMessage extends \yii\db\ActiveRecord
             'message_id' => 'Message ID',
             'user_id' => 'User ID',
         ];
+    }
+
+    public static function getUsersMessageCount()
+    {
+        return self::find()
+            ->select(['user_id', 'COUNT(user_id)'])
+            ->groupBy('user_id')
+            ->asArray()
+            ->all();
     }
 }
