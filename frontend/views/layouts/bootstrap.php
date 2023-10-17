@@ -1728,21 +1728,7 @@ pingTimeout: 30000;
     ws.onopen = function() {
         var at = idElement.last().data('id');
          console.log(at)
-        // Создаем новый observer (наблюдатель)
-// let observer = new IntersectionObserver(function (entries) {
-//     entries.forEach(function (entry) {
-// // Выводим в консоль сам элемент
-//         console.log(entry.target.className);
-// // Выводим в консоль true (если элемент виден) или false (если нет)
-//         console.log(entry.isIntersecting);
-//     });
-// });
-//
-// // Задаем элемент для наблюдения
-// let el = document.querySelector('.rex-'+at);
-//
-// // Прикрепляем его к «наблюдателю»
-// observer.observe(el);
+    
     btn.on('click', function (e){
         //console.log(inp.html())
         e.preventDefault();
@@ -1762,19 +1748,50 @@ pingTimeout: 30000;
          };
 	//console.dir(e);
 });
+         
+         
+         // редактирование сообщений
+$('#subscribe').on('click', '.editable', function(){
+    var th = $(this);
+    console.log(th);
+    th.editable('click', function (){
+         let object = {
+                'type': 'Editable',
+                'user_id': th.data('user_id'),
+                'id': th.data('id'),
+                'mess': th.html()
+            };
+         
+         function isOpen(ws) {
+                return ws.readyState === ws.OPEN
+            }
+
+            console.log(object);
+            if (!isOpen(ws)) return;
+            ws.send(JSON.stringify(object));
+    });
+});
     };
     
     
 ws.onmessage = function(e) {
     let myobj = JSON.parse(e.data);
-    
+     console.log(myobj);
     let count = myobj.countMessage;
     try {
     var userID = myobj.idUSER.indexOf(String(btn.data('user')));
     
-    //console.log(count[userID]);
+   
     } catch (e) {
   console.log(e)
+}
+
+if (myobj.type == 'EditedMessage'){
+   // $('.chat-box').data('id='+myobj.messageID).html(myobj.message);
+    $(".chat-box[data-id="+myobj.messageID+"]").html(myobj.message);
+    var ellll = $(".chat-box[data-id="+myobj.messageID+"]");
+    //console.log(ellll.data('user_id'));
+    ellll.html(myobj.message);
 }
     
     // subscribe.append("<div class='chat-box-wrapper'><div class='chat-box'>"+myobj.user_id+" - "+myobj
@@ -1788,7 +1805,7 @@ ws.onmessage = function(e) {
             avatar = '<img src="/img/ava.jpg" alt="">';
        }
     
-    if (myobj.message != null){
+    if (myobj.message != null && myobj.type == 'JsGetMessage'){
         if (document.location.pathname == '/chat'){
            $('#subscribe').animate({
      scrollTop: $('#subscribe').offset().top = 1000000
@@ -1797,9 +1814,12 @@ ws.onmessage = function(e) {
         }
          
         if  (myobj.user_id == btn.data('user')){
-            $('.badge_count_message').text(count[userID]);
+            //$('.badge_count_message').text(count[userID]);
             subscribe.append('<div class="float-right ml-auto"><div class="chat-box-wrapper chat-box-wrapper-right"><div>' +
-             '<div class="chat-box bg-info text-white">'+(myobj.message)+'</div>' +
+             '<div class="chat-box bg-info text-white editable" data-id="'+myobj.messageID+'" data-user_id="'+myobj.user_id+'">'+
+             (myobj
+             .message)
+             +'</div>' +
               '<small class="opacity-6">' +
                '<i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
                '<div>' +
@@ -1807,12 +1827,12 @@ ws.onmessage = function(e) {
                  '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
                   '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div></div></div></div></div>');
         }else{
-            $('.badge_count_message').text(count[userID]);
+            //$('.badge_count_message').text(count[userID]);
            subscribe.append('<div class="chat-box-wrapper"><div>' +
       '<div class="avatar-icon-wrapper mr-1">' +
        '<div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg"></div>' +
         '<div class="avatar-icon avatar-icon-lg rounded">'+avatar+'</div>' +
-         '</div></div><div><div class="chat-box">'+(myobj.message)+'</div><small class="opacity-6"><i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
+         '</div></div><div><div class="chat-box" data-id="'+myobj.messageID+'" data-user_id="'+myobj.user_id+'">'+(myobj.message)+'</div><small class="opacity-6"><i class="fa fa-calendar-alt mr-1"></i>'+(myobj.create_at)+'--'+(myobj.username)+'</small></div>' +
           '</div>'); 
         }
        

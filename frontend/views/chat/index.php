@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="float-right ml-auto">
                     <div class="chat-box-wrapper chat-box-wrapper-right rex-<?= $chater->id ?>" data-id="<?= $chater->id ?>">
                         <div>
-                            <div class="chat-box bg-info text-white"><?= $chater->text ?></div>
+                            <div class="chat-box bg-info text-white editable" data-id="<?=
+                            $chater->id ?>" data-user_id="<?= \Yii::$app->getUser()->id ?>"><?= $chater->text ?></div>
                             <small class="opacity-6">
                                 <i class="fa fa-calendar-alt mr-1"></i>
                                 <?= date('d.m.Y H:i', $chater->create_at) . '--' . $chater->user->username ?>
@@ -71,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                     <div>
-                        <div class="chat-box"><?= $chater->text ?></div>
+                        <div class="chat-box" data-id="<?=
+                        $chater->id ?>" data-user_id="<?= \Yii::$app->getUser()->id ?>"><?= $chater->text ?></div>
                         <small class="opacity-6">
                             <i class="fa fa-calendar-alt mr-1"></i>
                             <?= date('d.m.Y H:i', $chater->create_at) . '--' . $chater->user->username ?>

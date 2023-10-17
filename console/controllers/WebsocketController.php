@@ -202,8 +202,8 @@ class WebsocketController extends \yii\web\Controller
                 $arrayCOUNT = [];
                 foreach ($results as $result) {
 
-                    $arrayUSER[] =  $result['user_id'];
-                    $arrayCOUNT[] =  $result['COUNT(user_id)'];
+                    $arrayUSER[] = $result['user_id'];
+                    $arrayCOUNT[] = $result['COUNT(user_id)'];
 
                 }
 
@@ -216,14 +216,14 @@ class WebsocketController extends \yii\web\Controller
                         foreach ($CONNECT_LIST as $c) {
                             // if($c->userInfo->group == 'managers')
                             $c->send(json_encode([
-                                //'type' => 'JsGetMessage',
+                                'type' => 'JsGetMessage',
                                 'message' => $message->text,
                                 'create_at' => date('d.m.Y H:i', $message->create_at),
                                 'user_id' => $user->id,
                                 'username' => $user->username,
                                 'avatar' => $user->avatar,
-                                'countMessage' =>  $arrayCOUNT,
-                                'idUSER' =>$arrayUSER,
+                                'countMessage' => $arrayCOUNT,
+                                'idUSER' => $arrayUSER,
 
                             ]));
 
@@ -233,8 +233,24 @@ class WebsocketController extends \yii\web\Controller
 
 
                 }
-
             }
+                if ($DATA['type'] == 'Editable'){
+                    $message = \console\models\Chat::findOne(['id' => $DATA['id']]);
+                    $message->text = $DATA['message'];
+                    $message->update();
+
+                    foreach ($CONNECT_LIST as $c) {
+                        $c->send(json_encode([
+                            'type' => 'EditedMessage',
+                            'message' => $message->text,
+                           'messageID' => $message->id
+                        ]));
+
+                    }
+
+                }
+
+
 
         };
 
