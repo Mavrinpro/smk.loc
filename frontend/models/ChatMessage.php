@@ -46,6 +46,4 @@ class ChatMessage extends \yii\db\ActiveRecord
     {
         return ChatMessage::find()->where(['user_id' => $id])->count();
     }
-
-   
 }
