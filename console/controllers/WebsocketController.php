@@ -157,10 +157,29 @@ class WebsocketController extends \yii\web\Controller
 
             echo PHP_EOL."Входящее сообщение: " . $data . " \n";
 
+
+
+
             $DATA = json_decode($data, true);
             $USER = @$worker->connections[@$connection->id]->userInfo;
             $chat = new \console\models\Chat();
 
+
+            if ($DATA['type'] === 'Editable'){
+                $message = \console\models\Chat::findOne(['id' => $DATA['id']]);
+                $message->text = $DATA['mess'];
+                $message->update();
+
+                foreach ($CONNECT_LIST as $c) {
+                    $c->send(json_encode([
+                        'type' => 'EditedMessage',
+                        'message' => $message->text,
+                        'messageID' => $message->id
+                    ]));
+
+                }
+
+            }
             $userMessage = \common\models\User::find()->where(['status' => 10])->andWhere(['!=', 'id', $DATA['user_id']])->all();
 
             $usID = [];
@@ -170,7 +189,7 @@ class WebsocketController extends \yii\web\Controller
             }
 
             \Yii::$app->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
-            if (!empty($DATA['message'])){
+            if (!empty($DATA['message']) && $DATA['type'] == 'UserMessage'){
                 $chat->text = $DATA['message'];
                 $chat->user_id = $DATA['user_id'];
                 $chat->ip_adress = $DATA['ip'];
@@ -224,6 +243,7 @@ class WebsocketController extends \yii\web\Controller
                                 'avatar' => $user->avatar,
                                 'countMessage' => $arrayCOUNT,
                                 'idUSER' => $arrayUSER,
+                                'messageID' => $chat->id
 
                             ]));
 
@@ -234,21 +254,7 @@ class WebsocketController extends \yii\web\Controller
 
                 }
             }
-                if ($DATA['type'] == 'Editable'){
-                    $message = \console\models\Chat::findOne(['id' => $DATA['id']]);
-                    $message->text = $DATA['message'];
-                    $message->update();
 
-                    foreach ($CONNECT_LIST as $c) {
-                        $c->send(json_encode([
-                            'type' => 'EditedMessage',
-                            'message' => $message->text,
-                           'messageID' => $message->id
-                        ]));
-
-                    }
-
-                }
 
 
 
