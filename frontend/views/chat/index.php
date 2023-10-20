@@ -128,10 +128,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $js = <<<JS
 
-
-
-
-
 window.onload = function() { 
   $('#subscribe').animate({
      scrollTop: $('#subscribe').offset().top = 1000000
@@ -139,9 +135,7 @@ window.onload = function() {
    );
 }
     
-    
-   
-            
+
 JS;
 
 $this->registerJs($js);
