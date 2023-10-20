@@ -124,12 +124,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $form = ActiveForm::end() ?>
     </div>
 
-
 <?php
 
 $js = <<<JS
 
-//$('#inp').redactor();
 
 
 
