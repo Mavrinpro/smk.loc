@@ -60,7 +60,16 @@ $gridColumns = [
             ],
             'clientEvents' => [
                 'complete' => "function(file){
-                $.pjax.reload({container:'#w0'});
+                  toastr.info(file.name, 'Файл Успешно загружен', {
+        timeOut: 5000,
+        closeButton: true,
+        progressBar: true
+    });
+    setTimeout(function(){
+    $.pjax.reload({container:'#w0'});
+    },5000)
+                
+                
                 console.log(file)
                 }",
                 'removedfile' => "function(file){alert(file.name + ' is removed')}"
