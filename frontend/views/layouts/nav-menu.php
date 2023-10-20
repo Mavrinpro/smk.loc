@@ -281,15 +281,14 @@ $countMessage = new \app\models\ChatMessage();
                 <!--                </div>-->
 
                 <div class="dropdown">
-                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-                            class="p-0 mr-2 btn">
+                    <a href="/chat" class="p-0 mr-2 btn">
 <span class="icon-wrapper icon-wrapper-alt rounded-circle">
 <span class="icon-wrapper-bg bg-success"></span>
 <i class="pe-7s-chat text-success"></i>
 <span class="badge badge-pill badge-danger badge_count_message"><?= $countMessage->messageCount(\Yii::$app->getUser()
         ->id) ?></span>
 </span>
-                    </button>
+                    </a>
 
                 </div>
                 <div class="dropdown">
