@@ -7,6 +7,8 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use kartik\export\ExportMenu;
+
 
 /** @var yii\web\View $this */
 /** @var app\models\CheckSearch $searchModel */
@@ -14,6 +16,11 @@ use yii\widgets\Pjax;
 
 $this->title = 'Чек-листы';
 $this->params['breadcrumbs'][] = $this->title;
+?>
+
+<?php
+
+
 ?>
 <div class="check-index">
 
@@ -26,28 +33,28 @@ $this->params['breadcrumbs'][] = $this->title;
         btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <!--    --><? //= GridView::widget([
-    //        'dataProvider' => $dataProvider,
-    //        'filterModel' => $searchModel,
-    //        'columns' => [
-    //            ['class' => 'yii\grid\SerialColumn'],
-    //
-    //            'id',
-    //            'name',
-    //            [
-    //                'class' => ActionColumn::className(),
-    //                'urlCreator' => function ($action, Check $model, $key, $index, $column) {
-    //                    return Url::toRoute([$action, 'id' => $model->id]);
-    //                 }
-    //            ],
-    //        ],
-    //    ]); ?>
-
-
-    <?php Pjax::end(); ?>
+<!--    --><?php //Pjax::begin(); ?>
+<!---->
+<!---->
+<!--        --><?//= GridView::widget([
+//            'dataProvider' => $dataProvider,
+//            'filterModel' => $searchModel,
+//            'columns' => [
+//                ['class' => 'yii\grid\SerialColumn'],
+//
+//                //'id',
+//                'name',
+//                [
+//                    'class' => ActionColumn::className(),
+//                    'urlCreator' => function ($action, Check $model, $key, $index, $column) {
+//                        return Url::toRoute([$action, 'id' => $model->id]);
+//                     }
+//                ],
+//            ],
+//        ]); ?>
+<!---->
+<!---->
+<!--    --><?php //Pjax::end(); ?>
 
 </div>
 <div class="row">
