@@ -84,13 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
     </div>
     <div class="col-12">
-<!--        <form name="publish">-->
-<!--            <textarea type="text" name="message" id="inp" class="form-control-lg form-control"></textarea>-->
-<!--            <input type="submit" value="Отправить" id="btn2" class="btn btn-success btn-lg mt-3 btn-block"-->
-<!--                   data-user="--><?//=
-//            \Yii::$app->getUser
-//            ()->id ?><!--" data-ip="--><?//= Yii::$app->request->userIP ?><!--">-->
-<!--        </form>-->
+
         <?php $form = ActiveForm::begin(['id' => 'formsocket']) ?>
         <?= $form->field($model, 'text', [
             'inputOptions' => [
