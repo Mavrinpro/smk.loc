@@ -1707,7 +1707,6 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
-
 <?php $this->endBody() ?>
 <!-- Modal delete -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
