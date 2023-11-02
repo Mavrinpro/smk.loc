@@ -28,7 +28,6 @@ $gridColumns = [
 
 // Renders a export dropdown menu
 
-
 ?>
 
 <div class="protocol-index">
