@@ -39,7 +39,7 @@ $gridColumns = [
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
-       
+
         echo \kato\DropZone::widget([
             'options' => [
                 'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
