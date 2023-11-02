@@ -39,15 +39,7 @@ $gridColumns = [
     <!--    </p>-->
     <div class="mt-3 mb-4">
         <?php
-        //$files = FileHelper::changeOwnership('files/protocol/5/Safetov.png', 14, null );
-        // rename('/files/protocol/5/Safetov.png', '/files/protocol/14/Safetov.png');
-        //print_r($files);
-
-        //$sourcePath = 'files/protocol/5/Safetov.png';
-        //$destinationPath = 'files/protocol/14/Safetov.png';
-
-        //rename($sourcePath, $destinationPath);
-        //FileHelper::move($sourcePath, $destinationPath);
+       
         echo \kato\DropZone::widget([
             'options' => [
                 'url' => '/protocol/upload/?department_id=' . \Yii::$app->request->get('department_id'),
