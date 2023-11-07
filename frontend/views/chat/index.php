@@ -127,7 +127,6 @@ window.onload = function() {
        }, 200 
    );
 }
-
 JS;
 
 $this->registerJs($js);
