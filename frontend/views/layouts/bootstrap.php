@@ -1583,7 +1583,6 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
-
 <!--Modal create user-->
 <div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
