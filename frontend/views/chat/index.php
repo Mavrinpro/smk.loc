@@ -15,7 +15,6 @@ use vova07\imperavi\Widget;
 /** @var yii\web\View $this */
 /** @var app\models\Chat $model */
 
-
 $this->title = 'Чат';
 $this->params['breadcrumbs'][] = $this->title;
 
