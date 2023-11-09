@@ -1850,7 +1850,6 @@ if (myobj.type == 'EditedMessage'){
         }
         
     }
-     
     
 };
 // ping-pong
