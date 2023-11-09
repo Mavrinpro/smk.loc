@@ -1852,10 +1852,7 @@ if (myobj.type == 'EditedMessage'){
     }
     
 };
-// ping-pong
-// this.ws.onopen = function(){
-//         setTimeout(setupWebSocket, 1000);
-//     };
+
 ws.onclose = function(e) {
     setTimeout(function() {
       setupWebSocket();
