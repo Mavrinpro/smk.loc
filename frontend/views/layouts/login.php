@@ -33,5 +33,4 @@ AppAsset::register($this);
 
     </div>
 </div>
-
 <?php $this->endPage();
