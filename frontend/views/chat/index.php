@@ -82,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif; ?>
         <?php } ?>
     </div>
+
     <div class="col-12">
         <?php $form = ActiveForm::begin(['id' => 'formsocket']) ?>
         <?= $form->field($model, 'text', [
