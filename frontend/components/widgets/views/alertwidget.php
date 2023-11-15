@@ -27,9 +27,7 @@ if (styleToast != '555'){
         positionClass:  "toast-top-full-width",
     });
 }
-    
- 
-     
+
 JS;
 
 
