@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php foreach ($chat as $chater) { ?>
             <?php if ($chater->user_id == \Yii::$app->getUser()->id): ?>
                 <div class="float-right ml-auto">
-                    <div class="chat-box-wrapper chat-box-wrapper-right rex-<?= $chater->id ?>" data-id="<?= $chater->id ?>">
+                    <div class="chat-box-wrapper chat-box-wrapper-right rex-<?= $chater->id ?>"
+                         data-id="<?= $chater->id ?>">
                         <div>
                             <div class="chat-box bg-info text-white editable" data-id="<?=
                             $chater->id ?>" data-user_id="<?= \Yii::$app->getUser()->id ?>"><?= $chater->text ?></div>
@@ -112,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ])->label(false); ?>
         <div class="form-group">
             <?= Html::submitButton('Отправить', ['class' => 'btn btn-success btn-lg btn-block', 'id' => 'btn', 'data-user' =>
-                \Yii::$app->getUser()->id, 'data-ip' => Yii::$app->request->userIP ]) ?>
+                \Yii::$app->getUser()->id, 'data-ip' => Yii::$app->request->userIP]) ?>
         </div>
         <?php $form = ActiveForm::end() ?>
     </div>
