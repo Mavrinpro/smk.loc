@@ -1583,6 +1583,39 @@ AppAsset::register($this);
 <!--        </div>-->
 <!--    </nav>-->
 </section>
+
+<!--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLongTitle">Удалить</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                ...-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>-->
+<!--                <a href="#" type="button" class="btn btn-danger" data-method="post">Удалить</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<?php
+
+    Modal::begin( [
+        'id' => 'exampleModalCenter',
+        'title' => '<h5>Удаление</h5>',
+        'footer' => '<button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>'.Html::a('Удалить', '#', ['class' => 'btn btn-danger', 'data-method' => 'post']),
+    ] );
+    Modal::end();
+
+?>
+
+
 <!--Modal create user-->
 <div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

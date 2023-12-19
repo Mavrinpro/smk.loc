@@ -50,3 +50,10 @@ $("#TooltipDemo").click(function() {
 //             "showMethod":"fadeIn",
 //             "hideMethod":"fadeOut"
 //     }
+
+
+yii.confirm = function (message) {
+    var modal =  $('#exampleModalCenter');
+    modal.find('a.btn-danger').attr('href', $(this).attr('href'));
+    modal.modal({modalContent: modal.find('.modal-body').text(message)});
+};
