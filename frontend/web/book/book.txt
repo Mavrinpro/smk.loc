@@ -1,0 +1,29 @@
+<span class="date-mess">Анакондас 10.10.2019 15:50 МСК </span><br> <span class='message'>Это скрипт гостевой книги, написанный на языке PHP без использования базы данных MySql.</span>
+<span class="date-mess">Федерико Феллини 10.10.2019 17:34 МСК </span><br> <span class='message'>Тестируем гостевую книгу.</span>
+<span class="date-mess">Сергей 11.10.2019 02:12 МСК </span><br> <span class='message'>Прикольно выглядит. Внесу свою запись в историю.</span>
+<span class="date-mess">Игнат 12.10.2019 12:57 МСК </span><br> <span class='message'>Замечательно! Осталось установить на хостинг.</span>
+<span class="date-mess">Светлана 13.10.2019 05:58 МСК </span><br> <span class='message'>Я ничуть не сомневаюсь в этом</span>
+<span class="date-mess">Харатьян 13.10.2019 16:54 МСК </span><br> <span class='message'>Мне было скучно и одиноко и я пошел в бар!</span>
+<span class="date-mess">Миринда 13.10.2019 16:59 МСК </span><br> <span class='message'>кто сказал, что это было на прошлой неделе? Это было гораздо позднее</span>
+<span class="date-mess">Артем 13.10.2019 17:06 МСК </span><br> <span class='message'>Все познается в сравнении</span>
+<span class="date-mess">Игоревна 14.10.2019 06:07 мск </span><br> <span class='message'>Ничего не будет. Все нормльно</span>
+<span class="date-mess">Рамиль Гильванов 14.10.2019 09:18 мск </span><br> <span class='message'>Я знал, что так будет, но не предпринимал никаких мер. Почему? Сложно ответить на этот вопрос. Из-за своей тупости или же просто надежда на авось</span>
+<span class="date-mess">Георгий Игнашевич 14.10.2019 13:42 мск </span><br> <span class='message'>Всем нравится смотреть фильмы. Ну а мне нет</span>
+<span class="date-mess">Александр 14.10.2019 10:25 мск </span><br> <span class='message'>И снова я в деле!</span>
+<span class="date-mess">Василий 14.10.2019 16:15 мск </span><br> <span class='message'>История пишется нами!</span>
+<span class="date-mess">Павел Федорович 14.10.2019 22:26 мск </span><br> <span class='message'>Я тоже с вами</span>
+<span class="date-mess">Мирослава 15.10.2019 16:27 мск </span><br> <span class='message'>Красота среди бегущих - первых нет и отстающих</span>
+<span class="date-mess">Михаил 15.10.2019 21:13 мск </span><br> <span class='message'>Ну и собрались же здесь...</span>
+<span class="date-mess">Окси-10 16.10.2019 05:36 мск </span><br> <span class='message'>Робинзон встретил пятницу в пятницу</span>
+<span class="date-mess">Окси-10 17.10.2019 17:21 мск </span><br> <span class='message'>Ябеда</span>
+<span class="date-mess">Окси-10 18.10.2019 08:38 мск </span><br> <span class='message'>ананасович</span>
+<span class="date-mess">Назар 18.10.2019 09:42 мск </span><br> <span class='message'>Отель гранд Будапешт отличный фильм. Тоько что посмотрел. Остался под впечатлением. Гляньте на досуге, не пожалеете</span>
+<span class="date-mess">Владимир 18.10.2019 09:56 мск </span><br> <span class='message'>Вот и осень. И дождь в окно стучится. Вот и осень. И улетает птицы.. </span>
+<span class="date-mess">Грибоедов 18.10.2019 12:48 мск </span><br> <span class='message'>Гостевая книга работает!</span>
+<span class="date-mess">Яшка цыган 18.10.2019 17:11 мск </span><br> <span class='message'>Спрячь за высоким забором девчонку-выкраду вместе с забором.</span>
+<span class="date-mess">Тест 18.10.2019 17:32 мск </span><br> <span class='message'>Затестим гостевую книгу</span>
+<span class="date-mess"> 18.10.2019 20:04 мск </span><br> <span class='message'>ангангланглангл</span>
+<span class="date-mess"> 18.10.2019 20:04 мск </span><br> <span class='message'>ггг</span>
+<span class="date-mess">u 18.10.2019 20:05 мск </span><br> <span class='message'>y</span>
+<span class="date-mess">u 18.10.2019 20:05 мск </span><br> <span class='message'>tutyudty</span>
+<span class="date-mess">555555555555 16.10.2023 09:57 мск </span><br> <span class='message'>777777777777</span>
