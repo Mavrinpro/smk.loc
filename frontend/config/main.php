@@ -42,6 +42,9 @@ return [
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -79,8 +82,9 @@ return [
                 '<controller:(department|doctors|review|tasks|branch|page|signup|layouts-mail|user|tracking|site|confirm|protocol)>/<action:(index|update|delete|view|create|change-password|userscore)>/<id:\d+>' =>
                     '<controller>/<action>',
                 '<controller:\w+>/<page:\d+>' => '<controller>/index',
-
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api'],
             ],
+
         ],
         'assetManager' => [
             'basePath' => '@webroot/assets',
