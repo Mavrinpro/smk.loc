@@ -13,6 +13,7 @@ use yii\widgets\Pjax;
 $this->title = 'Филиалы';
 $this->params['breadcrumbs'][] = $this->title;
 $branch = new app\models\Branch();
+echo Yii::$app->request->hostInfo;
 ?>
 <div class="app-page-title">
     <div class="row">
