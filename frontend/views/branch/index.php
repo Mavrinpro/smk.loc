@@ -33,5 +33,4 @@ echo Yii::$app->request->hostInfo;
                 </div>
             </div>
         <?php } ?>
-
     </div>
